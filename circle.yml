@@ -1,0 +1,19 @@
+machine:
+  pre:
+    - curl https://raw.githubusercontent.com/creationix/nvm/v0.31.0/install.sh | bash
+  node:
+    version: 4.4
+
+dependencies:
+  pre:
+    - npm install -g bower
+  post:
+    - bower install
+
+test:
+  pre:
+    - ./node_modules/ember-cli/bin/ember server --port 4203:
+        background: true
+    - sleep 5
+  override:
+    - ./node_modules/ember-cli/bin/ember test

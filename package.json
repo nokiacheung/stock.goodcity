@@ -1,20 +1,19 @@
 {
   "name": "stock",
   "version": "0.0.0",
-  "description": "Small description for stock goes here",
   "private": true,
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
   "scripts": {
-    "build": "ember build",
-    "start": "ember server",
-    "test": "ember test"
+    "start": "EMBER_CLI_CORDOVA=0 ember serve --port 4203 --live-reload-port 35732",
+    "build": "EMBER_CLI_CORDOVA=0 ember build",
+    "test": "EMBER_CLI_CORDOVA=0 ember test --server --test-port 7359"
   },
   "repository": "",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 4.3"
   },
   "author": "",
   "license": "MIT",
