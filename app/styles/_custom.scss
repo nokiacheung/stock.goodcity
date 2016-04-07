@@ -1,0 +1,212 @@
+body{
+  @media #{$small-only} {
+    font-size: 0.7rem;
+  }
+}
+
+h2{
+  @media #{$small-only} {
+      font-size: 0.9rem;
+  }
+}
+.title, .back, .button, h3, ul, .link > a {
+  @media #{$small-only} {
+    font-size: 0.8rem !important; }
+}
+
+.back {
+  @media #{$small-only} {
+    margin-left: 0.5rem;
+    &:before {
+      margin-right: 0.25rem;
+    }
+  }
+}
+.tabs-content {
+  .message_box {
+    background-color: $white;
+    color: black;
+    a {
+      color: black !important; }
+  }
+}
+
+// hide spinner from number-input
+input[type=number] {-moz-appearance: textfield;}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0; }
+
+.right-small {
+  border: none;
+  a {
+    float: right;
+  }
+}
+
+/*********************** TABS ******************************/
+.tabs {
+  margin-bottom: 0 !important;
+  margin-left: 0;
+}
+.tabs:before, .tabs:after {
+  content: " ";
+  display: table;
+}
+.tabs:after {
+  clear: both;
+}
+.tabs dd {
+  a:focus {
+    outline: -webkit-focus-ring-color none;
+  }
+  a i, a div {
+    color: $medium-blue;
+  }
+}
+.tabs dd.active {
+  a i, a div {
+    color: $white;
+  }
+}
+
+.tabs dd, .tabs .tab-title {
+  position: relative;
+  margin-bottom: 0 !important;
+  list-style: none;
+  float: left;
+}
+
+.tabs dd > a, .tabs .tab-title > a {
+  display: block;
+  background-color: $dark-blue;
+  color: $light-black;
+  padding: 0.5rem 0rem;
+  @media #{$small-only} {
+    font-size: 0.67rem;
+  }
+}
+
+.tabs dd > a:hover, .tabs .tab-title > a:hover {
+  background-color: $dark-blue;
+  color: $light-black;
+}
+
+.tabs dd.active a:before {
+  margin-left: -11px;
+  border-width: 11px;
+}
+
+.tabs dd.active a, .tabs .tab-title.active a {
+  color: $light-black;
+  background-color: $dark-blue;
+}
+
+.tabs dd.active a:after, .tabs dd.active a:before {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: solid transparent;
+  content: '';
+  pointer-events: none;
+}
+.tabs dd.active a:after {
+  margin-left: -10px;
+  border-width: 10px;
+  border-top-color: $dark-blue;
+}
+.tabs-content {
+  background-color: $light-grey;
+  color: $light-black;
+  padding: 1rem;
+  .tabs-content > .content {
+    padding: 0.2125rem 0;
+  }
+}
+/*********************** TABS ******************************/
+.inner-wrap {
+  min-height:100vh
+}
+
+input[type="radio"] + label {
+  vertical-align: middle;
+}
+
+.radio-buttons {
+  border-spacing: 0.1rem;
+  color: white;
+  display: table;
+  table-layout: fixed !important;
+  width: 100%;
+  height: 3.2rem;
+  @media #{$small-only} {
+    height: 2.7rem;
+  }
+  .active {
+    background: $coral-red;
+    border: 1px solid $coral-red;
+  }
+  li {
+    border: solid 1px white;
+    vertical-align: middle;
+    text-align: center;
+    @media #{$small-only} {
+      margin: 0.1rem;
+      padding: 0.1rem;
+      font-size: 0.68rem !important;
+    }
+
+    .radio {
+      vertical-align: middle;
+      text-align: center;
+      padding: 0.335rem;
+    }
+  }
+}
+
+textarea {
+  resize: none;
+  display: inline;
+}
+
+/* layout */
+.main-view {
+  position: relative;
+  min-height: 100%;
+}
+
+.btm {
+  height: 60px;
+  margin: 0 auto;
+  text-align: center;
+  > div {
+    background-color: $dark-blue;
+    position: fixed;
+    bottom: 0;
+    max-width: 768px;
+    width: 100%;
+    .button {
+      margin: 10px 0;
+    }
+  }
+}
+
+.btm, .row {
+  max-width: 768px;
+}
+.fontawe-icons {
+  padding: 0rem 0.2rem 0rem 0.7rem;
+  @media #{$small-only} {
+    font-size: 1.0rem;
+  }
+}
+
+a.disabled{
+  cursor: default;
+  i{
+    color: $body-font-color;
+  }
+}

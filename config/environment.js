@@ -13,6 +13,12 @@ module.exports = function(environment) {
       }
     },
 
+    contentSecurityPolicy: {
+      "style-src": "'self' 'unsafe-inline' https://maxcdn.bootstrapcdn.com",
+      "font-src": "'self' data: https://maxcdn.bootstrapcdn.com",
+      "object-src": "'self'"
+    },
+
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created

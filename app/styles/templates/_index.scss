@@ -1,0 +1,38 @@
+.start_page {
+  h1 {
+    text-align: center;
+    margin-top: 12rem !important;
+  }
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid;
+  padding-top: 0.7rem;
+
+  .navigation_menus {
+    position: relative;
+
+    .small-block-grid-5 {
+      li:not(:last-child) {
+        width: 22%;
+      }
+
+      li:last-child {
+        width: 10%;
+      }
+    }
+
+    li {
+      text-align: center;
+
+      i {
+        display: block;
+        font-size: 1.5rem;
+        margin-bottom: 0.3rem;
+      }
+    }
+  }
+}
