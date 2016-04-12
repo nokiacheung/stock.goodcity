@@ -15,3 +15,12 @@
 /libpeerconnection.log
 npm-debug.log
 testem.log
+
+# cordova
+cordova/www
+cordova/platforms
+cordova/plugins/*
+cordova/.secret_keys
+
+# iOS
+*.xcuserdatad
