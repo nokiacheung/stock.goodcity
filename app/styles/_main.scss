@@ -64,13 +64,34 @@ hr {
 
 .tab-bar {
   border-bottom: 1px solid $light-blue;
-  margin-bottom: rem-calc(25);
+  // margin-bottom: rem-calc(25);
 }
 
 .left-small {
   border-right: 0;
   width: 120px;
   z-index: 1;
+
+  i.back_icon {
+    font-size: 1.3rem;
+    margin-top: 0.7rem;
+    position: absolute;
+  }
+
+  div {
+    display: inline-block;
+    margin-left: 1rem;
+  }
+}
+
+.right-small {
+  border: none;
+  a {
+    float: right;
+    i {
+      padding: 1rem;
+    }
+  }
 }
 
 .back {
@@ -79,17 +100,6 @@ hr {
   display: block;
   margin-left: rem-calc(15);
   float: left;
-
-  &:before {
-    background: url("images/icon-back.png") no-repeat right center;
-    background-size: 13px 16px;
-    vertical-align: middle;
-    content: "";
-    display: inline-block;
-    width: 13px;
-    height: 16px;
-    margin-right: rem-calc(10);
-  }
 }
 
 .title {
@@ -478,4 +488,8 @@ select {
       height: 25px;
     }
   }
+}
+
+li.active {
+  color: $white;
 }

@@ -1,0 +1,175 @@
+.order_fixed_header {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+.order_page {
+  padding-top: 2.8rem;
+
+  .offer-status {
+    text-align: center;
+    margin-bottom: 1.2rem;
+    height: 2rem;
+    background-color: #a67c52;
+    padding: 0.3rem 0.8rem;
+    color: $white;
+
+    @media #{$small-only} {
+      line-height: 1.6rem;
+      padding: 0 0.8rem;
+      height: 1.7rem;
+      font-size: 0.8rem;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+
+    .time-details {
+      display: inline;
+      float: left;
+    }
+
+    .state {
+      display: inline;
+      float: right;
+    }
+
+    div {
+      display: inline;
+    }
+  }
+
+  .main_details {
+    margin: 0.5rem 0.3rem;
+
+    .icons {
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    .user_name {
+      line-height: 2.2rem;
+    }
+
+    .arrow-icon {
+      float: right;
+    }
+  }
+
+  .client_details {
+    padding: 1rem;
+    border-bottom: 1px solid;
+
+    .row {
+      padding: 0.2rem 0;
+    }
+  }
+
+  .item_count {
+    padding: 1rem;
+    font-size: 1.2rem;
+
+    @media #{$large-only} {
+      text-align: center;
+    }
+
+    @media #{$small-only} {
+      font-size: 0.8rem;
+    }
+
+    span {
+      color: white;
+      padding-right: 1rem;
+    }
+  }
+
+  .add_item_button {
+    padding: 0 0.7rem;
+    .columns {
+      &:first-child {
+        padding-right: 0.1rem !important;
+      }
+
+      &:last-child {
+        padding-left: 0.1rem !important;
+
+        button {
+          padding-top: 0.5rem;
+          padding-bottom: 0.5rem;
+
+          @media #{$small-only} {
+            padding-top: 0.4rem;
+            padding-bottom: 0.4rem;
+          }
+
+          i {
+            font-size: 1.5rem;
+          }
+        }
+      }
+
+    }
+  }
+
+  .item_block {
+    padding: 0 1.3rem 1rem;
+
+    .dispatch_details {
+      background-color: #334f75;
+      padding: 0.5rem;
+
+      i {
+        color: $white;
+      }
+
+      div {
+        padding: 0;
+        &:last-child {
+          text-align: end;
+        }
+      }
+    }
+
+    .name_details {
+      padding-top: 0.7rem;
+      padding-left: 1rem;
+
+      .name {
+        color: $white;
+        padding-bottom: 0.3rem;
+      }
+    }
+
+    .image {
+      padding: 0;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  .show_more {
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid;
+  }
+
+  .other_details {
+    .row {
+      padding: 0.5rem;
+    }
+
+    .heading {
+      color: white;
+      font-size: 1.2rem;
+
+      @media #{$small-only} {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}

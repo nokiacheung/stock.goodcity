@@ -6,6 +6,10 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('orders');
+
+  this.route('order', { resetNamespace: true, path: 'orders/:order_id'}, function(){
+    });
 });
 
 export default Router;
