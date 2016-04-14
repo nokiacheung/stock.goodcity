@@ -1,7 +1,30 @@
-<section class="main-section">
+<div class="row">
+  <div class="small-12 columns search-box ui">
+    {{input
+      name="searchText"
+      id="searchText"
+      placeholder="Search"
+      value=searchText }}
 
-  <div class="row">
+    {{#if hasSearchText}}
+      <i class="fa fa-times-circle" {{action "clearSearch"}}></i>
+    {{/if}}
+    <a href="#" {{action "cancelSearch"}}>Cancel</a>
+  </div>
+</div>
+
+<section class="main-section">
+  <div class="row search">
     <div class="small-12 columns">
+      {{#if filteredResults}}
+        <ul class="list list-activity list-offer-items">
+          {{#each filteredResults as |order|}}
+            {{partial 'order/order_block'}}
+          {{/each}}
+        </ul>
+      {{else if hasFilter}}
+        <div class='no_result'>No Search Results.</div>
+      {{/if}}
     </div>
   </div>
 
