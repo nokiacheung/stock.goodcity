@@ -493,3 +493,9 @@ select {
 li.active {
   color: $white;
 }
+
+.liquid-container {
+  -webkit-transform: none;
+  -moz-transform: none;
+  transform: none;
+}

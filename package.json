@@ -42,6 +42,7 @@
     "loader.js": "^4.0.1",
     "ember-cli-coffeescript": "^1.13.2",
     "ember-i18n": "~4.2.0",
-    "ember-cli-cordova": "0.1.0-beta-2"
+    "ember-cli-cordova": "0.1.0-beta-2",
+    "liquid-fire": "0.23.0"
   }
 }
