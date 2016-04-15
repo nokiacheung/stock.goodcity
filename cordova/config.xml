@@ -1,36 +1,31 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="hk.goodcity.stockstaging" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>S. Stock</name>
-  <description>
+    <name>S. Stock</name>
+    <description>
     GoodCity Stock Application
   </description>
-  <author href="https://www.crossroads.org.hk">Crossroads</author>
-  <content src="index.html" />
-
-  <access origin="*" />
-  <preference name="DisallowOverscroll" value="true" />
-
-  <platform name="android">
-    <preference name="LoadUrlTimeoutValue" value="120000"/>
-    <preference name="SplashScreen" value="screen"/>
-    <preference name="SplashScreenDelay" value="5000"/>
-  </platform>
-
-  <platform name="ios">
-    <feature name="StatusBar">
-      <param name="ios-package" onload="true" value="CDVStatusBar"/>
-    </feature>
-    <preference name="StatusBarOverlaysWebView" value="false"/>
-    <preference name="StatusBarBackgroundColor" value="#000000"/>
-    <preference name="StatusBarStyle" value="lightcontent"/>
-    <preference name="Orientation" value="all"/>
-    <preference name="Fullscreen" value="true"/>
-  </platform>
-
-  <engine name="ios" spec="~3.9.2"/>
-  <engine name="android" spec="~5.1.1"/>
-  <engine name="windows" spec="~4.3.1"/>
-
-  <plugin name="cordova-plugin-whitelist" spec="~1.2.1"/>
-  <plugin name="cordova-plugin-statusbar" spec="~2.1.1"/>
+    <author href="https://www.crossroads.org.hk">Crossroads</author>
+    <content src="index.html" />
+    <access origin="*" />
+    <preference name="DisallowOverscroll" value="true" />
+    <platform name="android">
+        <preference name="LoadUrlTimeoutValue" value="120000" />
+        <preference name="SplashScreen" value="screen" />
+        <preference name="SplashScreenDelay" value="5000" />
+    </platform>
+    <platform name="ios">
+        <feature name="StatusBar">
+            <param name="ios-package" onload="true" value="CDVStatusBar" />
+        </feature>
+        <preference name="StatusBarOverlaysWebView" value="false" />
+        <preference name="StatusBarBackgroundColor" value="#000000" />
+        <preference name="StatusBarStyle" value="lightcontent" />
+        <preference name="Orientation" value="all" />
+        <preference name="Fullscreen" value="true" />
+    </platform>
+    <engine name="ios" spec="~3.9.2" />
+    <engine name="android" spec="~5.1.1" />
+    <engine name="windows" spec="~4.3.1" />
+    <plugin name="cordova-plugin-whitelist" spec="~1.2.1" />
+    <plugin name="cordova-plugin-statusbar" spec="~2.1.1" />
 </widget>
