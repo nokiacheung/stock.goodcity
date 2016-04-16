@@ -20,8 +20,12 @@ module.exports = function(environment) {
     },
 
     APP: {
-      // Here you can pass flags/options to your application instance
-      // when it is created
+      AIRBRAKE_HOST: "https://errbit.crossroads.org.hk",
+      AIRBRAKE_PROJECT_ID: "",
+      AIRBRAKE_PROJECT_KEY: "30d9f525c221cd7b00637cdc4eb0d7ae",
+
+      SHA: process.env.APP_SHA || "00000000",
+      VERSION: process.env.VERSION || "1.0.0",
     },
 
     i18n: {
@@ -29,6 +33,7 @@ module.exports = function(environment) {
     },
 
     cordova: {
+      enabled: process.env.EMBER_CLI_CORDOVA !== '0',
       rebuildOnChange: false,
       emulate: false
     }
@@ -43,6 +48,8 @@ module.exports = function(environment) {
   }
 
   if (environment === 'test') {
+    ENV.cordova.enabled = false;
+
     // Testem prefers this...
     ENV.baseURL = '/';
     ENV.locationType = 'none';
@@ -56,6 +63,12 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
 
+  }
+
+  if ((process.env.staging || process.env.STAGING) === 'true') {
+    ENV.staging = true;
+  } else {
+    ENV.staging = false;
   }
 
   return ENV;
