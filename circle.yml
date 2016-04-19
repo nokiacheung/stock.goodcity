@@ -22,4 +22,5 @@ deployment:
   staging:
     branch: master
     commands:
+      - bundle exec cap staging deploy
       - bundle exec rake staging android app:release
