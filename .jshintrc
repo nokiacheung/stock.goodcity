@@ -3,7 +3,8 @@
     "document",
     "window",
     "-Promise",
-    "airbrakeJs"
+    "airbrakeJs",
+    "moment"
   ],
   "browser": true,
   "boss": true,

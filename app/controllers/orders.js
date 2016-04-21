@@ -24,7 +24,9 @@ export default Ember.Controller.extend({
     this.set('fetchMoreResult', true);
   },
 
-  filteredResults: [1],
+  filteredResults: Ember.computed(function(){
+    return this.get("model");
+  }),
 
   actions: {
     clearSearch(isCancelled) {

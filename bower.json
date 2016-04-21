@@ -8,6 +8,7 @@
     "foundation": "~5.5.0",
     "fastclick": "~1.0.3",
     "font-awesome": "~4.6.1",
-    "airbrake-js": "~0.5.8"
+    "airbrake-js": "~0.5.8",
+    "moment": "~2.10.3"
   }
 }
