@@ -5,6 +5,7 @@ export default Ember.Controller.extend({
   searchText: '',
   fetchMoreResult: true,
   i18n: Ember.inject.service(),
+  isLoading: false,
 
   hasSearchText: Ember.computed('searchText', function(){
     return Ember.$.trim(this.get('searchText')).length;
@@ -24,8 +25,25 @@ export default Ember.Controller.extend({
     this.set('fetchMoreResult', true);
   },
 
-  filteredResults: Ember.computed(function(){
-    return this.get("model");
+  filteredResults: Ember.computed("fetchMoreResult", "filter", {
+    get() {
+      var controller = this;
+      var searchValue = this.get('filter').trim();
+
+      if(searchValue.length > 0) {
+        this.set("isLoading", true);
+        return this.store.query('designation', { searchText: searchValue })
+          .then(function(data){
+            controller.set('fetchMoreResult', false);
+            controller.set("isLoading", false);
+            return controller.set("filteredResults", data);
+          });
+      }
+      return [];
+    },
+    set(key, value) {
+      return value;
+    }
   }),
 
   actions: {

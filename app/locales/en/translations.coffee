@@ -1,6 +1,7 @@
 I18nTranslationsEn =
   "unexpected_error": "Something went wrong"
   "okay": "Okay"
+  "loading": "Loading..."
 
   "index":
     "home": "Home",

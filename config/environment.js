@@ -45,7 +45,7 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    ENV.APP.API_HOST_URL = 'http://f8942e9c.ngrok.io';
+    ENV.APP.API_HOST_URL = 'https://8e618529.ngrok.io';
   }
 
   if (environment === 'test') {
