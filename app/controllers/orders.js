@@ -1,63 +1,43 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 export default Ember.Controller.extend({
-  filter: '',
-  searchText: '',
-  fetchMoreResult: true,
+  searchText: "",
   i18n: Ember.inject.service(),
   isLoading: false,
+  hasNoResults: false,
 
-  hasSearchText: Ember.computed('searchText', function(){
-    return Ember.$.trim(this.get('searchText')).length;
+  hasSearchText: Ember.computed("searchText", function() {
+    return !!this.get("searchText").trim();
   }),
 
-  hasFilter: Ember.computed('filter', function(){
-    return Ember.$.trim(this.get('filter')).length;
-  }),
-
-  onSearchTextChange: Ember.observer('searchText', function () {
+  onSearchTextChange: Ember.observer("searchText", function() {
     // wait before applying the filter
     Ember.run.debounce(this, this.applyFilter, 500);
   }),
 
-  applyFilter: function() {
-    this.set('filter', this.get('searchText'));
-    this.set('fetchMoreResult', true);
-  },
-
-  filteredResults: Ember.computed("fetchMoreResult", "filter", {
-    get() {
-      var controller = this;
-      var searchValue = this.get('filter').trim();
-
-      if(searchValue.length > 0) {
-        this.set("isLoading", true);
-        return this.store.query('designation', { searchText: searchValue })
-          .then(function(data){
-            controller.set('fetchMoreResult', false);
-            controller.set("isLoading", false);
-            return controller.set("filteredResults", data);
-          });
-      }
-      return [];
-    },
-    set(key, value) {
-      return value;
+  applyFilter() {
+    var searchText = this.get("searchText").trim();
+    if (searchText) {
+      this.set("isLoading", true);
+      this.set("hasNoResults", false);
+      this.store.query("designation", { searchText })
+        .then(data => {
+          this.set("filteredResults", data);
+          this.set("hasNoResults", data.get("length") === 0);
+        })
+        .finally(() => this.set("isLoading", false));
     }
-  }),
+    this.set("filteredResults", []);
+  },
 
   actions: {
     clearSearch() {
-      this.set('filter', '');
-      this.set('searchText', '');
-      this.set('fetchMoreResult', true);
+      this.set("searchText", "");
     },
 
     cancelSearch() {
-      Ember.$("#searchText").blur();
       this.send("clearSearch");
       this.transitionToRoute("index");
-    },
-  },
-
+    }
+  }
 });
