@@ -3,4 +3,8 @@
   color: white;
   text-align: center;
   margin-top: 15rem;
+
+  @media #{$small-only} {
+    margin-top: 11.5rem;
+  }
 }

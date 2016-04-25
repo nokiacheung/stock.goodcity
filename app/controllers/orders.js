@@ -47,16 +47,15 @@ export default Ember.Controller.extend({
   }),
 
   actions: {
-    clearSearch(isCancelled) {
+    clearSearch() {
       this.set('filter', '');
       this.set('searchText', '');
       this.set('fetchMoreResult', true);
-      if(!isCancelled) { Ember.$("#searchText").focus(); }
     },
 
     cancelSearch() {
       Ember.$("#searchText").blur();
-      this.send("clearSearch", true);
+      this.send("clearSearch");
       this.transitionToRoute("index");
     },
   },

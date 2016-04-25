@@ -56,6 +56,9 @@
 }
 
 .search {
+  padding-bottom: 5rem;
+  min-height: 25rem;
+
   .columns {
     padding: 0;
   }
@@ -81,4 +84,25 @@
       padding: 0.2rem 0;
     }
   }
+}
+
+.fixed_search_header {
+  position: fixed;
+  z-index: 1000;
+
+  @media #{$large-up} {
+    margin-left: 12rem;
+  }
+}
+
+.orders_search_result {
+  padding-top: 3rem;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.no-padding {
+  padding-bottom: 0;
 }
