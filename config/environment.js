@@ -20,12 +20,17 @@ module.exports = function(environment) {
     },
 
     APP: {
+
+      NAME: 'stock.goodcity',
+      SHA: process.env.APP_SHA || "00000000",
+      VERSION: process.env.VERSION || "1.0.0",
+
+      NAMESPACE: 'api/v1',
+
       AIRBRAKE_HOST: "https://errbit.crossroads.org.hk",
       AIRBRAKE_PROJECT_ID: "",
       AIRBRAKE_PROJECT_KEY: "30d9f525c221cd7b00637cdc4eb0d7ae",
 
-      SHA: process.env.APP_SHA || "00000000",
-      VERSION: process.env.VERSION || "1.0.0",
     },
 
     i18n: {
@@ -40,11 +45,7 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    // ENV.APP.LOG_RESOLVER = true;
-    // ENV.APP.LOG_ACTIVE_GENERATION = true;
-    // ENV.APP.LOG_TRANSITIONS = true;
-    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-    // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.APP.API_HOST_URL = 'http://localhost:3000';
   }
 
   if (environment === 'test') {
@@ -59,17 +60,21 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.APP.API_HOST_URL = 'http://localhost:4203';
   }
 
   if (environment === 'production') {
-
+    ENV.APP.API_HOST_URL = 'https://api.goodcity.hk';
   }
 
   if ((process.env.staging || process.env.STAGING) === 'true') {
     ENV.staging = true;
+    ENV.APP.API_HOST_URL = 'https://api-staging.goodcity.hk';
   } else {
     ENV.staging = false;
   }
+
+  ENV.APP.SERVER_PATH  = ENV.APP.API_HOST_URL + '/' + ENV.APP.NAMESPACE;
 
   return ENV;
 };

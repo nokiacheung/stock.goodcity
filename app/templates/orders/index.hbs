@@ -1,6 +1,6 @@
-<div class="row">
+<div class="row fixed_search_header">
   <div class="small-12 columns search-box ui">
-    {{input
+    {{focus-textfield
       name="searchText"
       id="searchText"
       placeholder="Search"
@@ -13,16 +13,22 @@
   </div>
 </div>
 
-<section class="main-section">
+<section class="main-section orders_search_result">
   <div class="row search">
     <div class="small-12 columns">
+      {{#if isLoading}}
+        <div class="loading_container">
+          {{partial 'loading'}}
+        </div>
+      {{/if}}
+
       {{#if filteredResults}}
         <ul class="list list-activity list-offer-items">
           {{#each filteredResults as |order|}}
-            {{partial 'order/order_block'}}
+            {{partial 'orders/order_block'}}
           {{/each}}
         </ul>
-      {{else if hasFilter}}
+      {{else if hasNoResults}}
         <div class='no_result'>No Search Results.</div>
       {{/if}}
     </div>
