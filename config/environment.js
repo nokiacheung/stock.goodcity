@@ -46,6 +46,10 @@ module.exports = function(environment) {
 
   if (environment === 'development') {
     ENV.APP.API_HOST_URL = 'http://localhost:3000';
+
+    ENV.contentSecurityPolicy["connect-src"] = [
+      'http://localhost:3000'
+    ].join(' ');
   }
 
   if (environment === 'test') {
@@ -65,11 +69,21 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     ENV.APP.API_HOST_URL = 'https://api.goodcity.hk';
+
+    ENV.contentSecurityPolicy["connect-src"] = [
+      'https://api.goodcity.hk',
+      'https://errbit.crossroads.org.hk'
+    ].join(' ');
   }
 
   if ((process.env.staging || process.env.STAGING) === 'true') {
     ENV.staging = true;
     ENV.APP.API_HOST_URL = 'https://api-staging.goodcity.hk';
+
+    ENV.contentSecurityPolicy["connect-src"] = [
+      'https://api-staging.goodcity.hk',
+      'https://errbit.crossroads.org.hk'
+    ].join(' ');
   } else {
     ENV.staging = false;
   }
