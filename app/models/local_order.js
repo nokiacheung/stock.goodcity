@@ -7,4 +7,6 @@ export default DS.Model.extend({
   clientName: attr('string'),
   hkidNumber: attr('string'),
 
+  items:      DS.hasMany({ async: true })
+
 });
