@@ -15,6 +15,9 @@ Router.map(function() {
     this.route("detail", {path: "/:order_id"});
   });
 
+  this.route("contacts", function() {
+    this.route("detail", {path: "/:contact_id"});
+  });
 });
 
 export default Router;
