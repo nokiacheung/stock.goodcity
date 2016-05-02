@@ -1,0 +1,30 @@
+.has-error {
+  .input-error {
+    display: none !important;
+  }
+
+  input, select {
+    background: none repeat scroll 0 0 $light-pitch !important;
+    border-color: $alert-color !important;
+  }
+
+  textarea {
+    border-color: $coral-red !important;
+    background: $light-pitch !important;
+    margin-bottom: 1rem;
+  }
+
+  &.input_container {
+    border: solid  0.15rem $coral-red !important;
+    background: $light-pitch !important;
+  }
+}
+
+.error input {
+  border-color: $coral-red !important;
+  background: $light-pitch !important
+}
+
+.login-form .error #mobile {
+  margin-bottom: 1rem;
+}

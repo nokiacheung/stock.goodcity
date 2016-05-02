@@ -4,9 +4,10 @@
 @import "main";
 @import "custom";
 @import "input";
+@import "goodcity_lib";
+@import "error";
 
 @import "templates/index";
-@import "templates/loading";
 @import "templates/orders/detail";
 @import "templates/orders/index";
 @import "templates/components/message_box";

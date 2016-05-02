@@ -106,3 +106,14 @@
 .no-padding {
   padding-bottom: 0;
 }
+
+.loading_screen {
+  font-size: 1.2rem;
+  color: white;
+  text-align: center;
+  margin-top: 15rem;
+
+  @media #{$small-only} {
+    margin-top: 11.5rem;
+  }
+}
