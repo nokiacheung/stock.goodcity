@@ -27,7 +27,8 @@ export default Ember.Controller.extend({
           _this.setProperties({pin:null});
           _this.set('session.authToken', data.jwt_token);
           _this.set('session.otpAuthKey', null);
-          // _this.store.pushPayload(data.user);
+          _this.store.pushPayload(data.user);
+          _this.store.pushPayload({ user: data.user.user_profile });
           _this.setProperties({pin: null});
           _this.transitionToRoute(_this.get("attemptedTransition.targetName") || "/");
         })
