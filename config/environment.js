@@ -26,6 +26,7 @@ module.exports = function(environment) {
       VERSION: process.env.VERSION || "1.0.0",
 
       NAMESPACE: 'api/v1',
+      HK_COUNTRY_CODE: '+852',
 
       AIRBRAKE_HOST: "https://errbit.crossroads.org.hk",
       AIRBRAKE_PROJECT_ID: "",
