@@ -1,6 +1,7 @@
 import Ember from "ember";
+import InfinityRoute from "ember-infinity/mixins/route";
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(InfinityRoute, {
   searchText: "",
   i18n: Ember.inject.service(),
   isLoading: false,
@@ -20,7 +21,10 @@ export default Ember.Controller.extend({
     if (searchText) {
       this.set("isLoading", true);
       this.set("hasNoResults", false);
-      this.store.query("designation", { searchText })
+      this.get("store").unloadAll();
+      this.infinityModel("designation",
+        { perPage: 25, startingPage: 1, modelPath: 'filteredResults' },
+        { searchText: "searchText" })
         .then(data => {
           this.set("filteredResults", data);
           this.set("hasNoResults", data.get("length") === 0);
