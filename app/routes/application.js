@@ -23,25 +23,29 @@ export default Ember.Route.extend({
       try { status = parseInt(reason.errors[0].status); }
       catch (err) { status = reason.status; }
 
-      this.get("logger").error(reason);
-      this.get("messageBox").alert(this.get("i18n").t("unexpected_error"));
+      if (status === 401) {
+        if (this.session.get('isLoggedIn')) {
+          this.get('messageBox').alert(this.get("i18n").t('must_login'), () => this.send('logMeOut'));
+        }
+      } else {
+        this.get("logger").error(reason);
+        this.get("messageBox").alert(this.get("i18n").t("unexpected_error"));
+      }
 
     } catch (err) {}
   },
 
   actions: {
-
-    // TO-DO
-    // loading() {
-    //   Ember.$(".loading-indicator").remove();
-    //   var view = getOwner(this).lookup('component:loading').append();
-    //   this.router.one('didTransition', view, 'destroy');
-    // },
-
     error(reason) {
       try {
         this.handleError(reason);
       } catch (err) {}
+    },
+
+    logMeOut() {
+      this.session.clear();
+      this.store.unloadAll();
+      this.transitionTo('login');
     },
   }
 });
