@@ -85,7 +85,8 @@
 
   <div class="row">
     <div class="small-12 columns item_count">
-      <span>{{t "order_details.items"}}</span> (10 Designated, 1 Dispatched)
+      <span>{{t "order_details.items"}}</span>
+      ({{model.designatedItems.length}} Designated, {{model.dispatchedItems.length}} Dispatched)
     </div>
   </div>
 
@@ -98,14 +99,16 @@
     </div>
   </div>
 
-  {{partial "orders/item_block"}}
-  {{partial "orders/item_block"}}
-  {{partial "orders/item_block"}}
+  {{#each itemsList as |item|}}
+    {{partial "orders/item_block"}}
+  {{/each}}
 
-  <div class="row">
-    <div class="small-12 columns show_more">
-      {{t "order_details.show_more_items"}} <i class="fa fa-angle-down back_icon" aria-hidden="true"></i>
-    </div>
+  <div class="row show_more" >
+    {{#unless displayAllItems}}
+      <div class="small-12 columns" {{action "displayAllItems"}}>
+        {{t "order_details.show_more_items"}} <i class="fa fa-angle-down back_icon" aria-hidden="true"></i>
+      </div>
+    {{/unless}}
   </div>
 
   <div class="other_details">
