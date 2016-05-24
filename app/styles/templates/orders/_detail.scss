@@ -132,6 +132,10 @@
       }
     }
 
+    .dispatched {
+      background-color: #001C42;
+    }
+
     .name_details {
       padding-top: 0.7rem;
       padding-left: 1rem;
@@ -156,6 +160,7 @@
     padding: 1rem;
     text-align: center;
     border-bottom: 1px solid;
+    cursor: pointer;
   }
 
   .other_details {

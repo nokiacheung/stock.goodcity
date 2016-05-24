@@ -12,11 +12,12 @@ Router.map(function() {
   this.route('authenticate');
 
   this.route("orders", function() {
-    this.route("detail", {path: "/:order_id"});
+    this.route("detail", { path: "/:order_id" });
+    this.route("items", { path: "/:order_id/items" });
   });
 
   this.route("contacts", function() {
-    this.route("detail", {path: "/:contact_id"});
+    this.route("detail", { path: "/:contact_id" });
   });
 });
 

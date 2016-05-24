@@ -92,7 +92,8 @@
 
   <div class="row add_item_button">
     <div class="small-9 columns">
-      <button class="button expand">{{t "order_details.add_item_to_order"}}</button>
+
+      {{#link-to "orders.items" model class="button expand"}}{{t "order_details.add_item_to_order"}}{{/link-to}}
     </div>
     <div class="small-3 columns">
       <button class="button expand"><i class="fa fa-qrcode"></i></button>
