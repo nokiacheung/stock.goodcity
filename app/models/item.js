@@ -11,6 +11,7 @@ export default DS.Model.extend({
   sentOn:      attr('date'),
 
   designation: belongsTo('designation', { async: false }),
+  location:    belongsTo('location', { async: false }),
   image:       belongsTo('image', { async: false }),
 
 });
