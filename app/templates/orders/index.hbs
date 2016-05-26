@@ -9,7 +9,7 @@
     {{#if hasSearchText}}
       <i class="fa fa-times-circle" {{action "clearSearch"}}></i>
     {{/if}}
-    <a href="#" {{action "cancelSearch"}}>Cancel</a>
+    <a href="#" {{action "cancelSearch"}}>{{t "cancel"}}</a>
   </div>
 </div>
 
@@ -33,7 +33,7 @@
         {{/infinity-loader}}
 
       {{else if hasNoResults}}
-        <div class='no_result'>No Search Results.</div>
+        <div class='no_result'>{{t "no_search_results"}}</div>
       {{/if}}
     </div>
   </div>

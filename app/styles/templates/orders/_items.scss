@@ -1,0 +1,39 @@
+.items-search {
+  input {
+    width: 95%;
+  }
+
+  a {
+    text-decoration: none;
+    top: 0.5rem;
+
+    @media #{$small-only} {
+      top: 0.6rem;
+    }
+  }
+
+  .back_icon {
+    position: static;
+    color: #a3aab6;
+    font-size: 2rem;
+    vertical-align: bottom;
+
+    @media #{$small-only} {
+      font-size: 1.5rem;
+    }
+  }
+
+  .back_text {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1.2rem;
+
+    @media #{$small-only} {
+      font-size: 0.9rem;
+    }
+  }
+
+  .fa-times-circle {
+    right: 6%;
+  }
+}

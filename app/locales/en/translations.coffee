@@ -2,6 +2,9 @@ I18nTranslationsEn =
   "unexpected_error": "Something went wrong"
   "okay": "Okay"
   "loading": "Loading..."
+  "back": "Back"
+  "no_search_results": "No Search Results."
+  "cancel": "Cancel"
   "ok" : "OK"
   "must_login": "You must login!"
 
@@ -27,5 +30,15 @@ I18nTranslationsEn =
     "orders": "Orders"
     "items": "Items"
     "goto": "Goto"
+
+  "order_details":
+    "client_name": "Client name:"
+    "hkid": "HKID"
+    "reference": "Reference #:"
+    "items": "Items"
+    "submitted": "Submitted:"
+    "order": "Order:"
+    "show_more_items": "Show more items"
+    "add_item_to_order": "Add an item to this order"
 
 `export default I18nTranslationsEn`

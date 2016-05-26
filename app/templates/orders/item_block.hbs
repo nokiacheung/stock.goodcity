@@ -1,13 +1,15 @@
 <div class="row item_block">
-  <div class="row dispatch_details">
+  <div class="row dispatch_details {{if item.sentOn 'dispatched'}}">
     <div class="small-4 columns">
-      <i class="fa fa-shopping-basket"></i> L20012
+      <i class="fa fa-shopping-basket"></i> {{model.code}}
     </div>
     <div class="small-3 columns">
-      <i class="fa fa-map-marker"></i> 20-348
+      {{#unless item.sentOn}}
+        <i class="fa fa-map-marker"></i> {{item.location.name}}
+      {{/unless}}
     </div>
     <div class="small-5 columns">
-      <i class="fa fa-tag"></i> 12-733-622
+      <i class="fa fa-tag"></i> {{item.inventoryNumber}}
     </div>
   </div>
 
@@ -16,7 +18,7 @@
       <img src="assets/images/default_item.jpg" class="thumb cl-item-image">
     </div>
     <div class="small-9 large-10 columns name_details">
-      <div class="name">12 x Display shelf</div>
+      <div class="name">{{item.quantity}} x {{item.description}}</div>
       <div class="">
         Black, wooden ikea bookshelf.
         Modular design

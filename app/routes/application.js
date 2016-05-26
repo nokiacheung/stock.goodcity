@@ -1,4 +1,5 @@
 import Ember from 'ember';
+const { getOwner } = Ember;
 
 export default Ember.Route.extend({
 
@@ -36,6 +37,12 @@ export default Ember.Route.extend({
   },
 
   actions: {
+    loading() {
+      Ember.$(".loading-indicator").remove();
+      var view = getOwner(this).lookup('component:loading').append();
+      this.router.one('didTransition', view, 'destroy');
+    },
+
     error(reason) {
       try {
         this.handleError(reason);
