@@ -1,7 +1,9 @@
 <div class="row item_block">
   <div class="row dispatch_details {{if item.sentOn 'dispatched'}}">
     <div class="small-4 columns">
-      {{#if item.designation}}
+      {{#if item.sentOn}}
+        <i class="fa fa-ship"></i> {{item.designation.code}}
+      {{else if item.designation}}
         <i class="fa fa-shopping-basket"></i> {{item.designation.code}}
       {{else}}
         <i class="fa fa-eye" aria-hidden="true"></i> In Stock
@@ -22,10 +24,9 @@
       <img src="assets/images/default_item.jpg" class="thumb cl-item-image">
     </div>
     <div class="small-9 large-10 columns name_details">
-      <div class="ellipsis name one-line-ellipsis">{{item.quantity}} x {{item.description}}</div>
+      <div class="ellipsis name one-line-ellipsis">{{item.quantity}} x {{item.code.description}}</div>
       <div class="ellipsis two-line-ellipsis">
-        Black, wooden ikea bookshelf.
-        Modular design
+        {{item.description}}
       </div>
     </div>
   </div>

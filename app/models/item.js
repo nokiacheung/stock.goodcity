@@ -13,5 +13,6 @@ export default DS.Model.extend({
   designation: belongsTo('designation', { async: false }),
   location:    belongsTo('location', { async: false }),
   image:       belongsTo('image', { async: false }),
+  code:        belongsTo('code', { async: false }),
 
 });
