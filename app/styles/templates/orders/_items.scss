@@ -37,3 +37,14 @@
     right: 6%;
   }
 }
+
+.items_search_result {
+  padding-top: 4rem;
+
+  ul {
+    @media #{$small-only} {
+      font-size: 0.7rem !important;
+    }
+  }
+}
+
