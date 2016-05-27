@@ -113,49 +113,6 @@
     }
   }
 
-  .item_block {
-    padding: 0 1.3rem 1rem;
-
-    .dispatch_details {
-      background-color: #334f75;
-      padding: 0.5rem;
-
-      i {
-        color: $white;
-      }
-
-      div {
-        padding: 0;
-        &:last-child {
-          text-align: end;
-        }
-      }
-    }
-
-    .dispatched {
-      background-color: #001C42;
-    }
-
-    .name_details {
-      padding-top: 0.7rem;
-      padding-left: 1rem;
-
-      .name {
-        color: $white;
-        padding-bottom: 0.3rem;
-      }
-    }
-
-    .image {
-      padding: 0;
-
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
-  }
-
   .show_more {
     padding: 1rem;
     text-align: center;
@@ -175,6 +132,56 @@
       @media #{$small-only} {
         font-size: 0.8rem;
       }
+    }
+  }
+}
+
+.item_block {
+  padding: 0 1.3rem 1rem;
+
+  .other_details {
+    border: 1px solid #334F75;
+    border-top: none;
+    max-height: 4.5rem;
+    overflow: hidden;
+  }
+
+  .dispatch_details {
+    background-color: #334f75;
+    padding: 0.5rem;
+
+    i {
+      color: $white;
+    }
+
+    div {
+      padding: 0;
+      &:last-child {
+        text-align: end;
+      }
+    }
+  }
+
+  .dispatched {
+    background-color: #001C42;
+  }
+
+  .name_details {
+    padding-top: 0.3rem !important;
+    padding-left: 0.5rem !important;
+
+    .name {
+      color: $white;
+      padding-bottom: 0.3rem;
+    }
+  }
+
+  .image {
+    padding: 0;
+
+    img {
+      width: 5rem;
+      height: auto;
     }
   }
 }

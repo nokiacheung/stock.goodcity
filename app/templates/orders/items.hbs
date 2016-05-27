@@ -17,3 +17,30 @@
     {{/if}}
   </div>
 </div>
+
+<section class="main-section items_search_result">
+  <div class="row search">
+    <div class="small-12 columns">
+      {{#if isLoading}}
+        <div class="loading_screen">
+          {{partial 'loading'}}
+        </div>
+      {{/if}}
+
+      {{#if filteredResults}}
+        <ul class="list list-activity list-offer-items">
+          {{#each filteredResults as |item|}}
+            {{partial 'orders/item_block'}}
+          {{/each}}
+        </ul>
+
+        {{#infinity-loader}}
+        {{/infinity-loader}}
+
+      {{else if hasNoResults}}
+        <div class='no_result'>{{t "no_search_results"}}</div>
+      {{/if}}
+    </div>
+  </div>
+
+</section>

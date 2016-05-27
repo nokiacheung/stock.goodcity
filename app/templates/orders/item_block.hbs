@@ -1,7 +1,11 @@
 <div class="row item_block">
   <div class="row dispatch_details {{if item.sentOn 'dispatched'}}">
     <div class="small-4 columns">
-      <i class="fa fa-shopping-basket"></i> {{model.code}}
+      {{#if item.designation}}
+        <i class="fa fa-shopping-basket"></i> {{item.designation.code}}
+      {{else}}
+        <i class="fa fa-eye" aria-hidden="true"></i> In Stock
+      {{/if}}
     </div>
     <div class="small-3 columns">
       {{#unless item.sentOn}}
@@ -13,13 +17,13 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row other_details">
     <div class="small-3 large-2 columns image">
       <img src="assets/images/default_item.jpg" class="thumb cl-item-image">
     </div>
     <div class="small-9 large-10 columns name_details">
-      <div class="name">{{item.quantity}} x {{item.description}}</div>
-      <div class="">
+      <div class="ellipsis name one-line-ellipsis">{{item.quantity}} x {{item.description}}</div>
+      <div class="ellipsis two-line-ellipsis">
         Black, wooden ikea bookshelf.
         Modular design
       </div>
