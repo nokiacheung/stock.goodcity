@@ -38,6 +38,6 @@ export default Ember.Controller.extend(InfinityRoute, {
     clearSearch() {
       this.set("searchText", "");
     }
-  }
+  },
 
 });

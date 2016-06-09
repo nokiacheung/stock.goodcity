@@ -41,4 +41,7 @@ I18nTranslationsEn =
     "show_more_items": "Show more items"
     "add_item_to_order": "Add an item to this order"
 
+  "designate":
+    "designate": "Designate"
+
 `export default I18nTranslationsEn`

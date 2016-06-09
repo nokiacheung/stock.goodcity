@@ -1,0 +1,32 @@
+<a {{action 'displayDesignateForm'}}>{{yield}}</a>
+
+{{#message-box btn1Text=(t "designate.designate") btn1Callback=(action "designateItem") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
+
+  <p>Designating this item to order {{order.code}}</p>
+
+  {{yield}}
+
+  <div class="warnings">
+
+    {{#if item.designation}}
+      <div class="warning_text">
+        <i class="fa fa-exclamation-triangle"></i>
+        Overrides an existing designation.
+      </div>
+    {{/if}}
+
+    {{#if (is-greater item.quantity 1)}}
+      <div class="warning_text">
+        <i class="fa fa-exclamation-triangle"></i>
+        Designates quantity of {{item.quantity}}
+      </div>
+    {{/if}}
+
+    <div class="warning_text">
+      <i class="fa fa-exclamation-triangle"></i>
+      Designates only part of set.
+    </div>
+
+  </div>
+
+{{/message-box}}

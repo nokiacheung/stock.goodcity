@@ -138,12 +138,18 @@
 
 .item_block {
   padding: 0 1.3rem 1rem;
+  color: $white;
+
+  @media #{$small-only} {
+    font-size: 0.7rem;
+  }
 
   .other_details {
     border: 1px solid #334F75;
     border-top: none;
     max-height: 4.5rem;
     overflow: hidden;
+    background-color: #002353;
   }
 
   .dispatch_details {

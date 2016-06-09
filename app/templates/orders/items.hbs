@@ -30,7 +30,9 @@
       {{#if filteredResults}}
         <ul class="list list-activity list-offer-items">
           {{#each filteredResults as |item|}}
-            {{partial 'orders/item_block'}}
+            {{#designate-form order=model item=item}}
+              {{partial 'orders/item_block'}}
+            {{/designate-form}}
           {{/each}}
         </ul>
 

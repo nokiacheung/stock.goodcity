@@ -1,0 +1,24 @@
+.designate-form {
+
+  .item_block {
+    padding: 0 0.7rem 1rem;
+  }
+
+  p {
+    font-weight: bolder;
+  }
+
+  .button {
+    width: 40%;
+    color: $white !important;
+  }
+
+  .warnings {
+    font-size: 0.8rem;
+    color: red;
+
+    .warning_text {
+      margin: 0.5rem 0;
+    }
+  }
+}
