@@ -5,7 +5,7 @@ var attr = DS.attr,
 
 export default DS.Model.extend({
 
-  description: attr('string'),
+  notes:       attr('string'),
   inventoryNumber: attr('string'),
   quantity:    attr('number'),
   sentOn:      attr('date'),

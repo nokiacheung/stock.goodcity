@@ -25,7 +25,7 @@ module.exports = function(environment) {
       SHA: process.env.APP_SHA || "00000000",
       VERSION: process.env.VERSION || "1.0.0",
 
-      NAMESPACE: 'api/v1/stockit',
+      NAMESPACE: 'api/v1',
       HK_COUNTRY_CODE: '+852',
 
       AIRBRAKE_HOST: "https://errbit.crossroads.org.hk",
