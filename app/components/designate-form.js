@@ -3,6 +3,7 @@ import AjaxPromise from 'stock/utils/ajax-promise';
 const { getOwner } = Ember;
 
 export default Ember.Component.extend({
+  displayUserPrompt: false,
 
   store: Ember.inject.service(),
 
