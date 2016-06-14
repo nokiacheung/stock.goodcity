@@ -29,4 +29,5 @@
     <plugin name="cordova-plugin-device" spec="~1.1.1"/>
     <plugin name="cordova-plugin-whitelist" spec="~1.2.1" />
     <plugin name="cordova-plugin-statusbar" spec="~2.1.1" />
+    <plugin name="phonegap-plugin-barcodescanner" spec="https://github.com/Telerik-Verified-Plugins/BarcodeScanner.git"/>
 </widget>
