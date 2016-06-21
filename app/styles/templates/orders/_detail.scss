@@ -173,6 +173,7 @@
   }
 
   .name_details {
+    float: left !important;
     padding-top: 0.3rem !important;
     padding-left: 0.5rem !important;
 
@@ -189,5 +190,13 @@
       width: 5rem;
       height: auto;
     }
+  }
+
+  .set-link {
+    margin: 0.8rem 0.6rem 0.8rem 0;
+    padding: 0.5rem;
+    border: white 1px solid;
+    max-width: 3.5rem;
+    float: right;
   }
 }

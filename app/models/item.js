@@ -9,6 +9,8 @@ export default DS.Model.extend({
   inventoryNumber: attr('string'),
   quantity:    attr('number'),
   sentOn:      attr('date'),
+  isSet:       attr('boolean'),
+  itemId:    attr('number'),
 
   designation: belongsTo('designation', { async: false }),
   location:    belongsTo('location', { async: false }),
