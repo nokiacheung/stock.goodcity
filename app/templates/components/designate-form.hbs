@@ -1,4 +1,4 @@
-<a {{action 'displayDesignateForm'}}>{{yield}}</a>
+<a {{action 'displayDesignateOverlay'}}>{{yield}}</a>
 
 {{#message-box btn1Text=(t "designate.designate") btn1Callback=(action "designateItem") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
 
@@ -30,5 +30,14 @@
     {{/if}}
 
   </div>
+
+{{/message-box}}
+
+
+{{#message-box btn1Text=(t "okay") isVisible=displayAlertOverlay classNames="popupOverlay designate-form"}}
+
+  <p>This item is alreday designated to order {{order.code}} which you are viewing currently.</p>
+
+  {{yield}}
 
 {{/message-box}}

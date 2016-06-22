@@ -4,12 +4,21 @@ const { getOwner } = Ember;
 
 export default Ember.Component.extend({
   displayUserPrompt: false,
+  displayAlertOverlay: false,
 
   store: Ember.inject.service(),
 
+  isDesignatedToCurrentOrder: Ember.computed('order', 'item', function() {
+    return this.get("order.items").findBy("id", this.get("item.id"));
+  }),
+
   actions: {
-    displayDesignateForm() {
-      this.set("displayUserPrompt", true);
+    displayDesignateOverlay() {
+      if(this.get("isDesignatedToCurrentOrder")) {
+        this.set("displayAlertOverlay", true);
+      } else {
+        this.set("displayUserPrompt", true);
+      }
     },
 
     designateItem() {
