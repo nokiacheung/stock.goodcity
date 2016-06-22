@@ -5,6 +5,7 @@ const { getOwner } = Ember;
 export default Ember.Component.extend({
   displayUserPrompt: false,
   displayAlertOverlay: false,
+  showAllSetItems: false,
 
   store: Ember.inject.service(),
 
@@ -24,6 +25,8 @@ export default Ember.Component.extend({
     designateItem() {
       var order = this.get("order");
       var item = this.get("item");
+      var showAllSetItems = this.get("showAllSetItems");
+      this.set("showAllSetItems", false);
 
       var loadingView = getOwner(this).lookup('component:loading').append();
       var url = `/items/${item.get('id')}/designate_stockit_item`;
@@ -31,7 +34,11 @@ export default Ember.Component.extend({
       new AjaxPromise(url, "PUT", this.get('session.authToken'), { order_id: order.get("id") })
         .then(data => {
           this.get("store").pushPayload(data);
-          this.get('router').transitionTo("orders.detail", order);
+          if(showAllSetItems) {
+            this.sendAction("displaySetItems");
+          } else {
+            this.get('router').transitionTo("orders.detail", order);
+          }
         })
         .finally(() => {
           loadingView.destroy();
