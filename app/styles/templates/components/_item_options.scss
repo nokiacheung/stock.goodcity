@@ -1,0 +1,45 @@
+.receive-options {
+  background-color: #4C6485;
+  display: table-row;
+  width: 17rem;
+  right: 0;
+
+  @media #{$small-only} {
+    width: 13rem;
+  }
+  > div {
+    display: table-cell;
+    width: 33%;
+    text-align: center;
+    padding: 0.7rem 0;
+    cursor: pointer;
+  }
+  .fa.item-menu {
+    display: block;
+    font-size: 30px;
+  }
+  .disabled {
+    color: $org-grey;
+    cursor: default;
+  }
+}
+.receive-options, .options-link-open {
+  position: absolute;
+}
+.options-link-open, .options-link-close {
+  color: $light-blue;
+  cursor: pointer;
+  font-size: 1.7rem;
+}
+.options-link-close {
+  display: table-cell;
+  vertical-align: middle;
+  border-left: 2px solid $dark-blue;
+  padding: 0 0.45rem !important;
+}
+.options-link-open {
+  right: 0;
+  padding: 0 0.7rem;
+  height: inherit;
+  line-height: 4rem;
+}
