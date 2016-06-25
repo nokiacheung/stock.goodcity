@@ -44,4 +44,7 @@ I18nTranslationsEn =
   "designate":
     "designate": "Designate"
 
+  "undesignate":
+    "undesignate": "Undesignate"
+
 `export default I18nTranslationsEn`

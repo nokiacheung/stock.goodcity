@@ -1,0 +1,38 @@
+import Ember from "ember";
+import AjaxPromise from 'stock/utils/ajax-promise';
+const { getOwner } = Ember;
+
+export default Ember.Component.extend({
+  displayUserPrompt: false,
+  showAllSetItems: false,
+  displaySetBlock: true,
+
+  store: Ember.inject.service(),
+
+  actions: {
+    displayDesignateOverlay() {
+      this.set("displayUserPrompt", true);
+    },
+
+    undesignateItem() {
+      var item = this.get("item");
+      var showAllSetItems = this.get("showAllSetItems");
+      this.set("showAllSetItems", false);
+
+      var loadingView = getOwner(this).lookup('component:loading').append();
+      var url = `/items/${item.get('id')}/undesignate_stockit_item`;
+
+      new AjaxPromise(url, "PUT", this.get('session.authToken'))
+        .then(data => {
+          this.get("store").pushPayload(data);
+          if(showAllSetItems) {
+            this.sendAction("displaySetItems");
+          }
+        })
+        .finally(() => {
+          loadingView.destroy();
+        });
+    }
+  }
+
+});

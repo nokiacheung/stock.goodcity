@@ -1,0 +1,34 @@
+<div {{action 'displayDesignateOverlay'}}>
+  <i class="fa item-menu fa-times-circle-o"></i>
+  remove
+</div>
+
+{{#message-box btn1Text=(t "undesignate.undesignate") btn1Callback=(action "undesignateItem") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
+
+  <p>Remove this item from order {{order.code}}</p>
+
+  {{partial 'orders/item_block'}}
+
+  <div class="warnings">
+
+    {{#if (is-greater item.quantity 1)}}
+      <div class="warning_text">
+        <i class="fa fa-exclamation-triangle"></i>
+        Undesignates quantity of {{item.quantity}}
+      </div>
+    {{/if}}
+
+    {{#if item.isSet}}
+      <div class="warning_text">
+        <i class="fa fa-exclamation-triangle"></i>
+        Undesignates only part of set.
+      </div>
+
+      {{input type="checkbox" checked=showAllSetItems id=(concat "item" item.id)}}
+      <label for="{{concat "item" item.id}}" >Show other parts from the same set next</label>
+
+    {{/if}}
+
+  </div>
+
+{{/message-box}}
