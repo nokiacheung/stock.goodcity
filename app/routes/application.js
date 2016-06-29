@@ -11,7 +11,12 @@ export default Ember.Route.extend({
       this.set('session.language', language);
     }
 
-    Ember.onerror = window.onerror = error => this.handleError(error);
+    Ember.onerror = window.onerror = error => {
+      if(error.errors && error.errors[0] && error.errors[0].status === "401") {
+        transition.abort();
+      }
+      this.handleError(error);
+    };
   },
 
   logger: Ember.inject.service(),
