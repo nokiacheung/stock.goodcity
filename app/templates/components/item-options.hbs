@@ -2,15 +2,13 @@
   <i class="fa fa-angle-left"></i>
 </div>
 
-<div class="receive-options {{if hidden 'hidden' ''}}">
+<div class="receive-options {{if hidden 'hidden'}}">
   <div class="disabled">
     <i class="fa item-menu fa-pencil-square-o"></i>
-    edit
+    {{t "item.edit"}}
   </div>
-  <div class="disabled">
-    <i class="fa item-menu fa-exclamation-triangle"></i>
-    dispatch
-  </div>
+
+  {{dispatch-form item=item order=order}}
 
   {{undesignate-item item=item order=order}}
 
