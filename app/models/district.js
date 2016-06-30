@@ -1,8 +1,8 @@
-import DS from 'ember-data';
-var attr = DS.attr,
-    belongsTo = DS.belongsTo;
+import Model from 'ember-data/model';
+import attr from 'ember-data/attr';
+import { belongsTo } from 'ember-data/relationships';
 
-export default DS.Model.extend({
+export default Model.extend({
   name:      attr('string'),
   territory: belongsTo('territory', { async: false })
 });

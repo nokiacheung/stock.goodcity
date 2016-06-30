@@ -1,8 +1,7 @@
-import DS from 'ember-data';
+import Model from 'ember-data/model';
+import { belongsTo } from 'ember-data/relationships';
 
-var belongsTo = DS.belongsTo;
-
-var Addressable = DS.Model.extend({
+var Addressable = Model.extend({
   address: belongsTo('address', { async: false })
 });
 

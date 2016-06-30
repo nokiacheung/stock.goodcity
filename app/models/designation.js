@@ -1,11 +1,9 @@
-import DS from 'ember-data';
 import Ember from 'ember';
+import Model from 'ember-data/model';
+import attr from 'ember-data/attr';
+import { belongsTo, hasMany } from 'ember-data/relationships';
 
-var attr = DS.attr,
-    belongsTo = DS.belongsTo,
-    hasMany = DS.hasMany;
-
-export default DS.Model.extend({
+export default Model.extend({
 
   status:       attr('string'),
   createdAt:    attr('date'),
