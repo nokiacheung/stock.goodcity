@@ -1,9 +1,10 @@
 import Ember from "ember";
-import DS from 'ember-data';
+import Model from 'ember-data/model';
+import attr from 'ember-data/attr';
 
-export default DS.Model.extend({
-  favourite:     DS.attr('boolean'),
-  cloudinaryId:  DS.attr('string'),
+export default Model.extend({
+  favourite:     attr('boolean'),
+  cloudinaryId:  attr('string'),
 
   imageUrl: Ember.computed('cloudinaryId', function(){
     return this.generateUrl();

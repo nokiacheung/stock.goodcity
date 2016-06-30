@@ -1,16 +1,15 @@
-import DS from 'ember-data';
+import Model from 'ember-data/model';
+import attr from 'ember-data/attr';
+import { belongsTo } from 'ember-data/relationships';
 
-var attr = DS.attr,
-  belongsTo = DS.belongsTo;
+export default Model.extend({
 
-export default DS.Model.extend({
-
-  notes:       attr('string'),
+  notes:           attr('string'),
   inventoryNumber: attr('string'),
-  quantity:    attr('number'),
-  sentOn:      attr('date'),
-  isSet:       attr('boolean'),
-  itemId:    attr('number'),
+  quantity:        attr('number'),
+  sentOn:          attr('date'),
+  isSet:           attr('boolean'),
+  itemId:          attr('number'),
 
   designation: belongsTo('designation', { async: false }),
   location:    belongsTo('location', { async: false }),

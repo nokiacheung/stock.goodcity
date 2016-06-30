@@ -1,8 +1,6 @@
-import DS from 'ember-data';
+import attr from 'ember-data/attr';
+import { belongsTo } from 'ember-data/relationships';
 import Addressable from './addressable';
-
-var attr = DS.attr,
-  belongsTo = DS.belongsTo;
 
 export default Addressable.extend({
   firstName:   attr('string'),

@@ -1,14 +1,15 @@
 import Ember from "ember";
-import DS from 'ember-data';
+import Model from 'ember-data/model';
+import attr from 'ember-data/attr';
 
-export default DS.Model.extend({
+export default Model.extend({
 
-  quantity:        DS.attr('number'),
-  notes:           DS.attr('string'),
-  createdAt:       DS.attr('date'),
-  updatedAt:       DS.attr('date'),
-  imageId:         DS.attr('number'),
-  inventoryNumber: DS.attr('string'),
+  quantity:        attr('number'),
+  notes:           attr('string'),
+  createdAt:       attr('date'),
+  updatedAt:       attr('date'),
+  imageId:         attr('number'),
+  inventoryNumber: attr('string'),
 
   image: Ember.computed('imageId', function() {
     return this.store.peekRecord("image", this.get("imageId"));
