@@ -15,7 +15,7 @@
       {{/unless}}
     </div>
     <div class="small-4 columns">
-      <i class="fa fa-tag"></i> {{item.inventoryNumber}}
+      <i class="fa {{if item.isSet 'fa-tags' 'fa-tag'}}"></i> {{item.inventoryNumber}}
     </div>
   </div>
 
