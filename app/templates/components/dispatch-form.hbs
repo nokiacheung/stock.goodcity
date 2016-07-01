@@ -1,0 +1,39 @@
+{{#if item.sentOn}}
+  <div {{action 'undispatchItem'}}>
+    <i class="fa item-menu fa-exclamation-triangle"></i>
+    {{t "item.undispatch"}}
+  </div>
+{{else}}
+  <div {{action 'displayDispatchOverlay'}}>
+    <i class="fa item-menu fa-exclamation-triangle"></i>
+    {{t "item.dispatch"}}
+  </div>
+{{/if}}
+
+{{#message-box btn1Text=(t "dispatch.dispatch") btn1Callback=(action "dispatchItem") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
+
+  <p>{{t "dispatch.from_order" code=order.code}}</p>
+
+  {{partial 'orders/item_block'}}
+
+  <div class="warnings">
+
+    {{#if (is-greater item.quantity 1)}}
+      <div class="warning_text">
+        <i class="fa fa-exclamation-triangle"></i>
+        {{t "dispatch.dispatch_quantity" quantity=item.quantity}}
+      </div>
+    {{/if}}
+
+    {{#if item.isSet}}
+      <div class="warning_text">
+        <i class="fa fa-exclamation-triangle"></i>
+        {{t "dispatch.dispatch_set"}}
+      </div>
+    {{/if}}
+
+  </div>
+
+{{/message-box}}
+
+

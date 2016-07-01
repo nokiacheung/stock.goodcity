@@ -41,10 +41,23 @@ I18nTranslationsEn =
     "show_more_items": "Show more items"
     "add_item_to_order": "Add an item to this order"
 
+  "item":
+    "edit": "edit"
+    "designate": "designate"
+    "dispatch": "dispatch"
+    "undispatch": "undispatch"
+    "remove": "remove"
+
   "designate":
     "designate": "Designate"
 
   "undesignate":
     "undesignate": "Undesignate"
+
+  "dispatch":
+    "dispatch": "Dispatch"
+    "from_order": "Dispatch this item from order {{code}}"
+    "dispatch_quantity": "Dispatches quantity of {{quantity}}"
+    "dispatch_set": "Dispatches only part of set."
 
 `export default I18nTranslationsEn`

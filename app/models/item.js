@@ -1,6 +1,7 @@
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 import { belongsTo } from 'ember-data/relationships';
+import Ember from "ember";
 
 export default Model.extend({
 
@@ -15,5 +16,7 @@ export default Model.extend({
   location:    belongsTo('location', { async: false }),
   image:       belongsTo('image', { async: false }),
   code:        belongsTo('code', { async: false }),
+
+  isDispatched: Ember.computed.bool('sentOn'),
 
 });
