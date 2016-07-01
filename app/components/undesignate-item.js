@@ -4,8 +4,6 @@ const { getOwner } = Ember;
 
 export default Ember.Component.extend({
   displayUserPrompt: false,
-  displaySetBlock: true,
-
   store: Ember.inject.service(),
 
   actions: {

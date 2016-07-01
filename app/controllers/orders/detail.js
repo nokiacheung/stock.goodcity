@@ -3,6 +3,7 @@ import Ember from "ember";
 export default Ember.Controller.extend({
 
   displayAllItems: false,
+  displayItemOptions: true,
 
   itemsList: Ember.computed('model.items', 'displayAllItems', function() {
     return this.get("displayAllItems") ? this.get("model.items") : this.get("model.items").slice(0, 3);
