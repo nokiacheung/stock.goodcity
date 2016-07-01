@@ -4,7 +4,7 @@
   </section>
 </nav>
 
-{{#validatable-form class="form-horizontal login-form" action="resendPin" on="submit"}}
+{{#validatable-form class="form-horizontal login-form"}}
   <section class="main-section">
     <div class="row">
       <div class="small-12 columns">
@@ -30,7 +30,7 @@
     </div>
     <div class="row">
       <div class="small-10 small-offset-1 columns">
-        <button id="getsmscode" type="submit" class="button expand">{{t "login.smscode"}}</button>
+        <button id="getsmscode" type="submit" class="button expand" {{action 'resendPin'}}>{{t "login.smscode"}}</button>
       </div>
     </div>
   </section>
