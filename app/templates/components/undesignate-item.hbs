@@ -3,7 +3,7 @@
   {{t "item.remove"}}
 </div>
 
-{{#message-box btn1Text=(t "undesignate.undesignate") btn1Callback=(action "undesignateItem") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
+{{#message-box btn1Text=(t "undesignate.undesignate") btn1Callback=(action "undesignateItem") btn2Text=(t "cancel") btn2Callback=(action "closeItemOptions") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
 
   <p>Remove this item from order {{order.code}}</p>
 

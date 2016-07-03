@@ -10,7 +10,7 @@
   </div>
 {{/if}}
 
-{{#message-box btn1Text=(t "dispatch.dispatch") btn1Callback=(action "dispatchItem") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
+{{#message-box btn1Text=(t "dispatch.dispatch") btn1Callback=(action "dispatchItem") btn2Text=(t "cancel") btn2Callback=(action "closeItemOptions") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
 
   <p>{{t "dispatch.from_order" code=order.code}}</p>
 

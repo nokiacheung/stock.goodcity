@@ -32,7 +32,12 @@ export default Ember.Component.extend({
         })
         .finally(() => {
           loadingView.destroy();
+          this.sendAction("closeList");
         });
+    },
+
+    closeItemOptions() {
+      this.sendAction("closeList");
     }
   }
 
