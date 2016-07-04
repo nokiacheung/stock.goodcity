@@ -1,5 +1,6 @@
 import Ember from "ember";
 import InfinityRoute from "ember-infinity/mixins/route";
+import config from '../../config/environment';
 
 export default Ember.Controller.extend(InfinityRoute, {
   searchText: "",
@@ -9,6 +10,7 @@ export default Ember.Controller.extend(InfinityRoute, {
   hasNoResults: false,
   itemSetId: null,
   displaySetBlock: true,
+  isMobileApp: config.cordova.enabled,
 
   hasSearchText: Ember.computed("searchText", function() {
     return !!this.get("searchText").trim();
