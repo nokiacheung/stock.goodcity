@@ -59,5 +59,6 @@ I18nTranslationsEn =
     "from_order": "Dispatch this item from order {{code}}"
     "dispatch_quantity": "Dispatches quantity of {{quantity}}"
     "dispatch_set": "Dispatches only part of set."
+    "all_items_dispatched": "All items from this order have been dispatched. Please close this order in StockIt."
 
 `export default I18nTranslationsEn`
