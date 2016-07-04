@@ -6,6 +6,12 @@ export default Ember.TextField.extend({
   attributeBindings: [ "name", "id", "value", 'placeholder'],
   cordova: Ember.inject.service(),
 
+  triggerAutofocus: Ember.observer("value", function() {
+    if (this.get('value').length === 0) {
+      this.$().focus();
+    }
+  }),
+
   hasFixedInputHeader: Ember.computed(function() {
     return this.get("cordova").isIOS() && Ember.$(".fixed_search_header").length > 0;
   }),
