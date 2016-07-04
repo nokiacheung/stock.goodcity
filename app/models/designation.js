@@ -20,6 +20,11 @@ export default Model.extend({
     return this.get("items").rejectBy('sentOn', null);
   }),
 
+  allItemsDispatched: Ember.computed('items.@each.isDispatched', function() {
+    var items = this.get("items");
+    return items.length > 0 && items.filterBy('isDispatched', false).length === 0;
+  }),
+
   designatedItems: Ember.computed('items.@each.sentOn', function() {
     return this.get("items").filterBy('sentOn', null);
   }),
