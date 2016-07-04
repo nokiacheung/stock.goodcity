@@ -6,11 +6,18 @@ export default Ember.Component.extend({
   displayUserPrompt: false,
   displayAlertOverlay: false,
   showAllSetItems: false,
+  autoDisplayOverlay: false,
 
   store: Ember.inject.service(),
 
   isDesignatedToCurrentOrder: Ember.computed('order', 'item', function() {
     return this.get("order.items").findBy("id", this.get("item.id"));
+  }),
+
+  triggerItemClick: Ember.observer("autoDisplayOverlay", function() {
+    if(this.get("autoDisplayOverlay")) {
+      this.send("displayDesignateOverlay");
+    }
   }),
 
   actions: {

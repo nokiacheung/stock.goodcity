@@ -11,6 +11,7 @@ export default Ember.Controller.extend(InfinityRoute, {
   itemSetId: null,
   displaySetBlock: true,
   isMobileApp: config.cordova.enabled,
+  autoDisplayOverlay: false,
 
   hasSearchText: Ember.computed("searchText", function() {
     return !!this.get("searchText").trim();
@@ -23,6 +24,7 @@ export default Ember.Controller.extend(InfinityRoute, {
   }),
 
   applyFilter() {
+    this.set("autoDisplayOverlay", false);
     var searchText = this.get("searchText").trim();
     if (searchText) {
       this.set("isLoading", true);
@@ -33,10 +35,18 @@ export default Ember.Controller.extend(InfinityRoute, {
         .then(data => {
           this.set("filteredResults", data);
           this.set("hasNoResults", data.get("length") === 0);
+
+          if(data.get("length") === 1) {
+            Ember.run.debounce(this, this.triggerDisplayDesignateOverlay, 100);
+          }
         })
         .finally(() => this.set("isLoading", false));
     }
     this.set("filteredResults", []);
+  },
+
+  triggerDisplayDesignateOverlay(){
+    this.set("autoDisplayOverlay", true);
   },
 
   actions: {
