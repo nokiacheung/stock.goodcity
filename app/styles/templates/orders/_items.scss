@@ -1,4 +1,21 @@
 .items-search {
+
+  .scan-button {
+    button {
+      background: none;
+      border: none;
+      padding-bottom: 2rem;
+      margin-bottom: 0;
+
+      i {
+        font-size: 1.8rem;
+        margin-top: -0.4rem;
+        color: #a3aab6;
+        padding-right: 0.5rem;
+      }
+    }
+  }
+
   input {
     width: 95%;
   }

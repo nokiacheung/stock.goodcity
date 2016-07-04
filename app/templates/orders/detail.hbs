@@ -91,13 +91,14 @@
   </div>
 
   <div class="row add_item_button">
-    <div class="small-9 columns">
-
+    <div class=" {{if isMobileApp 'small-9' 'small-12'}} columns">
       {{#link-to "orders.items" model (query-params searchText="") class="button expand"}}{{t "order_details.add_item_to_order"}}{{/link-to}}
     </div>
-    <div class="small-3 columns">
-      {{scan-barcode-button order=model}}
-    </div>
+    {{#if isMobileApp}}
+      <div class="small-3 columns">
+        {{scan-barcode-button order=model}}
+      </div>
+    {{/if}}
   </div>
 
   {{#each itemsList as |item|}}

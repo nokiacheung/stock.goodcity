@@ -5,7 +5,7 @@
       <div class="back_text">{{model.code}}</div>
     {{/link-to}}
   </div>
-  <div class="small-9 large-10 columns ">
+  <div class="columns {{if isMobileApp 'small-7 large-9' 'small-9 large-10'}} ">
     {{focus-textfield
       name="searchText"
       id="searchText"
@@ -16,6 +16,12 @@
       <i class="fa fa-times-circle" {{action "clearSearch"}}></i>
     {{/if}}
   </div>
+
+  {{#if isMobileApp}}
+    <div class="small-2 large-1 columns scan-button">
+      {{scan-barcode-button order=model}}
+    </div>
+  {{/if}}
 </div>
 
 <section class="main-section items_search_result">

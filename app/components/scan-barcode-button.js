@@ -11,7 +11,7 @@ export default Ember.Component.extend({
     scanBarcode() {
 
       if (!config.cordova.enabled) {
-        this.get('router').transitionTo("orders.items", this.get("order"), {queryParams: { searchText: null }});
+        this.get('router').transitionTo("orders.items", this.get("order"), {queryParams: { searchText: "" }});
       } else {
 
         var onSuccess = res => {
