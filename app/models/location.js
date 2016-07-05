@@ -9,6 +9,6 @@ export default Model.extend({
   name: Ember.computed('area', 'building', function() {
     var area = this.get("area");
     var building = this.get("building");
-    return area ? `${area}-${building}` : building;
+    return area ? `${building}-${area}` : building;
   }),
 });
