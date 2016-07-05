@@ -1,0 +1,50 @@
+<div class="row item_block">
+  <div class="row dispatch_details {{if item.sentOn 'dispatched'}} {{if item.designation 'designated'}}">
+    <div class="small-4 columns">
+      {{#if item.sentOn}}
+        <i class="fa fa-ship"></i> {{item.designation.code}}
+      {{else if item.designation}}
+        <i class="fa fa-shopping-basket"></i> {{item.designation.code}}
+      {{else}}
+        <i class="fa fa-eye" aria-hidden="true"></i> In Stock
+      {{/if}}
+    </div>
+    <div class="small-4 columns">
+      {{#unless item.sentOn}}
+        <i class="fa fa-map-marker"></i> {{item.location.name}}
+      {{/unless}}
+    </div>
+    <div class="small-4 columns">
+      <i class="fa {{if item.isSet 'fa-tags' 'fa-tag'}}"></i> {{item.inventoryNumber}}
+    </div>
+  </div>
+
+  <div class="row other_details item_details">
+    <div class="small-3 large-2 columns image">
+      <img src="assets/images/default_item.jpg" class="thumb cl-item-image">
+    </div>
+
+    <div class="small-6 large-8 columns name_details">
+      <div class="ellipsis name one-line-ellipsis">{{item.quantity}} x {{item.code.name}}</div>
+      <div class="ellipsis two-line-ellipsis">
+        {{item.notes}}
+        {{item.updatedAt}}
+      </div>
+    </div>
+
+    {{#if displaySetBlock}}
+      {{#if item.isSet}}
+        <div class="small-3 large-2 columns">
+          <div class="set-link" {{action "displaySetItems" item on='click' bubbles=false}}><i class="fa fa-tag"></i> Go to set </div>
+        </div>
+      {{/if}}
+    {{/if}}
+
+    {{#if displayItemOptions}}
+      <div class="small-3 large-2 columns">
+        {{item-options-list item=item}}
+      </div>
+    {{/if}}
+
+  </div>
+</div>

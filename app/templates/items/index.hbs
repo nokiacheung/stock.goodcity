@@ -1,0 +1,42 @@
+<div class="row fixed_search_header">
+  <div class="small-12 columns search-box ui">
+    {{focus-textfield
+      name="searchText"
+      id="searchText"
+      placeholder="Search"
+      value=searchText }}
+
+    {{#if hasSearchText}}
+      <i class="fa fa-times-circle" {{action "clearSearch"}}></i>
+    {{/if}}
+  </div>
+</div>
+
+
+<section class="main-section items_search_result">
+ <div class="row search">
+    <div class="small-12 columns">
+      {{#if isLoading}}
+        <div class="loading_screen">
+          {{partial 'loading'}}
+        </div>
+      {{/if}}
+
+      {{#if filteredResults}}
+        <ul class="list list-activity list-offer-items">
+          {{#each arrangedItems as |item|}}
+            {{partial 'items/item_block'}}
+          {{/each}}
+        </ul>
+
+        {{#infinity-loader}}
+        {{/infinity-loader}}
+
+      {{else if hasNoResults}}
+        <div class='no_result'>{{t "no_search_results"}}</div>
+      {{/if}}
+    </div>
+  </div>
+
+  {{partial "sticky_footer"}}
+</section>

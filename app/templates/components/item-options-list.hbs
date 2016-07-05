@@ -1,0 +1,26 @@
+<div class="options-link-open {{if hidden '' 'hidden'}}" {{action "toggle" false}}>
+  <i class="fa fa-angle-left"></i>
+</div>
+
+<div class="receive-item-options {{if hidden 'hidden'}}">
+  <div class="disabled">
+    <i class="fa item-menu fa fa-map-marker"></i>
+    {{t "item.move"}}
+  </div>
+
+  <div class="disabled">
+    <i class="fa item-menu fa fa-shopping-basket"></i>
+    {{t "item.designate"}}
+  </div>
+
+  {{dispatch-form item=item closeList=(action 'toggle' true) }}
+
+  <div class="disabled">
+    <i class="fa item-menu fa-pencil-square-o"></i>
+    {{t "item.edit"}}
+  </div>
+
+  <div class="options-link-close" {{action "toggle" true}}>
+    <i class="fa item-menu fa-angle-right"></i>
+  </div>
+</div>

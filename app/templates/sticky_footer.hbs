@@ -11,9 +11,9 @@
             <i class="fa fa-shopping-basket"></i>{{t "index.orders"}}
           {{/link-to}}
 
-          <li>
+          {{#link-to 'items' tagName='li' href=false}}
             <i class="fa fa-cube"></i>{{t "index.items"}}
-          </li>
+          {{/link-to}}
 
           <li><i class="fa fa-qrcode"></i>{{t "index.goto"}}</li>
           <li><i class="fa fa-ellipsis-v options"></i></li>

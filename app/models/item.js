@@ -18,5 +18,6 @@ export default Model.extend({
   code:        belongsTo('code', { async: false }),
 
   isDispatched: Ember.computed.bool('sentOn'),
+  updatedAt: attr("date"),
 
 });
