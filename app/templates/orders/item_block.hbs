@@ -1,10 +1,12 @@
 <div class="row item_block">
-  <div class="row dispatch_details {{if item.sentOn 'dispatched'}} {{if item.designation 'designated'}}">
+  <div class="row dispatch_details {{if item.sentOn 'dispatched'}} {{if item.designation 'designated'}} {{if item.isSet 'set-group'}}">
     <div class="small-3 columns">
       {{#if item.sentOn}}
         <i class="fa fa-ship"></i> {{item.designation.code}}
       {{else if item.designation}}
-        <i class="fa fa-shopping-basket"></i> {{item.designation.code}}
+        {{#link-to 'orders.detail' item.designation tagName='span' href=false}}
+          <i class="fa fa-shopping-basket"></i> {{item.designation.code}}
+        {{/link-to}}
       {{else}}
         <i class="fa fa-eye" aria-hidden="true"></i> In Stock
       {{/if}}
@@ -42,6 +44,12 @@
     {{#if displayItemOptions}}
       <div class="small-3 large-2 columns">
         {{item-options item=item order=model}}
+      </div>
+    {{/if}}
+
+    {{#if displayItemOptionsList}}
+      <div class="small-3 large-2 columns">
+        {{item-options-list item=item}}
       </div>
     {{/if}}
 

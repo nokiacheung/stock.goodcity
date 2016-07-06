@@ -1,5 +1,5 @@
 <div class="row fixed_search_header">
-  <div class="small-12 columns search-box ui">
+  <div class="columns {{if isMobileApp 'small-7 large-9' 'small-12 search-box ui'}} ">
     {{focus-textfield
       name="searchText"
       id="searchText"
@@ -10,11 +10,16 @@
       <i class="fa fa-times-circle" {{action "clearSearch"}}></i>
     {{/if}}
   </div>
+
+  {{#if isMobileApp}}
+    <div class="small-2 large-1 columns scan-button">
+      {{scan-barcode-button order=model}}
+    </div>
+  {{/if}}
 </div>
 
-
-<section class="main-section items_search_result">
- <div class="row search">
+<section class="main-section orders_search_result">
+  <div class="row search">
     <div class="small-12 columns">
       {{#if isLoading}}
         <div class="loading_screen">
@@ -25,7 +30,7 @@
       {{#if filteredResults}}
         <ul class="list list-activity list-offer-items">
           {{#each arrangedItems as |item|}}
-            {{partial 'items/item_block'}}
+            {{partial 'orders/item_block'}}
           {{/each}}
         </ul>
 

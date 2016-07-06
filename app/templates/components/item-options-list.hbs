@@ -13,7 +13,10 @@
     {{t "item.designate"}}
   </div>
 
-  {{dispatch-form item=item closeList=(action 'toggle' true) }}
+  <div class="disabled">
+    <i class="fa item-menu fa-exclamation-triangle"></i>
+    {{t "item.dispatch"}}
+  </div>
 
   <div class="disabled">
     <i class="fa item-menu fa-pencil-square-o"></i>

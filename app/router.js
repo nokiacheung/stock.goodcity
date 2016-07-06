@@ -12,7 +12,7 @@ Router.map(function() {
   this.route('authenticate');
 
   this.route("items", function() {
-
+    this.route("detail", { path: "/:order_id" });
   });
 
   this.route("orders", function() {

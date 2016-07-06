@@ -59,6 +59,7 @@
 .search {
   padding-bottom: 5rem;
   min-height: 25rem;
+  margin-top: 1.5rem;
 
   .columns {
     padding: 0;
@@ -92,11 +93,11 @@
   z-index: 1000;
 
   @media #{$large-up} {
-    margin-left: 12rem;
+    margin-left: 14.5rem;
   }
 }
 
-.orders_search_result, .items_search_result {
+.orders_search_result {
   padding-top: 3rem;
 }
 

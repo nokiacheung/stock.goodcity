@@ -1,5 +1,6 @@
 import Ember from "ember";
 import InfinityRoute from "ember-infinity/mixins/route";
+import config from '../../config/environment';
 
 export default Ember.Controller.extend(InfinityRoute, {
   sortProperties: ['itemId:desc', 'updatedAt:desc'],
@@ -9,10 +10,10 @@ export default Ember.Controller.extend(InfinityRoute, {
   isLoading: false,
   hasNoResults: false,
   itemSetId: null,
-  displaySetBlock: true,
-  autoDisplayOverlay: false,
-  displayAllItems: false,
-  displayItemOptions: true,
+  isMobileApp: config.cordova.enabled,
+  displayItemOptions: false,
+  displaySetBlock: false,
+  displayItemOptionsList: true,
 
   hasSearchText: Ember.computed("searchText", function() {
     return !!this.get("searchText").trim();
@@ -25,7 +26,6 @@ export default Ember.Controller.extend(InfinityRoute, {
   }),
 
   applyFilter() {
-    this.set("autoDisplayOverlay", false);
     var searchText = this.get("searchText").trim();
     if (searchText) {
       this.set("isLoading", true);
@@ -45,15 +45,6 @@ export default Ember.Controller.extend(InfinityRoute, {
   actions: {
     clearSearch() {
       this.set("searchText", "");
-    },
-
-    displayAllItems() {
-      this.set("displayAllItems", true);
-    },
-
-    displaySetItems(item) {
-      this.set("itemSetId", item.get("itemId"));
-      Ember.run.debounce(this, this.applyFilter, 0);
     }
   },
 
