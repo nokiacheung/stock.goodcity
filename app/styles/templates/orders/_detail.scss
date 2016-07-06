@@ -43,14 +43,21 @@
 
   .main_details {
     margin: 0.5rem 0.3rem;
+    font-size: 0.8rem;
+    border-bottom: 1px solid;
+
+    .row {
+      margin: 0.8rem 0;
+    }
 
     .icons {
       text-align: center;
       font-size: 1.5rem;
+      top: -0.2rem;
     }
 
-    .user_name {
-      line-height: 2.2rem;
+    a {
+      color: inherit !important;
     }
 
     .arrow-icon {
@@ -116,7 +123,6 @@
   .show_more {
     padding: 1rem;
     text-align: center;
-    border-bottom: 1px solid;
     cursor: pointer;
   }
 

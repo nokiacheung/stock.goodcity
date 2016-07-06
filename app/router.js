@@ -14,11 +14,11 @@ Router.map(function() {
   this.route("orders", function() {
     this.route("detail", { path: "/:order_id" });
     this.route("items", { path: "/:order_id/items" });
+    this.route("contact", { path: "/:order_id/contact" });
+    this.route("client", { path: "/:order_id/client" });
+    this.route("info", { path: "/:order_id/info" });
   });
 
-  this.route("contacts", function() {
-    this.route("detail", { path: "/:contact_id" });
-  });
 });
 
 export default Router;
