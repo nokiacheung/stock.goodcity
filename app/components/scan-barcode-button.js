@@ -3,8 +3,7 @@ import Ember from "ember";
 export default Ember.Component.extend({
 
   messageBox: Ember.inject.service(),
-  order: null,
-  item: null,
+  record: null,
 
   actions: {
 
