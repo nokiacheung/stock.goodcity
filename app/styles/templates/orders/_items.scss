@@ -56,7 +56,10 @@
   }
 
   .fa-times-circle {
-    right: 6%;
+    right: 3%;
+    @media #{$small-only} {
+      right: 1%;
+    }
   }
 }
 
