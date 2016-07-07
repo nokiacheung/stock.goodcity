@@ -5,6 +5,7 @@ export default Ember.Component.extend({
 
   messageBox: Ember.inject.service(),
   order: null,
+  item: null,
 
   actions: {
 
@@ -12,7 +13,12 @@ export default Ember.Component.extend({
 
       var onSuccess = res => {
         if (!res.cancelled) {
-          this.get('router').transitionTo(route, this.get("order"), {queryParams: { searchText: res.text } });
+          if (route === "order.items") {
+            this.get('router').transitionTo(route, this.get("order"), {queryParams: { searchText: res.text } });
+          }
+          else if (route === "items.index") {
+            this.get('router').transitionTo(route, this.get("item"), {queryParams: { searchText: res.text } });
+          }
         }
       };
       var onError = error => this.get("messageBox").alert("Scanning failed: " + error);
