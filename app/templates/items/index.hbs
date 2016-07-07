@@ -1,5 +1,5 @@
-<div class="row fixed_search_header">
-  <div class="columns {{if isMobileApp 'small-7 large-9' 'small-12 search-box ui'}} ">
+<div class="row fixed_search_header search-box ui items-search">
+  <div class="{{if isMobileApp 'small-10 large-10' 'small-12'}} columns">
     {{focus-textfield
       name="searchText"
       id="searchText"
@@ -12,7 +12,7 @@
   </div>
 
   {{#if isMobileApp}}
-    <div class="small-2 large-1 columns scan-button">
+    <div class="small-2 columns scan-button">
       {{scan-barcode-button item=model route="items.index"}}
     </div>
   {{/if}}

@@ -11,6 +11,7 @@
       id="searchText"
       placeholder="Search"
       value=searchText }}
+
     {{#if hasSearchText}}
       <i class="fa fa-times-circle" {{action "clearSearch"}}></i>
     {{/if}}
@@ -18,7 +19,7 @@
 
   {{#if isMobileApp}}
     <div class="small-2 large-1 columns scan-button">
-      {{scan-barcode-button order=model route="orders.items"}}
+      {{scan-barcode-button order=model}}
     </div>
   {{/if}}
 </div>
