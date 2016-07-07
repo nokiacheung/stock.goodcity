@@ -13,10 +13,14 @@
     {{t "item.designate"}}
   </div>
 
-  <div class="disabled">
-    <i class="fa item-menu fa-exclamation-triangle"></i>
-    {{t "item.dispatch"}}
-  </div>
+  {{#if item.sentOn}}
+    {{ undispatch-item item=item closeList=(action 'toggle' true) }}
+  {{else}}
+    <div class="disabled">
+      <i class="fa item-menu fa-exclamation-triangle"></i>
+      {{t "item.dispatch"}}
+    </div>
+  {{/if}}
 
   <div class="disabled">
     <i class="fa item-menu fa-pencil-square-o"></i>
