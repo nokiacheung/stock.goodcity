@@ -27,58 +27,62 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="main_details">
-      <div class="small-2 columns icons">
-        <i class="fa fa-users"></i>
+  <div class="row ">
+    <div class="small-12 columns main_details">
+      <div class="row">
+        <div class="small-4 columns">
+          Organisation:
+        </div>
+        <div class="small-8 columns">
+          {{{apply-line-break model.organisation.name}}}
+        </div>
       </div>
-      <div class="small-10 columns">
-        {{{apply-line-break model.organisation.name}}}
-      </div>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="main_details">
-      <div class="small-2 columns icons">
-        <i class="fa fa-user"></i>
+      <div class="row">
+        {{#link-to "orders.contact" model.id}}
+          <div class="small-4 columns">
+            Contact:
+          </div>
+          <div class="small-7 columns">
+            {{model.contact.fullName}}
+          </div>
+          <div class="small-1 columns icons">
+            <i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i>
+          </div>
+        {{/link-to}}
       </div>
-      {{#link-to "contacts.detail" model.contact.id}}
-      <div class="small-8 columns user_name">
-          {{model.contact.fullName}}
-      </div>
-      <div class="small-2 columns icons">
-        <i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i>
-      </div>
-      {{/link-to}}
-    </div>
-  </div>
 
-  <div class="client_details">
-    <div class="row">
-      <div class="small-4 large-2 columns icons">
-        {{t "order_details.client_name"}}
-      </div>
-      <div class="small-8 large-10 columns user_name">
-        {{model.localOrder.clientName}}
-      </div>
-    </div>
+      <div class="row">
+        {{#link-to "orders.client" model.id}}
+          <div class="small-4 columns">
+            Client:
+          </div>
 
-    <div class="row">
-      <div class="small-4 large-2 columns icons">
-        {{t "order_details.hkid"}}
+          <div class="small-7 columns">
+            {{model.localOrder.clientName}}
+            {{#if model.localOrder.hkidNumber}}
+              ({{model.localOrder.hkidNumber}})
+            {{/if}}
+          </div>
+          <div class="small-1 columns icons">
+            <i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i>
+          </div>
+        {{/link-to}}
       </div>
-      <div class="small-8 large-10 columns user_name">
-        {{model.localOrder.hkidNumber}}
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="small-4 large-2 columns icons">
-        {{t "order_details.reference"}}
-      </div>
-      <div class="small-8 large-10 columns user_name">
-        {{model.localOrder.referenceNumber}}
+      <div class="row">
+        {{#link-to "orders.info" model.id}}
+          <div class="small-4 columns">
+            Order Info:
+          </div>
+
+          <div class="small-7 columns ellipsis two-line-ellipsis">
+            {{model.localOrder.purposeOfGoods}}
+          </div>
+          <div class="small-1 columns icons">
+            <i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i>
+          </div>
+        {{/link-to}}
       </div>
     </div>
   </div>
@@ -111,41 +115,6 @@
         {{t "order_details.show_more_items"}} <i class="fa fa-angle-down back_icon" aria-hidden="true"></i>
       </div>
     {{/unless}}
-  </div>
-
-  <div class="other_details">
-    <div class="row heading">
-      <div class="small-12 columns">
-        Details
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="small-4 columns">
-        Activity:
-      </div>
-      <div class="small-8 columns">
-        Community Development
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="small-4 columns">
-        Description:
-      </div>
-      <div class="small-8 columns">
-        We give migrant mothers the tools to understand their more
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="small-4 columns">
-        Purpose:
-      </div>
-      <div class="small-8 columns">
-        To equip our offer so that we can better serve our consituents more
-      </div>
-    </div>
   </div>
 
 </section>

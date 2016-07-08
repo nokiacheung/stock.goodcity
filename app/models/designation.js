@@ -8,6 +8,8 @@ export default Model.extend({
   status:       attr('string'),
   createdAt:    attr('date'),
   code:         attr('string'),
+  activity:     attr('string'),
+  description:  attr('string'),
   detailType:   attr('string'),
   detailId:     attr('number'),
 

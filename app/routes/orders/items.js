@@ -1,13 +1,9 @@
-import AuthorizeRoute from './../authorize';
+import getOrderRoute from './get_order';
 
-export default AuthorizeRoute.extend({
+export default getOrderRoute.extend({
 
   queryParams: {
     searchText: ""
-  },
-
-  model(params) {
-    return this.store.findRecord("designation", params.order_id);
   },
 
   setupController(controller, model){

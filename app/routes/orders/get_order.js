@@ -1,7 +1,9 @@
 import AuthorizeRoute from './../authorize';
 
 export default AuthorizeRoute.extend({
-  model() {
-    // return this.store.findRecord("contact", params.contact_id);
+
+  model(params) {
+    return this.store.findRecord("designation", params.order_id);
   },
+
 });
