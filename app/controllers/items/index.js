@@ -3,8 +3,7 @@ import InfinityRoute from "ember-infinity/mixins/route";
 import config from '../../config/environment';
 
 export default Ember.Controller.extend(InfinityRoute, {
-  sortProperties: ['itemId:desc', 'updatedAt:desc'],
-  arrangedItems: Ember.computed.sort("filteredResults", "sortProperties"),
+
   searchText: "",
   i18n: Ember.inject.service(),
   isLoading: false,
@@ -25,19 +24,29 @@ export default Ember.Controller.extend(InfinityRoute, {
 
   applyFilter() {
     var searchText = this.get("searchText").trim();
-    if (searchText) {
+    if (searchText.length > 0) {
       this.set("isLoading", true);
       this.set("hasNoResults", false);
+      this.get("store").unloadAll();
       this.infinityModel("item",
         { perPage: 25, startingPage: 1, modelPath: 'filteredResults', stockRequest: true },
         { searchText: "searchText" })
         .then(data => {
-          this.set("filteredResults", data);
-          this.set("hasNoResults", data.get("length") === 0);
+
+            this.set("filteredResults", data);
+            this.set("hasNoResults", data.get("length") === 0);
+
         })
         .finally(() => this.set("isLoading", false));
     }
     this.set("filteredResults", []);
+  },
+
+  afterInfinityModel(records) {
+    var searchText = this.get("searchText").trim();
+    if (searchText.length === 0) {
+      records.replaceContent(0, 25, []);
+    }
   },
 
   actions: {

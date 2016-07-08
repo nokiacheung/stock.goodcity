@@ -7,7 +7,9 @@ export default getOrderRoute.extend({
   beforeModel() {
     var previousRoutes = this.router.router.currentHandlerInfos;
     var previousRoute = previousRoutes && previousRoutes.pop();
-    if(previousRoute) { this.set("backLinkPath", previousRoute.name); }
+    if(previousRoute && previousRoute.name !== "orders.items") {
+      this.set("backLinkPath", previousRoute.name);
+    }
   },
 
   setupController(controller, model){

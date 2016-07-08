@@ -29,7 +29,7 @@
 
       {{#if filteredResults}}
         <ul class="list list-activity list-offer-items">
-          {{#each arrangedItems as |item|}}
+          {{#each filteredResults as |item|}}
             {{partial 'orders/item_block'}}
           {{/each}}
         </ul>
