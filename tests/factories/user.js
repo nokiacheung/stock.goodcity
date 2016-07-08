@@ -1,8 +1,11 @@
 import FactoryGuy from 'ember-data-factory-guy';
 import mobile from './mobile';
 
-FactoryGuy.define('user_profile', {
+FactoryGuy.define('user', {
   sequences: {
+    id: function(num) {
+      return num + 100;
+    },
     collectionFirstName: function(num) {
       return 'Daniel' + num;
     },
