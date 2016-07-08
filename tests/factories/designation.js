@@ -1,0 +1,24 @@
+import FactoryGuy from 'ember-data-factory-guy';
+import './item';
+
+FactoryGuy.define('designation', {
+  sequences: {
+    id: function(num) {
+      return num;
+    },
+    code: function(num) {
+      return num;
+    }
+  },
+  default: {
+    id:               FactoryGuy.generate('id'),
+    code:             FactoryGuy.generate('code'),
+    detailType:       'StockitLocalOrder',
+    status:           'Active',
+    createdAt:        '12/07/2016',
+    updatedAt:        '12/07/2016',
+  },
+  designation_with_item: {
+    item: FactoryGuy.hasMany('item')
+  }
+});
