@@ -47,6 +47,7 @@ I18nTranslationsEn =
     "dispatch": "dispatch"
     "undispatch": "undispatch"
     "remove": "remove"
+    "move": "move"
 
   "designate":
     "designate": "Designate"

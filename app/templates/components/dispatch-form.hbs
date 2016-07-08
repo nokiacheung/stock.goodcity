@@ -1,8 +1,5 @@
 {{#if item.sentOn}}
-  <div {{action 'undispatchItem'}}>
-    <i class="fa item-menu fa-exclamation-triangle"></i>
-    {{t "item.undispatch"}}
-  </div>
+  {{undispatch-item item=item closeList=closeList }}
 {{else}}
   <div {{action 'displayDispatchOverlay'}}>
     <i class="fa item-menu fa-exclamation-triangle"></i>

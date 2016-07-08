@@ -3,6 +3,7 @@ import config from '../../config/environment';
 
 export default Ember.Controller.extend({
 
+  backLinkPath: "",
   displayAllItems: false,
   displayItemOptions: true,
   isMobileApp: config.cordova.enabled,

@@ -1,11 +1,5 @@
 <div class="row fixed_search_header search-box ui items-search">
-  <div class="small-3 large-2 columns ">
-    {{#link-to 'orders.detail' model classNames="back"}}
-      <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
-      <div class="back_text">{{model.code}}</div>
-    {{/link-to}}
-  </div>
-  <div class="columns {{if isMobileApp 'small-7 large-9' 'small-9 large-10'}} ">
+  <div class="{{if isMobileApp 'small-10 large-10' 'small-12'}} columns">
     {{focus-textfield
       name="searchText"
       id="searchText"
@@ -18,13 +12,13 @@
   </div>
 
   {{#if isMobileApp}}
-    <div class="small-2 large-1 columns scan-button">
-      {{scan-barcode-button record=model route="orders.items"}}
+    <div class="small-2 columns scan-button">
+      {{scan-barcode-button record=model route="items"}}
     </div>
   {{/if}}
 </div>
 
-<section class="main-section items_search_result">
+<section class="main-section orders_search_result">
   <div class="row search">
     <div class="small-12 columns">
       {{#if isLoading}}
@@ -36,9 +30,7 @@
       {{#if filteredResults}}
         <ul class="list list-activity list-offer-items">
           {{#each filteredResults as |item|}}
-            {{#designate-form order=model item=item autoDisplayOverlay=autoDisplayOverlay displaySetItems=(action "displaySetItems" item)}}
-              {{partial 'orders/item_block'}}
-            {{/designate-form}}
+            {{partial 'orders/item_block'}}
           {{/each}}
         </ul>
 
@@ -51,4 +43,5 @@
     </div>
   </div>
 
+  {{partial "sticky_footer"}}
 </section>
