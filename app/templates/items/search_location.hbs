@@ -31,7 +31,7 @@
       {{#if filteredResults}}
         <ul class="list list-activity list-offer-items">
           {{#each filteredResults as |location|}}
-            <li>
+            <li {{action 'displayMoveOverlay' location}}>
               <div class="row">
                 <div class="small-6 columns building_name">
                   {{location.building}}
@@ -54,3 +54,33 @@
   </div>
 
 </section>
+
+{{#message-box btn1Text=(t "item.move") btn1Callback=(action "moveItem") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
+
+  <p>Moving this item to Bldg {{selectedLocation.building}} Area {{selectedLocation.area}}</p>
+
+  {{partial 'orders/item_block'}}
+
+  <div class="warnings">
+
+    {{#if (is-greater item.quantity 1)}}
+      <div class="warning_text">
+        <i class="fa fa-exclamation-triangle"></i>
+        Moves quantity of {{item.quantity}}
+      </div>
+    {{/if}}
+
+    {{#if item.isSet}}
+      <div class="warning_text">
+        <i class="fa fa-exclamation-triangle"></i>
+        Moves only part of set.
+      </div>
+
+      {{input type="checkbox" checked=showAllSetItems id=(concat "item" item.id)}}
+      <label for="{{concat "item" item.id}}" >Show other parts from the same set next</label>
+
+    {{/if}}
+
+  </div>
+{{/message-box}}
+
