@@ -1,4 +1,5 @@
 import getOrderRoute from './get_order';
+import Ember from 'ember';
 
 export default getOrderRoute.extend({
 
