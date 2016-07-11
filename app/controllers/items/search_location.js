@@ -9,7 +9,8 @@ export default Ember.Controller.extend(InfinityRoute, {
   i18n: Ember.inject.service(),
   isLoading: false,
   hasNoResults: false,
-  item: Ember.computed.alias("model"),
+  item: Ember.computed.alias("model.item"),
+  recentlyUsedLocations: Ember.computed.alias("model.locations"),
 
   displayUserPrompt: false,
   showAllSetItems: false,
@@ -39,6 +40,8 @@ export default Ember.Controller.extend(InfinityRoute, {
 
         })
         .finally(() => this.set("isLoading", false));
+    } else {
+      this.set("hasNoResults", false);
     }
     this.set("filteredResults", []);
   },
