@@ -17,9 +17,8 @@
   {{#if item.sentOn}}
     {{ undispatch-item item=item closeList=(action 'toggle' true) }}
   {{else}}
-    <div class="disabled">
-      <i class="fa item-menu fa-exclamation-triangle"></i>
-      {{t "item.dispatch"}}
+    <div class="{{unless item.designation 'disabled'}}">
+      {{dispatch-form item=item order=item.designation closeList=(action 'toggle' true) }}
     </div>
   {{/if}}
 
