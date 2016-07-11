@@ -11,7 +11,9 @@ Router.map(function() {
   this.route('login');
   this.route('authenticate');
 
-  this.route("items", function() {});
+  this.route("items", function() {
+    this.route("search_location", { path: "/:item_id/search_location" });
+  });
 
   this.route("orders", function() {
     this.route("detail", { path: "/:order_id" });

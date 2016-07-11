@@ -1,0 +1,86 @@
+<div class="row fixed_search_header search-box ui items-search">
+  <div class="small-3 large-2 columns ">
+    {{#link-to 'items' classNames="back"}}
+      <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
+      <div class="back_text">{{model.inventoryNumber}}</div>
+    {{/link-to}}
+  </div>
+
+  <div class="small-9 large-10 columns">
+    {{focus-textfield
+      name="searchText"
+      id="searchText"
+      placeholder="Search"
+      value=searchText }}
+
+    {{#if hasSearchText}}
+      <i class="fa fa-times-circle" {{action "clearSearch"}}></i>
+    {{/if}}
+  </div>
+</div>
+
+<section class="main-section orders_search_result">
+  <div class="row search">
+    <div class="small-12 columns">
+      {{#if isLoading}}
+        <div class="loading_screen">
+          {{partial 'loading'}}
+        </div>
+      {{/if}}
+
+      {{#if filteredResults}}
+        <ul class="list list-activity list-offer-items">
+          {{#each filteredResults as |location|}}
+            <li {{action 'displayMoveOverlay' location}}>
+              <div class="row">
+                <div class="small-6 columns building_name">
+                  {{location.building}}
+                </div>
+                <div class="small-6 columns">
+                  {{location.area}}
+                </div>
+              </div>
+            </li>
+          {{/each}}
+        </ul>
+
+        {{#infinity-loader}}
+        {{/infinity-loader}}
+
+      {{else if hasNoResults}}
+        <div class='no_result'>{{t "no_search_results"}}</div>
+      {{/if}}
+    </div>
+  </div>
+
+</section>
+
+{{#message-box btn1Text=(t "item.move") btn1Callback=(action "moveItem") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
+
+  <p>Moving this item to Bldg {{selectedLocation.building}} Area {{selectedLocation.area}}</p>
+
+  {{partial 'orders/item_block'}}
+
+  <div class="warnings">
+
+    {{#if (is-greater item.quantity 1)}}
+      <div class="warning_text">
+        <i class="fa fa-exclamation-triangle"></i>
+        Moves quantity of {{item.quantity}}
+      </div>
+    {{/if}}
+
+    {{#if item.isSet}}
+      <div class="warning_text">
+        <i class="fa fa-exclamation-triangle"></i>
+        Moves only part of set.
+      </div>
+
+      {{input type="checkbox" checked=showAllSetItems id=(concat "item" item.id)}}
+      <label for="{{concat "item" item.id}}" >Show other parts from the same set next</label>
+
+    {{/if}}
+
+  </div>
+{{/message-box}}
+

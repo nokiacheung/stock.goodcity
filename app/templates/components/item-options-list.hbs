@@ -3,10 +3,11 @@
 </div>
 
 <div class="receive-item-options {{if hidden 'hidden'}}">
-  <div class="disabled">
+
+  {{#link-to 'items.search_location' item tagName='div' href=false class="(if item.sentOn 'disabled')"}}
     <i class="fa item-menu fa fa-map-marker"></i>
     {{t "item.move"}}
-  </div>
+  {{/link-to}}
 
   <div class="disabled">
     <i class="fa item-menu fa fa-shopping-basket"></i>

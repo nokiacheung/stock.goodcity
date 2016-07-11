@@ -1,14 +1,12 @@
 import AuthorizeRoute from './../authorize';
 
 export default AuthorizeRoute.extend({
-
-  queryParams: {
-    itemSetId: ""
+  model(params) {
+    return this.store.peekRecord("item", params.item_id);
   },
 
   setupController(controller, model){
     this._super(controller, model);
-    controller.set('itemSetId', this.paramsFor('items.index').itemSetId);
+    controller.set('searchText', "");
   }
-
 });
