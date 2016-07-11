@@ -1,0 +1,67 @@
+<div class="row fixed_search_header search-box ui items-search">
+  <div class="small-3 large-2 columns ">
+    {{#link-to 'items' classNames="back"}}
+      <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
+      <div class="back_text">
+        <i class="fa fa-tag"></i>
+        {{item.inventoryNumber}}
+      </div>
+    {{/link-to}}
+  </div>
+
+  <div class="small-9 large-10 columns">
+    {{focus-textfield
+      name="searchText"
+      id="searchText"
+      placeholder="Search"
+      value=searchText }}
+
+    {{#if hasSearchText}}
+      <i class="fa fa-times-circle" {{action "clearSearch"}}></i>
+    {{/if}}
+  </div>
+</div>
+
+<section class="main-section orders_search_result">
+  <div class="row search">
+    <div class="small-12 columns">
+      {{#if isLoading}}
+        <div class="loading_screen">
+          {{partial 'loading'}}
+        </div>
+      {{else}}
+
+        {{#if filteredResults}}
+          <ul class="list list-activity list-offer-items">
+            {{#each filteredResults as |order|}}
+              <a {{action "setOrder" order}}>
+                {{partial 'orders/order_block'}}
+              </a>
+            {{/each}}
+          </ul>
+
+          {{#infinity-loader}}
+          {{/infinity-loader}}
+
+        {{else if hasNoResults}}
+          <div class='no_result'>{{t "no_search_results"}}</div>
+        {{else if recentlyUsedDesignations}}
+
+          <div class="recent_locations">Recently used designations</div>
+
+          <ul class="list list-activity list-offer-items">
+            {{#each recentlyUsedDesignations as |order|}}
+              <a {{action "setOrder" order}}>
+                {{partial 'orders/order_block'}}
+              </a>
+            {{/each}}
+          </ul>
+
+        {{/if}}
+      {{/if}}
+    </div>
+  </div>
+
+</section>
+
+{{designate-form order=order item=item}}

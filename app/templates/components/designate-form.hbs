@@ -4,7 +4,7 @@
 
   <p>{{t "designate.form_title" code=order.code}}</p>
 
-  {{yield}}
+  {{partial 'orders/item_block'}}
 
   <div class="warnings">
 
@@ -42,6 +42,6 @@
 
   <p>{{t "designate.already_designated" code=order.code}}</p>
 
-  {{yield}}
+  {{partial 'orders/item_block'}}
 
 {{/message-box}}
