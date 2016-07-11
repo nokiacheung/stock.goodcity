@@ -1,3 +1,4 @@
+import Ember from "ember";
 import AuthorizeRoute from './../authorize';
 
 export default AuthorizeRoute.extend({
