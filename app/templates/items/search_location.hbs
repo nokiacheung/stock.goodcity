@@ -2,7 +2,10 @@
   <div class="small-3 large-2 columns ">
     {{#link-to 'items' classNames="back"}}
       <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
-      <div class="back_text">{{model.inventoryNumber}}</div>
+      <div class="back_text">
+        <i class="fa fa-tag"></i>
+        {{model.inventoryNumber}}
+      </div>
     {{/link-to}}
   </div>
 

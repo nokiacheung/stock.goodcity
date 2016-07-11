@@ -24,6 +24,7 @@
     text-decoration: none;
     top: 0.5rem;
     margin-left: 0;
+    margin-right: -1rem;
 
     @media #{$small-only} {
       top: 0.6rem;
@@ -52,6 +53,13 @@
     @media #{$small-only} {
       font-size: 0.8rem;
       vertical-align: baseline;
+    }
+
+    .fa-tag {
+      font-size: inherit;
+      position: initial;
+      padding: 0;
+      color: #a3aab6;
     }
   }
 
