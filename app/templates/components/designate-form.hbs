@@ -2,7 +2,7 @@
 
 {{#message-box btn1Text=(t "designate.designate") btn1Callback=(action "designateItem") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
 
-  <p>Designating this item to order {{order.code}}</p>
+  <p>{{t "designate.form_title" code=order.code}}</p>
 
   {{yield}}
 
@@ -11,25 +11,25 @@
     {{#if item.designation}}
       <div class="warning_text">
         <i class="fa fa-exclamation-triangle"></i>
-        Overrides an existing designation.
+        {{t "designate.overrides_existing"}}
       </div>
     {{/if}}
 
     {{#if (is-greater item.quantity 1)}}
       <div class="warning_text">
         <i class="fa fa-exclamation-triangle"></i>
-        Designates quantity of {{item.quantity}}
+        {{t "designate.quantity" quantity=item.quantity}}
       </div>
     {{/if}}
 
     {{#if item.isSet}}
       <div class="warning_text">
         <i class="fa fa-exclamation-triangle"></i>
-        Designates only part of set.
+        {{t "designate.set_part"}}
       </div>
 
       {{input type="checkbox" checked=showAllSetItems id=(concat "item" item.id)}}
-      <label for="{{concat "item" item.id}}" >Show other parts from the same set next</label>
+      <label for="{{concat "item" item.id}}" >{{t "item.show_set_items"}}</label>
 
     {{/if}}
 
@@ -40,7 +40,7 @@
 
 {{#message-box btn1Text=(t "okay") isVisible=displayAlertOverlay classNames="popupOverlay designate-form"}}
 
-  <p>This item is alreday designated to order {{order.code}}.</p>
+  <p>{{t "designate.already_designated" code=order.code}}</p>
 
   {{yield}}
 

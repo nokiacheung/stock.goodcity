@@ -50,15 +50,23 @@ I18nTranslationsEn =
     "move": "move"
 
   "designate":
+    "form_title": "Designating this item to order {{code}}"
     "designate": "Designate"
+    "overrides_existing": "Overrides an existing designation."
+    "quantity" : "Designates quantity of {{quantity}}."
+    "set_part": "Designates only part of set."
+    "already_designated": "This item is alreday designated to order {{code}}."
 
   "undesignate":
+    "form_title": "Remove this item from order {{code}}"
     "undesignate": "Undesignate"
+    "quantity": "Undesignates quantity of {{quantity}}."
+    "set_part": "Undesignates only part of set."
 
   "dispatch":
     "dispatch": "Dispatch"
     "from_order": "Dispatch this item from order {{code}}"
-    "dispatch_quantity": "Dispatches quantity of {{quantity}}"
+    "dispatch_quantity": "Dispatches quantity of {{quantity}}."
     "dispatch_set": "Dispatches only part of set."
     "all_items_dispatched": "All items from this order have been dispatched. Please close this order in StockIt."
 
