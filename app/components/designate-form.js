@@ -8,7 +8,16 @@ export default Ember.Component.extend({
   showAllSetItems: false,
   autoDisplayOverlay: false,
 
+  order: null,
+  item: null,
+
   store: Ember.inject.service(),
+
+  triggerOrderClick: Ember.observer("order", function() {
+    if(this.get("order")) {
+      this.send("displayDesignateOverlay");
+    }
+  }),
 
   isDesignatedToCurrentOrder: Ember.computed('order', 'item', function() {
     return this.get("order.items").findBy("id", this.get("item.id"));

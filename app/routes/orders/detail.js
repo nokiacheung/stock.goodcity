@@ -8,17 +8,16 @@ export default getOrderRoute.extend({
   beforeModel() {
     var previousRoutes = this.router.router.currentHandlerInfos;
     var previousRoute = previousRoutes && previousRoutes.pop();
+    var path = "orders.index";
     if(previousRoute && previousRoute.name !== "orders.items") {
-      this.set("backLinkPath", previousRoute.name);
+      path = previousRoute.name === "items.search_order" ? "items" : previousRoute.name;
     }
+    this.set("backLinkPath", path);
   },
 
   setupController(controller, model){
     this._super(controller, model);
     controller.set('displayAllItems', model.get('items.length') <= 3);
-
-    var path = this.get('backLinkPath') !== null ? this.get('backLinkPath') : "orders.index";
-    controller.set('backLinkPath', path);
-
+    controller.set('backLinkPath', this.get('backLinkPath'));
   }
 });
