@@ -6,7 +6,7 @@ export default AuthorizeRoute.extend({
   model(params) {
     return Ember.RSVP.hash({
       item: this.store.peekRecord("item", params.item_id),
-      // locations: this.store.query('location', { recently_used: true })
+      designations: this.store.query('designation', { recently_used: true })
     });
   },
 

@@ -8,7 +8,9 @@ export default Ember.Controller.extend(InfinityRoute, {
   isLoading: false,
   hasNoResults: false,
   item: Ember.computed.alias("model.item"),
-  recentlyUsedDesignations: Ember.computed.alias("model.designations"),
+
+  sortProperties: ["createdAt:desc"],
+  recentlyUsedDesignations: Ember.computed.sort("model.designations", "sortProperties"),
 
   displayUserPrompt: false,
   showAllSetItems: false,
