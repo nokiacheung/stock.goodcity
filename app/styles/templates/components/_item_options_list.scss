@@ -22,6 +22,7 @@
   .disabled {
     color: $org-grey;
     cursor: default;
+    pointer-events: none;
   }
 }
 .receive-item-options, .options-link-open {
