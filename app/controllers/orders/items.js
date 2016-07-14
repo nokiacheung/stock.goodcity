@@ -1,27 +1,13 @@
-import Ember from "ember";
-import InfinityRoute from "ember-infinity/mixins/route";
 import config from '../../config/environment';
+import Ember from "ember";
+import searchModule from "../search_module";
 
-export default Ember.Controller.extend(InfinityRoute, {
-  searchText: "",
+export default searchModule.extend({
+
   orderId: Ember.computed.alias("model.id"),
-  i18n: Ember.inject.service(),
-  isLoading: false,
-  hasNoResults: false,
-  itemSetId: null,
   displaySetBlock: true,
   isMobileApp: config.cordova.enabled,
   autoDisplayOverlay: false,
-
-  hasSearchText: Ember.computed("searchText", function() {
-    return !!this.get("searchText").trim();
-  }),
-
-  onSearchTextChange: Ember.observer("searchText", function() {
-    // wait before applying the filter
-    this.set("itemSetId", null);
-    Ember.run.debounce(this, this.applyFilter, 500);
-  }),
 
   applyFilter() {
     this.set("autoDisplayOverlay", false);
@@ -33,8 +19,10 @@ export default Ember.Controller.extend(InfinityRoute, {
         { perPage: 25, startingPage: 1, modelPath: 'filteredResults', stockRequest: true },
         { orderId: "orderId", searchText: "searchText", itemId: "itemSetId" })
         .then(data => {
-          this.set("filteredResults", data);
-          this.set("hasNoResults", data.get("length") === 0);
+          if(this.get("searchText").trim() === data.meta.search) {
+            this.set("filteredResults", data);
+            this.set("hasNoResults", data.get("length") === 0);
+          }
 
           if(data.get("length") === 1) {
             Ember.run.debounce(this, this.triggerDisplayDesignateOverlay, 100);
@@ -50,10 +38,6 @@ export default Ember.Controller.extend(InfinityRoute, {
   },
 
   actions: {
-    clearSearch() {
-      this.set("searchText", "");
-    },
-
     displaySetItems(item) {
       this.set("itemSetId", item.get("itemId"));
       Ember.run.debounce(this, this.applyFilter, 0);

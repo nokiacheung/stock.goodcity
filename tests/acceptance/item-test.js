@@ -24,7 +24,7 @@ test('visiting /items', function(assert) {
   assert.expect(1);
   visit('/items');
 
-  mockFindAll('item').returns({ json: {items: [item.toJSON({includeId:true})]} });
+  mockFindAll('item').returns({ json: {items: [item.toJSON({includeId:true})], meta: {search: item.get('notes').toString()}}});
 
   fillIn('#searchText', item.get('notes'));
   andThen(function() {
