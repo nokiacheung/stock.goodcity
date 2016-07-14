@@ -25,7 +25,7 @@ module('Acceptance: Order', {
 test('visiting /orders', function(assert) {
   assert.expect(1);
   visit('/orders');
-  mockFindAll('designation').returns({ json: {designations: [designation.toJSON({includeId: true})]} });
+  mockFindAll('designation').returns({ json: {designations: [designation.toJSON({includeId: true})], meta: {search: designation.get('code').toString()}}});
 
   fillIn('#searchText', designation.get('code'));
   andThen(function() {
