@@ -7,6 +7,7 @@ export default Model.extend({
 
   status:       attr('string'),
   createdAt:    attr('date'),
+  recentlyUsedAt: attr('date'),
   code:         attr('string'),
   activity:     attr('string'),
   description:  attr('string'),
