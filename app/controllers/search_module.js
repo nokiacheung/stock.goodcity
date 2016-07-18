@@ -22,6 +22,7 @@ export default Ember.Controller.extend(InfinityRoute, {
   isLoading: false,
   hasNoResults: false,
   itemSetId: null,
+  unloadAll: false,
 
   hasSearchText: Ember.computed("searchText", function() {
     return !!this.get("searchText").trim();
@@ -38,9 +39,10 @@ export default Ember.Controller.extend(InfinityRoute, {
     if (searchText.length > 0) {
       this.set("isLoading", true);
       this.set("hasNoResults", false);
-      this.get("store").unloadAll();
+      if(this.get("unloadAll")) { this.get("store").unloadAll(); }
+
       this.infinityModel(this.get("searchModelName"),
-        { perPage: 25, startingPage: 1, modelPath: 'filteredResults' },
+        { perPage: 25, startingPage: 1, modelPath: 'filteredResults',stockRequest: true },
         { searchText: "searchText", itemId: "itemSetId" })
         .then(data => {
           if(this.get("searchText").trim() === data.meta.search) {

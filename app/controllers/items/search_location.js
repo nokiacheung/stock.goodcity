@@ -1,15 +1,12 @@
 import Ember from "ember";
-import InfinityRoute from "ember-infinity/mixins/route";
+import searchModule from "../search_module";
 import AjaxPromise from 'stock/utils/ajax-promise';
 const { getOwner } = Ember;
 
-export default Ember.Controller.extend(InfinityRoute, {
+export default searchModule.extend({
 
-  searchText: "",
-  i18n: Ember.inject.service(),
-  isLoading: false,
-  hasNoResults: false,
   item: Ember.computed.alias("model.item"),
+  searchModelName: "location",
 
   sortProperties: ["createdAt:desc"],
   recentlyUsedLocations: Ember.computed.sort("model.locations", "sortProperties"),
@@ -18,48 +15,7 @@ export default Ember.Controller.extend(InfinityRoute, {
   showAllSetItems: false,
   selectedLocation: null,
 
-  hasSearchText: Ember.computed("searchText", function() {
-    return !!this.get("searchText").trim();
-  }),
-
-  onSearchTextChange: Ember.observer("searchText", function() {
-    // wait before applying the filter
-    Ember.run.debounce(this, this.applyFilter, 500);
-  }),
-
-  applyFilter() {
-    var searchText = this.get("searchText").trim();
-    if (searchText.length > 0) {
-      this.set("isLoading", true);
-      this.set("hasNoResults", false);
-      this.infinityModel("location",
-        { perPage: 25, startingPage: 1, modelPath: 'filteredResults', stockRequest: true },
-        { searchText: "searchText" })
-        .then(data => {
-
-            this.set("filteredResults", data);
-            this.set("hasNoResults", data.get("length") === 0);
-
-        })
-        .finally(() => this.set("isLoading", false));
-    } else {
-      this.set("hasNoResults", false);
-    }
-    this.set("filteredResults", []);
-  },
-
-  afterInfinityModel(records) {
-    var searchText = this.get("searchText").trim();
-    if (searchText.length === 0) {
-      records.replaceContent(0, 25, []);
-    }
-  },
-
   actions: {
-    clearSearch() {
-      this.set("searchText", "");
-    },
-
     displayMoveOverlay(location) {
       this.set("displayUserPrompt", true);
       this.set("selectedLocation", location);
