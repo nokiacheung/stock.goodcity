@@ -3,7 +3,21 @@ import InfinityRoute from "ember-infinity/mixins/route";
 
 export default Ember.Controller.extend(InfinityRoute, {
 
-  searchText: "",
+  sanitizeString(str){
+    str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");
+    return str.trim();
+  },
+
+  searchText: Ember.computed({
+    get() {
+      return "";
+    },
+
+    set(key, value) {
+      return this.sanitizeString(value);
+    }
+  }),
+
   i18n: Ember.inject.service(),
   isLoading: false,
   hasNoResults: false,
@@ -20,7 +34,7 @@ export default Ember.Controller.extend(InfinityRoute, {
   }),
 
   applyFilter() {
-    var searchText = this.get("searchText").trim();
+    var searchText = this.get("searchText");
     if (searchText.length > 0) {
       this.set("isLoading", true);
       this.set("hasNoResults", false);
@@ -40,7 +54,7 @@ export default Ember.Controller.extend(InfinityRoute, {
   },
 
   afterInfinityModel(records) {
-    var searchText = this.get("searchText").trim();
+    var searchText = this.get("searchText");
     if (searchText.length === 0 || searchText !== records.meta.search) {
       records.replaceContent(0, 25, []);
     }
