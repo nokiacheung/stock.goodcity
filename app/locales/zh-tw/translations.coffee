@@ -4,6 +4,7 @@ I18nTranslationsEn =
   "loading": "正在加載..."
   "back": "Back"
   "no_search_results": "No Search Results."
+  "search": "Search (min 3 characters)"
   "cancel": "Cancel"
   "ok" : "OK"
   "must_login": "You must login!"

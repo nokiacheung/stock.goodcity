@@ -7,7 +7,8 @@ FactoryGuy.define('designation', {
       return num;
     },
     code: function(num) {
-      return num;
+      var code = 24400 + num;
+      return "L" + code;
     }
   },
   default: {
