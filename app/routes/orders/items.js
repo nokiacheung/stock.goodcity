@@ -3,11 +3,11 @@ import getOrderRoute from './get_order';
 export default getOrderRoute.extend({
 
   queryParams: {
-    searchText: ""
+    searchInput: ""
   },
 
   setupController(controller, model){
     this._super(controller, model);
-    controller.set('searchText', this.paramsFor('orders.items').searchText || "");
+    controller.set('searchText', this.paramsFor('orders.items').searchInput || "");
   }
 });

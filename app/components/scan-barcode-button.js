@@ -11,7 +11,7 @@ export default Ember.Component.extend({
 
       var onSuccess = res => {
         if (!res.cancelled) {
-          this.get('router').transitionTo(route, this.get("record"), {queryParams: { searchText: res.text } });
+          this.get('router').transitionTo(route, this.get("record"), {queryParams: { searchInput: res.text } });
         }
       };
       var onError = error => this.get("messageBox").alert("Scanning failed: " + error);
