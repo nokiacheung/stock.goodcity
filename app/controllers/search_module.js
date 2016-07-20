@@ -25,13 +25,15 @@ export default Ember.Controller.extend(InfinityRoute, {
   unloadAll: false,
 
   hasSearchText: Ember.computed("searchText", function() {
-    return !!this.get("searchText").trim();
+    return !!this.get("searchText");
   }),
 
   onSearchTextChange: Ember.observer("searchText", function() {
     // wait before applying the filter
-    this.set("itemSetId", null);
-    Ember.run.debounce(this, this.applyFilter, 500);
+    if (this.get("searchText").length > 2) {
+      this.set("itemSetId", null);
+      Ember.run.debounce(this, this.applyFilter, 500);
+    }
   }),
 
   applyFilter() {
@@ -45,7 +47,7 @@ export default Ember.Controller.extend(InfinityRoute, {
         { perPage: 25, startingPage: 1, modelPath: 'filteredResults',stockRequest: true },
         { searchText: "searchText", itemId: "itemSetId" })
         .then(data => {
-          if(this.get("searchText").trim() === data.meta.search) {
+          if(this.get("searchText") === data.meta.search) {
             this.set("filteredResults", data);
             this.set("hasNoResults", data.get("length") === 0);
           }

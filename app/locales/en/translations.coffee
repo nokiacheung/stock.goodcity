@@ -3,6 +3,7 @@ I18nTranslationsEn =
   "okay": "Okay"
   "loading": "Loading..."
   "back": "Back"
+  "search": "Search (min 3 characters)"
   "no_search_results": "No Search Results."
   "cancel": "Cancel"
   "ok" : "OK"
