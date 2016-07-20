@@ -3,6 +3,7 @@ import Ember from "ember";
 export default Ember.TextField.extend({
   tagName: "input",
   type:    "text",
+  maxlength: "25",
   attributeBindings: [ "name", "id", "value", 'placeholder'],
   cordova: Ember.inject.service(),
 
