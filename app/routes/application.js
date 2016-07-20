@@ -31,7 +31,11 @@ export default Ember.Route.extend({
 
       if (status === 401) {
         if (this.session.get('isLoggedIn')) {
-          this.get('messageBox').alert(this.get("i18n").t('must_login'), () => this.send('logMeOut'));
+          this.get('messageBox').alert(this.get("i18n").t('must_login'), () => 
+            this.session.clear(),
+            this.store.unloadAll(),
+            this.transitionTo('login')
+          );
         }
       } else {
         this.get("logger").error(reason);
