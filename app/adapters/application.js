@@ -23,5 +23,12 @@ export default ActiveModelAdapter.extend({
       return config.APP.API_HOST_URL + "/" + config.APP.NAMESPACE + "/designations";
     }
     return this._super(...arguments);
+  },
+
+  urlForFindRecord(id, modelName) {
+    if(modelName === "item") {
+      Ember.set(arguments, "1", "stockit_item");
+    }
+    return this._super(...arguments);
   }
 });
