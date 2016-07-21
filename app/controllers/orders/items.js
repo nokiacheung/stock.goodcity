@@ -8,6 +8,7 @@ export default searchModule.extend({
   displaySetBlock: true,
   isMobileApp: config.cordova.enabled,
   autoDisplayOverlay: false,
+  minSearchTextLength: 2,
 
   applyFilter() {
     this.set("autoDisplayOverlay", false);

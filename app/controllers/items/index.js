@@ -9,6 +9,7 @@ export default searchModule.extend({
   displaySetBlock: false,
   displayItemOptionsList: true,
   searchModelName: "item",
+  minSearchTextLength: 2,
 
   onItemSetIdChange: Ember.observer("itemSetId", function() {
     // wait before applying the filter

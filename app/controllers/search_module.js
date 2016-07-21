@@ -23,6 +23,7 @@ export default Ember.Controller.extend(InfinityRoute, {
   hasNoResults: false,
   itemSetId: null,
   unloadAll: false,
+  minSearchTextLength: 0,
 
   hasSearchText: Ember.computed("searchText", function() {
     return !!this.get("searchText");
@@ -30,9 +31,11 @@ export default Ember.Controller.extend(InfinityRoute, {
 
   onSearchTextChange: Ember.observer("searchText", function() {
     // wait before applying the filter
-    if (this.get("searchText").length > 2) {
+    if (this.get("searchText").length > this.get("minSearchTextLength")) {
       this.set("itemSetId", null);
       Ember.run.debounce(this, this.applyFilter, 500);
+    } else {
+      this.set("filteredResults", []);
     }
   }),
 
