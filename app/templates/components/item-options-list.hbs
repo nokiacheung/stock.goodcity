@@ -4,15 +4,19 @@
 
 <div class="receive-item-options {{if hidden 'hidden'}}">
 
-  {{#link-to 'items.search_location' item.id tagName='div' href=false classNames=(if item.sentOn 'disabled')}}
-    <i class="fa item-menu fa fa-map-marker"></i>
-    {{t "item.move"}}
-  {{/link-to}}
+  <div class="{{if item.sentOn 'disabled'}}">
+    {{#link-to 'items.search_location' item.id tagName='div' href=false}}
+      <i class="fa item-menu fa fa-map-marker"></i>
+      {{t "item.move"}}
+    {{/link-to}}
+  </div>
 
-  {{#link-to 'items.search_order' item.id tagName='div' href=false classNames=(if item.sentOn 'disabled')}}
-    <i class="fa item-menu fa fa-shopping-basket"></i>
-    {{t "item.designate"}}
-  {{/link-to}}
+  <div class="{{if item.sentOn 'disabled'}}">
+    {{#link-to 'items.search_order' item.id tagName='div' href=false}}
+      <i class="fa item-menu fa fa-shopping-basket"></i>
+      {{t "item.designate"}}
+    {{/link-to}}
+  </div>
 
   {{#if item.sentOn}}
     {{ undispatch-item item=item closeList=(action 'toggle' true) }}
