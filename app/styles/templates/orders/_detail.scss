@@ -158,29 +158,6 @@
     background-color: #002353;
   }
 
-  .dispatch_details {
-    padding: 0.5rem;
-    background-color: #438BCA;
-    i {
-      color: $white;
-    }
-
-    div {
-      padding: 0;
-      &:last-child {
-        text-align: end;
-      }
-    }
-  }
-
-  .designated {
-    background-color: #334f75;
-  }
-
-  .dispatched {
-    background-color: #001C42;
-  }
-
   .name_details {
     float: left !important;
     padding-top: 0.3rem !important;
@@ -212,9 +189,33 @@
   .item_details {
     padding: 0 !important;
   }
+}
+
+.dispatch_details {
+  color: $white;
+  padding: 0.5rem;
+  background-color: #438BCA;
+  i {
+    color: $white;
+  }
+
+  div {
+    padding: 0;
+    &:last-child {
+      text-align: end;
+    }
+  }
 
   .location-name {
     text-align: center;
     word-break: break-all;
   }
+}
+
+.designated {
+  background-color: #334f75;
+}
+
+.dispatched {
+  background-color: #001C42;
 }

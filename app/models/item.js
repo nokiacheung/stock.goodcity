@@ -6,8 +6,14 @@ import Ember from "ember";
 export default Model.extend({
 
   notes:           attr('string'),
+  grade:           attr('string'),
   inventoryNumber: attr('string'),
   quantity:        attr('number'),
+
+  length:          attr('number'),
+  width:           attr('number'),
+  height:          attr('number'),
+
   sentOn:          attr('date'),
   isSet:           attr('boolean'),
   itemId:          attr('number'),
@@ -16,6 +22,7 @@ export default Model.extend({
   location:    belongsTo('location', { async: false }),
   image:       belongsTo('image', { async: false }),
   code:        belongsTo('code', { async: false }),
+  donorCondition: belongsTo('donor_condition', { async: false }),
 
   isDispatched: Ember.computed.bool('sentOn'),
   updatedAt: attr("date"),

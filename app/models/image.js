@@ -21,13 +21,8 @@ export default Model.extend({
       return null;
     }
 
-    if (!width) {
-      width = ",w_" + width;
-    }
-
-    if (!height) {
-      height = ",h_" + height;
-    }
+    width = width ? (",w_" + width) : "";
+    height = height ? (",h_" + height) : "";
 
     crop = crop === true ? "c_fill" : "c_fit";
 

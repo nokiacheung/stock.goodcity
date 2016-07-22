@@ -1,0 +1,92 @@
+<section class="main-section item_details_screen">
+
+  <div class="row">
+    <img src={{model.image.imageUrl}} class="profile"/>
+  </div>
+
+  <div class="row dispatch_details {{if model.sentOn 'dispatched'}} {{if model.designation 'designated'}}">
+    <div class="small-3 columns">
+      {{#if model.sentOn}}
+        {{#link-to 'orders.detail' model.designation tagName='span' href=false}}
+          <i class="fa fa-ship"></i> {{model.designation.code}}
+        {{/link-to}}
+      {{else if model.designation}}
+        {{#link-to 'orders.detail' model.designation tagName='span' href=false}}
+          <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
+        {{/link-to}}
+      {{else}}
+        <i class="fa fa-eye" aria-hidden="true"></i> In Stock
+      {{/if}}
+    </div>
+    <div class="small-6 columns location-name">
+      {{#unless model.sentOn}}
+        <i class="fa fa-map-marker"></i> {{model.location.name}}
+      {{/unless}}
+    </div>
+    <div class="small-3 columns">
+      <i class="fa {{if model.isSet 'fa-tags' 'fa-tag'}}"></i> {{model.inventoryNumber}}
+    </div>
+  </div>
+
+  <div class="row detail-section">
+    <div class="columns small-9">
+      <div class="row">
+        <div class="columns small-4">Quanity </div>
+        <div class="columns small-8 value"> {{model.quantity}} </div>
+      </div>
+      <div class="row">
+        <div class="columns small-4">Type </div>
+        <div class="columns small-8 value"> {{model.code.name}} </div>
+      </div>
+
+    </div>
+    <div class="columns small-3">
+      <img src={{model.image.thumbImageUrl}} class="thumb"/>
+    </div>
+  </div>
+
+  <div class="row detail-section">
+    <div class="columns small-11">
+      <div class="row">
+        <div class="columns small-3">Description </div>
+        <div class="columns small-9 value"> {{model.notes}} </div>
+      </div>
+    </div>
+    <div class="columns small-1 item_options_component">
+      {{item-options-list item=model}}
+    </div>
+  </div>
+
+  <div class="row detail-section">
+    <div class="columns small-12">
+
+      <div class="row">
+        <div class="columns small-3">Size (cm) </div>
+        <div class="columns small-3 value">
+          L: {{model.length}}
+          <span>X</span>
+        </div>
+
+        <div class="columns small-3 value">
+          W: {{model.width}}
+          <span>X</span>
+        </div>
+
+        <div class="columns small-3 value"> H: {{model.height}} </div>
+      </div>
+      <div class="row">
+        <div class="columns small-3">Quality: </div>
+        <div class="columns small-3 value">Grade {{model.grade}}</div>
+        <div class="columns small-6 value">Condition {{model.donorCondition.name}}</div>
+      </div>
+      <div class="row">
+        <div class="columns small-3">Donation#</div>
+        <div class="columns small-9 value"> CAS-49928 </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  {{partial "items/sticky_footer"}}
+</section>
