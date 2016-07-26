@@ -4,5 +4,6 @@ export default searchModule.extend({
 
   searchModelName: "designation",
   unloadAll: true,
+  minSearchTextLength: 2,
 
 });

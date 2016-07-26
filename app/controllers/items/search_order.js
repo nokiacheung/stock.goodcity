@@ -5,6 +5,7 @@ export default searchModule.extend({
 
   item: Ember.computed.alias("model.item"),
   searchModelName: "designation",
+  minSearchTextLength: 2,
 
   sortProperties: ["recentlyUsedAt:desc"],
   recentlyUsedDesignations: Ember.computed.sort("model.designations", "sortProperties"),
