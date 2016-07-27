@@ -1,5 +1,9 @@
 .item_details_screen {
 
+  .search {
+    margin-top: 0;
+  }
+
   span.back_link {
     padding: 0rem 0.8rem;
     font-size: 2rem;
@@ -74,5 +78,46 @@
     i {
       margin-right: 0.5rem;
     }
+  }
+}
+
+.image-action-list {
+  right: 16rem;
+  top: 9.5rem;
+  position: absolute;
+
+  @media #{$small-only} {
+    right: 1rem;
+    top: 6.5rem;
+  }
+}
+
+.no-avatar {
+  @media #{$small-only} {
+    line-height: 1.6rem;
+    width: 1.7rem;
+    height: 1.7rem;
+    font-size: 1rem;
+  }
+
+  display: inline-block !important;
+  margin-right: 1rem;
+  line-height: 1.8rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  font-size: 1.2rem;
+
+  display: block;
+  color: $white;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 50%;
+  background: $white;
+  font-weight: bold;
+  margin-top: 0.2rem;
+  border: 2px solid black;
+
+  i {
+    color: black;
   }
 }
