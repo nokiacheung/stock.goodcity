@@ -1,9 +1,16 @@
-import Model from 'ember-data/model';
+
 import attr from 'ember-data/attr';
 import { belongsTo } from 'ember-data/relationships';
 import Ember from "ember";
+import cloudinaryUrl from './cloudinary_url';
 
-export default Model.extend({
+export default cloudinaryUrl.extend({
+
+  imageUrl: Ember.computed.alias("image.imageUrl"),
+
+  thumbImageUrl: Ember.computed('cloudinaryId', function(){
+    return this.get("image.thumbImageUrl") || this.generateUrl(120, 120, true);
+  }),
 
   notes:           attr('string'),
   grade:           attr('string'),

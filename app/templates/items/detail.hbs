@@ -1,7 +1,19 @@
 <section class="main-section item_details_screen">
 
-  <div class="row">
-    <img src={{model.image.imageUrl}} class="profile"/>
+  <div class="row profile_container">
+
+    {{#link-to 'items.index' tagName='span' href=false class="back_link"}}
+      <i class="fa fa-angle-left" aria-hidden="true"></i>
+    {{/link-to}}
+
+    {{#if model.imageUrl}}
+      <img src={{model.imageUrl}} class="profile"/>
+    {{else}}
+      <div class="no_image">
+        <i class="fa fa-camera" aria-hidden="true"></i>
+        No image available.
+      </div>
+    {{/if}}
   </div>
 
   <div class="row dispatch_details {{if model.sentOn 'dispatched'}} {{if model.designation 'designated'}}">
@@ -41,7 +53,7 @@
 
     </div>
     <div class="columns small-3">
-      <img src={{model.image.thumbImageUrl}} class="thumb"/>
+      <img src={{model.thumbImageUrl}} class="thumb"/>
     </div>
   </div>
 

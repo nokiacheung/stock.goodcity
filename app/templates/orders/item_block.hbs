@@ -25,15 +25,17 @@
 
   <div class="row other_details item_details">
     <div class="small-3 large-2 columns image">
-      <img src="assets/images/default_item.jpg" class="thumb cl-item-image">
+      <img src={{item.thumbImageUrl}} class="thumb"/>
     </div>
 
-    <div class="small-6 large-8 columns name_details">
-      <div class="ellipsis name one-line-ellipsis">{{item.quantity}} x {{item.code.name}}</div>
-      <div class="ellipsis two-line-ellipsis">
-        {{item.notes}}
+    {{#link-to 'items.detail' item }}
+      <div class="small-6 large-8 columns name_details">
+        <div class="ellipsis name one-line-ellipsis">{{item.quantity}} x {{item.code.name}}</div>
+        <div class="ellipsis two-line-ellipsis">
+          {{item.notes}}
+        </div>
       </div>
-    </div>
+    {{/link-to}}
 
     {{#if displaySetBlock}}
       {{#if item.isSet}}

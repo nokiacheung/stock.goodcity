@@ -146,6 +146,11 @@
   padding: 0 1.3rem 1rem;
   color: $white;
 
+  a {
+    display: block;
+    color: $white !important;
+  }
+
   @media #{$small-only} {
     font-size: 0.7rem;
   }
