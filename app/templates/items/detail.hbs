@@ -30,29 +30,7 @@
       </div>
     </div>
 
-    <div class="row dispatch_details {{if model.sentOn 'dispatched'}} {{if model.designation 'designated'}}">
-      <div class="small-3 columns">
-        {{#if model.sentOn}}
-          {{#link-to 'orders.detail' model.designation tagName='span' href=false}}
-            <i class="fa fa-ship"></i> {{model.designation.code}}
-          {{/link-to}}
-        {{else if model.designation}}
-          {{#link-to 'orders.detail' model.designation tagName='span' href=false}}
-            <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
-          {{/link-to}}
-        {{else}}
-          <i class="fa fa-eye" aria-hidden="true"></i> In Stock
-        {{/if}}
-      </div>
-      <div class="small-6 columns location-name">
-        {{#unless model.sentOn}}
-          <i class="fa fa-map-marker"></i> {{model.location.name}}
-        {{/unless}}
-      </div>
-      <div class="small-3 columns">
-        <i class="fa {{if model.isSet 'fa-tags' 'fa-tag'}}"></i> {{model.inventoryNumber}}
-      </div>
-    </div>
+    {{partial "items/item_status_bar"}}
 
     <div class="row detail-section">
       <div class="columns small-9">
@@ -75,7 +53,7 @@
       <div class="columns small-11">
         <div class="row">
           <div class="columns small-3">Description </div>
-          <div class="columns small-9 value"> {{model.notes}} </div>
+          <div class="columns small-9 value description"> {{model.notes}} </div>
         </div>
       </div>
       <div class="columns small-1 item_options_component">
@@ -90,12 +68,12 @@
           <div class="columns small-3">Size (cm) </div>
           <div class="columns small-3 value">
             L: {{model.length}}
-            <span>X</span>
+            <span><i class="fa fa-times" aria-hidden="true"></i></span>
           </div>
 
           <div class="columns small-3 value">
             W: {{model.width}}
-            <span>X</span>
+            <span><i class="fa fa-times" aria-hidden="true"></i></span>
           </div>
 
           <div class="columns small-3 value"> H: {{model.height}} </div>

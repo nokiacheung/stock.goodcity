@@ -1,5 +1,9 @@
 .item_details_screen {
 
+  .dispatch_details {
+    font-weight: 900;
+  }
+
   .search {
     margin-top: 0;
   }
@@ -53,11 +57,20 @@
 
     span {
       float: right;
+      color: $medium-blue;
     }
 
     .value {
       color: $white;
       font-size: 0.7rem !important;
+    }
+
+    .description {
+      padding-left: 1.3rem;
+
+      @media #{$small-only} {
+        padding-left: 0.9rem;
+      }
     }
 
     .item_options_component {
@@ -87,17 +100,17 @@
   position: absolute;
 
   @media #{$small-only} {
-    right: 1rem;
-    top: 6.5rem;
+    right: 0rem;
+    top: 6.2rem;
   }
 }
 
 .no-avatar {
   @media #{$small-only} {
-    line-height: 1.6rem;
-    width: 1.7rem;
-    height: 1.7rem;
-    font-size: 1rem;
+    line-height: 2rem;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.2rem;
   }
 
   display: inline-block !important;
@@ -115,7 +128,7 @@
   background: $white;
   font-weight: bold;
   margin-top: 0.2rem;
-  border: 2px solid black;
+  border: 1px solid $medium-blue;
 
   i {
     color: black;
