@@ -4,6 +4,9 @@ import searchModule from "../search_module";
 
 export default searchModule.extend({
 
+  queryParams: ['searchInput'],
+  searchInput: "",
+
   orderId: Ember.computed.alias("model.id"),
   displaySetBlock: true,
   isMobileApp: config.cordova.enabled,

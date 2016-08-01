@@ -8,9 +8,9 @@ export default Ember.Controller.extend(InfinityRoute, {
     return str.trim();
   },
 
-  searchText: Ember.computed({
+  searchText: Ember.computed('searchInput',{
     get() {
-      return "";
+      return this.get('searchInput') || "";
     },
 
     set(key, value) {
@@ -24,6 +24,7 @@ export default Ember.Controller.extend(InfinityRoute, {
   itemSetId: null,
   unloadAll: false,
   minSearchTextLength: 0,
+  searchInput: null,
 
   hasSearchText: Ember.computed("searchText", function() {
     return !!this.get("searchText");
