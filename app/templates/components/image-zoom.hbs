@@ -1,0 +1,10 @@
+{{#if model.imageUrl}}
+  <div data-src={{model.imageUrl}} class="imageZoom" >
+    <img src={{model.imageUrl}} class="profile"/>
+  </div>
+{{else}}
+  <div class="no_image">
+    <i class="fa fa-camera" aria-hidden="true"></i>
+      No image available.
+  </div>
+{{/if}}
