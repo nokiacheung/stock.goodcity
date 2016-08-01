@@ -6,7 +6,7 @@
       <img src={{item.thumbImageUrl}} class="thumb"/>
     </div>
 
-    {{#link-to 'items.detail' item }}
+    {{#link-to 'items.detail' item.id }}
       <div class="small-6 large-8 columns name_details">
         <div class="ellipsis name one-line-ellipsis">{{item.quantity}} x {{item.code.name}}</div>
         <div class="ellipsis two-line-ellipsis">

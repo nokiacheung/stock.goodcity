@@ -1,4 +1,3 @@
-
 import attr from 'ember-data/attr';
 import { belongsTo } from 'ember-data/relationships';
 import Ember from "ember";
@@ -30,6 +29,7 @@ export default cloudinaryUrl.extend({
   image:       belongsTo('image', { async: false }),
   code:        belongsTo('code', { async: false }),
   donorCondition: belongsTo('donor_condition', { async: false }),
+  setItem:        belongsTo('set_item', { async: false }),
 
   isDispatched: Ember.computed.bool('sentOn'),
   updatedAt: attr("date"),

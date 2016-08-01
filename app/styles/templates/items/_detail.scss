@@ -1,5 +1,18 @@
 .item_details_screen {
 
+  .set_details {
+    color: $white;
+    padding: 0.5rem;
+    font-size: 0.95rem;
+
+    .set_name {
+      font-weight: 900;
+    }
+    .set_type {
+      font-size: 0.8rem;
+    }
+  }
+
   .dispatch_details {
     font-weight: 900;
   }
