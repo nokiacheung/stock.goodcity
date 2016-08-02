@@ -13,7 +13,11 @@ export default getOrderRoute.extend({
     if(previousRoute) {
       var routeName = previousRoute.name;
       if(routeName.indexOf("orders")) {
-        path = routeName === "items.search_order" ? "items" : routeName;
+        switch(routeName) {
+          case "items.search_order": path = "items"; break;
+          case "items.detail": path = path; break;
+          default: path = routeName;
+        }
       } else if(routeName === path) {
         path = path;
       } else if(routeName.indexOf("orders") === 0) {

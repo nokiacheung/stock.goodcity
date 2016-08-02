@@ -2,9 +2,15 @@
   <div class="search">
     <div class="row profile_container">
 
-      {{#link-to 'items.index' tagName='span' href=false class="back_link"}}
-        <i class="fa fa-angle-left" aria-hidden="true"></i>
-      {{/link-to}}
+      {{#if (is-equal backLinkPath 'orders.detail')}}
+        {{#link-to 'orders.detail' model.designation tagName='span' href=false class="back_link"}}
+          <i class="fa fa-angle-left" aria-hidden="true"></i>
+        {{/link-to}}
+      {{else}}
+        {{#link-to backLinkPath tagName='span' href=false class="back_link"}}
+          <i class="fa fa-angle-left" aria-hidden="true"></i>
+        {{/link-to}}
+      {{/if}}
 
       {{#if model.imageUrl}}
         <div style={{previewImageBgCss}} class="profile"></div>
