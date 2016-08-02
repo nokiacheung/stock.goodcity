@@ -6,6 +6,7 @@ export default searchModule.extend({
 
   queryParams: ['searchInput'],
   searchInput: "",
+  hideDetailsLink: true,
 
   orderId: Ember.computed.alias("model.id"),
   displaySetBlock: true,

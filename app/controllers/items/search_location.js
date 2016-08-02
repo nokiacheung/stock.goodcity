@@ -14,6 +14,7 @@ export default searchModule.extend({
   displayUserPrompt: false,
   showAllSetItems: false,
   selectedLocation: null,
+  hideDetailsLink: true,
 
   actions: {
     displayMoveOverlay(location) {

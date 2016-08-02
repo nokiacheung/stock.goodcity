@@ -7,6 +7,7 @@ export default Ember.Component.extend({
   store: Ember.inject.service(),
   messageBox: Ember.inject.service(),
   i18n: Ember.inject.service(),
+  hideDetailsLink: true,
 
   actions: {
     displayDispatchOverlay() {

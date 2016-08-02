@@ -5,6 +5,7 @@ const { getOwner } = Ember;
 export default Ember.Component.extend({
   displayUserPrompt: false,
   store: Ember.inject.service(),
+  hideDetailsLink: true,
 
   actions: {
     displayDesignateOverlay() {

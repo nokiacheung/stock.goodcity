@@ -7,6 +7,7 @@ export default Ember.Component.extend({
   displayAlertOverlay: false,
   showAllSetItems: false,
   autoDisplayOverlay: false,
+  hideDetailsLink: true,
 
   order: null,
   item: null,
