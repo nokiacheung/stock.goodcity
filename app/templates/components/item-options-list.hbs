@@ -2,7 +2,7 @@
   <i class="fa fa-angle-left"></i>
 </div>
 
-<div class="receive-item-options {{if hidden 'hidden'}}">
+<div class="receive-item-options {{if hidden 'hidden'}} {{if item.isSet 'set-options'}}">
 
   <div class="{{if item.sentOn 'disabled'}}">
     {{#link-to 'items.search_location' item.id tagName='div' href=false}}
@@ -30,6 +30,13 @@
     <i class="fa item-menu fa-pencil-square-o"></i>
     {{t "item.edit"}}
   </div>
+
+  {{#if item.isSet}}
+    <div class="disabled">
+      <i class="fa fa-times item-menu" aria-hidden="true"></i>
+      Remove
+    </div>
+  {{/if}}
 
   <div class="options-link-close" {{action "toggle" true}}>
     <i class="fa item-menu fa-angle-right"></i>

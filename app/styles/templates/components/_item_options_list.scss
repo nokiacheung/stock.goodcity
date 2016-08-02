@@ -49,3 +49,13 @@
 .receive-item-options, .options-link-open, .options-link-close {
   height: 80px;
 }
+
+.set-options {
+  @media #{$small-only} {
+    width: 16rem;
+  }
+
+  > div {
+    width: 23%;
+  }
+}
