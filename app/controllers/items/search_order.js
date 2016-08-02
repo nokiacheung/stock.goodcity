@@ -13,11 +13,13 @@ export default searchModule.extend({
   displayUserPrompt: false,
   showAllSetItems: false,
   selectedDesignation: null,
+  toggleOverlay: true,
 
   actions: {
 
     setOrder(order) {
       this.set("order", order);
+      this.toggleProperty("toggleOverlay");
     },
 
     displayMoveOverlay(designation) {

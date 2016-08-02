@@ -11,10 +11,11 @@ export default Ember.Component.extend({
 
   order: null,
   item: null,
+  toggleOverlay: null,
 
   store: Ember.inject.service(),
 
-  triggerOrderClick: Ember.observer("order", function() {
+  triggerOrderClick: Ember.observer("order", "toggleOverlay", function() {
     if(this.get("order")) {
       this.send("displayDesignateOverlay");
     }
