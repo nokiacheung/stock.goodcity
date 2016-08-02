@@ -1,0 +1,61 @@
+{{partial "items/item_status_bar"}}
+
+    <div class="row detail-section">
+      <div class="columns small-9">
+        <div class="row">
+          <div class="columns small-4">Quanity </div>
+          <div class="columns small-8 value"> {{item.quantity}} </div>
+        </div>
+        <div class="row">
+          <div class="columns small-4">Type </div>
+          <div class="columns small-8 value"> {{item.code.name}} </div>
+        </div>
+
+      </div>
+      <div class="columns small-3">
+        <img src={{item.thumbImageUrl}} class="thumb"/>
+      </div>
+    </div>
+
+    <div class="row detail-section">
+      <div class="columns small-11">
+        <div class="row">
+          <div class="columns small-3">Description </div>
+          <div class="columns small-9 value description"> {{item.notes}} </div>
+        </div>
+      </div>
+      <div class="columns small-1 item_options_component">
+        {{item-options-list item=item}}
+      </div>
+    </div>
+
+    <div class="row detail-section">
+      <div class="columns small-12">
+
+        <div class="row">
+          <div class="columns small-3">Size (cm) </div>
+          <div class="columns small-3 value">
+            L: {{item.length}}
+            <span><i class="fa fa-times" aria-hidden="true"></i></span>
+          </div>
+
+          <div class="columns small-3 value">
+            W: {{item.width}}
+            <span><i class="fa fa-times" aria-hidden="true"></i></span>
+          </div>
+
+          <div class="columns small-3 value"> H: {{item.height}} </div>
+        </div>
+        <div class="row">
+          <div class="columns small-3">Quality: </div>
+          <div class="columns small-3 value">Grade {{item.grade}}</div>
+          <div class="columns small-6 value">Condition {{item.donorCondition.name}}</div>
+        </div>
+        <div class="row">
+          <div class="columns small-3">Donation#</div>
+          <div class="columns small-9 value"> CAS-49928 </div>
+        </div>
+
+      </div>
+
+    </div>
