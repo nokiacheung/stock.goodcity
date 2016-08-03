@@ -6,6 +6,10 @@
   }
 }
 
+[data-ember-action] {
+  cursor: pointer;
+}
+
 .main-section {
   &.alt {
     background: $light-grey;

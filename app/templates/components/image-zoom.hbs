@@ -1,7 +1,11 @@
 {{#if item.imageUrl}}
-  <div data-src={{item.imageUrl}} class="imageZoom" >
-    <div style={{previewImageBgCss}} class="profile"></div>
-  </div>
+  {{#if isMobileApp}}
+    <div style={{previewImageBgCss}} {{action "imageZoom" item.imageUrl}} class="profile"></div>
+  {{else}}
+    <div data-src={{item.imageUrl}} class="imageZoom" >
+      <div style={{previewImageBgCss}} class="profile"></div>
+    </div>
+  {{/if}}
 {{else}}
   <div class="no_image">
     <i class="fa fa-camera" aria-hidden="true"></i>
