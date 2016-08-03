@@ -2,7 +2,12 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 
+  previewImageBgCss: Ember.computed("item.imageUrl", function() {
+    return new Ember.Handlebars.SafeString("background: linear-gradient(180deg, rgba(0, 0, 0, 1) -50%, transparent), url(" + this.get("item.imageUrl") + ") center;");
+  }),
+
   lightGallery: null,
+  item: null,
 
   didInsertElement(){
       var _this = this;

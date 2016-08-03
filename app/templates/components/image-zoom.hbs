@@ -1,6 +1,6 @@
-{{#if model.imageUrl}}
-  <div data-src={{model.imageUrl}} class="imageZoom" >
-    <img src={{model.imageUrl}} class="profile"/>
+{{#if item.imageUrl}}
+  <div data-src={{item.imageUrl}} class="imageZoom" >
+    <div style={{previewImageBgCss}} class="profile"></div>
   </div>
 {{else}}
   <div class="no_image">
