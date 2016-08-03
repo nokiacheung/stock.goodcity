@@ -1,0 +1,10 @@
+<div class="{{if item.isDispatched 'disabled'}}" {{action 'displayRemoveOverlay'}}>
+  <i class="fa item-menu fa-times-circle-o"></i>
+  {{t "item.remove"}}
+</div>
+
+{{#message-box btn1Text="Remove" btn1Callback=(action "removeItemFromSet") btn2Text=(t "cancel") btn2Callback=(action "closeItemOptions") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
+
+  <p>Are you sure, you want to remove item from set? this can not be undone.</p>
+
+{{/message-box}}
