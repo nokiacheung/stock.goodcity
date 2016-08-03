@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import config from '../config/environment';
 
 export default Ember.Component.extend({
 
@@ -8,32 +9,41 @@ export default Ember.Component.extend({
 
   lightGallery: null,
   item: null,
+  isMobileApp: config.cordova.enabled,
+
+  actions: {
+    imageZoom(imageUrl) {
+      window.PhotoViewer.show(imageUrl, '', {share:false});
+    },
+  },
 
   didInsertElement(){
-      var _this = this;
+    if(!this.get("isMobileApp")){
+        var _this = this;
 
-      this._super();
+        this._super();
 
-      Ember.run.scheduleOnce('afterRender', this, function(){
-        var lightGallery = Ember.$("#itemImage").lightGallery({
-          mode: 'lg-soft-zoom',
-          closable: true,
-          zoom: true,
-          counter: true,
-          scale: 1,
-          download: false,
-          enableTouch : true,
-          selector: '.imageZoom'
-        });
+        Ember.run.scheduleOnce('afterRender', this, function(){
+          var lightGallery = Ember.$("#itemImage").lightGallery({
+            mode: 'lg-soft-zoom',
+            closable: true,
+            zoom: true,
+            counter: true,
+            scale: 1,
+            download: false,
+            enableTouch : true,
+            selector: '.imageZoom'
+          });
 
-        _this.set("lightGallery", lightGallery);
-
+          _this.set("lightGallery", lightGallery);
       });
-
-    },
+    }
+  },
 
   willDestroyElement() {
-    Ember.$('#itemImage').data('lightGallery').destroy(true);
+    if(!this.get("isMobileApp")){
+      Ember.$('#itemImage').data('lightGallery').destroy(true);
+    }
   }
 
 });
