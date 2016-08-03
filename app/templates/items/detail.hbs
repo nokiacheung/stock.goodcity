@@ -12,14 +12,9 @@
         {{/link-to}}
       {{/if}}
 
-      {{#if model.imageUrl}}
-        <div style={{previewImageBgCss}} class="profile"></div>
-      {{else}}
-        <div class="no_image">
-          <i class="fa fa-camera" aria-hidden="true"></i>
-          No image available.
-        </div>
-      {{/if}}
+      <div id="itemImage">
+        {{image-zoom model=model}}
+      </div>
 
       <div class="image-action-list">
         <span class="no-avatar">
