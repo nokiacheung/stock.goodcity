@@ -68,9 +68,11 @@ I18nTranslationsEn =
 
   "dispatch":
     "dispatch": "Dispatch"
-    "from_order": "Dispatch this item from order {{code}}"
+    "from_order": "Dispatch this item to {{code}}"
     "dispatch_quantity": "Dispatches quantity of {{quantity}}."
-    "dispatch_set": "Dispatches only part of set."
+    "remove_set": "Dispatching <b>will remove this item from a set!</b>"
+    "dispatch_set": "You could dispatch the entire set instead."
     "all_items_dispatched": "All items from this order have been dispatched. Please close this order in StockIt."
+    "remove_and_dispatch": "Remove item from set & dispatch"
 
 `export default I18nTranslationsEn`

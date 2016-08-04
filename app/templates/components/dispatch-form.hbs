@@ -24,9 +24,23 @@
 
     {{#if item.isSet}}
       <div class="warning_text">
-        <i class="fa fa-exclamation-triangle"></i>
-        {{t "dispatch.dispatch_set"}}
+        <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
+        <div class="right-message">
+          <div>{{t "dispatch.remove_set"}}</div>
+          <div>You could dispatch the {{#link-to 'items.detail' item}}entire set{{/link-to}} instead.</div>
+        </div>
       </div>
+
+      {{input type="checkbox" checked=removeItemFromSet id=(concat "item" item.id)}}
+      <label for="{{concat "item" item.id}}" >{{t "dispatch.remove_and_dispatch"}}</label>
+
+      {{#if displayError}}
+        <div class="error-box">
+          <i class="fa fa-exclamation-triangle"></i>
+          You must tick the confirmation box to proceed.
+        </div>
+      {{/if}}
+
     {{/if}}
 
   </div>
