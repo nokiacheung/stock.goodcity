@@ -1,0 +1,11 @@
+{{#if item.imageUrl}}
+  {{#if isMobileApp}}
+    <div><div style={{previewImageBgCss}} {{action "imageZoom" item.imageUrl}} class="profile slide-image"></div></div>
+  {{else}}
+    <div data-src={{item.imageUrl}} class="imageZoom" >
+      <div style={{previewImageBgCss}} class="profile slide-image"></div>
+    </div>
+  {{/if}}
+{{else}}
+  {{partial 'items/no_image'}}
+{{/if}}

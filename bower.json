@@ -7,10 +7,12 @@
     "ember-qunit-notifications": "0.1.0",
     "foundation": "~5.5.0",
     "fastclick": "~1.0.3",
-    "lightgallery": "~1.2.21",
+    "lightgallery": "1.2.20",
     "font-awesome": "~4.6.1",
     "airbrake-js": "~0.5.8",
     "moment": "~2.10.3",
-    "jquery-mockjax": "2.2.0"
+    "jquery-mockjax": "2.2.0",
+    "photoswipe": "4.1.0",
+    "slick-carousel": "1.5.8"
   }
 }

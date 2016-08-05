@@ -14,28 +14,28 @@ export default Ember.Component.extend({
   actions: {
     imageZoom(imageUrl) {
       window.PhotoViewer.show(imageUrl, '', {share:false});
-    },
+    }
   },
 
   didInsertElement(){
     if(!this.get("isMobileApp")){
         var _this = this;
-
         this._super();
-
         Ember.run.scheduleOnce('afterRender', this, function(){
-          var lightGallery = Ember.$("#itemImage").lightGallery({
-            mode: 'lg-soft-zoom',
-            closable: true,
-            zoom: true,
-            counter: true,
-            scale: 1,
-            download: false,
-            enableTouch : true,
-            selector: '.imageZoom'
-          });
-
-          _this.set("lightGallery", lightGallery);
+        var lightGallery = Ember.$("#itemImage").lightGallery({
+          mode: 'lg-slide',
+          zoom: true,
+          download: false,
+          scale: 1,
+          hideControlOnEnd: true,
+          closable: true,
+          loop: true,
+          counter: true,
+          enableTouch : true,
+          enableDrag: true,
+          selector: '.imageZoom'
+        });
+        _this.set("lightGallery", lightGallery);
       });
     }
   },
@@ -45,5 +45,4 @@ export default Ember.Component.extend({
       Ember.$('#itemImage').data('lightGallery').destroy(true);
     }
   }
-
 });
