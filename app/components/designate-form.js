@@ -50,7 +50,7 @@ export default Ember.Component.extend({
 
   actions: {
     displayDesignateOverlay() {
-      if(this.get("isDesignatedToCurrentOrder")) {
+      if(this.get("isDesignatedToCurrentOrder") && !this.get("isSet")) {
         this.set("displayAlertOverlay", true);
       } else {
         this.set("displayUserPrompt", true);
@@ -64,12 +64,20 @@ export default Ember.Component.extend({
       this.set("showAllSetItems", false);
 
       var loadingView = getOwner(this).lookup('component:loading').append();
-      var url = `/items/${item.get('id')}/designate_stockit_item`;
+      var url;
+
+      if(this.get("isSet")) {
+        url = `/items/${item.get('setItem.id')}/designate_stockit_item_set`;
+      } else {
+        url = `/items/${item.get('id')}/designate_stockit_item`;
+      }
 
       new AjaxPromise(url, "PUT", this.get('session.authToken'), { order_id: order.get("id") })
         .then(data => {
           this.get("store").pushPayload(data);
-          if(showAllSetItems) {
+          if(this.get("isSet")) {
+            this.get('router').transitionTo("items.detail", item);
+          } else if(showAllSetItems) {
             this.sendAction("displaySetItems");
           } else {
             this.get('router').transitionTo("orders.detail", order);
@@ -78,6 +86,7 @@ export default Ember.Component.extend({
         .finally(() => {
           loadingView.destroy();
         });
+
     }
   }
 
