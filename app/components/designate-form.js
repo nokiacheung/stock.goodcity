@@ -12,8 +12,25 @@ export default Ember.Component.extend({
   order: null,
   item: null,
   toggleOverlay: null,
-
+  isSet: null,
   store: Ember.inject.service(),
+
+  overridesDesignation: Ember.computed('item.setItem.designationList.[]', 'order', function() {
+
+    var list = [];
+    this.get("item.setItem.items").rejectBy('designation', null).forEach(item => {
+      list.push(item.get("designation.code"));
+    });
+    list.filter((e, i, list) => { i = list.indexOf(e) === i; });
+
+    if(list.length === 0) {
+      return false;
+    } else {
+      var index = list.indexOf(this.get('order.code'));
+      if(index > -1) { list.splice(index, 1); }
+      return list.length > 0;
+    }
+  }),
 
   triggerOrderClick: Ember.observer("order", "toggleOverlay", function() {
     if(this.get("order")) {

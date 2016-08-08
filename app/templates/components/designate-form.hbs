@@ -2,38 +2,68 @@
 
 {{#message-box btn1Text=(t "designate.designate") btn1Callback=(action "designateItem") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
 
-  <p>{{t "designate.form_title" code=order.code}}</p>
+  {{#if isSet}}
 
-  {{partial 'orders/item_block'}}
+    <p>Designate this set of items to {{order.code}} ?</p>
 
-  <div class="warnings">
+    {{#each item.setItem.items as |item|}}
+      {{partial 'items/set_item_block'}}
+    {{/each}}
 
-    {{#if item.designation}}
-      <div class="warning_text">
-        <i class="fa fa-exclamation-triangle"></i>
-        {{t "designate.overrides_existing"}}
-      </div>
-    {{/if}}
+    <div class="warnings">
 
-    {{#if (is-greater item.quantity 1)}}
-      <div class="warning_text">
-        <i class="fa fa-exclamation-triangle"></i>
-        {{t "designate.quantity" quantity=item.quantity}}
-      </div>
-    {{/if}}
+      {{#if overridesDesignation}}
+        <div class="warning_text">
+          <i class="fa fa-exclamation-triangle"></i>
+          Overrides existing designation(s).
+        </div>
+      {{/if}}
 
-    {{#if item.isSet}}
-      <div class="warning_text">
-        <i class="fa fa-exclamation-triangle"></i>
-        {{t "designate.set_part"}}
-      </div>
+      {{#if item.setItem.multiQuantitySet}}
+        <div class="warning_text">
+          <i class="fa fa-exclamation-triangle"></i>
+          Designates entire quantity.
+        </div>
+      {{/if}}
 
-      {{input type="checkbox" checked=showAllSetItems id=(concat "item" item.id)}}
-      <label for="{{concat "item" item.id}}" >{{t "item.show_set_items"}}</label>
+    </div>
 
-    {{/if}}
 
-  </div>
+  {{else}}
+
+    <p>{{t "designate.form_title" code=order.code}}</p>
+
+    {{partial 'orders/item_block'}}
+
+    <div class="warnings">
+
+      {{#if item.designation}}
+        <div class="warning_text">
+          <i class="fa fa-exclamation-triangle"></i>
+          {{t "designate.overrides_existing"}}
+        </div>
+      {{/if}}
+
+      {{#if (is-greater item.quantity 1)}}
+        <div class="warning_text">
+          <i class="fa fa-exclamation-triangle"></i>
+          {{t "designate.quantity" quantity=item.quantity}}
+        </div>
+      {{/if}}
+
+      {{#if item.isSet}}
+        <div class="warning_text">
+          <i class="fa fa-exclamation-triangle"></i>
+          {{t "designate.set_part"}}
+        </div>
+
+        {{input type="checkbox" checked=showAllSetItems id=(concat "item" item.id)}}
+        <label for="{{concat "item" item.id}}" >{{t "item.show_set_items"}}</label>
+
+      {{/if}}
+
+    </div>
+  {{/if}}
 
 {{/message-box}}
 

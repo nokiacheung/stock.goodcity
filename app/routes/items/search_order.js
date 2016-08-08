@@ -3,6 +3,10 @@ import AuthorizeRoute from './../authorize';
 
 export default AuthorizeRoute.extend({
 
+  queryParams: {
+    isSet: false
+  },
+
   model(params) {
     var item = this.store.peekRecord("item", params.item_id);
 
