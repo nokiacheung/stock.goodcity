@@ -1,21 +1,18 @@
 <section class="main-section item_details_screen">
   <div class="search">
     <div class="row profile_container">
-
       {{#if (is-equal backLinkPath 'orders.detail')}}
-        {{#link-to 'orders.detail' model.designation tagName='span' href=false class="back_link"}}
-          <i class="fa fa-angle-left" aria-hidden="true"></i>
+        {{#link-to 'orders.detail' model.designation tagName='span' href=false class="back_link no-avatar"}}
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
         {{/link-to}}
       {{else}}
-        {{#link-to backLinkPath tagName='span' href=false class="back_link"}}
-          <i class="fa fa-angle-left" aria-hidden="true"></i>
+        {{#link-to backLinkPath tagName='span' href=false class="back_link no-avatar"}}
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
         {{/link-to}}
       {{/if}}
-
       <div id="itemImage">
         {{image-zoom item=model}}
       </div>
-
       <div class="image-action-list">
         <span class="no-avatar">
           <i class="fa fa-map-marker" aria-hidden="true"></i>

@@ -32,7 +32,17 @@ module.exports = function(defaults) {
   app.import('bower_components/airbrake-js/dist/client.js');
   app.import('bower_components/moment/moment.js');
 
+  app.import('bower_components/slick-carousel/slick/ajax-loader.gif');
+  app.import('bower_components/slick-carousel/slick/slick-theme.css');
+  app.import('bower_components/slick-carousel/slick/slick.css');
+  app.import('bower_components/slick-carousel/slick/slick.js');
+  app.import('bower_components/slick-carousel/slick/fonts/slick.eot', { destDir: "fonts" });
+  app.import('bower_components/slick-carousel/slick/fonts/slick.svg', { destDir: "fonts" });
+  app.import('bower_components/slick-carousel/slick/fonts/slick.ttf', { destDir: "fonts" });
+  app.import('bower_components/slick-carousel/slick/fonts/slick.woff', { destDir: "fonts" });
+
   app.import('bower_components/lightgallery/src/css/lightgallery.css');
+  app.import('bower_components/lightgallery/src/css/lg-transitions.css');
   app.import('bower_components/lightgallery/src/js/lightgallery.js');
   app.import('bower_components/lightgallery/src/js/lg-zoom.js');
   app.import('bower_components/lightgallery/src/fonts/lg.eot', { destDir: "fonts" });

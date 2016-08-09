@@ -1,14 +1,5 @@
-{{#if item.imageUrl}}
-  {{#if isMobileApp}}
-    <div style={{previewImageBgCss}} {{action "imageZoom" item.imageUrl}} class="profile"></div>
-  {{else}}
-    <div data-src={{item.imageUrl}} class="imageZoom" >
-      <div style={{previewImageBgCss}} class="profile"></div>
-    </div>
-  {{/if}}
+{{#if item.isSet}}
+  {{partial 'items/multiple_set_item_images'}}
 {{else}}
-  <div class="no_image">
-    <i class="fa fa-camera" aria-hidden="true"></i>
-      No image available.
-  </div>
+  {{partial 'items/single_item_image'}}
 {{/if}}

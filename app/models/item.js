@@ -34,4 +34,9 @@ export default cloudinaryUrl.extend({
   isDispatched: Ember.computed.bool('sentOn'),
   updatedAt: attr("date"),
 
+  setImages: Ember.computed('setItem.@each.items.@each.imageUrl', function() {
+    var setItemImages = [];
+    this.get("setItem.items").forEach((item) => setItemImages.pushObject(item.get("imageUrl")));
+    return setItemImages;
+  })
 });
