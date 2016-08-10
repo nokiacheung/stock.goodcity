@@ -8,6 +8,7 @@ export default Ember.Component.extend({
   showAllSetItems: false,
   autoDisplayOverlay: false,
   hideDetailsLink: true,
+  showDispatchOverlay: false,
 
   order: null,
   item: null,
@@ -76,7 +77,7 @@ export default Ember.Component.extend({
         .then(data => {
           this.get("store").pushPayload(data);
           if(this.get("isSet")) {
-            this.get('router').transitionTo("items.detail", item);
+            this.get('router').transitionTo("items.detail", item, { queryParams: { showDispatchOverlay: this.get('showDispatchOverlay') }});
           } else if(showAllSetItems) {
             this.sendAction("displaySetItems");
           } else {

@@ -17,6 +17,18 @@ export default Model.extend({
     return this.get("items").filterBy('designation', null).length === 0;
   }),
 
+  allDispatched: Ember.computed('items.@each.isDispatched', function() {
+    return this.get("items").filterBy('isDispatched', false).length === 0;
+  }),
+
+  designatedItems: Ember.computed('items.@each.designation', function() {
+    return this.get("items").rejectBy('designation', null);
+  }),
+
+  designations: Ember.computed("items.@each.orderCode", "allDesignated", function() {
+    return this.get("designatedItems").map(a => a.get('designation')).uniq();
+  }),
+
   shareSingleDesignation: Ember.computed("items.@each.orderCode", "allDesignated", function() {
     if(this.get("allDesignated")) {
       return this.get("items").map(a => a.get('orderCode')).uniq().length === 1;

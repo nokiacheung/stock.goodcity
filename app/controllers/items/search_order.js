@@ -3,8 +3,9 @@ import searchModule from "../search_module";
 
 export default searchModule.extend({
 
-  queryParams: ['isSet'],
+  queryParams: ['isSet', 'showDispatchOverlay'],
   isSet: false,
+  showDispatchOverlay: false,
 
   item: Ember.computed.alias("model.item"),
   searchModelName: "designation",
