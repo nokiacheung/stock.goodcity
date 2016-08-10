@@ -23,7 +23,7 @@
 
   span.back_link {
     top: 0.95rem;
-    padding: 0rem 0.8rem;
+    left: 15.5rem;
     font-size: 2rem;
     position: absolute;
     cursor: pointer;
@@ -35,29 +35,26 @@
         margin: 0.35rem 0 0 -0.9rem;
         width: 2rem;
         height: 2rem;
-        font-size: 2rem;
+        line-height: 1.2rem;
+        left: 0.65rem;
       }
       position: absolute;
       font-weight: bolder;
-      color: white;
+      color: black;
+      height: 1.2rem;
+      width: 1.2rem;
+      font-size: 2rem;
+      line-height: 1.7rem;
+      left: 0.1rem;
     }
-    .fa-chevron-circle-left {
-      background: black;
-      border-radius: 50%;
-      height: 0.9em;
-      width: 0.9em;
-      line-height: 1.8rem;
-      @media #{$small-only} {
-        line-height: 2rem;
-      }
-    }
-
-    @media #{$small-only} {
+    @media #{$medium-only} {
       left: 0.5rem;
-      line-height: 2rem;
+    }
+    @media #{$small-only} {
+      top: 0.5rem;
+      left: 0.5rem;
       width: 2rem;
       height: 2rem;
-      font-size: 1.2rem;
     }
   }
 
@@ -158,7 +155,10 @@
 
   @media #{$small-only} {
     right: 0rem;
-    top: 8.5rem;
+    top: 9rem;
+  }
+  @media #{$medium-only} {
+    right: 0rem;
   }
 
   span {
