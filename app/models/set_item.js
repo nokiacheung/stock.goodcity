@@ -13,4 +13,17 @@ export default Model.extend({
     return this.get("items").rejectBy('quantity', 1).length > 0;
   }),
 
+  allDesignated: Ember.computed('items.@each.designation', function() {
+    return this.get("items").filterBy('designation', null).length === 0;
+  }),
+
+  shareSingleDesignation: Ember.computed("items.@each.orderCode", "allDesignated", function() {
+    if(this.get("allDesignated")) {
+      return this.get("items").map(a => a.get('orderCode')).uniq().length === 1;
+    } else {
+      return false;
+    }
+  }),
+
+
 });

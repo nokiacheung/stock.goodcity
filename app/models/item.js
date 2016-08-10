@@ -32,6 +32,8 @@ export default cloudinaryUrl.extend({
   setItem:        belongsTo('set_item', { async: false }),
 
   isDispatched: Ember.computed.bool('sentOn'),
+  isDesignated: Ember.computed.bool('designation'),
+  orderCode: Ember.computed.alias('designation.code'),
   updatedAt: attr("date"),
 
   setImages: Ember.computed('setItem.@each.items.@each.imageUrl', function() {
