@@ -30,7 +30,7 @@ export default Ember.Controller.extend({
       var allItems = this.get("item.setItem.items");
       return !this.get("item.setItem.allDispatched") && (allItems.filterBy("isDesignated").length > 0);
     } else {
-      return this.get("item.isDesignated");
+      return this.get("item.isDesignated") && !this.get("item.isDispatched");
     }
   }),
 

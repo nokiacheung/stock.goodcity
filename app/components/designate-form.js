@@ -18,18 +18,22 @@ export default Ember.Component.extend({
 
   overridesDesignation: Ember.computed('item.setItem.designationList.[]', 'order', function() {
 
-    var list = [];
-    this.get("item.setItem.items").rejectBy('designation', null).forEach(item => {
-      list.push(item.get("designation.code"));
-    });
-    list.filter((e, i, list) => { i = list.indexOf(e) === i; });
+    if(this.get("item.isSet")) {
+      var list = [];
+      this.get("item.setItem.items").rejectBy('designation', null).forEach(item => {
+        list.push(item.get("designation.code"));
+      });
+      list.filter((e, i, list) => { i = list.indexOf(e) === i; });
 
-    if(list.length === 0) {
-      return false;
+      if(list.length === 0) {
+        return false;
+      } else {
+        var index = list.indexOf(this.get('order.code'));
+        if(index > -1) { list.splice(index, 1); }
+        return list.length > 0;
+      }
     } else {
-      var index = list.indexOf(this.get('order.code'));
-      if(index > -1) { list.splice(index, 1); }
-      return list.length > 0;
+      return false;
     }
   }),
 
