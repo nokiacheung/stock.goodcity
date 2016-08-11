@@ -12,7 +12,7 @@ export default Ember.Component.extend({
   removeItemFromSet: false,
   displayError: false,
 
-  updareDisplayError: Ember.observer("removeItemFromSet", function() {
+  updateDisplayError: Ember.observer("removeItemFromSet", function() {
     this.set("displayError", !this.get("removeItemFromSet"));
   }),
 

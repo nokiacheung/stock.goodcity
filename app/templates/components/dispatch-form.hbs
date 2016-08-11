@@ -1,4 +1,10 @@
-{{#if item.sentOn}}
+{{#if setAction}}
+  <div {{action 'displayDispatchOverlay'}}>
+    <span class="no-avatar">
+      <i class="fa fa-ship" aria-hidden="true"></i>
+    </span>
+  </div>
+{{else if item.sentOn}}
   {{undispatch-item item=item closeList=closeList }}
 {{else}}
   <div {{action 'displayDispatchOverlay'}}>

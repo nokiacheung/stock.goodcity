@@ -3,6 +3,10 @@ import Ember from 'ember';
 
 export default AuthorizeRoute.extend({
 
+  queryParams: {
+    showDispatchOverlay: false
+  },
+
   model(params) {
     return this.store.findRecord("item", params.item_id, { reload: true });
   },

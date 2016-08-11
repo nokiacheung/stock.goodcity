@@ -3,6 +3,10 @@
 
   .item_block {
     padding: 0 0.7rem 1rem;
+
+    .dispatch_details {
+      margin-bottom: 0;
+    }
   }
 
   p {
@@ -63,5 +67,9 @@
 
   .item_block.set_item_info {
     padding: 0 0.3rem;
+  }
+
+  .red-warning {
+    color: $coral-red !important;
   }
 }
