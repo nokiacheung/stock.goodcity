@@ -1,5 +1,5 @@
 {{#if item.setImages.length}}
-  {{#slick-carousel class="ember-carousel" autoplay=true autoplaySpeed=1500 speed=300 swipeToSlide=true infinite=false mobileFirst=true touchMove=true slidesToShow=1 slidesToScroll=1}}
+  {{#slick-carousel class="ember-carousel" autoplay=true autoplaySpeed=2500 speed=500 swipeToSlide=true infinite=false  mobileFirst=true touchMove=true slidesToShow=1 slidesToScroll=1}}
     {{#each item.setImages as |image|}}
       <div data-src={{image}} class="imageZoom" >
         {{#if isMobileApp}}
