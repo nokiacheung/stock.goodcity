@@ -7,6 +7,7 @@ export default searchModule.extend({
 
   item: Ember.computed.alias("model.item"),
   searchModelName: "location",
+  messageBox: Ember.inject.service(),
 
   sortProperties: ["createdAt:desc"],
   recentlyUsedLocations: Ember.computed.sort("model.locations", "sortProperties"),
@@ -39,6 +40,13 @@ export default searchModule.extend({
             this.transitionToRoute("items", {queryParams: { itemSetId: item.get("itemId") } });
           } else {
             this.transitionToRoute("items");
+          }
+        })
+        .catch((response) => {
+          loadingView.destroy();
+          var errorMessage = response.responseJSON.errors[0];
+          if(errorMessage.toLowerCase().indexOf("error") >= 0) {
+            this.get("messageBox").alert(errorMessage);
           }
         })
         .finally(() => {
