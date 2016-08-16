@@ -1,0 +1,99 @@
+.new-item-section {
+  .row {
+    margin-top: 0.5rem;
+  }
+
+  .item-label {
+    line-height: 1.8rem;
+  }
+
+  .dimension-row {
+    .value {
+      padding: 0;
+
+      input {
+        width: 75%;
+        display: inline-block;
+        padding-left: 1.2rem !important;
+      }
+
+      span {
+        margin-left: 0.1rem;
+      }
+
+      span.input_text {
+        position: absolute;
+        font-size: 0.8rem;
+        color: white;
+        line-height: 1.8rem;
+        padding-left: 0.1rem;
+      }
+    }
+
+    .value.length {
+      padding-left: 0.3125rem;
+    }
+
+    .value.height input {
+      width: 93%
+    }
+  }
+
+  .quality-row {
+    span.input_text {
+      position: absolute;
+      font-size: 0.8rem;
+      color: white;
+      line-height: 1.8rem;
+      padding-left: 0.5rem;
+    }
+
+    input.grade {
+      padding-left: 3.5rem !important;
+    }
+  }
+
+  input {
+    padding: 0 !important;
+    background: #002352 !important;
+    border: 1px solid white !important;
+    color: white;
+    height: 1.8rem !important;
+  }
+
+  .image-box {
+    float: right;
+    height: 4.1rem;
+    width: 15%;
+    margin-top: -4.08rem;
+    margin-right: 0.4rem;
+    background-color: $light-blue;
+    text-align: center;
+
+    @media #{$small-only} {
+      width: 23%;
+    }
+
+    i {
+      font-size: 2rem;
+      padding: 0.5rem 1rem 0.2rem;
+      width: 100%;
+    }
+  }
+
+  .scan-icon i {
+    color: white;
+    font-size: 1.5rem;
+    padding: 0.15rem 0.4rem;
+  }
+
+  .inventory-number {
+    color: white;
+    line-height: 1.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+.new-item-nav {
+  margin-bottom: 0;
+}

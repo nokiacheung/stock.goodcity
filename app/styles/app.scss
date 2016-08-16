@@ -8,9 +8,11 @@
 @import "error";
 @import "checkbox_styles";
 @import "radio_button";
+@import "placeholder";
 
 @import "templates/index";
 @import "templates/items/detail";
+@import "templates/items/new";
 @import "templates/orders/detail";
 @import "templates/orders/index";
 @import "templates/orders/items";

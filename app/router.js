@@ -13,6 +13,7 @@ Router.map(function() {
 
   this.route("items", function() {
     this.route("detail", { path: "/:item_id" });
+    this.route("new");
     this.route("search_location", { path: "/:item_id/search_location" });
     this.route("search_order", { path: "/:item_id/search_order" });
   });
