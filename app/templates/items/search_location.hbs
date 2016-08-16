@@ -78,32 +78,55 @@
 
 </section>
 
-{{#message-box btn1Text=(t "item.move") btn1Callback=(action "moveItem") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
+{{#if isSet}}
 
-  <p>Moving this item to Bldg {{selectedLocation.building}} Area {{selectedLocation.area}}</p>
+  {{#message-box btn1Text=(t "item.move") btn1Callback=(action "moveItem") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
 
-  {{partial 'orders/item_block'}}
+    <p>Moving this multi-part set to Bldg {{selectedLocation.building}} Area {{selectedLocation.area}}</p>
 
-  <div class="warnings">
+    {{#each item.setItem.items as |item|}}
+      {{partial 'items/set_item_block'}}
+    {{/each}}
 
-    {{#if (is-greater item.quantity 1)}}
-      <div class="warning_text">
-        <i class="fa fa-exclamation-triangle"></i>
-        Moves quantity of {{item.quantity}}
-      </div>
-    {{/if}}
+    <div class="warnings">
+      {{#if item.setItem.multiQuantitySet}}
+          <div class="warning_text">
+            <i class="fa fa-exclamation-triangle"></i>
+            Moves entire quantity.
+          </div>
+        {{/if}}
+    </div>
+  {{/message-box}}
 
-    {{#if item.isSet}}
-      <div class="warning_text">
-        <i class="fa fa-exclamation-triangle"></i>
-        Moves only part of set.
-      </div>
+{{else}}
 
-      {{input type="checkbox" checked=showAllSetItems id=(concat "item" item.id)}}
-      <label for="{{concat "item" item.id}}" >Show other parts from the same set next</label>
+  {{#message-box btn1Text=(t "item.move") btn1Callback=(action "moveItem") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
 
-    {{/if}}
+    <p>Moving this item to Bldg {{selectedLocation.building}} Area {{selectedLocation.area}}</p>
 
-  </div>
-{{/message-box}}
+    {{partial 'orders/item_block'}}
 
+    <div class="warnings">
+
+      {{#if (is-greater item.quantity 1)}}
+        <div class="warning_text">
+          <i class="fa fa-exclamation-triangle"></i>
+          Moves quantity of {{item.quantity}}
+        </div>
+      {{/if}}
+
+      {{#if item.isSet}}
+        <div class="warning_text">
+          <i class="fa fa-exclamation-triangle"></i>
+          Moves only part of set.
+        </div>
+
+        {{input type="checkbox" checked=showAllSetItems id=(concat "item" item.id)}}
+        <label for="{{concat "item" item.id}}" >Show other parts from the same set next</label>
+
+      {{/if}}
+
+    </div>
+  {{/message-box}}
+
+{{/if}}

@@ -5,6 +5,9 @@ const { getOwner } = Ember;
 
 export default searchModule.extend({
 
+  queryParams: ['isSet'],
+  isSet: false,
+
   item: Ember.computed.alias("model.item"),
   searchModelName: "location",
   messageBox: Ember.inject.service(),
@@ -31,13 +34,20 @@ export default searchModule.extend({
       this.set("showAllSetItems", false);
 
       var loadingView = getOwner(this).lookup('component:loading').append();
-      var url = `/items/${item.get('id')}/move_stockit_item`;
+      var url;
+      if(item.get("isSet")) {
+        url = `/items/${item.get('setItem.id')}/move_stockit_item_set`;
+      } else {
+        url = `/items/${item.get('id')}/move_stockit_item`;
+      }
 
       new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id") })
         .then(data => {
           this.get("store").pushPayload(data);
           if(showAllSetItems) {
             this.transitionToRoute("items", {queryParams: { itemSetId: item.get("itemId") } });
+          } if(this.get('isSet')) {
+            this.transitionToRoute("items.detail", item);
           } else {
             this.transitionToRoute("items");
           }

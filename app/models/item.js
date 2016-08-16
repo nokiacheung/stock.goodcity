@@ -22,6 +22,7 @@ export default cloudinaryUrl.extend({
 
   sentOn:          attr('date'),
   isSet:           attr('boolean'),
+  hasBoxPallet:    attr('boolean'),
   itemId:          attr('number'),
 
   designation: belongsTo('designation', { async: false }),
