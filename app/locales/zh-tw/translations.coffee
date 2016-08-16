@@ -9,6 +9,7 @@ I18nTranslationsEn =
   "cancel": "Cancel"
   "ok" : "OK"
   "must_login": "You must login!"
+  "search_no_results": "Sorry, No results found."
 
   "authenticate":
     "input_code" : "Input Code"
