@@ -37,5 +37,8 @@ export default Model.extend({
     }
   }),
 
+  canBeMoved: Ember.computed('items.@each.hasBoxPallet', function() {
+    return this.get("items").filterBy('hasBoxPallet', true).length === 0;
+  }),
 
 });
