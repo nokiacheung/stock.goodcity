@@ -30,5 +30,12 @@ export default ActiveModelAdapter.extend({
       Ember.set(arguments, "1", "stockit_item");
     }
     return this._super(...arguments);
+  },
+
+  urlForQuery(query, modelName) {
+    if(modelName === "code") {
+      Ember.set(arguments, "1", "package_type");
+    }
+    return this._super(...arguments);
   }
 });

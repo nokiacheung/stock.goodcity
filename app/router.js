@@ -10,6 +10,7 @@ Router.map(function() {
   this.route('logout', { path: '/logout' });
   this.route('login');
   this.route('authenticate');
+  this.route('search_code');
 
   this.route("items", function() {
     this.route("detail", { path: "/:item_id" });
