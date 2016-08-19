@@ -2,6 +2,10 @@ import Ember from 'ember';
 import { translationMacro as t } from "ember-i18n";
 
 export default Ember.Controller.extend({
+
+  queryParams: ["backToNewItem"],
+  backToNewItem: false,
+
   filter: '',
   searchText: '',
   fetchMoreResult: true,
@@ -81,7 +85,11 @@ export default Ember.Controller.extend({
     cancelSearch() {
       Ember.$("#searchText").blur();
       this.send("clearSearch", true);
-      this.transitionToRoute("index");
+      if(this.get("backToNewItem")) {
+        this.transitionToRoute("items.new");
+      } else {
+        this.transitionToRoute("index");
+      }
     },
 
     assignItemLabel(type){

@@ -22,7 +22,7 @@
           Type
         </div>
         <div class="small-6 large-7 columns left">
-          {{#link-to "search_code"}}
+          {{#link-to "search_code" (query-params backToNewItem=true)}}
             {{input value=code.name disabled=true}}
           {{/link-to}}
         </div>
