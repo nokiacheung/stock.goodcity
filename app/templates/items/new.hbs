@@ -22,7 +22,9 @@
           Type
         </div>
         <div class="small-6 large-7 columns left">
-          {{input type='text' value=code.name}}
+          {{#link-to "search_code"}}
+            {{input value=code.name disabled=true}}
+          {{/link-to}}
         </div>
       </div>
     </div>
