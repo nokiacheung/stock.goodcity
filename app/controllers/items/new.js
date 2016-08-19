@@ -1,9 +1,11 @@
 import Ember from "ember";
+import AjaxPromise from 'stock/utils/ajax-promise';
 
 export default Ember.Controller.extend({
   queryParams: ['codeId', 'locationId'],
   codeId: "",
   locationId: "",
+  inventoryNumber: "",
 
   code: Ember.computed("codeId", function() {
     return this.get("store").peekRecord("code", this.get("codeId"));
@@ -18,6 +20,7 @@ export default Ember.Controller.extend({
 
   actions: {
     cancelForm() {
+      new AjaxPromise(`/inventory_numbers/${this.get('inventoryNumber')}`, "DELETE", this.get('session.authToken'));
       this.set("locationId", "");
       this.set("codeId", "");
       this.transitionToRoute("index");
