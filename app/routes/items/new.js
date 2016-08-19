@@ -3,7 +3,8 @@ import AuthorizeRoute from './../authorize';
 export default AuthorizeRoute.extend({
 
   queryParams: {
-    codeId: ""
+    codeId: "",
+    locationId: ""
   },
 
 });
