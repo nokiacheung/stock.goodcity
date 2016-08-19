@@ -22,7 +22,9 @@
           Type
         </div>
         <div class="small-6 large-7 columns left">
-          {{input type='text' value=code.name}}
+          {{#link-to "search_code"}}
+            {{input value=code.name disabled=true}}
+          {{/link-to}}
         </div>
       </div>
     </div>
@@ -94,9 +96,13 @@
     <div class="small-3 columns item-label">
       Location
     </div>
+
     <div class="small-7 large-8 columns">
-      {{input type='text'}}
+      {{#link-to "select_location"}}
+        {{input value=location.name disabled=true}}
+      {{/link-to}}
     </div>
+
     <div class="small-2 large-1 columns scan-icon">
       <i class="fa fa-barcode" aria-hidden="true"></i>
     </div>
@@ -116,7 +122,7 @@
 
   <div class="row">
     <div class="small-6 columns">
-      {{#link-to 'index' classNames="button secondary expand"}}Cancel{{/link-to}}
+      <a {{action 'cancelForm'}} class="button secondary expand">Cancel</a>
     </div>
 
     <div class="small-6 columns">
