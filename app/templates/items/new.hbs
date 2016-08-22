@@ -97,12 +97,14 @@
     <div class="small-3 columns item-label">
       Donation#
     </div>
-    <div class="small-7 large-8 columns">
+    <div class="{{if isMobileApp 'small-7 large-8' 'small-9'}} columns">
       {{input type='text'}}
     </div>
-    <div class="small-2 large-1 columns scan-icon">
-      <i class="fa fa-barcode" aria-hidden="true"></i>
-    </div>
+    {{#if isMobileApp}}
+      <div class="small-2 large-1 columns scan-icon">
+        <i class="fa fa-barcode" aria-hidden="true"></i>
+      </div>
+    {{/if}}
   </div>
 
   <div class="row">
@@ -110,15 +112,18 @@
       Location*
     </div>
 
-    <div class="small-7 large-8 columns">
+    <div class="{{if isMobileApp 'small-7 large-8' 'small-9'}} columns">
       {{#link-to "select_location"}}
-        {{input value=location.name disabled=true}}
+        <i class="fa fa-map-marker location-icon" aria-hidden="true"></i>
+        {{input id="searchText" value=location.name disabled=true}}
       {{/link-to}}
     </div>
 
-    <div class="small-2 large-1 columns scan-icon">
-      <i class="fa fa-barcode" aria-hidden="true"></i>
-    </div>
+    {{#if isMobileApp}}
+      <div class="small-2 large-1 columns scan-icon">
+        {{scan-barcode-for-location route="items.new"}}
+      </div>
+    {{/if}}
   </div>
 
   <div class="row">

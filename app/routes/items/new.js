@@ -7,7 +7,8 @@ export default AuthorizeRoute.extend({
 
   queryParams: {
     codeId: "",
-    locationId: ""
+    locationId: "",
+    searchInput: ""
   },
 
   model() {

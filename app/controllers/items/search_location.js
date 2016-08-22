@@ -1,12 +1,15 @@
 import Ember from "ember";
+import config from '../../config/environment';
 import searchModule from "../search_module";
 import AjaxPromise from 'stock/utils/ajax-promise';
 const { getOwner } = Ember;
 
 export default searchModule.extend({
 
-  queryParams: ['isSet'],
+  queryParams: ['searchInput', 'isSet'],
   isSet: false,
+  isMobileApp: config.cordova.enabled,
+  searchInput: "",
 
   item: Ember.computed.alias("model.item"),
   searchModelName: "location",
@@ -19,6 +22,13 @@ export default searchModule.extend({
   showAllSetItems: false,
   selectedLocation: null,
   hideDetailsLink: true,
+
+  onSearchInputChange: Ember.observer("searchInput", function() {
+    // wait before applying the filter
+    if (this.get("searchInput")) {
+      Ember.run.debounce(this, this.applyFilter, 0);
+    }
+  }),
 
   actions: {
     displayMoveOverlay(location) {
