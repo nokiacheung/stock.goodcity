@@ -20,9 +20,9 @@
     </div>
   {{/unless}}
 
-  {{#if false}}
+  {{#if isMobileApp}}
     <div class="option_menu">
-      <a>
+      <a {{action "scanInventoryNumber"}}>
         <i class="fa fa-barcode" aria-hidden="true"></i>
         Scan Id
       </a>
