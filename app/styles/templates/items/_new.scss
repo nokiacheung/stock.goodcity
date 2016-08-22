@@ -54,9 +54,9 @@
   }
 
   input {
-    padding: 0 !important;
+    padding: 0 0.5rem;
     background: #002352 !important;
-    border: 1px solid white !important;
+    border: 1px solid $tabbar-menu-icon-color !important;
     color: white;
     height: 1.8rem !important;
   }
@@ -82,13 +82,13 @@
   }
 
   .scan-icon i {
-    color: white;
+    color: $tabbar-menu-icon-color;
     font-size: 1.5rem;
     padding: 0.15rem 0.4rem;
   }
 
   .inventory-number {
-    color: white;
+    color: $tabbar-menu-icon-color;
     line-height: 1.8rem;
     font-size: 0.8rem;
 
@@ -101,6 +101,7 @@
       float: right;
       font-size: 1.5rem;
       padding: 0 0.7rem;
+      color: $tabbar-menu-icon-color !important;
     }
   }
 }
@@ -133,6 +134,7 @@
 
     i {
       margin-right: 0.5rem;
+      color: $tabbar-menu-icon-color;
     }
   }
 
