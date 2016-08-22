@@ -6,6 +6,9 @@ export default Ember.Controller.extend({
   codeId: "",
   locationId: "",
   inventoryNumber: "",
+  displayInventoryOptions: false,
+  autoGenerateInventory: true,
+  inputInventory: false,
 
   code: Ember.computed("codeId", function() {
     return this.get("store").peekRecord("code", this.get("codeId"));
@@ -20,10 +23,37 @@ export default Ember.Controller.extend({
 
   actions: {
     cancelForm() {
-      new AjaxPromise(`/inventory_numbers/${this.get('inventoryNumber')}`, "DELETE", this.get('session.authToken'));
+      if(this.get("autoGenerateInventory")) {
+        new AjaxPromise(`/inventory_numbers/${this.get('inventoryNumber')}`, "DELETE", this.get('session.authToken'));
+      }
       this.set("locationId", "");
       this.set("codeId", "");
       this.transitionToRoute("index");
+    },
+
+    toggleInventoryOptions() {
+      this.toggleProperty("displayInventoryOptions");
+    },
+
+    editInventoryNumber() {
+      new AjaxPromise(`/inventory_numbers/${this.get('inventoryNumber')}`, "DELETE", this.get('session.authToken'));
+      this.set("inventoryNumber", "");
+      this.set("inputInventory", true);
+      this.set("autoGenerateInventory", false);
+      this.set("displayInventoryOptions", false);
+    },
+
+    autoGenerateInventoryNumber() {
+      var _this = this;
+      this.set("inventoryNumber", "");
+      this.set("inputInventory", false);
+      this.set("autoGenerateInventory", true);
+      this.set("displayInventoryOptions", false);
+
+      new AjaxPromise("/inventory_numbers", "POST", this.get('session.authToken'))
+      .then(function(data) {
+        _this.set("inventoryNumber", data.inventory_number);
+      });
     }
   }
 
