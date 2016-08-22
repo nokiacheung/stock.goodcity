@@ -91,9 +91,57 @@
     color: white;
     line-height: 1.8rem;
     font-size: 0.8rem;
+
+    input {
+      width: 80%;
+      display: inline-block;
+    }
+
+    a.options-link {
+      float: right;
+      font-size: 1.5rem;
+      padding: 0 0.7rem;
+    }
   }
 }
 
 .new-item-nav {
   margin-bottom: 0;
 }
+
+.options_menu_list {
+  width: 12rem;
+  margin-left: -6rem;
+  background-color: #002136;
+  position: absolute;
+  z-index: 100;
+  right: -5%;
+
+  @media #{$small-only} {
+    width: 10.5rem;
+    margin-left: -5rem;
+  }
+
+  /* box-shadow style */
+  -webkit-box-shadow: -8px 8px 25px 1px rgba(0,0,0,0.75);
+  -moz-box-shadow: -8px 8px 25px 1px rgba(0,0,0,0.75);
+  box-shadow: -8px 8px 25px 1px rgba(0,0,0,0.75);
+
+  .option_menu {
+    padding: 0 1rem;
+    line-height: 2.8rem;
+
+    i {
+      margin-right: 0.5rem;
+    }
+  }
+
+  a {
+    float: none;
+
+    @media #{$small-only} {
+      font-size: 0.85rem;
+    }
+  }
+}
+

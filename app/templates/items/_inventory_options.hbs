@@ -1,0 +1,31 @@
+<a {{action "toggleInventoryOptions"}} class="options-link"><i class="fa fa-ellipsis-v options"></i></a>
+
+<div class="options_menu_list {{if displayInventoryOptions '' 'hidden'}}">
+
+  {{#unless autoGenerateInventory}}
+    <div class="option_menu">
+      <a {{action "autoGenerateInventoryNumber"}} >
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+        Auto Id
+      </a>
+    </div>
+  {{/unless}}
+
+  {{#unless inputInventory}}
+    <div class="option_menu">
+      <a {{action "editInventoryNumber"}} >
+        <i class="fa fa-keyboard-o" aria-hidden="true"></i>
+        Input Id
+      </a>
+    </div>
+  {{/unless}}
+
+  {{#if isMobileApp}}
+    <div class="option_menu">
+      <a {{action "scanInventoryNumber"}}>
+        <i class="fa fa-barcode" aria-hidden="true"></i>
+        Scan Id
+      </a>
+    </div>
+  {{/if}}
+</div>

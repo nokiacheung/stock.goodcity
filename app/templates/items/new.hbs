@@ -113,7 +113,14 @@
       Inventory#
     </div>
     <div class="small-7 large-8 columns inventory-number">
-      {{model.inventoryNumber}}
+
+      {{#if inputInventory}}
+        {{input value=inventoryNumber}}
+      {{else}}
+        {{inventoryNumber}}
+      {{/if}}
+
+      {{partial "items/inventory_options"}}
     </div>
     <div class="small-2 large-1 columns scan-icon">
       <i class="fa fa-print" aria-hidden="true"></i>
