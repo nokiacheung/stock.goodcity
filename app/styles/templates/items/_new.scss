@@ -46,19 +46,42 @@
       color: white;
       line-height: 1.8rem;
       padding-left: 0.5rem;
+      z-index: 10;
     }
 
-    input.grade {
+    .grade select {
       padding-left: 3.5rem !important;
+    }
+
+    .condition select {
+      padding-left: 4.8rem !important;
     }
   }
 
-  input {
+  input, select {
     padding: 0 0.5rem;
     background: #002352 !important;
     border: 1px solid $tabbar-menu-icon-color !important;
     color: white;
     height: 1.8rem !important;
+  }
+
+  textarea {
+    margin: 0;
+    max-width: 100%;
+    padding: 0.3rem 0.5rem;
+    background: #002352 !important;
+    border: 1px solid $tabbar-menu-icon-color !important;
+    color: white;
+    padding-right: 1.5rem;
+  }
+
+  .remove-text{
+    position: absolute;
+    right: 3%;
+    font-size: 1rem;
+    padding: 0.4rem 0.3rem;
+    cursor: pointer;
   }
 
   .image-box {

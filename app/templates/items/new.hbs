@@ -13,7 +13,7 @@
           Quantity*
         </div>
         <div class="small-6 large-7 columns left">
-          {{input type='text'}}
+          {{numeric-input id='qty' name="qty" value=quantity maxlength="8" required='true' pattern="\d{1,8}"}}
         </div>
       </div>
 
@@ -22,9 +22,7 @@
           Type*
         </div>
         <div class="small-6 large-7 columns left">
-          {{#link-to "search_code" (query-params backToNewItem=true)}}
-            {{input value=code.name disabled=true}}
-          {{/link-to}}
+          {{input value=code.name disabled=true}}
         </div>
       </div>
     </div>
@@ -40,7 +38,8 @@
       Description*
     </div>
     <div class="small-9 columns">
-      {{input type='text'}}
+      <i class="fa fa-times-circle remove-text" aria-hidden="true" {{action "clearDescription"}}></i>
+      {{auto-resize-textarea data-autoresize=true name="description" value=description required="required" pattern=".*\S.*" id="description"}}
     </div>
   </div>
 
@@ -50,19 +49,19 @@
     </div>
     <div class="columns small-3 value length">
       <span class='input_text'>L :</span>
-      {{input type='text' }}
+      {{numeric-input name="length" id='length' value=length maxlength="8" pattern="\d{1,8}"}}
       <span><i class="fa fa-times" aria-hidden="true"></i></span>
     </div>
 
     <div class="columns small-3 value">
       <span class='input_text'>W :</span>
-      {{input type='text' }}
+      {{numeric-input name="width" id='width' value=width maxlength="5" pattern="\d{1,5}"}}
       <span><i class="fa fa-times" aria-hidden="true"></i></span>
     </div>
 
     <div class="columns small-3 value height">
       <span class='input_text'>H :</span>
-      {{input type='text' }}
+      {{numeric-input name="height" id='height' value=height maxlength="5" pattern="\d{1,5}"}}
     </div>
   </div>
 
@@ -72,10 +71,24 @@
     </div>
     <div class="small-4 columns">
       <span class='input_text'>Grade :</span>
-      {{input type='text' classNames='grade'}}
+      {{select-list
+        content=grades
+        on-change=(action (mut selectedGrade))
+        selectedValue=selectedGrade
+        value=selectedGrade
+        selectArrow=true
+        classNames='grade' }}
     </div>
     <div class="small-5 columns">
-      {{input type='text'}}
+      <span class='input_text'>Condition :</span>
+      {{select-list
+        content=conditions
+        on-change=(action (mut selectedCondition))
+        selectedValue=selectedCondition
+        value=selectedCondition
+        selectArrow=true
+        classNames='condition'
+        idNames='condition-select' }}
     </div>
 
   </div>
