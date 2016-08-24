@@ -5,7 +5,15 @@
 </nav>
 
 <section class="main-section new-item-section ui">
+
+  {{#validatable-form onSubmit=(action 'saveItem') as |form|}}
+
   <div class="row">
+    <span class="image-box">
+      <i class="fa fa-camera" aria-hidden="true"></i>
+      Add Images
+    </span>
+
     <div class="small-12 columns">
 
       <div class="row">
@@ -13,7 +21,10 @@
           Quantity*
         </div>
         <div class="small-6 large-7 columns left">
-          {{numeric-input id='qty' name="qty" value=quantity maxlength="8" required='true' pattern="\d{1,8}"}}
+          {{#form-control}}
+            {{numeric-input id='qty' name="qty" value=quantity maxlength="8" required='true' pattern="\d{1,8}"}}
+            <div class='input-error'>Quantity cannot be blank.</div>
+          {{/form-control}}
         </div>
       </div>
 
@@ -27,19 +38,19 @@
       </div>
     </div>
 
-    <span class="image-box">
-      <i class="fa fa-camera" aria-hidden="true"></i>
-      Add Images
-    </span>
+
   </div>
 
   <div class="row">
     <div class="small-3 columns item-label">
       Description*
     </div>
-    <div class="small-9 columns">
-      <i class="fa fa-times-circle remove-text" aria-hidden="true" {{action "clearDescription"}}></i>
-      {{auto-resize-textarea data-autoresize=true name="description" value=description required="required" pattern=".*\S.*" id="description"}}
+    <div class="small-9 columns description-block">
+      {{#form-control}}
+        <i class="fa fa-times-circle remove-text" aria-hidden="true" {{action "clearDescription"}}></i>
+        {{auto-resize-textarea data-autoresize=true name="description" value=description required="required" pattern=".*\S.*" id="description"}}
+        <div class='input-error'>Description cannot be blank.</div>
+      {{/form-control}}
     </div>
   </div>
 
@@ -49,13 +60,13 @@
     </div>
     <div class="columns small-3 value length">
       <span class='input_text'>L :</span>
-      {{numeric-input name="length" id='length' value=length maxlength="8" pattern="\d{1,8}"}}
+      {{numeric-input name="length" id='length' value=length maxlength="8" pattern="[1-9][0-9]{0,7}"}}
       <span><i class="fa fa-times" aria-hidden="true"></i></span>
     </div>
 
     <div class="columns small-3 value">
       <span class='input_text'>W :</span>
-      {{numeric-input name="width" id='width' value=width maxlength="5" pattern="\d{1,5}"}}
+      {{numeric-input name="width" id='width' value=width maxlength="5" pattern="[1-9][0-9]{0,4}"}}
       <span><i class="fa fa-times" aria-hidden="true"></i></span>
     </div>
 
@@ -114,8 +125,11 @@
 
     <div class="{{if isMobileApp 'small-7 large-8' 'small-9'}} columns">
       {{#link-to "select_location"}}
-        <i class="fa fa-map-marker location-icon" aria-hidden="true"></i>
-        {{input id="searchText" value=location.name disabled=true}}
+        <div class="{{if invalidLocation 'ember-view form__control form__control--error'}}">
+          <i class="fa fa-map-marker location-icon" aria-hidden="true"></i>
+          {{input value=location.name disabled=true required='true'}}
+          <div class='input-error'>Location cannot be blank.</div>
+        </div>
       {{/link-to}}
     </div>
 
@@ -151,7 +165,9 @@
     </div>
 
     <div class="small-6 columns">
-      <a {{action 'saveItem'}} class="button expand">Save</a>
+      <a {{action 'submit' target=form}} class="button expand">Save</a>
     </div>
   </div>
+
+  {{/validatable-form}}
 </section>

@@ -25,6 +25,7 @@ export default AuthorizeRoute.extend({
     controller.set('displayInventoryOptions', false);
     controller.set('autoGenerateInventory', true);
     controller.set('inputInventory', false);
+    controller.set('invalidLocation', false);
   }
 
 });

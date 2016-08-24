@@ -21,6 +21,13 @@ export default Ember.Controller.extend({
   description: "",
   selectedGrade: { name: "B", id: "B" },
   selectedCondition: { name: "Used", id: "U" },
+  invalidLocation: false,
+
+  validateLocation: Ember.observer('location', function() {
+    if(!this.get("location")) {
+      this.set("invalidLocation", false);
+    }
+  }),
 
   isMobileApp: config.cordova.enabled,
   messageBox: Ember.inject.service(),
@@ -134,6 +141,7 @@ export default Ember.Controller.extend({
         parseInt(_this.get("width")) === 0 ||
         parseInt(_this.get("height")) === 0
       ) {
+        if(!_this.get("location")) { this.set("invalidLocation", true); }
         return false;
       } else {
 
