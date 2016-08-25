@@ -130,7 +130,7 @@
       {{#link-to "select_location"}}
         <div class="{{if invalidLocation 'ember-view form__control form__control--error'}}">
           <i class="fa fa-map-marker location-icon" aria-hidden="true"></i>
-          {{input value=location.name disabled=true required='true'}}
+          {{input value=locationName disabled=true required='true'}}
           <div class='input-error'>Location cannot be blank.</div>
         </div>
       {{/link-to}}
