@@ -13,6 +13,7 @@ export default Ember.Controller.extend({
   autoGenerateInventory: true,
   inputInventory: false,
   locationName: Ember.computed.or('searchInput', 'location.name'),
+  caseNumber: "",
 
   quantity: 1,
   length: null,
@@ -152,6 +153,7 @@ export default Ember.Controller.extend({
           width: _this.get("width"),
           height: _this.get("height"),
           inventory_number: _this.get("inventoryNumber"),
+          case_number: _this.get("caseNumber"),
           notes: _this.get("description"),
           grade: _this.get("selectedGrade.id"),
           donor_condition_id: _this.get("selectedCondition.id"),
