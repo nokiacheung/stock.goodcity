@@ -10,6 +10,7 @@ export default Ember.Controller.extend({
   displayInventoryOptions: false,
   autoGenerateInventory: true,
   inputInventory: false,
+  locationName: Ember.computed.or('searchInput', 'location.name'),
 
   quantity: 1,
   length: null,
