@@ -4,11 +4,19 @@ import AjaxPromise from 'stock/utils/ajax-promise';
 export default AuthorizeRoute.extend({
 
   inventoryNumber: "",
+  newItemRequest: "",
 
   queryParams: {
     codeId: "",
     locationId: "",
     scanLocationName: ""
+  },
+
+  beforeModel() {
+    var previousRoutes = this.router.router.currentHandlerInfos;
+    var previousRoute = previousRoutes && previousRoutes.pop();
+    var newItemRequest = previousRoute.name === "search_code" ? true : false;
+    this.set("newItemRequest", newItemRequest);
   },
 
   model() {
@@ -30,6 +38,19 @@ export default AuthorizeRoute.extend({
     controller.set('autoGenerateInventory', true);
     controller.set('inputInventory', false);
     controller.set('invalidLocation', false);
+    controller.set('invalidScanResult', false);
+
+    if(this.get("newItemRequest")) {
+      this.set("newItemRequest", false);
+      controller.set('caseNumber', "");
+      controller.set('quantity', 1);
+      controller.set('length', null);
+      controller.set('width', null);
+      controller.set('height', null);
+      controller.set('description', "");
+      controller.set('selectedGrade', { name: "B", id: "B" });
+      controller.set('selectedCondition', { name: "Used", id: "U" });
+    }
   }
 
 });
