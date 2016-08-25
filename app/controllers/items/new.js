@@ -3,10 +3,11 @@ import AjaxPromise from 'stock/utils/ajax-promise';
 import config from '../../config/environment';
 
 export default Ember.Controller.extend({
-  queryParams: ['codeId', 'locationId'],
+  queryParams: ['codeId', 'locationId', 'searchInput'],
   codeId: "",
   locationId: "",
   inventoryNumber: "",
+  searchInput: "",
   displayInventoryOptions: false,
   autoGenerateInventory: true,
   inputInventory: false,
