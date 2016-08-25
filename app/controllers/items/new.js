@@ -1,6 +1,7 @@
 import Ember from "ember";
 import AjaxPromise from 'stock/utils/ajax-promise';
 import config from '../../config/environment';
+const { getOwner } = Ember;
 
 export default Ember.Controller.extend({
   queryParams: ['codeId', 'locationId', 'searchInput'],
@@ -12,6 +13,7 @@ export default Ember.Controller.extend({
   autoGenerateInventory: true,
   inputInventory: false,
   locationName: Ember.computed.or('searchInput', 'location.name'),
+  caseNumber: "",
 
   quantity: 1,
   length: null,
@@ -20,6 +22,13 @@ export default Ember.Controller.extend({
   description: "",
   selectedGrade: { name: "B", id: "B" },
   selectedCondition: { name: "Used", id: "U" },
+  invalidLocation: false,
+
+  validateLocation: Ember.observer('location', function() {
+    if(!this.get("location")) {
+      this.set("invalidLocation", false);
+    }
+  }),
 
   isMobileApp: config.cordova.enabled,
   messageBox: Ember.inject.service(),
@@ -120,6 +129,52 @@ export default Ember.Controller.extend({
       var options = {"formats": "CODE_128"};
       window.cordova.plugins.barcodeScanner.scan(onSuccess, onError, options);
     },
+
+    saveItem() {
+      var _this = this, loadingView;
+      if(
+        _this.get("quantity").toString().trim().length === 0 ||
+        _this.get("description").trim().length === 0 ||
+        !_this.get("location") ||
+        _this.get("inventoryNumber").trim().length === 0 ||
+        !_this.get('code') ||
+        parseInt(_this.get("length")) === 0 ||
+        parseInt(_this.get("width")) === 0 ||
+        parseInt(_this.get("height")) === 0
+      ) {
+        if(!_this.get("location")) { this.set("invalidLocation", true); }
+        return false;
+      } else {
+
+        loadingView = getOwner(this).lookup('component:loading').append();
+        var properties = {
+          quantity: _this.get("quantity"),
+          length: _this.get("length"),
+          width: _this.get("width"),
+          height: _this.get("height"),
+          inventory_number: _this.get("inventoryNumber"),
+          case_number: _this.get("caseNumber"),
+          notes: _this.get("description"),
+          grade: _this.get("selectedGrade.id"),
+          donor_condition_id: _this.get("selectedCondition.id"),
+          location_id: _this.get("location.id"),
+          package_type_id: _this.get("code.id"),
+          state_event: 'mark_received'
+        };
+
+        new AjaxPromise("/packages", "POST", this.get('session.authToken'), { package: properties })
+          .then(data => {
+            this.get("store").pushPayload(data);
+            loadingView.destroy();
+            _this.transitionToRoute("items.detail", data.item.id);
+          })
+          .catch(response => {
+            loadingView.destroy();
+            _this.get("messageBox").alert(response.responseJSON.errors[0]);
+          });
+
+      }
+    }
 
   }
 
