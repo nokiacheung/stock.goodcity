@@ -30,6 +30,36 @@ export default searchModule.extend({
     }
   }),
 
+  applyFilter() {
+    var searchText = this.get("searchText");
+    if (searchText.length > 0) {
+      this.set("isLoading", true);
+      this.set("hasNoResults", false);
+      if(this.get("unloadAll")) { this.get("store").unloadAll(); }
+
+      this.infinityModel("location",
+        { perPage: 25, startingPage: 1, modelPath: 'filteredResults',stockRequest: true },
+        { searchText: "searchText", itemId: "itemSetId" })
+        .then(data => {
+          if(this.get("searchText") === data.meta.search) {
+            this.set("filteredResults", data);
+            this.set("hasNoResults", data.get("length") === 0);
+          }
+
+          if(data.get("length") === 1) {
+            this.set("selectedLocation", data.get('firstObject'));
+            Ember.run.debounce(this, this.triggerDisplayMoveOverlay, 100);
+          }
+        })
+        .finally(() => this.set("isLoading", false));
+    }
+    this.set("filteredResults", []);
+  },
+
+  triggerDisplayMoveOverlay(){
+    this.set("displayUserPrompt", true);
+  },
+
   actions: {
     displayMoveOverlay(location) {
       this.set("displayUserPrompt", true);
