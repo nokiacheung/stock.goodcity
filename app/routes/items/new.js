@@ -8,7 +8,7 @@ export default AuthorizeRoute.extend({
   queryParams: {
     codeId: "",
     locationId: "",
-    searchInput: ""
+    scanLocationName: ""
   },
 
   model() {
@@ -17,6 +17,10 @@ export default AuthorizeRoute.extend({
       .then(function(data) {
         _this.set("inventoryNumber", data.inventory_number);
       });
+  },
+
+  afterModel() {
+    this.store.findAll('location', {reload: true});
   },
 
   setupController(controller, model){

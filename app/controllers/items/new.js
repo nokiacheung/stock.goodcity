@@ -4,15 +4,15 @@ import config from '../../config/environment';
 const { getOwner } = Ember;
 
 export default Ember.Controller.extend({
-  queryParams: ['codeId', 'locationId', 'searchInput'],
+  queryParams: ['codeId', 'locationId', 'scanLocationName'],
   codeId: "",
   locationId: "",
   inventoryNumber: "",
-  searchInput: "",
+  scanLocationName: "",
   displayInventoryOptions: false,
   autoGenerateInventory: true,
   inputInventory: false,
-  locationName: Ember.computed.or('searchInput', 'location.name'),
+  locationName: Ember.computed.alias('location.displayName'),
   caseNumber: "",
 
   quantity: 1,
@@ -23,6 +23,22 @@ export default Ember.Controller.extend({
   selectedGrade: { name: "B", id: "B" },
   selectedCondition: { name: "Used", id: "U" },
   invalidLocation: false,
+  invalidScanResult: false,
+
+  setLocation: Ember.observer("scanLocationName", function() {
+    var scanInput = this.get("scanLocationName");
+    if(scanInput) {
+      var results = this.get("store").peekAll("location").filterBy("displayName", scanInput);
+      if(results.length > 0) {
+        this.set("invalidScanResult", false);
+        this.set("location", results.get("firstObject"));
+      } else {
+        this.set("invalidScanResult", true);
+      }
+    } else {
+      this.set("invalidScanResult", false);
+    }
+  }),
 
   validateLocation: Ember.observer('location', function() {
     if(!this.get("location")) {
@@ -56,11 +72,17 @@ export default Ember.Controller.extend({
     return selected && selected.defaultChildPackagesList()[0];
   }),
 
-  location: Ember.computed("codeId", "locationId", function() {
-    var locationId = this.get("locationId");
-    var location = this.get("store").peekRecord("location", locationId) || this.get("code.location");
-    if(!locationId && location) { this.set("locationId", location.get("id")); }
-    return location;
+  location: Ember.computed("codeId", "locationId", {
+    get() {
+      var locationId = this.get("locationId");
+      if(locationId) { this.set("scanLocationName", null); }
+      var location = this.get("store").peekRecord("location", locationId) || this.get("code.location");
+      if(!locationId && location) { this.set("locationId", location.get("id")); }
+      return location;
+    },
+    set(key, value) {
+      return value;
+    }
   }),
 
   actions: {

@@ -128,17 +128,23 @@
 
     <div class="{{if isMobileApp 'small-7 large-8' 'small-9'}} columns">
       {{#link-to "select_location"}}
-        <div class="{{if invalidLocation 'ember-view form__control form__control--error'}}">
+        <div class="{{if (is-or invalidLocation invalidScanResult) 'ember-view form__control form__control--error'}}">
           <i class="fa fa-map-marker location-icon" aria-hidden="true"></i>
           {{input value=locationName disabled=true required='true'}}
-          <div class='input-error'>Location cannot be blank.</div>
+          <div class='input-error'>
+            {{#if invalidScanResult}}
+              Scanned Location is invalid.
+            {{else}}
+              Location cannot be blank.
+            {{/if}}
+          </div>
         </div>
       {{/link-to}}
     </div>
 
     {{#if isMobileApp}}
       <div class="small-2 large-1 columns scan-icon">
-        {{scan-barcode-for-location route="items.new"}}
+        {{location-barcode-scanner route="items.new" paramName="scanLocationName"}}
       </div>
     {{/if}}
   </div>
