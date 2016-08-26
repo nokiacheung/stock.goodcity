@@ -21,6 +21,8 @@
 
   .row {
     margin-top: 0.5rem !important;
+    margin-right: 0rem !important;
+    margin-left: 0rem !important;
   }
 
   .item-label {
@@ -105,7 +107,7 @@
   }
 
   .image-box-row {
-    input {
+    input, .input-error {
       width: 89%;
     }
   }
