@@ -8,7 +8,7 @@
 
   {{#validatable-form onSubmit=(action 'saveItem') as |form|}}
 
-  <div class="row">
+  <div class="row image-box-row">
     <span class="image-box">
       <i class="fa fa-camera" aria-hidden="true"></i>
       Add Images
@@ -20,7 +20,7 @@
         <div class="small-3 columns item-label">
           Quantity*
         </div>
-        <div class="small-6 large-7 columns left">
+        <div class="small-7 large-8 columns left">
           {{#form-control}}
             {{numeric-input id='qty' name="qty" value=quantity maxlength="8" required='true' pattern="\d{1,8}"}}
             <div class='input-error'>Quantity cannot be blank.</div>
@@ -32,7 +32,7 @@
         <div class="small-3 columns item-label">
           Type*
         </div>
-        <div class="small-6 large-7 columns left">
+        <div class="small-7 large-8 columns left">
           {{input value=code.name disabled=true}}
         </div>
       </div>

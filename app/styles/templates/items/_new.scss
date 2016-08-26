@@ -104,6 +104,12 @@
     cursor: pointer;
   }
 
+  .image-box-row {
+    input {
+      width: 89%;
+    }
+  }
+
   .image-box {
     float: right;
 
@@ -116,15 +122,18 @@
     height: 4.1rem;
 
     right: 18.7%;
-    width: 10%;
+    width: 8%;
+    font-size: 0.8rem;
 
     @media #{$small-only} {
-      width: 23%;
+      width: 21%;
       right: 0;
+      font-size: 0.68rem;
+      padding-top: 0.3rem;
     }
 
     i {
-      font-size: 2rem;
+      font-size: 1.5rem;
       padding: 0.5rem 1rem 0.2rem;
       width: 100%;
     }
