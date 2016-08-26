@@ -15,8 +15,12 @@ export default AuthorizeRoute.extend({
   beforeModel() {
     var previousRoutes = this.router.router.currentHandlerInfos;
     var previousRoute = previousRoutes && previousRoutes.pop();
-    var newItemRequest = previousRoute.name === "search_code" ? true : false;
-    this.set("newItemRequest", newItemRequest);
+    if(previousRoute) {
+      var newItemRequest = previousRoute.name === "search_code" ? true : false;
+      this.set("newItemRequest", newItemRequest);
+    } else {
+      this.transitionTo("search_code");
+    }
   },
 
   model() {
