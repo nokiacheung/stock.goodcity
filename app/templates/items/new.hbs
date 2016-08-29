@@ -116,7 +116,7 @@
     </div>
     {{#if isMobileApp}}
       <div class="small-2 large-1 columns scan-icon">
-        <i class="fa fa-barcode" aria-hidden="true"></i>
+        {{barcode-scanner route="items.new" paramName="caseNumber"}}
       </div>
     {{/if}}
   </div>
@@ -144,7 +144,7 @@
 
     {{#if isMobileApp}}
       <div class="small-2 large-1 columns scan-icon">
-        {{location-barcode-scanner route="items.new" paramName="scanLocationName"}}
+        {{barcode-scanner route="items.new" paramName="scanLocationName"}}
       </div>
     {{/if}}
   </div>
