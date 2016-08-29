@@ -1,18 +1,26 @@
+import Ember from "ember";
 import Model from 'ember-data/model';
 
 export default Model.extend({
   generateUrl: function(width, height, crop) {
-    //e.g. cloudinaryId = 1406959628/wjvaksnadntp239n6vwe.png
-    var id = this.get('cloudinaryId') || "1438323573/default/test_image.jpg";
+    var id = this.get('cloudinaryId');
+    var angle = this.get('angle') || 0;
     if (!id || id.indexOf("/") === -1) {
       return null;
     }
-
-    width = width ? (",w_" + width) : "";
-    height = height ? (",h_" + height) : "";
-
-    crop = crop === true ? "c_fill" : "c_fit";
-
-    return `https://res.cloudinary.com/ddoadcjjl/image/upload/${crop},fl_progressive${height}${width}/v${id}`;
+    var version = id.split("/")[0];
+    var filename = id.substring(id.indexOf("/") + 1);
+    var options = {
+      version: version,
+      height: height,
+      width: width,
+      crop: crop === true ? 'fill' : 'fit',
+      flags: "progressive",
+      id: id,
+      secure: true,
+      protocol: 'https:'
+    };
+    if(angle) { options["angle"] = angle; }
+    return Ember.$.cloudinary.url(filename, options);
   }
 });

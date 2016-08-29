@@ -13,7 +13,9 @@
 
       </div>
       <div class="columns small-3">
-        <img src={{item.thumbImageUrl}} class="thumb"/>
+        {{#link-to 'items.edit_images' item}}
+          <img src={{item.thumbImageUrl}} class="thumb"/>
+        {{/link-to}}
       </div>
     </div>
 

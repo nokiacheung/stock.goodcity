@@ -13,6 +13,7 @@
     "moment": "~2.10.3",
     "jquery-mockjax": "2.2.0",
     "photoswipe": "4.1.0",
-    "slick-carousel": "1.5.8"
+    "slick-carousel": "1.5.8",
+    "cloudinary": "~1.0.12"
   }
 }

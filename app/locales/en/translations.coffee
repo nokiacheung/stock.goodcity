@@ -8,6 +8,7 @@ I18nTranslationsEn =
   "no_search_results": "No Search Results."
   "cancel": "Cancel"
   "ok" : "OK"
+  "done": "Done"
   "must_login": "You must login!"
   "search_no_results": "Sorry, No results found."
 
@@ -75,5 +76,23 @@ I18nTranslationsEn =
     "dispatch_set": "You could dispatch the entire set instead."
     "all_items_dispatched": "All items from this order have been dispatched. Please close this order in StockIt."
     "separate_and_dispatch": "Separate item from set & dispatch"
+
+  "edit_images":
+    "upload": "Choose Image"
+    "camera": "Take Photo"
+    "cancel": "Cancel"
+    "add_photo" : "Add photo"
+    "delete_confirm" : "Are you sure you want to delete this image?"
+    "cant_delete_last_image" : "You must have at least one image"
+    "donating_what" : "What are you donating?"
+    "take_photos" : "Take some photos"
+    "fullscreen_tooltip" : "toggle fullscreen"
+    "favourite_tooltip" : "set as cover image"
+    "delete_tooltip" : "delete image"
+    "image_uploading": "Image Uploading "
+    "remove_image": "Remove image"
+    "cancel_item": "Cancel item"
+    "cannot_provide_photo": "Cannot provide photo"
+    "last_image_with_item": "This is the only image associated with this item"
 
 `export default I18nTranslationsEn`

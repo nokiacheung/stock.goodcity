@@ -17,7 +17,8 @@ module.exports = function(environment) {
       "img-src": "'self' data: https://res.cloudinary.com filesystem: *",
       "style-src": "'self' 'unsafe-inline' https://maxcdn.bootstrapcdn.com",
       "font-src": "'self' data: https://maxcdn.bootstrapcdn.com",
-      "object-src": "'self'"
+      "object-src": "'self'",
+      "script-src": "'self' 'unsafe-eval'"
     },
 
     APP: {
@@ -25,6 +26,11 @@ module.exports = function(environment) {
       NAME: 'stock.goodcity',
       SHA: process.env.APP_SHA || "00000000",
       VERSION: process.env.VERSION || "1.0.0",
+
+      CLOUD_NAME: 'ddoadcjjl',
+      CLOUD_API_KEY: 926849638736153,
+      CLOUD_URL: 'https://api.cloudinary.com/v1_1/ddoadcjjl/auto/upload',
+      IMAGE_PATH: 'http://res.cloudinary.com/ddoadcjjl/image/upload/',
 
       NAMESPACE: 'api/v1',
       HK_COUNTRY_CODE: '+852',
@@ -47,10 +53,19 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    ENV.APP.API_HOST_URL = 'http://localhost:3000';
+    ENV.APP.API_HOST_URL = 'http://localhost:4000';
 
     ENV.contentSecurityPolicy["connect-src"] = [
-      'http://localhost:3000'
+      'http://localhost:4000',
+      'https://api.cloudinary.com',
+      'http://localhost:4203'
+    ].join(' ');
+
+    ENV.contentSecurityPolicy["img-src"] = [
+      'http://localhost:4200',
+      'data: https://res.cloudinary.com',
+      'blob: filesystem/g',
+      'filesystem: *'
     ].join(' ');
   }
 
