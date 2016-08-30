@@ -21,8 +21,9 @@
 
   .row {
     margin-top: 0.5rem !important;
-    margin-right: 0rem !important;
-    margin-left: 0rem !important;
+    @media #{$small-only} {
+      margin-right: 0rem !important;
+    }
   }
 
   .item-label {
@@ -127,6 +128,11 @@
     width: 8%;
     font-size: 0.8rem;
 
+    @media #{$medium-only} {
+      width: 12%;
+      right: 0;
+    }
+
     @media #{$small-only} {
       width: 21%;
       right: 0;
@@ -178,6 +184,12 @@
 
 .new-item-nav {
   margin-bottom: 0;
+
+  .tab-bar-section {
+    @media #{$large-only} {
+      position: relative;
+    }
+  }
 }
 
 .options_menu_list {
