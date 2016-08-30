@@ -4,7 +4,7 @@ import config from '../../config/environment';
 const { getOwner } = Ember;
 
 export default Ember.Controller.extend({
-  queryParams: ['codeId', 'locationId', 'scanLocationName'],
+  queryParams: ['codeId', 'locationId', 'scanLocationName', 'caseNumber'],
   codeId: "",
   locationId: "",
   inventoryNumber: "",
