@@ -51,7 +51,6 @@ export default AuthorizeRoute.extend({
       controller.set('length', null);
       controller.set('width', null);
       controller.set('height', null);
-      controller.set('description', "");
       controller.set('selectedGrade', { name: "B", id: "B" });
       controller.set('selectedCondition', { name: "Used", id: "U" });
     }

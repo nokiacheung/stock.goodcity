@@ -19,7 +19,6 @@ export default Ember.Controller.extend({
   length: null,
   width: null,
   height: null,
-  description: "",
   selectedGrade: { name: "B", id: "B" },
   selectedCondition: { name: "Used", id: "U" },
   invalidLocation: false,
@@ -65,6 +64,20 @@ export default Ember.Controller.extend({
       { name: "C", id: "C" },
       { name: "D", id: "D" }
     ];
+  }),
+
+  description: Ember.computed("code", {
+    get() {
+      return this.get("code.name");
+    },
+    set(key, value) {
+      return value;
+    }
+  }),
+
+  parentCodeName: Ember.computed("codeId", function() {
+    var selected = this.get("store").peekRecord("code", this.get("codeId"));
+    return selected && selected.get("name");
   }),
 
   code: Ember.computed("codeId", function() {
