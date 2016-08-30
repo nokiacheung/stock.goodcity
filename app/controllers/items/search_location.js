@@ -75,7 +75,7 @@ export default searchModule.extend({
 
       var loadingView = getOwner(this).lookup('component:loading').append();
       var url;
-      if(item.get("isSet")) {
+      if(this.get("isSet")) {
         url = `/items/${item.get('setItem.id')}/move_stockit_item_set`;
       } else {
         url = `/items/${item.get('id')}/move_stockit_item`;
