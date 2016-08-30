@@ -44,9 +44,17 @@ export default cloudinaryUrl.extend({
   orderCode: Ember.computed.alias('designation.code'),
   updatedAt: attr("date"),
 
-  setImages: Ember.computed('setItem.@each.items.@each.imageUrl', function() {
+  imageUrlList: Ember.computed('images.[]', function() {
+    var imageList = [];
+    this.get("images").forEach((image) => imageList.pushObject(image.get("imageUrl")));
+    return imageList.uniq();
+  }),
+
+  setImages: Ember.computed('setItem.@each.items.@each.imageUrlList.[]', function() {
     var setItemImages = [];
-    this.get("setItem.items").forEach((item) => setItemImages.pushObject(item.get("imageUrl")));
+    this.get("setItem.items").forEach((item) => {
+      setItemImages = setItemImages.concat(item.get("imageUrlList"));
+    });
     return setItemImages.uniq();
   })
 });
