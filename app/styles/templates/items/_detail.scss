@@ -204,6 +204,13 @@
   float: left;
 }
 
-.publish_message {
-  text-align: left;
+.publish-form {
+  #messageBox {
+    padding: 1rem 1.5rem 0rem;
+  }
+  .publish_message {
+    text-align: left;
+    font-size: 0.9rem;
+  }
 }
+
