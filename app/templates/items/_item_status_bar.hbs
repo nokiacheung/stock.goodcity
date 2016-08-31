@@ -9,7 +9,7 @@
         <i class="fa fa-shopping-basket"></i> {{item.designation.code}}
       {{/link-to}}
     {{else}}
-      <i class="fa fa-eye" aria-hidden="true"></i> In Stock
+      {{publish-stock-item item=item}}
     {{/if}}
   </div>
   <div class="small-6 columns location-name">

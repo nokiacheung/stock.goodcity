@@ -1,0 +1,16 @@
+<div class="stock_status" {{action 'displayPublishOverlay'}}>
+  <i class="fa {{if published 'fa-eye' 'fa-eye-slash'}}" aria-hidden="true"></i> In Stock
+</div>
+
+{{#message-box btn1Text=(if published "Unpublish" "Publish") btn1Callback=(action "setPublishStatus") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
+
+  <p class="publish_message">
+    {{#if published}}
+      You are about to unpublish this package. Clients will no longer be able to view or request it online.
+    {{else}}
+      You are about to publish this package for clients to view and request online.<br/>
+      Please ensure descriptions and images are high quality before proceeding.
+    {{/if}}
+  </p>
+
+{{/message-box}}

@@ -25,6 +25,7 @@ export default cloudinaryUrl.extend({
   isSet:           attr('boolean'),
   hasBoxPallet:    attr('boolean'),
   itemId:          attr('number'),
+  allowWebPublish: attr('boolean'),
 
   designation: belongsTo('designation', { async: false }),
   location:    belongsTo('location', { async: false }),
