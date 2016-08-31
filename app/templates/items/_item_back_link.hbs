@@ -1,0 +1,17 @@
+{{#if (is-equal backLinkPath 'items.detail')}}
+  {{#link-to 'items.detail' item.id classNames="back"}}
+    <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
+    <div class="back_text">
+      <i class="fa fa-tag"></i>
+      {{item.inventoryNumber}}
+    </div>
+  {{/link-to}}
+{{else}}
+  {{#link-to backLinkPath class="back"}}
+    <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
+    <div class="back_text">
+      <i class="fa fa-tag"></i>
+      {{item.inventoryNumber}}
+    </div>
+  {{/link-to}}
+{{/if}}

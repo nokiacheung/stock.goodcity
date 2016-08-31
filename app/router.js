@@ -10,9 +10,12 @@ Router.map(function() {
   this.route('logout', { path: '/logout' });
   this.route('login');
   this.route('authenticate');
+  this.route('search_code');
+  this.route('select_location');
 
   this.route("items", function() {
     this.route("detail", { path: "/:item_id" });
+    this.route("new");
     this.route("search_location", { path: "/:item_id/search_location" });
     this.route("search_order", { path: "/:item_id/search_order" });
   });

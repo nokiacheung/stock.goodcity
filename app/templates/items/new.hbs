@@ -1,0 +1,182 @@
+<nav class="tab-bar new-item-nav">
+  <section class="tab-bar-section">
+    <h1 class="title">Add - {{parentCodeName}}</h1>
+  </section>
+</nav>
+
+<section class="main-section new-item-section ui">
+
+  {{#validatable-form onSubmit=(action 'saveItem') as |form|}}
+
+  <div class="row image-box-row">
+    <span class="image-box">
+      <i class="fa fa-camera" aria-hidden="true"></i>
+      Add Images
+    </span>
+
+    <div class="small-12 columns">
+
+      <div class="row">
+        <div class="small-3 columns item-label">
+          Quantity*
+        </div>
+        <div class="small-7 large-8 columns left">
+          {{#form-control}}
+            {{numeric-input id='qty' name="qty" value=quantity maxlength="8" required='true' pattern="\d{1,8}"}}
+            <div class='input-error'>Quantity cannot be blank.</div>
+          {{/form-control}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-3 columns item-label">
+          Type*
+        </div>
+        <div class="small-7 large-8 columns left">
+          {{input value=code.name disabled=true}}
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="row">
+    <div class="small-3 columns item-label">
+      Description*
+    </div>
+    <div class="small-9 columns description-block">
+      {{#form-control}}
+        <i class="fa fa-times-circle remove-text" aria-hidden="true" {{action "clearDescription"}}></i>
+        {{auto-resize-textarea data-autoresize=true name="description" value=description required="required" pattern=".*\S.*" id="description"}}
+        <div class='input-error'>Description cannot be blank.</div>
+      {{/form-control}}
+    </div>
+  </div>
+
+  <div class="row dimension-row">
+    <div class="small-3 columns item-label">
+      Size (cm)
+    </div>
+    <div class="columns small-3 value length">
+      <span class='input_text'>L :</span>
+      {{numeric-input name="length" id='length' value=length maxlength="8" pattern="[1-9][0-9]{0,7}"}}
+      <span><i class="fa fa-times" aria-hidden="true"></i></span>
+    </div>
+
+    <div class="columns small-3 value">
+      <span class='input_text'>W :</span>
+      {{numeric-input name="width" id='width' value=width maxlength="5" pattern="[1-9][0-9]{0,4}"}}
+      <span><i class="fa fa-times" aria-hidden="true"></i></span>
+    </div>
+
+    <div class="columns small-3 value height">
+      <span class='input_text'>H :</span>
+      {{numeric-input name="height" id='height' value=height maxlength="5" pattern="[1-9][0-9]{0,4}"}}
+    </div>
+  </div>
+
+  <div class="row quality-row">
+    <div class="small-3 columns item-label">
+      Quality*
+    </div>
+    <div class="small-4 columns">
+      <span class='input_text'>Grade :</span>
+      {{select-list
+        content=grades
+        on-change=(action (mut selectedGrade))
+        selectedValue=selectedGrade
+        value=selectedGrade
+        selectArrow=true
+        classNames='grade' }}
+    </div>
+    <div class="small-5 columns">
+      <span class='input_text'>Condition :</span>
+      {{select-list
+        content=conditions
+        on-change=(action (mut selectedCondition))
+        selectedValue=selectedCondition
+        value=selectedCondition
+        selectArrow=true
+        classNames='condition'
+        idNames='condition-select' }}
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="small-3 columns item-label">
+      Donation#
+    </div>
+    <div class="{{if isMobileApp 'small-7 large-8' 'small-9'}} columns">
+      {{#form-control}}
+        {{input type='text' value=caseNumber pattern="(CAS\-\d{5})|\d{5}"}}
+        <div class='input-error'>Must be a number or in the form "CAS-12345"</div>
+      {{/form-control}}
+    </div>
+    {{#if isMobileApp}}
+      <div class="small-2 large-1 columns scan-icon">
+        {{barcode-scanner route="items.new" paramName="caseNumber"}}
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="row">
+    <div class="small-3 columns item-label">
+      Location*
+    </div>
+
+    <div class="{{if isMobileApp 'small-7 large-8' 'small-9'}} columns">
+      {{#link-to "select_location"}}
+        <div class="{{if (is-or invalidLocation invalidScanResult) 'ember-view form__control form__control--error'}}">
+          <i class="fa fa-map-marker location-icon" aria-hidden="true"></i>
+          {{input value=locationName disabled=true required='true'}}
+          <div class='input-error'>
+            {{#if invalidScanResult}}
+              Scanned Location is invalid.
+            {{else}}
+              Location cannot be blank.
+            {{/if}}
+          </div>
+        </div>
+      {{/link-to}}
+    </div>
+
+    {{#if isMobileApp}}
+      <div class="small-2 large-1 columns scan-icon">
+        {{barcode-scanner route="items.new" paramName="scanLocationName"}}
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="row">
+    <div class="small-3 columns item-label">
+      Inventory#
+    </div>
+    <div class="small-7 large-8 columns inventory-number">
+
+      {{#if inputInventory}}
+        {{input value=inventoryNumber}}
+      {{else}}
+        {{inventoryNumber}}
+      {{/if}}
+
+      {{partial "items/inventory_options"}}
+    </div>
+    <div class="small-2 large-1 columns scan-icon">
+      <i class="fa fa-print" aria-hidden="true"></i>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-6 columns">
+      <a {{action 'cancelForm'}} class="button secondary expand">Cancel</a>
+    </div>
+
+    <div class="small-6 columns">
+      <a {{action 'submit' target=form}} class="button expand">Save</a>
+    </div>
+  </div>
+
+  {{/validatable-form}}
+</section>

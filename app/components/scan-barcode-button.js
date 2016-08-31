@@ -12,7 +12,7 @@ export default Ember.Component.extend({
       var onSuccess = res => {
         if (!res.cancelled) {
 
-          var queryParams = {queryParams: { searchInput: res.text } };
+          var queryParams = {queryParams: { searchInput: res.text.replace(/^\x|X/,'') } };
           var record = this.get("record");
 
           if (record) {

@@ -14,6 +14,7 @@ export default cloudinaryUrl.extend({
   notes:           attr('string'),
   grade:           attr('string'),
   inventoryNumber: attr('string'),
+  caseNumber:      attr('string'),
   quantity:        attr('number'),
 
   length:          attr('number'),
@@ -22,7 +23,9 @@ export default cloudinaryUrl.extend({
 
   sentOn:          attr('date'),
   isSet:           attr('boolean'),
+  hasBoxPallet:    attr('boolean'),
   itemId:          attr('number'),
+  allowWebPublish: attr('boolean'),
 
   designation: belongsTo('designation', { async: false }),
   location:    belongsTo('location', { async: false }),

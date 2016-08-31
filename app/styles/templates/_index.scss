@@ -1,5 +1,5 @@
 .start_page {
-  h1 {
+  .center-text {
     text-align: center;
     margin-top: 12rem !important;
   }
@@ -42,4 +42,10 @@
 .absolute_footer {
   position: absolute;
   bottom: auto;
+}
+
+em {
+  font-style: inherit;
+  background: #ff6;
+  color: black;
 }

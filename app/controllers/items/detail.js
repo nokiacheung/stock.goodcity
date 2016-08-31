@@ -6,6 +6,7 @@ export default Ember.Controller.extend({
   queryParams: ['showDispatchOverlay'],
   showDispatchOverlay: false,
   autoDisplayOverlay: false,
+  messageBox: Ember.inject.service(),
 
   performDispatch: Ember.observer("showDispatchOverlay", function() {
     Ember.run.debounce(this, this.updateAutoDisplayOverlay, 100);
@@ -33,5 +34,19 @@ export default Ember.Controller.extend({
       return this.get("item.isDesignated") && !this.get("item.isDispatched");
     }
   }),
+
+  actions: {
+    moveItemSet() {
+      if(this.get("item.isSet")) {
+        if(this.get("item.setItem.canBeMoved")) {
+          this.transitionToRoute('items.search_location', this.get("item.id"), { queryParams: { isSet: true }});
+        } else {
+          this.get("messageBox").alert("One or more items from this set are part of box or pallet. You can only move it using Stockit.");
+        }
+      } else {
+        this.transitionToRoute('items.search_location', this.get("item.id"), { queryParams: { isSet: false }});
+      }
+    },
+  }
 
 });
