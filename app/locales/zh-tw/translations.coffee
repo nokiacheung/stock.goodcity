@@ -49,15 +49,17 @@ I18nTranslationsEn =
     "designate": "designate"
     "dispatch": "dispatch"
     "undispatch": "undispatch"
-    "remove": "remove"
-    "move": "move"
+    "undesignate": "un-designate"
+    "separate": "separate"
+    "move": "Move"
+    "show_set_items": "Show other parts from the same set next"
 
   "designate":
     "form_title": "Designating this item to order {{code}}"
     "designate": "Designate"
     "overrides_existing": "Overrides an existing designation."
     "quantity" : "Designates quantity of {{quantity}}."
-    "set_part": "Designates only part of set."
+    "set_part": "Designates only part of set. You could designate the entire set instead."
     "already_designated": "This item is alreday designated to order {{code}}."
 
   "undesignate":
@@ -70,9 +72,9 @@ I18nTranslationsEn =
     "dispatch": "Dispatch"
     "from_order": "Dispatch this item to {{code}}"
     "dispatch_quantity": "Dispatches quantity of {{quantity}}."
-    "remove_set": "Dispatching <b>will remove this item from a set!</b>"
+    "separate_set": "Dispatching <b>will separate this item from a set!</b>"
     "dispatch_set": "You could dispatch the entire set instead."
     "all_items_dispatched": "All items from this order have been dispatched. Please close this order in StockIt."
-    "remove_and_dispatch": "Remove item from set & dispatch"
+    "separate_and_dispatch": "Separate item from set & dispatch"
 
 `export default I18nTranslationsEn`

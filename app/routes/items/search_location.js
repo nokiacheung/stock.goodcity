@@ -8,20 +8,21 @@ export default AuthorizeRoute.extend({
   },
 
   itemMoveBackLinkPath: Ember.computed.localStorage(),
+  itemPreviousRoute: Ember.computed.localStorage(),
 
   beforeModel() {
     var previousRoutes = this.router.router.currentHandlerInfos;
     var previousRoute = previousRoutes && previousRoutes.pop();
-
     var path = "items.index";
 
     if(previousRoute) {
+      this.set('itemPreviousRoute', previousRoute.name);
       var routeName = previousRoute.name;
       if(routeName.indexOf("detail")){
         path = routeName;
       }
     }
-    
+
     this.set("itemMoveBackLinkPath", path);
   },
 
@@ -37,6 +38,7 @@ export default AuthorizeRoute.extend({
   setupController(controller, model){
     this._super(controller, model);
     controller.set('searchText', "");
+    controller.set('moveItemPath', this.get('itemPreviousRoute'));
     controller.set('backLinkPath', this.get('itemMoveBackLinkPath'));
   }
 });
