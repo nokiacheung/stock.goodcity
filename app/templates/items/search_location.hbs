@@ -118,12 +118,9 @@
       {{#if item.isSet}}
         <div class="warning_text">
           <i class="fa fa-exclamation-triangle"></i>
-          Moves only part of set.
+          <span class="right-message">Moves only part of set. You could move the {{#link-to 'items.detail' item}} entire set {{/link-to}} instead.
+          </span>
         </div>
-
-        {{input type="checkbox" checked=showAllSetItems id=(concat "item" item.id)}}
-        <label for="{{concat "item" item.id}}" >Show other parts from the same set next</label>
-
       {{/if}}
 
     </div>

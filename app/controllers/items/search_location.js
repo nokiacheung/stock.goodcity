@@ -10,6 +10,7 @@ export default searchModule.extend({
   isSet: false,
   isMobileApp: config.cordova.enabled,
   searchInput: "",
+  moveItemPath: "",
 
   item: Ember.computed.alias("model.item"),
   searchModelName: "location",
@@ -83,13 +84,14 @@ export default searchModule.extend({
 
       new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id") })
         .then(data => {
+          var itemBackLinePath = this.get('moveItemPath');
           this.get("store").pushPayload(data);
           if(showAllSetItems) {
             this.transitionToRoute("items", {queryParams: { itemSetId: item.get("itemId") } });
-          } if(this.get('isSet')) {
-            this.transitionToRoute("items.detail", item);
+          } if(itemBackLinePath === "items.index") {
+              this.transitionToRoute(itemBackLinePath);
           } else {
-            this.transitionToRoute("items");
+              this.transitionToRoute("items.detail", item);
           }
         })
         .catch((response) => {
