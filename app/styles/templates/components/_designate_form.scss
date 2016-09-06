@@ -50,7 +50,7 @@
       background-color: inherit;
     }
   }
-  .designate-message {
+  .designate-message, .move-message {
     margin-left: -3%;
     display: inline-block;
     @media #{$small-only} {

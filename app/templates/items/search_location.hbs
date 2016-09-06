@@ -117,9 +117,10 @@
 
       {{#if item.isSet}}
         <div class="warning_text">
-          <i class="fa fa-exclamation-triangle"></i>
-          <span class="right-message">Moves only part of set. You could move the {{#link-to 'items.detail' item}} entire set {{/link-to}} instead.
-          </span>
+          <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
+          <div class="right-message">
+            <div class="move-message">Moves only part of set. You could move the {{#link-to 'items.detail' item}} entire set {{/link-to}} instead.</div>
+          </div>
         </div>
       {{/if}}
 
