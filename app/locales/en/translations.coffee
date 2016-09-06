@@ -59,7 +59,6 @@ I18nTranslationsEn =
     "designate": "Designate"
     "overrides_existing": "Overrides an existing designation."
     "quantity" : "Designates quantity of {{quantity}}."
-    "set_part": "Designates only part of set. You could designate the entire set instead."
     "already_designated": "This item is alreday designated to order {{code}}."
 
   "undesignate":
