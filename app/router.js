@@ -14,8 +14,10 @@ Router.map(function() {
   this.route('select_location');
 
   this.route("items", function() {
-    this.route("detail", { path: "/:item_id" });
     this.route("new");
+
+    this.route("detail", { path: "/:item_id" });
+    this.route("edit_images", { path: "/:item_id/edit_images" });
     this.route("search_location", { path: "/:item_id/search_location" });
     this.route("search_order", { path: "/:item_id/search_order" });
   });

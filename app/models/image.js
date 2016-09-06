@@ -1,16 +1,19 @@
 import Ember from "ember";
 import cloudinaryUrl from './cloudinary_url';
 import attr from 'ember-data/attr';
+import { belongsTo } from 'ember-data/relationships';
 
 export default cloudinaryUrl.extend({
   favourite:     attr('boolean'),
   cloudinaryId:  attr('string'),
+  angle:         attr('string'),
+  item:          belongsTo('item', { async: false }),
 
-  imageUrl: Ember.computed('cloudinaryId', function(){
+  imageUrl: Ember.computed('cloudinaryId', 'angle', function(){
     return this.generateUrl();
   }),
 
-  thumbImageUrl: Ember.computed('cloudinaryId', function(){
+  thumbImageUrl: Ember.computed('cloudinaryId', 'angle', function(){
     return this.generateUrl(120, 120, true);
   }),
 });
