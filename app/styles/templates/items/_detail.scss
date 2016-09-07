@@ -214,3 +214,47 @@
   }
 }
 
+.printer_message {
+  background-color: $light-grey;
+  color: black;
+  height: initial;
+  padding-bottom: inherit;
+  min-height: 0rem;
+  position: fixed;
+  display: none;
+  opacity: 1;
+  z-index: 100;
+  padding: 0.5rem;
+  font-size: 1rem;
+  background-color: #f46769;
+  color: white;
+  border-radius: 0.2rem;
+
+  @media #{$small-only} {
+    top: 1rem !important;
+  }
+
+  @media #{$medium-only} {
+    width: 25rem;
+  }
+}
+
+.printer_message_block {
+  position: fixed;
+  z-index: 1000;
+  right: 11rem;
+  top: 3rem;
+
+  @media #{$small-only} {
+    right: 9rem;
+  }
+
+  .printer_message {
+    display: block;
+    width: 8rem;
+  }
+}
+
+.visible {
+  display: block !important;
+}

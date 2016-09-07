@@ -3,10 +3,10 @@
 </div>
 
 <div class="receive-options {{if hidden 'hidden'}}">
-  <div class="disabled">
-    <i class="fa item-menu fa-pencil-square-o"></i>
-    {{t "item.edit"}}
-  </div>
+  {{#print-label item=item closeList=(action 'toggle' true)}}
+    <i class="fa item-menu fa-print"></i>
+    Label
+  {{/print-label}}
 
   {{dispatch-form item=item order=order closeList=(action 'toggle' true) }}
 

@@ -56,5 +56,9 @@ export default cloudinaryUrl.extend({
       setItemImages = setItemImages.concat(item.get("imageUrlList"));
     });
     return setItemImages.uniq();
-  })
+  }),
+
+  allowLabelPrint: Ember.computed("", function() {
+    return !this.get("isDispatched") && !this.get("isSet");
+  }),
 });
