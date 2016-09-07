@@ -97,16 +97,18 @@
     </div>
   </div>
 
-  <div class="row add_item_button">
-    <div class=" {{if isMobileApp 'small-9' 'small-12'}} columns">
-      {{#link-to "orders.items" model (query-params searchInput="") class="button expand"}}{{t "order_details.add_item_to_order"}}{{/link-to}}
-    </div>
-    {{#if isMobileApp}}
-      <div class="small-3 columns">
-        {{scan-barcode-button record=model route="orders.items"}}
+  {{#unless model.isInactive}}
+    <div class="row add_item_button">
+      <div class=" {{if isMobileApp 'small-9' 'small-12'}} columns">
+          {{#link-to "orders.items" model (query-params searchInput="") class="button expand"}}{{t "order_details.add_item_to_order"}}{{/link-to}}
       </div>
-    {{/if}}
-  </div>
+      {{#if isMobileApp}}
+        <div class="small-3 columns">
+          {{scan-barcode-button record=model route="orders.items"}}
+        </div>
+      {{/if}}
+    </div>
+  {{/unless}}
 
   {{#each itemsList as |item|}}
     {{partial "orders/item_block"}}

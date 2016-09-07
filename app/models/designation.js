@@ -34,4 +34,8 @@ export default Model.extend({
     return this.get("items").filterBy('sentOn', null);
   }),
 
+  isInactive: Ember.computed('status', function(){
+    return ["Sent", "Cancelled", "Closed"].indexOf(this.get("status")) >= 0;
+  }),
+  
 });
