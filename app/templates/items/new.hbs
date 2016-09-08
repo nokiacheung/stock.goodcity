@@ -9,10 +9,21 @@
   {{#validatable-form onSubmit=(action 'saveItem') as |form|}}
 
   <div class="row image-box-row">
-    <span class="image-box">
-      <i class="fa fa-camera" aria-hidden="true"></i>
-      Add Images
-    </span>
+
+    {{#if newUploadedImage}}
+      <span class="image-box">
+        <img src={{newUploadedImage.thumbImageUrl}} class="thumb"/>
+      </span>
+    {{else}}
+      <a {{action "triggerUpload"}} class="{{unless isReady 'disabled'}}">
+        <span class="image-box">
+          <i class="fa fa-camera" aria-hidden="true"></i>
+          Add Images
+        </span>
+      </a>
+      {{cloudinary-upload ready="uploadReady" progress="uploadProgress"
+        always="uploadComplete" done="uploadSuccess" submit="uploadStart"}}
+    {{/if}}
 
     <div class="small-12 columns">
 
@@ -37,7 +48,6 @@
         </div>
       </div>
     </div>
-
 
   </div>
 
@@ -180,3 +190,5 @@
 
   {{/validatable-form}}
 </section>
+
+{{partial "loading_image"}}
