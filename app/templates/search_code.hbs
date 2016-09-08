@@ -1,14 +1,18 @@
 <div class="row fixed_search_header search-box ui items-search">
-  <div class="small-2 columns ">
+  <div class="small-3 columns ">
     <a {{action "cancelSearch"}} class="back">
       <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
       <div class="back_text">
-        Back
+        {{#if inlineDescription}}
+          Cancel
+        {{else}}
+          Back
+        {{/if}}
       </div>
     </a>
   </div>
 
-  <div class="small-10 columns">
+  <div class="small-9 columns">
     {{focus-textfield
       name="searchText"
       id="searchText"

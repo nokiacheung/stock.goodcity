@@ -9,6 +9,39 @@ export default Ember.Controller.extend({
   showDispatchOverlay: false,
   autoDisplayOverlay: false,
   messageBox: Ember.inject.service(),
+  displayScanner: false,
+
+  caseNumberStr: Ember.observer('caseNumber', function() {
+    this.get('item').set('caseNumber', this.get('caseNumber'));
+  }),
+
+  grades: Ember.computed(function(){
+    return [
+      { name: "A", id: "A" },
+      { name: "B", id: "B" },
+      { name: "C", id: "C" },
+      { name: "D", id: "D" }
+    ];
+  }),
+
+  conditions: Ember.computed(function(){
+    return [
+      { name: "New", id: '1' },
+      { name: "Lightly Used", id: '2' },
+      { name: "Heavily Used", id: '3' },
+      { name: "Broken", id: '4' }
+    ];
+  }),
+
+  itemGrade: Ember.computed ('item.grade', function() {
+    var itemGrade = this.get("item.grade");
+    return { id: `${itemGrade}` };
+  }),
+
+  itemCondition: Ember.computed('item.donorCondition', function() {
+    var itemCondition = this.get('item.donorCondition');
+    return { id: `${itemCondition.get('id')}` };
+  }),
 
   displayScanner: false,
 
@@ -48,7 +81,21 @@ export default Ember.Controller.extend({
     }
   }),
 
+  description: Ember.computed("item.notes", {
+    get() {
+      return this.get("item.notes");
+    },
+    set(key, value) {
+      return value;
+    }
+  }),
+
+
   actions: {
+    clearDescription() {
+      this.set("description", '');
+    },
+
     moveItemSet() {
       if(this.get("item.isSet")) {
         if(this.get("item.setItem.canBeMoved")) {

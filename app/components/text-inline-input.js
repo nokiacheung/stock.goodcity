@@ -14,8 +14,13 @@ export default Ember.TextField.extend({
   displayScanner: false,
   item: null,
 
+  focusTrigger: Ember.observer('value', function() {
+    this.$().focus();
+  }),
+
   didInsertElement() {
-    Ember.$('.donation-input-error').hide();
+    var id = this.get("item.id");
+    Ember.$('#'+id).hide();
   },
 
   removeScanner() {
@@ -31,7 +36,15 @@ export default Ember.TextField.extend({
 
     if(!this.element.validity.valid){
       this.$().focus();
-      Ember.$('.donation-input-error').show();
+      Ember.$('#'+item.id).show();
+    }
+    var value = this.attrs.value.value;
+    var regexPattern = /^(CAS\-\d{5})$/;
+
+    if(value && value.toString().search(regexPattern) !== 0){
+      this.set('value', this.get('previousValue'));
+      this.$().focus();
+      Ember.$('#'+item.id).show();
       return false;
     }
 
@@ -47,8 +60,16 @@ export default Ember.TextField.extend({
         });
     }
     Ember.$(this.element).removeClass('inline-text-input');
-    Ember.$('.donation-input-error').hide();
+    Ember.$('#'+item.id).hide();
     Ember.run.debounce(this, this.removeScanner, 2000);
+  },
+
+  focusIn() {
+    Ember.$(this.element).addClass('inline-text-input');
+    if(this.get('isMobileApp')) {
+      this.set('displayScanner', true);
+    }
+    this.set('previousValue', this.get('value') || '');
   },
 
   click() {
