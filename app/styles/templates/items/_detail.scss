@@ -258,3 +258,8 @@
 .visible {
   display: block !important;
 }
+.scan-icon i {
+  color: $tabbar-menu-icon-color;
+  font-size: 1.5rem;
+  padding: 0.15rem 0.4rem;
+}
