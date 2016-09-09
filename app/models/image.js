@@ -9,6 +9,9 @@ export default cloudinaryUrl.extend({
   angle:         attr('string'),
   item:          belongsTo('item', { async: false }),
 
+  imageableId: attr("number"),
+  imageableType: attr("string"),
+
   imageUrl: Ember.computed('cloudinaryId', 'angle', function(){
     return this.generateUrl();
   }),
