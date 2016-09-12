@@ -17,7 +17,7 @@ export default Ember.TextArea.extend({
     var textarea = this.element;
     var offset = textarea.offsetHeight - textarea.clientHeight;
 
-    if(this.get("value").length === 0) {
+    if(this.get("value") && this.get("value").length === 0) {
       Ember.$(textarea).css('height', 'auto');
     } else if (textarea.scrollHeight < 120) {
       Ember.$(textarea)

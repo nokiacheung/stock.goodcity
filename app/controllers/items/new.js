@@ -220,7 +220,6 @@ export default Ember.Controller.extend({
     },
 
     cancelForm() {
-
       this.get("messageBox").custom(
         "You will lose all your data. Are you sure you want to cancel this item?",
         "Yes",
@@ -231,7 +230,9 @@ export default Ember.Controller.extend({
           this.send("deleteUnusedImage");
           this.set("locationId", "");
           this.set("codeId", "");
-          this.transitionToRoute("index");
+          Ember.run.later(this, function() {
+            this.transitionToRoute("/");
+          },0);
         },
         "No");
     },
