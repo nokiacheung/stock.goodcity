@@ -69,7 +69,6 @@ export default Ember.TextField.extend({
     if(this.get('isMobileApp')) {
       this.set('displayScanner', true);
     }
-    this.set('previousValue', this.get('value') || '');
   },
 
   click() {
