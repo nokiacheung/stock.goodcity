@@ -38,12 +38,15 @@ export default NumericInput.extend({
   },
 
   focusIn() {
+    this.addCssStyle();
+  },
+
+  addCssStyle() {
     Ember.$(this.element).addClass('numeric-inline-input');
     this.set('previousValue', this.get('value') || '');
   },
 
   click() {
-    Ember.$(this.element).addClass('numeric-inline-input');
-    this.set('previousValue', this.get('value') || '');
+    this.addCssStyle();
   },
 });

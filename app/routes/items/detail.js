@@ -5,7 +5,6 @@ export default AuthorizeRoute.extend({
 
   queryParams: {
     showDispatchOverlay: false,
-    caseNumber: ''
   },
 
   model(params) {

@@ -116,7 +116,7 @@
     }
 
     .description {
-      padding-left: 1.3rem;
+      padding-left: 1.1rem !important;
 
       @media #{$small-only} {
         padding-left: 0.9rem;
@@ -262,4 +262,152 @@
   color: $tabbar-menu-icon-color;
   font-size: 1.5rem;
   padding: 0.15rem 0.4rem;
+}
+
+.donation-input-error {
+  padding-left: 0.2rem;
+  color: white;
+  margin-left: -0.2rem;
+  margin-top: -0.8rem;
+  background-color: red;
+}
+
+.description-textarea {
+  background-color: #002352;
+  color: white;
+  font-size: 0.7rem;
+  border: none !important;
+  border-style: none !important;
+  padding: .3rem 1.5rem .3rem .2rem !important;
+  box-shadow: none !important;
+  margin: -0.3rem -0.3rem 0 -0.4rem;
+  text-decoration: none !important;
+}
+
+.donation-input-error, .description-error {
+  padding-left: 0.2rem;
+  color: white;
+  margin-left: -0.2rem;
+  margin-top: -1rem;
+  background-color: red;
+  width: 100%;
+}
+
+.description-error {
+  margin: -0.2rem 0 0 -0.4rem !important;
+  width: 100% !important;
+}
+
+.numeric-input, .inline-input, .item-type {
+  border: none !important;
+  background-color: #002352 !important;
+  padding: 0rem !important;
+  color: white !important;
+  border-style: none !important;
+  box-shadow: none !important;
+  height: inherit !important;
+  font-size: 0.7rem !important;
+}
+
+.quality {
+  top: -0.3rem;
+}
+
+.select-quality, .select-condition {
+  display: inline-block !important;
+  span.input_text {
+    position: absolute;
+    color: white !important;
+    line-height: 1.7rem;
+    z-index: 10;
+  }
+
+  .condition-margin, .grade-margin {
+    margin-left: 1.2rem !important;
+    width: 82% !important;
+    padding-right: 0rem !important;
+    select {
+      margin-left: -1.5rem !important;
+      padding-left: 4rem !important;
+      width: 140% !important;
+    }
+  }
+  .grade-margin {
+    select {
+      width: 160% !important;
+      margin-left: -1.5rem !important;
+      padding-left: 3rem !important;
+    }
+  }
+
+ select {
+  @media all {
+    border: none !important;
+    background-image: none !important;
+    background-color: #002352 !important;
+    color: white !important;
+    font-size: 0.7rem !important;
+    padding: 0 1.3rem 0 0;
+    border-radius: 0;
+    height: 1.5rem;
+    margin-left: 2.5rem;
+    }
+  }
+  .select:after {
+    top: 0.25rem;
+    right: 0.4rem !important;
+  @media #{$small-only} {
+    width: 50% !important;
+   }
+  }
+  .select:after {
+    top: 0.25rem;
+    right: 0.2rem !important;
+    @media #{$small-only} {
+      right: -0.4rem !important;
+    }
+    @media #{$medium-only} {
+      right: 0.6rem !important;
+    }
+  }
+}
+
+.select-condition {
+  margin-left: -0.5rem;
+}
+
+.condition-field {
+  top: -0.3rem !important;
+}
+
+.donation-field {
+  float: left !important;
+  top: -0.1rem;
+}
+
+.numeric-inline-input, .inline-text-input, .item-description-textarea {
+  border: 1px solid #8091a9 !important;
+}
+
+.item-height, .item-width, .item-length {
+  width: 70% !important;
+  padding: 0.2rem !important;
+  display: inline-block !important;
+  @media #{$small-only} {
+    width: 49% !important;
+  }
+}
+
+.item-description-textarea {
+  background-color: #002352 !important;
+  color: white !important;
+}
+
+.donation-input {
+  padding: 0.2rem !important;
+  margin-left: -0.2rem !important;
+}
+
+.donation-scanner {
+  padding-top: 0rem !important;
 }

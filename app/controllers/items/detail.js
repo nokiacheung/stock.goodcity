@@ -5,15 +5,11 @@ export default Ember.Controller.extend({
   isMobileApp: config.cordova.enabled,
   item: Ember.computed.alias("model"),
   backLinkPath: "",
-  queryParams: ['showDispatchOverlay', 'caseNumber'],
+  queryParams: ['showDispatchOverlay'],
   showDispatchOverlay: false,
   autoDisplayOverlay: false,
   messageBox: Ember.inject.service(),
   displayScanner: false,
-
-  caseNumberStr: Ember.observer('caseNumber', function() {
-    this.get('item').set('caseNumber', this.get('caseNumber'));
-  }),
 
   grades: Ember.computed(function(){
     return [
@@ -26,32 +22,11 @@ export default Ember.Controller.extend({
 
   conditions: Ember.computed(function(){
     return [
-      { name: "New", id: '1' },
-      { name: "Lightly Used", id: '2' },
-      { name: "Heavily Used", id: '3' },
-      { name: "Broken", id: '4' }
+      { name: "New", id: "N" },
+      { name: "Mixed", id: "M" },
+      { name: "Used", id: "U" },
+      { name: "Broken", id: "B" }
     ];
-  }),
-
-  itemGrade: Ember.computed ('item.grade', function() {
-    var itemGrade = this.get("item.grade");
-    return { id: `${itemGrade}` };
-  }),
-
-  itemCondition: Ember.computed('item.donorCondition', function() {
-    var itemCondition = this.get('item.donorCondition');
-    return { id: `${itemCondition.get('id')}` };
-  }),
-
-  displayScanner: false,
-
-  caseNumberStr: Ember.observer('caseNumber', function() {
-    this.get('item').set('caseNumber', this.get('caseNumber'));
-  }),
-
-  itemGrade: Ember.computed ('item.grade', function() {
-    var itemGrade = this.get("item.grade");
-    return { name: `${itemGrade}`, id: `${itemGrade}` };
   }),
 
   performDispatch: Ember.observer("showDispatchOverlay", function() {
@@ -81,21 +56,7 @@ export default Ember.Controller.extend({
     }
   }),
 
-  description: Ember.computed("item.notes", {
-    get() {
-      return this.get("item.notes");
-    },
-    set(key, value) {
-      return value;
-    }
-  }),
-
-
   actions: {
-    clearDescription() {
-      this.set("description", '');
-    },
-
     moveItemSet() {
       if(this.get("item.isSet")) {
         if(this.get("item.setItem.canBeMoved")) {

@@ -1,11 +1,20 @@
-import Ember from 'ember';
-import config from '../config/environment';
+import barcodeScaner from './barcode-scanner';
 
-export default Ember.Component.extend({
-  caseNumber: Ember.computed.alias('item.caseNumber'),
-  isMobileApp: config.cordova.enabled,
+export default barcodeScaner.extend({
 
-  caseNumberStr: Ember.observer('caseNumber', function() {
-    this.get('item').set('caseNumber', this.get('caseNumber'));
-  }),
+  actions: {
+    scanBarcode(){
+      var item = this.get('item');
+      var onSuccess = res => {
+        if (!res.cancelled) {
+          item.set('caseNumber', res.text);
+        }
+      };
+
+      var onError = error => this.get("messageBox").alert("Scanning failed: " + error);
+      var options = {"formats": "CODE_128"};
+
+      window.cordova.plugins.barcodeScanner.scan(onSuccess, onError, options);
+    }
+  }
 });
