@@ -33,8 +33,8 @@ export default Ember.Component.extend({
   },
 
   hidePrinterMessage() {
-    Ember.$(".printer_message_block").fadeOut(1000);
-    Ember.run.debounce(this, this.removePrinterMessage, 500);
+    Ember.$(".printer_message_block").fadeOut(3000);
+    Ember.run.debounce(this, this.removePrinterMessage, 2500);
   },
 
   removePrinterMessage() {
