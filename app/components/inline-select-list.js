@@ -20,9 +20,9 @@ export default SelectList.extend({
   selectedValue: Ember.computed('name', function() {
     var name = this.get('name');
     if(name === "grade") {
-      return name === "grade"? this.get('itemGrade') : {};
+      return this.get('itemGrade') || {};
     } else if(name === "donor_condition_id")  {
-      return name === "donor_condition_id"? this.get('itemCondition') : {};
+      return this.get('itemCondition') || {};
     }
   }),
 

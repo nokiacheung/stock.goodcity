@@ -33,11 +33,6 @@ export default Ember.TextField.extend({
     var key = this.get('name');
     var packageParams = {};
     packageParams[key] = this.get('value') || '';
-
-    if(!this.element.validity.valid){
-      this.$().focus();
-      Ember.$('#CAS-error'+item.id).show();
-    }
     var value = this.attrs.value.value || "";
     var regexPattern = /^(CAS\-\d{5})$/;
 
