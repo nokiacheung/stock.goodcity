@@ -5,20 +5,28 @@ export default Ember.Controller.extend({
   isMobileApp: config.cordova.enabled,
   item: Ember.computed.alias("model"),
   backLinkPath: "",
-  queryParams: ['showDispatchOverlay', 'caseNumber'],
+  queryParams: ['showDispatchOverlay'],
   showDispatchOverlay: false,
   autoDisplayOverlay: false,
   messageBox: Ember.inject.service(),
-
   displayScanner: false,
 
-  caseNumberStr: Ember.observer('caseNumber', function() {
-    this.get('item').set('caseNumber', this.get('caseNumber'));
+  grades: Ember.computed(function(){
+    return [
+      { name: "A", id: "A" },
+      { name: "B", id: "B" },
+      { name: "C", id: "C" },
+      { name: "D", id: "D" }
+    ];
   }),
 
-  itemGrade: Ember.computed ('item.grade', function() {
-    var itemGrade = this.get("item.grade");
-    return { name: `${itemGrade}`, id: `${itemGrade}` };
+  conditions: Ember.computed(function(){
+    return [
+      { name: "New", id: "N" },
+      { name: "Mixed", id: "M" },
+      { name: "Used", id: "U" },
+      { name: "Broken", id: "B" }
+    ];
   }),
 
   performDispatch: Ember.observer("showDispatchOverlay", function() {
