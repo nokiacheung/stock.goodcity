@@ -13,6 +13,13 @@ export default AutoResizableTextarea.extend({
     Ember.$('.remove-text').hide();
   },
 
+  keyDown() {
+    var value = this.element.value;
+    if( value.charCodeAt(value.length - 1) === 10 && event.which === 13) {
+      return false;
+    }
+  },
+
   focusOut() {
     var item = this.get("item");
     var url = `/packages/${item.get('id')}`;
