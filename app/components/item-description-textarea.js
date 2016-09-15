@@ -10,7 +10,6 @@ export default AutoResizableTextarea.extend({
 
   didInsertElement() {
     Ember.$('.description-error').hide();
-    Ember.$('.remove-text').hide();
   },
 
   keyDown() {
@@ -27,14 +26,8 @@ export default AutoResizableTextarea.extend({
     var value = this.attrs.value.value || '';
     var packageParams = {};
     packageParams[key] = this.get('value').trim() || '';
-    if(value.toString() === ''){
-      this.set('value', this.get('previousValue'));
-      this.$().focus();
-      Ember.$('#dsc' + item.id).show();
-      return false;
-    }
 
-    if (packageParams[key].toString() !== this.get('previousValue').toString().trim()){
+    if (packageParams[key].toString() !== this.get('previousValue').toString().trim() && value !== ''){
       var loadingView = getOwner(this).lookup('component:loading').append();
       new AjaxPromise(url, "PUT", this.get('session.authToken'), {package: packageParams })
         .then(data => {
@@ -45,8 +38,11 @@ export default AutoResizableTextarea.extend({
         });
     }
     this.element.value = value.trim();
+    if(this.element.value === '') {
+      this.$().focus();
+      return false;
+    }
     Ember.$(this.element).removeClass('item-description-textarea');
-    Ember.$('#dsc' + item.id).hide();
   },
 
   focusIn() {
