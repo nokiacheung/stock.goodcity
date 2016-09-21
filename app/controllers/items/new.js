@@ -315,11 +315,13 @@ export default Ember.Controller.extend({
           .then(data => {
             this.get("store").pushPayload(data);
             var image = this.get("newUploadedImage");
-            image.setProperties({
-              imageableId: data.item.id,
-              imageableType: "Package"
-            });
-            image.save();
+            if (image) {
+              image.setProperties({
+                imageableId: data.item.id,
+                imageableType: "Package"
+              });
+              image.save();
+            }
             this.set("imageKeys", "");
             loadingView.destroy();
             _this.transitionToRoute("items.detail", data.item.id);
