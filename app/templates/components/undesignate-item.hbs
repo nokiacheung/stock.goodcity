@@ -1,6 +1,6 @@
 <div class="{{if item.isDispatched 'disabled'}}" {{action 'displayDesignateOverlay'}}>
   <i class="fa item-menu fa-times-circle-o"></i>
-  {{t "item.remove"}}
+  {{t "item.undesignate"}}
 </div>
 
 {{#message-box btn1Text=(t "undesignate.undesignate") btn1Callback=(action "undesignateItem") btn2Text=(t "cancel") btn2Callback=(action "closeItemOptions") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}

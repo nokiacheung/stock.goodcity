@@ -6,6 +6,7 @@ export default searchModule.extend({
   queryParams: ['isSet', 'showDispatchOverlay'],
   isSet: false,
   showDispatchOverlay: false,
+  toDesignateItem: true,
 
   item: Ember.computed.alias("model.item"),
   searchModelName: "designation",

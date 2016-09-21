@@ -17,7 +17,7 @@
 
   {{#if isMobileApp}}
     <div class="small-2 large-2 columns scan-icon">
-      {{location-barcode-scanner route="items.search_location"}}
+      {{barcode-scanner route="items.search_location"}}
     </div>
   {{/if}}
 </div>
@@ -117,13 +117,11 @@
 
       {{#if item.isSet}}
         <div class="warning_text">
-          <i class="fa fa-exclamation-triangle"></i>
-          Moves only part of set.
+          <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
+          <div class="right-message">
+            <div class="move-message">Moves only part of set. You could move the {{#link-to 'items.detail' item}} entire set {{/link-to}} instead.</div>
+          </div>
         </div>
-
-        {{input type="checkbox" checked=showAllSetItems id=(concat "item" item.id)}}
-        <label for="{{concat "item" item.id}}" >Show other parts from the same set next</label>
-
       {{/if}}
 
     </div>

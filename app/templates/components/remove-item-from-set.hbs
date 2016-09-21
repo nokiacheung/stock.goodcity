@@ -1,10 +1,10 @@
 <div class="{{if item.isDispatched 'disabled'}}" {{action 'displayRemoveOverlay'}}>
-  <i class="fa item-menu fa-times-circle-o"></i>
-  {{t "item.remove"}}
+  <i class="fa item-menu fa-chain-broken"></i>
+  {{t "item.separate"}}
 </div>
 
-{{#message-box btn1Text="Remove" btn1Callback=(action "removeItemFromSet") btn2Text=(t "cancel") btn2Callback=(action "closeItemOptions") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
+{{#message-box btn1Text="Separate" btn1Callback=(action "removeItemFromSet") btn2Text=(t "cancel") btn2Callback=(action "closeItemOptions") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
 
-  <p>Are you sure, you want to remove item from set? this can not be undone.</p>
+  <p>Are you sure, you want to separate this item from its set? This cannot be undone.</p>
 
 {{/message-box}}

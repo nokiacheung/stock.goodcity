@@ -1,12 +1,33 @@
 import Ember from "ember";
+import config from '../../config/environment';
 
 export default Ember.Controller.extend({
+  isMobileApp: config.cordova.enabled,
   item: Ember.computed.alias("model"),
   backLinkPath: "",
   queryParams: ['showDispatchOverlay'],
   showDispatchOverlay: false,
   autoDisplayOverlay: false,
   messageBox: Ember.inject.service(),
+  displayScanner: false,
+
+  grades: Ember.computed(function(){
+    return [
+      { name: "A", id: "A" },
+      { name: "B", id: "B" },
+      { name: "C", id: "C" },
+      { name: "D", id: "D" }
+    ];
+  }),
+
+  conditions: Ember.computed(function(){
+    return [
+      { name: "New", id: "N" },
+      { name: "Mixed", id: "M" },
+      { name: "Used", id: "U" },
+      { name: "Broken", id: "B" }
+    ];
+  }),
 
   performDispatch: Ember.observer("showDispatchOverlay", function() {
     Ember.run.debounce(this, this.updateAutoDisplayOverlay, 100);

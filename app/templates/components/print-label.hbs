@@ -1,0 +1,9 @@
+<div class="{{if item.sentOn 'disabled'}}" {{action "printBarcode"}}>
+  {{yield}}
+</div>
+
+<div class="hidden">
+  <div id="{{concat 'printer_message_' item.id}}" class="printer_message">
+    Sent to Printer..
+  </div>
+</div>

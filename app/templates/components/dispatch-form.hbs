@@ -8,7 +8,7 @@
   {{undispatch-item item=item closeList=closeList }}
 {{else}}
   <div {{action 'displayDispatchOverlay'}}>
-    <i class="fa item-menu fa-exclamation-triangle"></i>
+    <i class="fa item-menu fa-ship"></i>
     {{t "item.dispatch"}}
   </div>
 {{/if}}
@@ -32,13 +32,13 @@
       <div class="warning_text">
         <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
         <div class="right-message">
-          <div>{{t "dispatch.remove_set"}}</div>
+          <div>{{t "dispatch.separate_set"}}</div>
           <div>You could dispatch the {{#link-to 'items.detail' item}}entire set{{/link-to}} instead.</div>
         </div>
       </div>
 
       {{input type="checkbox" checked=removeItemFromSet id=(concat "item" item.id)}}
-      <label for="{{concat "item" item.id}}" >{{t "dispatch.remove_and_dispatch"}}</label>
+      <label for="{{concat "item" item.id}}" >{{t "dispatch.separate_and_dispatch"}}</label>
 
       {{#if displayError}}
         <div class="error-box">

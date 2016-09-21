@@ -33,9 +33,13 @@
           {{dispatch-set item=model order=model.designation autoDisplayOverlay=autoDisplayOverlay}}
         {{/if}}
 
-        <span class="no-avatar">
-          <i class="fa fa-print" aria-hidden="true"></i>
-        </span>
+        {{#if item.allowLabelPrint}}
+          {{#print-label item=item closeList=""}}
+            <span class="no-avatar">
+              <i class="fa fa-print" aria-hidden="true"></i>
+            </span>
+          {{/print-label}}
+        {{/if}}
       </div>
     </div>
 

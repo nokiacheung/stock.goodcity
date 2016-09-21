@@ -50,6 +50,16 @@
       background-color: inherit;
     }
   }
+  .designate-message, .move-message {
+    margin: 0 0 4% -3%;
+    display: inline-block;
+    @media #{$small-only} {
+      margin: 0 0 4% -2%;
+    }
+    @media #{$medium-only} {
+      margin: 0 0 4% 2%;
+    }
+  }
 
   .error-box {
     border-color: $coral-red !important;

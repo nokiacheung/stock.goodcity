@@ -8,6 +8,7 @@ I18nTranslationsEn =
   "no_search_results": "No Search Results."
   "cancel": "Cancel"
   "ok" : "OK"
+  "done": "Done"
   "must_login": "You must login!"
   "search_no_results": "Sorry, No results found."
 
@@ -49,8 +50,9 @@ I18nTranslationsEn =
     "designate": "designate"
     "dispatch": "dispatch"
     "undispatch": "undispatch"
-    "remove": "remove"
-    "move": "move"
+    "undesignate": "un-designate"
+    "separate": "separate"
+    "move": "Move"
     "show_set_items": "Show other parts from the same set next"
 
   "designate":
@@ -58,7 +60,6 @@ I18nTranslationsEn =
     "designate": "Designate"
     "overrides_existing": "Overrides an existing designation."
     "quantity" : "Designates quantity of {{quantity}}."
-    "set_part": "Designates only part of set."
     "already_designated": "This item is alreday designated to order {{code}}."
 
   "undesignate":
@@ -71,9 +72,27 @@ I18nTranslationsEn =
     "dispatch": "Dispatch"
     "from_order": "Dispatch this item to {{code}}"
     "dispatch_quantity": "Dispatches quantity of {{quantity}}."
-    "remove_set": "Dispatching <b>will remove this item from a set!</b>"
+    "separate_set": "Dispatching <b>will separate this item from a set!</b>"
     "dispatch_set": "You could dispatch the entire set instead."
     "all_items_dispatched": "All items from this order have been dispatched. Please close this order in StockIt."
-    "remove_and_dispatch": "Remove item from set & dispatch"
+    "separate_and_dispatch": "Separate item from set & dispatch"
+
+  "edit_images":
+    "upload": "Choose Image"
+    "camera": "Take Photo"
+    "cancel": "Cancel"
+    "add_photo" : "Add photo"
+    "delete_confirm" : "Are you sure you want to delete this image?"
+    "cant_delete_last_image" : "You must have at least one image"
+    "donating_what" : "What are you donating?"
+    "take_photos" : "Take some photos"
+    "fullscreen_tooltip" : "toggle fullscreen"
+    "favourite_tooltip" : "set as cover image"
+    "delete_tooltip" : "delete image"
+    "image_uploading": "Image Uploading "
+    "remove_image": "Remove image"
+    "cancel_item": "Cancel item"
+    "cannot_provide_photo": "Cannot provide photo"
+    "last_image_with_item": "This is the only image associated with this item"
 
 `export default I18nTranslationsEn`
