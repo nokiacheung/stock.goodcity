@@ -6,9 +6,6 @@ const { getOwner } = Ember;
 export default NumericInput.extend({
   store: Ember.inject.service(),
   previousValue: '',
-  tagName: "input",
-  type: "text",
-  attributeBindings: [ "name", "type", "value", "maxlength", "id", "autoFocus" , "placeholder", "required", "pattern"],
 
   focusOut() {
     var item = this.get("item");
