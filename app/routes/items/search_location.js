@@ -10,7 +10,8 @@ export default AuthorizeRoute.extend({
   itemMoveBackLinkPath: Ember.computed.localStorage(),
   itemPreviousRoute: Ember.computed.localStorage(),
 
-  beforeModel() {
+  beforeModel(transition) {
+    this._super(...arguments);
     var previousRoutes = this.router.router.currentHandlerInfos;
     var previousRoute = previousRoutes && previousRoutes.pop();
     var path = "items.index";

@@ -12,7 +12,8 @@ export default AuthorizeRoute.extend({
     scanLocationName: ""
   },
 
-  beforeModel() {
+  beforeModel(transition) {
+    this._super(...arguments);
     var previousRoutes = this.router.router.currentHandlerInfos;
     var previousRoute = previousRoutes && previousRoutes.pop();
     if(previousRoute) {
