@@ -1,4 +1,5 @@
 body{
+  overflow-x: hidden;
   @media #{$small-only} {
     font-size: 0.7rem;
   }
