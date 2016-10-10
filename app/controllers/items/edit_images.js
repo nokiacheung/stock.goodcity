@@ -87,7 +87,7 @@ export default Ember.Controller.extend({
 
       var imgTag = new Image();
       imgTag.onload = () => {
-        var newCSS = new Ember.Handlebars.SafeString(
+        var newCSS = new Ember.String.htmlSafe(
           css + "background-image:url(" + this.get("previewImage.imageUrl") + ");" +
           "background-size: " + (this.get("isExpanded") ? "contain" : "cover") + ";"
         );
@@ -95,7 +95,7 @@ export default Ember.Controller.extend({
       };
       imgTag.src = this.get("previewImage.imageUrl");
 
-      return new Ember.Handlebars.SafeString(
+      return new Ember.String.htmlSafe(
           css + "background-image:url('assets/images/image_loading.gif');" +
           "background-size: 'inherit';"
         );
@@ -108,12 +108,12 @@ export default Ember.Controller.extend({
 
   instructionBoxCss: Ember.computed("previewImage", "isExpanded", function(){
     var height = Ember.$(window).height() * 0.6;
-    return new Ember.Handlebars.SafeString("min-height:" + height + "px;");
+    return new Ember.String.htmlSafe("min-height:" + height + "px;");
   }),
 
   thumbImageCss: Ember.computed(function(){
     var imgWidth = Math.min(120, Ember.$(window).width() / 4 - 14);
-    return new Ember.Handlebars.SafeString("width:" + imgWidth + "px; height:" + imgWidth + "px;");
+    return new Ember.String.htmlSafe("width:" + imgWidth + "px; height:" + imgWidth + "px;");
   }),
 
   locale: function(str){
