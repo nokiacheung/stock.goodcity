@@ -1,8 +1,11 @@
 body{
-  overflow-x: hidden;
   @media #{$small-only} {
     font-size: 0.7rem;
   }
+}
+
+html, body{
+  overflow-x: hidden;
 }
 
 h2{
