@@ -3,7 +3,7 @@
     {{#each item.images as |image|}}
       <div data-src={{image.imageUrl}} class="imageZoom" >
         {{#if isMobileApp}}
-          <img src={{image.imageUrl}} {{action "imageZoom" image}} class="profile slide-image"/>
+          <img src={{image.imageUrl}} {{action "imageZoom" image.imageUrl}} class="profile slide-image"/>
         {{else}}
           <img src={{image.imageUrl}} class="profile"/>
         {{/if}}
