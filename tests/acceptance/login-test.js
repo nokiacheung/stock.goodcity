@@ -37,31 +37,6 @@ test("User able to enter mobile number and get the sms code", function(assert) {
   });
 });
 
-test("User is able to enter sms code and confirm and redirected to orders", function(assert) {
-  assert.expect(2);
-
-  $.mockjax({url:"/api/v1/auth/verif*",responseText:{
-    "otp_auth_key" : "/JqONEgEjrZefDV3ZIQsNA=="
-  }});
-
-  var authToken = window.localStorage.authToken;
-  visit('/authenticate');
-  fillIn('#pin', "1234");
-  triggerEvent('#pin', 'blur');
-
-  andThen(function() {
-    assert.equal(find('#pin').val().length, 4);
-    window.localStorage.authToken = authToken;
-  });
-
-  click("#submit_pin");
-
-  andThen(function(){
-    assert.equal(currentURL(), "/");
-  });
-});
-
-
 test("User is able to resend the sms code", function(assert) {
   assert.expect(1);
 
