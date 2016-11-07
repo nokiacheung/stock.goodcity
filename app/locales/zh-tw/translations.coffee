@@ -10,6 +10,7 @@ I18nTranslationsEn =
   "ok" : "OK"
   "must_login": "You must login!"
   "search_no_results": "Sorry, No results found."
+  "version": "Stock v."
 
   "authenticate":
     "input_code" : "Input Code"
