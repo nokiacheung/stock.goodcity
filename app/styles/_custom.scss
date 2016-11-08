@@ -4,6 +4,10 @@ body{
   }
 }
 
+html, body{
+  overflow-x: hidden;
+}
+
 h2{
   @media #{$small-only} {
       font-size: 0.9rem;

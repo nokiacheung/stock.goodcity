@@ -7,6 +7,8 @@ export default Ember.Route.extend({
       if(this.get('session.currentUser')) {
         this.transitionTo('/');
       }
+    } else {
+      this.transitionTo('login');
     }
   }
 });

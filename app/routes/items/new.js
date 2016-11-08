@@ -13,6 +13,7 @@ export default AuthorizeRoute.extend({
   },
 
   beforeModel() {
+    this._super(...arguments);
     var previousRoutes = this.router.router.currentHandlerInfos;
     var previousRoute = previousRoutes && previousRoutes.pop();
     if(previousRoute) {
