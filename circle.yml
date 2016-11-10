@@ -57,6 +57,11 @@ deployment:
           pwd: scripts
       - PATH=$(npm bin):$PATH; azure-filestore download -f goodcity.keystore:
           pwd: cordova
+      - PATH=$(npm bin):$PATH; azure-filestore download -d google-play -f $GOOGLE_PLAY_KEY_FILE:
+          pwd: fastlane
       - bundle exec cap production deploy
       - bundle exec rake production android app:release
       - bundle exec rake production ios app:release
+      - fastlane android beta
+      - fastlane ios upload
+      - fastlane ios beta

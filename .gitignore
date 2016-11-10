@@ -29,3 +29,8 @@ cordova/.secret_keys
 *.mobileprovision
 *.keystore
 *.p12
+
+# fastlane
+Preview.html
+fastlane/report.xml
+fastlane/*.json
