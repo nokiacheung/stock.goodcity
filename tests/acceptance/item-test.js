@@ -1,9 +1,8 @@
 import Ember from 'ember';
-import { module, test } from 'qunit';
+import { module } from 'qunit';
 import startApp from '../helpers/start-app';
 import FactoryGuy from 'ember-data-factory-guy';
 import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
-import { mockFindAll } from 'ember-data-factory-guy';
 import '../factories/item';
 
 var App, item;
