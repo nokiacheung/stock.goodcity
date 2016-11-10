@@ -147,7 +147,7 @@ namespace :testfairy do
     raise(BuildError, "#{app_file} does not exist!") unless File.exists?(app_file)
     raise(BuildError, "TESTFAIRY_API_KEY not set.") unless env?("TESTFAIRY_API_KEY")
     if ENV["CI"]
-      sh %{ export PATH="$ANDROID_HOME/build-tools/22.0.1:$PATH"; #{testfairy_upload_script} "#{app_file}" }
+      sh %{ source ~/.circlerc; #{testfairy_upload_script} "#{app_file}" }
     else
       sh %{ #{testfairy_upload_script} "#{app_file}" }
     end

@@ -24,3 +24,8 @@ cordova/.secret_keys
 
 # iOS
 *.xcuserdatad
+
+# code signing
+*.mobileprovision
+*.keystore
+*.p12
