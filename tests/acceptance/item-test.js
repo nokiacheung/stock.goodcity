@@ -19,15 +19,3 @@ module('Acceptance: Item', {
     Ember.run(App, 'destroy');
   }
 });
-
-test('visiting /items', function(assert) {
-  assert.expect(1);
-  visit('/items');
-
-  mockFindAll('item').returns({ json: {items: [item.toJSON({includeId:true})], meta: {search: item.get('inventoryNumber').toString()}}});
-
-  fillIn('#searchText', item.get('inventoryNumber'));
-  andThen(function() {
-    assert.equal(find('ul div.item_block div.item_details div.name_details div').last().text().trim(), item.get('notes'));
-  });
-});
