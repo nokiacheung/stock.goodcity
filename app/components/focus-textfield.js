@@ -47,7 +47,8 @@ export default Ember.TextField.extend({
   didInsertElement() {
     var routes = this.router.router.currentHandlerInfos;
     var currentRoute = routes.pop();
-    currentRoute.name === "items.index" ? this.set('isItemsIndex', true) : this.set('isItemsIndex', false);
+    var isIndexRoute = currentRoute.name === "items.index" ? true : false;
+    this.set('isItemsIndex', isIndexRoute);
     document.body.scrollTop = document.documentElement.scrollTop = 0;
     this.$().focus();
     if(this.get("hasFixedInputHeader")) {
