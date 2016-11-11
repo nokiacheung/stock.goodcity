@@ -8,6 +8,7 @@ export default Ember.TextField.extend({
   cordova: Ember.inject.service(),
   store: Ember.inject.service(),
   hasRecentDesignations: true,
+  isItemsIndex: false,
 
   triggerAutofocus: Ember.observer("value", function() {
     if (this.get('value').length === 0) {
@@ -16,7 +17,7 @@ export default Ember.TextField.extend({
   }),
 
   didRender() {
-    if(this.get('hasRecentDesignations') && Ember.$('.small-block-grid-5').find('.active').text().trim() === "Items") {
+    if(this.get('hasRecentDesignations') && this.get('isItemsIndex')) {
       var records = this.get('store').query('designation', { recently_used: true });
       this.get('store').pushPayload(records);
       this.set('hasRecentDesignations', false);
@@ -44,6 +45,9 @@ export default Ember.TextField.extend({
   },
 
   didInsertElement() {
+    var routes = this.router.router.currentHandlerInfos;
+    var currentRoute = routes.pop();
+    currentRoute.name === "items.index" ? this.set('isItemsIndex', true) : this.set('isItemsIndex', false);
     document.body.scrollTop = document.documentElement.scrollTop = 0;
     this.$().focus();
     if(this.get("hasFixedInputHeader")) {
