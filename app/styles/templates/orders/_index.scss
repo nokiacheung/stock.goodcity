@@ -89,10 +89,13 @@
 }
 
 .fixed_search_header {
-  position: static;
+  position: fixed;
   z-index: 1000;
 
-
+  @media #{$medium-up} {
+    transform: translate(-50%, 0);
+    left: 50%;
+  }
 }
 
 .orders_search_result {
