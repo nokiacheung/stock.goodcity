@@ -89,12 +89,10 @@
 }
 
 .fixed_search_header {
-  position: fixed;
+  position: static;
   z-index: 1000;
 
-  @media #{$large-up} {
-    margin-left: 14.5rem;
-  }
+
 }
 
 .orders_search_result {
