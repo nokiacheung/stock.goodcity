@@ -21,7 +21,10 @@ export default AuthorizeRoute.extend({
 
     if(previousRoute) {
       var routeName = previousRoute.name;
-      if(routeName.indexOf("items")) {
+      if(routeName === "items.new"){
+        path = path;
+      }
+      else if(routeName.indexOf("items") > -1 || routeName === "orders.detail"){
         path = routeName;
       } else if(routeName === path) {
         path = path;
