@@ -23,13 +23,13 @@ export default AuthorizeRoute.extend({
       var routeName = previousRoute.name;
       if(routeName === "items.new"){
         path = path;
+      } else if(routeName.indexOf("items") === 0) {
+        path = this.get("itemBackLinkPath") || path;
+      } else if(routeName === path) {
+        path = path;
       }
       else if(routeName.indexOf("items") > -1 || routeName === "orders.detail"){
         path = routeName;
-      } else if(routeName === path) {
-        path = path;
-      } else if(routeName.indexOf("items") === 0) {
-        path = this.get("itemBackLinkPath") || path;
       }
     }
 
