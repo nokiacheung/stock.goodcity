@@ -29,10 +29,11 @@ export default AuthorizeRoute.extend({
 
   model(params) {
     var item = this.store.peekRecord("item", params.item_id);
+    var recentlyUsedLocations = this.store.peekAll('location').filterBy('recentlyUsedAt');
 
     return Ember.RSVP.hash({
       item: item || this.store.findRecord('item', params.item_id),
-      locations: this.store.query('location', { recently_used: true })
+      locations: recentlyUsedLocations.get('length') !== 0 ? recentlyUsedLocations : this.store.query('location', { recently_used: true })
     });
   },
 
