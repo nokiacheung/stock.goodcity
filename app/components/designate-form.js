@@ -9,6 +9,7 @@ export default Ember.Component.extend({
   autoDisplayOverlay: false,
   hideDetailsLink: true,
   showDispatchOverlay: false,
+  partial_quantity: null,
 
   order: null,
   item: null,
@@ -38,6 +39,7 @@ export default Ember.Component.extend({
   }),
 
   triggerOrderClick: Ember.observer("order", "toggleOverlay", function() {
+    this.set('partial_quantity', getOwner(this).lookup('controller:items.search_order').get('partial_qty'));
     if(this.get("order")) {
       this.send("displayDesignateOverlay");
     }
