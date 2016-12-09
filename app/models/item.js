@@ -8,6 +8,10 @@ export default cloudinaryUrl.extend({
   imageUrl: Ember.computed.alias("image.imageUrl"),
   designateFullSet: Ember.computed.localStorage(),
 
+  available_qty: Ember.computed("quantity", function() {
+    return this.get('quantity');
+  }),
+
   thumbImageUrl: Ember.computed('favouriteImage.{angle,cloudinaryId}', function(){
     return this.get("favouriteImage.thumbImageUrl") || this.generateUrl(120, 120, true);
   }),

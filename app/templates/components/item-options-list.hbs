@@ -5,13 +5,6 @@
 <div class="receive-item-options {{if hidden 'hidden'}} {{if item.isSet 'set-options'}}">
 
   <div class="{{unless item.quantity 'disabled'}}">
-    {{#link-to 'items.search_location' item.id tagName='div' href=false}}
-      <i class="fa item-menu fa fa-map-marker"></i>
-      {{t "item.move"}}
-    {{/link-to}}
-  </div>
-
-  <div class="{{unless item.quantity 'disabled'}}">
     {{#link-to 'items.partial_designate' item.id tagName='div' href=false}}
       <i class="fa item-menu fa fa-shopping-basket" {{action 'partialDesignateForSet'}}></i>
       {{t "item.designate"}}
