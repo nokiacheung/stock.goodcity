@@ -1,11 +1,11 @@
 .receive-item-options {
   background-color: #4C6485;
   display: table-row;
-  width: 17rem;
+  width: 20rem;
   right: 0;
 
   @media #{$small-only} {
-    width: 13rem;
+    width: 15rem;
   }
   > div {
     display: table-cell;
@@ -53,7 +53,7 @@
 
 .set-options {
   @media #{$small-only} {
-    width: 16rem;
+    width: 18rem;
   }
 
   > div {

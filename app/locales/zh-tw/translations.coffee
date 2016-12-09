@@ -49,6 +49,8 @@ I18nTranslationsEn =
   "item":
     "edit": "edit"
     "designate": "designate"
+    "designate_partial": "Designate"
+    "partial_designate": "partial designate"
     "dispatch": "dispatch"
     "undispatch": "undispatch"
     "undesignate": "un-designate"
