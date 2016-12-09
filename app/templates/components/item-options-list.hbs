@@ -4,12 +4,14 @@
 
 <div class="receive-item-options {{if hidden 'hidden'}} {{if item.isSet 'set-options'}}">
 
-  <div class="{{if item.sentOn 'disabled'}}">
-    {{#link-to 'items.partial_designate' item.id tagName='div' href=false}}
-      <i class="fa item-menu fa fa-shopping-basket"></i>
-      {{t "item.partial_designate"}}
-    {{/link-to}}
-  </div>
+  {{#if item.quantity}}
+    <div class="{{if item.sentOn 'disabled'}}">
+      {{#link-to 'items.partial_designate' item.id tagName='div' href=false}}
+        <i class="fa item-menu fa fa-shopping-basket"></i>
+        {{t "item.partial_designate"}}
+      {{/link-to}}
+    </div>
+  {{/if}}
 
   <div class="{{if item.sentOn 'disabled'}}">
     {{#link-to 'items.partial_move' item.id tagName='div' href=false}}
