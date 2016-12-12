@@ -3,7 +3,7 @@ import Ember from "ember";
 export default Ember.Controller.extend({
   item: null,
 
-  totalInHandItems: Ember.computed('item', function() {
+  totalInHandItems: Ember.computed('item.quantity', function() {
     return this.get('item.quantity');
   }),
 

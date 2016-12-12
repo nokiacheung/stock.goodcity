@@ -7,12 +7,20 @@ export default cloudinaryUrl.extend({
 
   imageUrl: Ember.computed.alias("image.imageUrl"),
 
+  thumbImageUrl: Ember.computed('favouriteImage.{angle,cloudinaryId}', function(){
+    return this.get("favouriteImage.thumbImageUrl") || this.generateUrl(120, 120, true);
+  }),
+
   available_qty: Ember.computed("quantity", function() {
     return this.get('quantity');
   }),
 
-  thumbImageUrl: Ember.computed('favouriteImage.{angle,cloudinaryId}', function(){
-    return this.get("favouriteImage.thumbImageUrl") || this.generateUrl(120, 120, true);
+  onHandQty: Ember.computed("ordersPackages.@each.quantity", function() {
+    var totalQty = 0;
+    this.get('ordersPackages').filterBy('state', "designated").forEach(record => {
+      totalQty += record.get('quantity');
+    })
+    return totalQty + this.get('quantity');
   }),
 
   designatedItemCount: Ember.computed("ordersPackages.@each.quantity", function() {
