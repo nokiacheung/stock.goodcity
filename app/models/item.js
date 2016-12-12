@@ -28,11 +28,11 @@ export default cloudinaryUrl.extend({
   }),
 
   dispatchedItemCount: Ember.computed("ordersPackages.@each.quantity", function() {
-    return this.get("ordersPackages").filterBy('dispatched', "designated").length;
+    return this.get("ordersPackages").filterBy('state', "dispatched").length;
   }),
 
   cancelledItemCount: Ember.computed("ordersPackages.@each.quantity", function() {
-    return this.get("ordersPackages").filterBy('cancelled', "designated").length;
+    return this.get("ordersPackages").filterBy('state', "cancelled").length;
   }),
 
   favouriteImage: Ember.computed('images.@each.favourite', function(){
