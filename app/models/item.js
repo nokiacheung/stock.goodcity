@@ -19,7 +19,7 @@ export default cloudinaryUrl.extend({
     var totalQty = 0;
     this.get('ordersPackages').filterBy('state', "designated").forEach(record => {
       totalQty += record.get('quantity');
-    })
+    });
     return totalQty + this.get('quantity');
   }),
 
