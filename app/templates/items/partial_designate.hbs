@@ -1,5 +1,4 @@
 <div>
-
   <div class="row item_block item_header">
     <div class="row dispatch_details {{if model.sentOn 'dispatched'}} {{if model.designation 'designated'}}">
       <div class="small-3 columns">
@@ -58,6 +57,12 @@
         <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
         <div class="right-message">
           <div class="move-message">Designates only part of set.</div>
+        </div>
+      </div><br/>
+      <div class="warning_text">
+        <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
+        <div class="right-message">
+          <div class="move-message">You can only designate maximum {{totalInHandItems}} items.</div>
         </div>
       </div>
     </div>

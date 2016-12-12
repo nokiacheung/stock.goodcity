@@ -15,6 +15,18 @@ export default cloudinaryUrl.extend({
     return this.get("favouriteImage.thumbImageUrl") || this.generateUrl(120, 120, true);
   }),
 
+  designatedItemCount: Ember.computed("ordersPackages.@each.quantity", function() {
+    return this.get("ordersPackages").filterBy('state', "designated").length;
+  }),
+
+  dispatchedItemCount: Ember.computed("ordersPackages.@each.quantity", function() {
+    return this.get("ordersPackages").filterBy('dispatched', "designated").length;
+  }),
+
+  cancelledItemCount: Ember.computed("ordersPackages.@each.quantity", function() {
+    return this.get("ordersPackages").filterBy('cancelled', "designated").length;
+  }),
+
   favouriteImage: Ember.computed('images.@each.favourite', function(){
     return this.get("images").filterBy("favourite", true).get("firstObject");
   }),
@@ -41,6 +53,7 @@ export default cloudinaryUrl.extend({
   donorCondition: belongsTo('donor_condition', { async: false }),
   setItem:        belongsTo('set_item', { async: false }),
 
+  ordersPackages:    hasMany('ordersPackages', { async: false }),
   images:       hasMany('image', { async: true }),
 
   isDispatched: Ember.computed.bool('sentOn'),

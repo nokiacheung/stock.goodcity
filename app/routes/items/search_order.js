@@ -22,6 +22,9 @@ export default AuthorizeRoute.extend({
       if(routeName.indexOf("detail")){
         path = routeName;
       }
+      if(routeName === "items.partial_designate") {
+        path = "items.index";
+      }
     }
 
     this.set("itemDesignateBackLinkPath", path);

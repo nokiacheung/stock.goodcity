@@ -18,6 +18,8 @@ export default Model.extend({
   organisation: belongsTo('organisation', { async: false }),
   localOrder:   belongsTo('local_order', { async: false }),
   items:        hasMany('item', { async: false }),
+  ordersPackages:    hasMany('ordersPackages', { async: false }),
+
 
   isLocalOrder: Ember.computed.equal('detailType', 'LocalOrder'),
 
@@ -37,5 +39,5 @@ export default Model.extend({
   isInactive: Ember.computed('status', function(){
     return ["Sent", "Cancelled", "Closed"].indexOf(this.get("status")) >= 0;
   }),
-  
+
 });
