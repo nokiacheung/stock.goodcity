@@ -1,6 +1,11 @@
 import Ember from "ember";
 
 export default Ember.Controller.extend({
+  item: null,
+
+  totalInHandItems: Ember.computed('item', function() {
+    return this.get('item.quantity');
+  }),
 
   actions: {
     designate_partial_qty(item) {

@@ -9,13 +9,14 @@ export default Ember.Component.extend({
   autoDisplayOverlay: false,
   hideDetailsLink: true,
   showDispatchOverlay: false,
-  partial_quantity: null,
+  partial_quantity: 0,
 
   order: null,
   item: null,
   toggleOverlay: null,
   isSet: null,
   store: Ember.inject.service(),
+  designatedOnce: true,
 
   overridesDesignation: Ember.computed('item.setItem.designationList.[]', 'order', function() {
 
@@ -59,9 +60,14 @@ export default Ember.Component.extend({
     displayDesignateOverlay() {
       if(this.get("isDesignatedToCurrentOrder") && !this.get("isSet")) {
         this.set("displayAlertOverlay", true);
+      } else if (this.get('partial_quantity')) {
+        if(this.get('designatedOnce')) {
+          this.send('designatePartialItem');
+        }
       } else {
         this.set("displayUserPrompt", true);
       }
+      this.set('designatedOnce', false);
     },
 
     designateItem() {
@@ -94,6 +100,43 @@ export default Ember.Component.extend({
           loadingView.destroy();
         });
 
+    },
+
+    designatePartialItem() {
+      var order = this.get("order");
+      var item = this.get("item");
+      var showAllSetItems = this.get("showAllSetItems");
+      this.set("showAllSetItems", false);
+
+      var properties = {
+        order_id: order.get("id"),
+        package_id: item.get('id'),
+        quantity: this.get('partial_quantity'),
+      };
+
+      var loadingView = getOwner(this).lookup('component:loading').append();
+      var url;
+
+      // if(this.get("isSet")) {
+      //   url = `/items/${item.get('setItem.id')}/designate_stockit_item_set`;
+      // } else {
+      url = `/items/${item.get('id')}/designate_partial_item`;
+
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { package: properties })
+        .then(data => {
+          this.get("store").pushPayload(data);
+          if(this.get("isSet")) {
+            this.get('router').transitionTo("items.detail", item, { queryParams: { showDispatchOverlay: this.get('showDispatchOverlay') }});
+          } else if(showAllSetItems) {
+            this.sendAction("displaySetItems");
+          } else {
+            loadingView.destroy();
+            this.get('router').transitionTo("items.index");
+          }
+        })
+        .finally(() => {
+          loadingView.destroy();
+        });
     }
   }
 
