@@ -16,7 +16,6 @@ export default cloudinaryUrl.extend({
     return this.get("favouriteImage.thumbImageUrl") || this.generateUrl(120, 120, true);
   }),
 
-
   orderPackagesMoreThenZeroQty: Ember.computed("ordersPackages.@each.quantity", function() {
     return this.get("ordersPackages").filterBy('quantity').filterBy("state", "designated");
   }),
@@ -92,6 +91,8 @@ export default cloudinaryUrl.extend({
     });
     return (totalDispatchedQty === received_quantity) ? true : false;
   }),
+
+
 
   hasAllPackagesDesignated: Ember.computed("ordersPackages.@each.state", function() {
     var received_quantity = this.get("receivedQuantity");
