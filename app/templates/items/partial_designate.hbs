@@ -69,7 +69,7 @@
 
     <div class="confirm_quantity">Confirm the quantities you are designating.</div>
     <div class="columns small-4 partial_designate_textfield">
-      {{partial-designate-input id=model.id value=model.available_qty type="number" min="1" max=model.quantity item=model}}
+      {{partial-designate-input id=model.id value=model.availableQty type="number" min="1" max=model.quantity item=model}}
     </div>
     <div class="columns small-4">
       <button id="partial_designate" type="submit" class="button expand"{{action 'designate_partial_qty' model}}>{{t "item.designate_partial"}}</button>

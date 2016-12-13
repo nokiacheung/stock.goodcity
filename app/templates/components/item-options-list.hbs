@@ -4,7 +4,7 @@
 
 <div class="receive-item-options {{if hidden 'hidden'}} {{if item.isSet 'set-options'}}">
 
-  {{#if item.quantity}}
+  {{#if (is-greater item.quantity  1)}}
     <div class="{{if item.sentOn 'disabled'}}">
       {{#link-to 'items.partial_designate' item.id tagName='div' href=false}}
         <i class="fa item-menu fa fa-shopping-basket"></i>
