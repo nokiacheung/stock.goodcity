@@ -332,7 +332,6 @@ export default Ember.Controller.extend({
             loadingView.destroy();
             _this.get("messageBox").alert(response.responseJSON.errors[0]);
           });
-
       }
     }
 
