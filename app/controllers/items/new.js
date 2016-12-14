@@ -216,6 +216,7 @@ export default Ember.Controller.extend({
       if(this.get('imageKeys.length')) {
         new AjaxPromise("/images/delete_cloudinary_image", "PUT", this.get('session.authToken'), { cloudinary_id: this.get('imageKeys') });
         this.set("imageKeys", "");
+        this.set("newUploadedImage",null);
       }
     },
 
