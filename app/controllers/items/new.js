@@ -322,7 +322,8 @@ export default Ember.Controller.extend({
               });
               image.save();
             }
-            this.set("imageKeys", "");
+            this.set("locationId", "");
+            this.send("deleteUnusedImage");
             loadingView.destroy();
             _this.transitionToRoute("items.detail", data.item.id);
           })
