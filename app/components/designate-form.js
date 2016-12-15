@@ -10,6 +10,9 @@ export default Ember.Component.extend({
   hideDetailsLink: true,
   showDispatchOverlay: false,
   partial_quantity: 0,
+  messageBox: Ember.inject.service(),
+  partiallyDesignatedPopUp: false,
+  totalPartialDesignatedItems: 0,
 
   order: null,
   item: null,
@@ -17,6 +20,8 @@ export default Ember.Component.extend({
   isSet: null,
   store: Ember.inject.service(),
   designatedOnce: true,
+  alreadyPartiallyDesignated: false,
+  orderPackageId: null,
 
   overridesDesignation: Ember.computed('item.setItem.designationList.[]', 'order', function() {
 
@@ -56,10 +61,32 @@ export default Ember.Component.extend({
     }
   }),
 
+  isDesignatedToCurrentPartialOrder: Ember.computed('order', 'item', function() {
+    var total = 0;
+    this.set('partiallyDesignatedPopUp', false);
+    this.set('alreadyPartiallyDesignated', false);
+    var order = this.get('order');
+    var item = this.get('item');
+    this.get('store').peekAll("orders_package").filterBy("itemId", parseInt(item.id)).forEach(record => {
+      if(record.get('itemId') === parseInt(item.id) && record.get('designationId') === parseInt(order.id)) {
+          total += record.get('quantity');
+          this.set('alreadyPartiallyDesignated', true);
+          this.set('orderPackageId', record.get('id'));
+        }
+      });
+    this.set('totalPartialDesignatedItems', total);
+    return this.get('alreadyPartiallyDesignated');
+  }),
+
   actions: {
     displayDesignateOverlay() {
+      this.set('partiallyDesignatedPopUp', false);
       if(this.get("isDesignatedToCurrentOrder") && !this.get("isSet")) {
         this.set("displayAlertOverlay", true);
+      } else if(this.get('isDesignatedToCurrentPartialOrder') && this.get('partial_quantity')) {
+        if(this.get('designatedOnce')) {
+          this.set('partiallyDesignatedPopUp', true);
+        }
       } else if (this.get('partial_quantity')) {
         if(this.get('designatedOnce')) {
           this.send('designatePartialItem');
@@ -67,7 +94,6 @@ export default Ember.Component.extend({
       } else {
         this.set("displayUserPrompt", true);
       }
-      this.set('designatedOnce', false);
     },
 
     designateItem() {
@@ -103,10 +129,12 @@ export default Ember.Component.extend({
     },
 
     designatePartialItem() {
+      this.set('designatedOnce', false);
       var order = this.get("order");
       var item = this.get("item");
       var showAllSetItems = this.get("showAllSetItems");
       this.set("showAllSetItems", false);
+      var isSameDesignation = this.get('partial_quantity') && this.get('isDesignatedToCurrentPartialOrder');
 
       var properties = {
         order_id: order.get("id"),
@@ -114,13 +142,22 @@ export default Ember.Component.extend({
         quantity: this.get('partial_quantity'),
       };
 
+      if(isSameDesignation) {
+        properties.operation = "update";
+        properties.orders_package_id = this.get('orderPackageId');
+      }
+
       var loadingView = getOwner(this).lookup('component:loading').append();
       var url;
 
       // if(this.get("isSet")) {
       //   url = `/items/${item.get('setItem.id')}/designate_stockit_item_set`;
       // } else {
-      url = `/items/${item.get('id')}/designate_partial_item`;
+      if(isSameDesignation) {
+        url = `/items/${item.get('id')}/update_partial_quantity_of_same_designation`;
+      } else {
+        url = `/items/${item.get('id')}/designate_partial_item`;
+      }
 
       new AjaxPromise(url, "PUT", this.get('session.authToken'), { package: properties })
         .then(data => {
