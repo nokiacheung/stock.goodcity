@@ -66,6 +66,7 @@ I18nTranslationsEn =
     "overrides_existing": "Overrides an existing designation."
     "quantity" : "Designates quantity of {{quantity}}."
     "already_designated": "This item is alreday designated to order {{code}}."
+    "already_partially_designated": "Already {{qty}} items are designated to {{code}}, do you still want to designate {{partial_qty}} more?"
 
   "undesignate":
     "form_title": "Remove this item from order {{code}}"
