@@ -216,6 +216,7 @@ export default Ember.Controller.extend({
       if(this.get('imageKeys.length')) {
         new AjaxPromise("/images/delete_cloudinary_image", "PUT", this.get('session.authToken'), { cloudinary_id: this.get('imageKeys') });
         this.set("imageKeys", "");
+        this.set("newUploadedImage",null);
       }
     },
 
@@ -322,7 +323,8 @@ export default Ember.Controller.extend({
               });
               image.save();
             }
-            this.set("imageKeys", "");
+            this.set("locationId", "");
+            this.send("deleteUnusedImage");
             loadingView.destroy();
             _this.transitionToRoute("items.detail", data.item.id);
           })
@@ -330,7 +332,6 @@ export default Ember.Controller.extend({
             loadingView.destroy();
             _this.get("messageBox").alert(response.responseJSON.errors[0]);
           });
-
       }
     }
 
