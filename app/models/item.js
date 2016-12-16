@@ -141,6 +141,7 @@ export default cloudinaryUrl.extend({
   setItem:        belongsTo('set_item', { async: false }),
 
   ordersPackages:    hasMany('ordersPackages', { async: true }),
+  packages_locations: hasMany('packages_location', {async: false}),
   images:       hasMany('image', { async: true }),
 
   isDispatched: Ember.computed.bool('sentOn'),
@@ -164,6 +165,20 @@ export default cloudinaryUrl.extend({
       });
       return minQty;
     }
+  }),
+
+  hasSingleLocation: Ember.computed('packages_locations.[]', function(){
+    return this.get('packages_locations').length === 1;
+  }),
+
+  firstLocationName: Ember.computed('packages_locations.[]', function(){
+    return this.get('packages_locations').get('firstObject').get('location.name');
+  }),
+
+  allLocations: Ember.computed('packages_locations.[]', function(){
+    var allLocations = [];
+    this.get('packages_locations').forEach((packages_location) => allLocations.pushObject(packages_location.get('location.name')));
+    return allLocations.uniq();
   }),
 
   imageUrlList: Ember.computed('images.[]', function() {
