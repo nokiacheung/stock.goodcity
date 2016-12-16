@@ -14,15 +14,18 @@ export default Ember.Component.extend({
   partiallyDesignatedPopUp: false,
   partialDesignatedConfirmationPopUp: false,
   totalPartialDesignatedItems: 0,
+  cannotDesignateToSameOrder: false,
 
   order: null,
   item: null,
   toggleOverlay: null,
   isSet: null,
   store: Ember.inject.service(),
+  i18n: Ember.inject.service(),
   designatedOnce: true,
   alreadyPartiallyDesignated: false,
   orderPackageId: null,
+  alreadyShown: true,
 
   overridesDesignation: Ember.computed('item.setItem.designationList.[]', 'order', function() {
 
@@ -66,6 +69,7 @@ export default Ember.Component.extend({
     var total = 0;
     this.set('partiallyDesignatedPopUp', false);
     this.set('partialDesignatedConfirmationPopUp', false);
+    this.set('cannotDesignateToSameOrder', false);
     this.set('alreadyPartiallyDesignated', false);
     var order = this.get('order');
     var item = this.get('item');
@@ -82,8 +86,20 @@ export default Ember.Component.extend({
 
   actions: {
     displayDesignateOverlay() {
+      // if(this.get('isDesignatedToCurrentPartialOrder') && getOwner(this).lookup('controller:items.search_order').get('notPartialRoute')) {
+      //   this.get('messageBox').alert(this.get("i18n").t('designate.cannot_designate'));
+      //   return false;
+      // }
       this.set('partiallyDesignatedPopUp', false);
       this.set('partialDesignatedConfirmationPopUp', false);
+      this.set('cannotDesignateToSameOrder', false);
+
+      if(this.get('isDesignatedToCurrentPartialOrder') && getOwner(this).lookup('controller:items.search_order').get('notPartialRoute'))
+      {
+        this.set('cannotDesignateToSameOrder', true);
+        return false;
+      }
+
       if(this.get("isDesignatedToCurrentOrder") && !this.get("isSet")) {
         this.set("displayAlertOverlay", true);
       } else if(this.get('isDesignatedToCurrentPartialOrder') && this.get('partial_quantity')) {
@@ -157,7 +173,7 @@ export default Ember.Component.extend({
 
       // if(this.get("isSet")) {
       //   url = `/items/${item.get('setItem.id')}/designate_stockit_item_set`;
-      // } else {
+      // }
       if(isSameDesignation) {
         url = `/items/${item.get('id')}/update_partial_quantity_of_same_designation`;
       } else {

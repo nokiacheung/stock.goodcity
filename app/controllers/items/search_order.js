@@ -8,6 +8,7 @@ export default searchModule.extend({
   showDispatchOverlay: false,
   toDesignateItem: true,
   partial_qty: 0,
+  notPartialRoute: false,
 
   item: Ember.computed.alias("model.item"),
   searchModelName: "designation",
