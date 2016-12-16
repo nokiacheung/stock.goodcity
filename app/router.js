@@ -22,6 +22,7 @@ Router.map(function() {
     this.route("search_location", { path: "/:item_id/search_location" });
     this.route("search_order", { path: "/:item_id/search_order" });
     this.route("search_code", { path: "/:item_id/search_code" });
+     this.route("partial_move", { path: "/:item_id/partial_move" });
   });
 
   this.route("orders", function() {

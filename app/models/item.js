@@ -58,6 +58,10 @@ export default cloudinaryUrl.extend({
     return allLocations.uniq();
   }),
 
+  availableQty: Ember.computed("quantity", function() {
+    return this.get('quantity');
+  }),
+
   imageUrlList: Ember.computed('images.[]', function() {
     var imageList = [];
     this.get("images").forEach((image) => imageList.pushObject(image.get("imageUrl")));

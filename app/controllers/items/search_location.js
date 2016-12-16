@@ -6,11 +6,12 @@ const { getOwner } = Ember;
 
 export default searchModule.extend({
 
-  queryParams: ['searchInput', 'isSet'],
+  queryParams: ['searchInput', 'isSet',  'partial_qty'],
   isSet: false,
   isMobileApp: config.cordova.enabled,
   searchInput: "",
   moveItemPath: "",
+  partial_qty: 0,
 
   item: Ember.computed.alias("model.item"),
   searchModelName: "location",

@@ -54,6 +54,7 @@ I18nTranslationsEn =
     "undesignate": "un-designate"
     "separate": "separate"
     "move": "Move"
+    "partial_move": "Partial Move"
     "show_set_items": "Show other parts from the same set next"
 
   "designate":
