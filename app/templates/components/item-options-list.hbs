@@ -12,6 +12,13 @@
   </div>
 
   <div class="{{if item.sentOn 'disabled'}}">
+    {{#link-to 'items.partial_move' item.id tagName='div' href=false}}
+      <i class="fa item-menu fa fa-map-marker"></i>
+      {{t "item.partial_move"}}
+    {{/link-to}}
+  </div>
+
+  <div class="{{if item.sentOn 'disabled'}}">
     {{#link-to 'items.search_order' item.id tagName='div' href=false}}
       <i class="fa item-menu fa fa-shopping-basket"></i>
       {{t "item.designate"}}
