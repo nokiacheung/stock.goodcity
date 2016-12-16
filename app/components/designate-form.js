@@ -12,6 +12,7 @@ export default Ember.Component.extend({
   partial_quantity: 0,
   messageBox: Ember.inject.service(),
   partiallyDesignatedPopUp: false,
+  partialDesignatedConfirmationPopUp: false,
   totalPartialDesignatedItems: 0,
 
   order: null,
@@ -64,6 +65,7 @@ export default Ember.Component.extend({
   isDesignatedToCurrentPartialOrder: Ember.computed('order', 'item', function() {
     var total = 0;
     this.set('partiallyDesignatedPopUp', false);
+    this.set('partialDesignatedConfirmationPopUp', false);
     this.set('alreadyPartiallyDesignated', false);
     var order = this.get('order');
     var item = this.get('item');
@@ -81,15 +83,18 @@ export default Ember.Component.extend({
   actions: {
     displayDesignateOverlay() {
       this.set('partiallyDesignatedPopUp', false);
+      this.set('partialDesignatedConfirmationPopUp', false);
       if(this.get("isDesignatedToCurrentOrder") && !this.get("isSet")) {
         this.set("displayAlertOverlay", true);
       } else if(this.get('isDesignatedToCurrentPartialOrder') && this.get('partial_quantity')) {
         if(this.get('designatedOnce')) {
           this.set('partiallyDesignatedPopUp', true);
+          return true;
         }
       } else if (this.get('partial_quantity')) {
         if(this.get('designatedOnce')) {
-          this.send('designatePartialItem');
+          this.set('partialDesignatedConfirmationPopUp', true);
+          return true;
         }
       } else {
         this.set("displayUserPrompt", true);

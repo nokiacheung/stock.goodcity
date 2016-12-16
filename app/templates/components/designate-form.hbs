@@ -73,6 +73,13 @@
 
 {{/message-box}}
 
+{{#message-box btn1Text=(t "okay") btn1Callback=(action "designatePartialItem") btn2Text=(t "cancel") isVisible=partialDesignatedConfirmationPopUp classNames="popupOverlay designate-form"}}
+
+  <p>{{t "designate.partial_designate_title" code=order.code qty=totalPartialDesignatedItems partial_qty=partial_quantity}}</p>
+
+  {{partial 'orders/item_block'}}
+
+{{/message-box}}
 
 {{#message-box btn1Text=(t "okay") btn1Callback=(action "designatePartialItem") btn2Text=(t "cancel") isVisible=partiallyDesignatedPopUp classNames="popupOverlay designate-form"}}
 
