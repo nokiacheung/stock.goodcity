@@ -88,3 +88,11 @@
   {{partial 'orders/item_block'}}
 
 {{/message-box}}
+
+{{#message-box btn1Text=(t "okay") isVisible=cannotDesignateToSameOrder classNames="popupOverlay designate-form"}}
+
+  <p>{{t "designate.cannot_designate" code=order.code}}</p>
+
+{{/message-box}}
+
+
