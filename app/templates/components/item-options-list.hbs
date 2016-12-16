@@ -18,6 +18,13 @@
     {{/link-to}}
   </div>
 
+  <div class="{{if item.sentOn 'disabled'}}">
+    {{#link-to 'items.partial_move' item.id tagName='div' href=false}}
+      <i class="fa item-menu fa fa-map-marker"></i>
+      {{t "item.partial_move"}}
+    {{/link-to}}
+  </div>
+
   {{#if item.hasOneDispatchedPackage}}
     {{ undispatch-item item=item closeList=(action 'toggle' true) }}
   {{else}}

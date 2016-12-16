@@ -57,6 +57,7 @@ I18nTranslationsEn =
     "partial_undesignate": "Un-designate"
     "separate": "separate"
     "move": "Move"
+    "partial_move": "Partial Move"
     "show_set_items": "Show other parts from the same set next"
     "multiple_designation": "designated"
     "all_dispatched": "Out of stock"
