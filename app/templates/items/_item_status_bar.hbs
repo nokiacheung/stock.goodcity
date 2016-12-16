@@ -14,7 +14,12 @@
   </div>
   <div class="small-6 columns location-name">
     {{#unless item.sentOn}}
-      <i class="fa fa-map-marker"></i> {{item.location.name}}
+      <i class="fa fa-map-marker"> </i>
+      {{#if hasSingleLocation}}
+        {{item.firstLocationName}}
+      {{else}}
+        {{item.allLocations}}
+      {{/if}}
     {{/unless}}
   </div>
   <div class="small-3 columns">

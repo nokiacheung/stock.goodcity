@@ -32,17 +32,31 @@ export default cloudinaryUrl.extend({
   allowWebPublish: attr('boolean'),
 
   designation: belongsTo('designation', { async: false }),
-  location:    belongsTo('location', { async: false }),
   code:        belongsTo('code', { async: false }),
   donorCondition: belongsTo('donor_condition', { async: false }),
   setItem:        belongsTo('set_item', { async: false }),
 
+  packages_locations: hasMany('packages_location', {async: false}),
   images:       hasMany('image', { async: true }),
 
   isDispatched: Ember.computed.bool('sentOn'),
   isDesignated: Ember.computed.bool('designation'),
   orderCode: Ember.computed.alias('designation.code'),
   updatedAt: attr("date"),
+
+  hasSingleLocation: Ember.computed('packages_locations.[]', function(){
+    return this.get('packages_locations').length === 1;
+  }),
+
+  firstLocationName: Ember.computed('packages_locations.[]', function(){
+    return this.get('packages_locations').get('firstObject').get('location.name');
+  }),
+
+  allLocations: Ember.computed('packages_locations.[]', function(){
+    var allLocations = [];
+    this.get('packages_locations').forEach((packages_location) => allLocations.pushObject(packages_location.get('location.name')));
+    return allLocations.uniq();
+  }),
 
   imageUrlList: Ember.computed('images.[]', function() {
     var imageList = [];
