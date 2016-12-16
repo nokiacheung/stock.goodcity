@@ -26,10 +26,4 @@ export default Ember.TextField.extend({
       return true;
     }
   }),
-
-  triggerAutofocus: Ember.observer("value", function() {
-    if (this.get('value').length === 0) {
-      this.$().focus();
-    }
-  }),
 });

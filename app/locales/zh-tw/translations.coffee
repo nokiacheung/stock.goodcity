@@ -65,6 +65,7 @@ I18nTranslationsEn =
     "quantity" : "Designates quantity of {{quantity}}."
     "already_designated": "This item is alreday designated to order {{code}}."
     "already_partially_designated": "Already {{qty}} items are designated to {{code}}, do you still want to designate {{partial_qty}} more?"
+    "partial_designate_title": "Designates {{partial_qty}} quantity to order {{code}}"
 
   "undesignate":
     "form_title": "Remove this item from order {{code}}"
