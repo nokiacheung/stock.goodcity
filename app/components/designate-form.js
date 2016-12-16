@@ -86,10 +86,6 @@ export default Ember.Component.extend({
 
   actions: {
     displayDesignateOverlay() {
-      // if(this.get('isDesignatedToCurrentPartialOrder') && getOwner(this).lookup('controller:items.search_order').get('notPartialRoute')) {
-      //   this.get('messageBox').alert(this.get("i18n").t('designate.cannot_designate'));
-      //   return false;
-      // }
       this.set('partiallyDesignatedPopUp', false);
       this.set('partialDesignatedConfirmationPopUp', false);
       this.set('cannotDesignateToSameOrder', false);
@@ -171,9 +167,6 @@ export default Ember.Component.extend({
       var loadingView = getOwner(this).lookup('component:loading').append();
       var url;
 
-      // if(this.get("isSet")) {
-      //   url = `/items/${item.get('setItem.id')}/designate_stockit_item_set`;
-      // }
       if(isSameDesignation) {
         url = `/items/${item.get('id')}/update_partial_quantity_of_same_designation`;
       } else {
