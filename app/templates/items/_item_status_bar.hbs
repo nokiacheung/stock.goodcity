@@ -1,6 +1,10 @@
 <div class="row dispatch_details {{if item.sentOn 'dispatched'}} {{if item.designation 'designated'}}">
   <div class="small-3 columns">
-    {{#if item.sentOn}}
+    {{#if (is-greater item.designatedItemCount 1)}}
+      {{#link-to 'items.partial_undesignate' item.id tagName='span' href=false}}
+        <i class="fa fa-shopping-basket"></i> {{t "item.multiple"}}
+      {{/link-to}}
+    {{else if item.sentOn}}
       {{#link-to 'orders.detail' item.designation.id tagName='span' href=false}}
         <i class="fa fa-ship"></i> {{item.designation.code}}
       {{/link-to}}

@@ -26,6 +26,7 @@ export default Ember.Component.extend({
   alreadyPartiallyDesignated: false,
   orderPackageId: null,
   alreadyShown: true,
+  hasCancelledState: false,
 
   overridesDesignation: Ember.computed('item.setItem.designationList.[]', 'order', function() {
 
@@ -49,6 +50,7 @@ export default Ember.Component.extend({
   }),
 
   triggerOrderClick: Ember.observer("order", "toggleOverlay", function() {
+    this.set('hasCancelledState', false);
     this.set('partial_quantity', getOwner(this).lookup('controller:items.search_order').get('partial_qty'));
     if(this.get("order")) {
       this.send("displayDesignateOverlay");
@@ -65,12 +67,29 @@ export default Ember.Component.extend({
     }
   }),
 
+  cancelledState: Ember.computed('order', 'item', function() {
+    this.set('hasCancelledState', false);
+    var item = this.get('item');
+    var order = this.get('order');
+    this.get('store').peekAll("orders_package").filterBy("itemId", parseInt(item.id)).forEach(record => {
+      if(record.get('itemId') === parseInt(item.id) && record.get('designationId') === parseInt(order.id)) {
+          if (record.get('state') === "cancelled")
+          {
+            this.set('hasCancelledState', true);
+          }
+          this.set('orderPackageId', record.get('id'));
+        }
+      });
+    return this.get('hasCancelledState');
+  }),
+
   isDesignatedToCurrentPartialOrder: Ember.computed('order', 'item', function() {
     var total = 0;
     this.set('partiallyDesignatedPopUp', false);
     this.set('partialDesignatedConfirmationPopUp', false);
     this.set('cannotDesignateToSameOrder', false);
     this.set('alreadyPartiallyDesignated', false);
+    this.set('hasCancelledState', false);
     var order = this.get('order');
     var item = this.get('item');
     this.get('store').peekAll("orders_package").filterBy("itemId", parseInt(item.id)).forEach(record => {
@@ -99,8 +118,11 @@ export default Ember.Component.extend({
       if(this.get("isDesignatedToCurrentOrder") && !this.get("isSet")) {
         this.set("displayAlertOverlay", true);
       } else if(this.get('isDesignatedToCurrentPartialOrder') && this.get('partial_quantity')) {
-        if(this.get('designatedOnce')) {
+        if(this.get('designatedOnce') && !this.get('cancelledState')) {
           this.set('partiallyDesignatedPopUp', true);
+          return true;
+        } else if(this.get('designatedOnce')) {
+          this.set('partialDesignatedConfirmationPopUp', true);
           return true;
         }
       } else if (this.get('partial_quantity')) {
@@ -167,7 +189,8 @@ export default Ember.Component.extend({
       var loadingView = getOwner(this).lookup('component:loading').append();
       var url;
 
-      if(isSameDesignation) {
+      if(isSameDesignation || this.get('cancelledState')) {
+        properties.state = "cancelled";
         url = `/items/${item.get('id')}/update_partial_quantity_of_same_designation`;
       } else {
         url = `/items/${item.get('id')}/designate_partial_item`;

@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 import { belongsTo } from 'ember-data/relationships';
@@ -13,4 +14,8 @@ export default Model.extend({
 
   item:    belongsTo('item', { async: false }),
   designation:    belongsTo('designation', { async: false }),
+
+  availableQty: Ember.computed("quantity", function() {
+    return this.get('quantity');
+  }),
 });

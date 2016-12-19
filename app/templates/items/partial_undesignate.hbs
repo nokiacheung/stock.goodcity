@@ -51,31 +51,39 @@
     --}}
   </div>
 
-  <div class="warnings">
-    <div class="warning_text">
-      <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
-      <div class="right-message">
-        <div class="move-message">Designates only part of set.</div>
+  <div class="confirm_quantity">Confirm the quantities you are undesignating.</div>
+  {{#each model.orderPackagesMoreThenZeroQty as |ordersPackage|}}
+    <div class="row">
+      <div class="columns small-3 medium-4 partial_undesignate_textfield">
+        {{partial-undesignate-input id=ordersPackage.id value=ordersPackage.availableQty type="number" min="1" max=ordersPackage.quantity designationPackage=ordersPackage}}
       </div>
-    </div><br/>
-    <div class="warning_text">
-      <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
-      <div class="right-message">
-        <div class="move-message">You can only designate maximum {{totalInHandItems}} items.</div>
+      <div class="warnings columns small-5 medium-4">
+        <div class="warning_text" style="margin-top:0 !important">
+          <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
+          <div class="right-message">
+            {{t "item.max_undesignate" qty=ordersPackage.quantity code=ordersPackage.designation.code}}
+          </div>
+        </div>
       </div>
+
+      {{#message-box btn1Text=(t "okay") btn1Callback=(action "undesignate_partial_qty" ordersPackage) btn2Text=(t "cancel") isVisible=promptUserPopUp classNames="popupOverlay designate-form"}}
+
+        <p>{{t "undesignate.partial_undesignate" qty=partial_qty_value code=ordersPackage.designation.code}}</p>
+
+      {{/message-box}}
+
+      <div class="columns small-4 medium-4">
+        <button id={{ordersPackage.id}} type="submit" class="button expand {{ordersPackage.id}}"{{action 'getConfirmationPopUp' ordersPackage}}>{{t "item.undesignate"}}</button>
+      </div>
+    </div>
+  {{/each}}
+
+  <div clas="row">
+    <div class="columns small-4 undesignate-button">
+      {{#link-to 'items.index' tagName='div' href=false}}
+         <button id="cancle_patial_undesignate" type="submit" class="button expand">{{t "okay"}}</button>
+      {{/link-to}}
     </div>
   </div>
 
-  <div class="confirm_quantity">Confirm the quantities you are designating.</div>
-  <div class="columns small-4 partial_designate_textfield">
-    {{partial-designate-input id=model.id value=model.availableQty type="number" min="1" max=model.quantity item=model}}
-  </div>
-  <div class="columns small-4">
-    <button id="partial_designate" type="submit" class="button expand"{{action 'designate_partial_qty' model}}>{{t "item.designate_partial"}}</button>
-  </div>
-  <div class="columns small-4">
-    {{#link-to 'items.index' tagName='div' href=false}}
-       <button id="cancle_patial_designate" type="submit" class="button expand">{{t "cancel"}}</button>
-    {{/link-to}}
-  </div>
 </div>

@@ -29,6 +29,10 @@ export default AuthorizeRoute.extend({
       }
     }
 
+    if(previousRoute === null) {
+      this.set('partialDesignatePath', "items.partial_designate");
+    }
+
     this.set("itemDesignateBackLinkPath", path);
   },
 
