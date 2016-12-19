@@ -10,7 +10,7 @@ export default AuthorizeRoute.extend({
   },
 
   model(params) {
-    getOwner(this).lookup('controller:items.search_order').set('notPartialRoute', false);
+    var isPartialRoute = getOwner(this).lookup('controller:items.search_order').set('notPartialRoute', false);
     return this.store.findRecord('item', params.item_id);
   },
 
