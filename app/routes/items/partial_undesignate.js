@@ -8,8 +8,9 @@ export default AuthorizeRoute.extend({
   },
 
   afterModel(model) {
+    var designation = null,
     model.get('ordersPackages').forEach( orderPackage => {
-      this.store.peekRecord("designation", orderPackage.get('designationId')) || this.store.findRecord("designation", orderPackage.get('designationId'));
+    designation =  this.store.peekRecord("designation", orderPackage.get('designationId')) || this.store.findRecord("designation", orderPackage.get('designationId'));
     });
   },
 });
