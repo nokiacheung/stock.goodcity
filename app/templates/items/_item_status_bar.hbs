@@ -39,13 +39,8 @@
     {{/if}}
   </div>
   <div class="small-6 columns location-name">
-    {{#unless item.sentOn}}
-      <i class="fa fa-map-marker"> </i>
-      {{#if item.hasSingleLocation}}
-        {{item.firstLocationName}}
-      {{else}}
-        {{#link-to 'items.partial_move' item.id tagName='span' href=false}} Multiple {{/link-to}}
-      {{/if}}
+    {{#unless item.hasAllPackagesDispatched}}
+      <i class="fa fa-map-marker"></i> {{item.location.name}}
     {{/unless}}
   </div>
   <div class="small-3 columns">
