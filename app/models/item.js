@@ -11,6 +11,11 @@ export default cloudinaryUrl.extend({
     return this.get("favouriteImage.thumbImageUrl") || this.generateUrl(120, 120, true);
   }),
 
+
+  orderPackagesMoreThenZeroQty: Ember.computed("ordersPackages.@each.quantity", function() {
+    return this.get("ordersPackages").filterBy('quantity');
+  }),
+
   onHandQty: Ember.computed("ordersPackages.@each.quantity", function() {
     var totalQty = 0;
     this.get('ordersPackages').filterBy('state', "designated").forEach(record => {

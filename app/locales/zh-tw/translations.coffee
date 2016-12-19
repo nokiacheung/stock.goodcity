@@ -58,6 +58,8 @@ I18nTranslationsEn =
     "move": "Move"
     "partial_move": "Partial Move"
     "show_set_items": "Show other parts from the same set next"
+    "multiple": "Multiple"
+    "max_undesignate": "Order: {{code}}<br/>Quantity: {{qty}}"
 
   "designate":
     "form_title": "Designating this item to order {{code}}"
@@ -74,6 +76,7 @@ I18nTranslationsEn =
     "undesignate": "Undesignate"
     "quantity": "Undesignates quantity of {{quantity}}."
     "set_part": "Undesignates only part of set."
+    "partial_undesignate": "Undesignates {{qty}} from order {{code}}."
 
   "dispatch":
     "dispatch": "Dispatch"

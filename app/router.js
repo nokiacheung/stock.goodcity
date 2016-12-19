@@ -24,6 +24,7 @@ Router.map(function() {
     this.route("search_code", { path: "/:item_id/search_code" });
      this.route("partial_move", { path: "/:item_id/partial_move" });
     this.route("partial_designate", { path: "/:item_id/partial_designate" });
+    this.route("partial_undesignate", { path: "/:item_id/partial_undesignate" });
   });
 
   this.route("orders", function() {
