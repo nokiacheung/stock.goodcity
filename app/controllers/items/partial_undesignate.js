@@ -4,16 +4,18 @@ const { getOwner } = Ember;
 
 export default Ember.Controller.extend({
   promptUserPopUp: false,
-  ordersPackage: null,
   partial_qty_value: 0,
+  code: null,
+  orderPackage: null,
 
   actions: {
     getConfirmationPopUp(data) {
       var elmnt = Ember.$(`#${data.id}`)[0];
       var value = parseInt(elmnt.value);
+      this.set('code', data.get('designation.code'));
       this.set('partial_qty_value', value);
       this.set('promptUserPopUp', true);
-      this.set('ordersPackage', data);
+      this.set('orderPackage', data);
     },
 
     undesignate_partial_qty(data) {

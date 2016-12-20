@@ -1,17 +1,26 @@
 import Ember from "ember";
 
 export default Ember.TextField.extend({
-  designationPackage: null,
   value: "",
   tagName: "input",
   type:    "number",
   maxlength: "5",
   attributeBindings: [ "name", "id", "value", 'placeholder', 'min', 'max'],
   partial_qty_value: Ember.computed.alias('value'),
+  designationPackage: null,
+
+  triggerValueChange: Ember.observer('designationPackage.quantity', function() {
+    this.set('value', this.get('designationPackage.quantity'));
+  }),
 
   click() {
+    this.set('designationPackage', this.get('designationPackage'));
     this.set('qtyError', false);
     Ember.$(this.element).css("background-color", "#002352");
+  },
+
+  didRender() {
+    this.set('designationPackage', this.get('designationPackage'));
   },
 
   focusTrigger: Ember.observer('value', function() {
