@@ -52,31 +52,33 @@
   </div>
 
   <div class="confirm_quantity">Confirm the quantities you are undesignating.</div>
-  {{#each model.orderPackagesMoreThenZeroQty as |ordersPackage|}}
-    <div class="row">
-      <div class="columns small-3 medium-4 partial_undesignate_textfield">
-        {{partial-undesignate-input id=ordersPackage.id value=ordersPackage.availableQty type="number" min="1" max=ordersPackage.quantity designationPackage=ordersPackage}}
-      </div>
-      <div class="warnings columns small-5 medium-4">
-        <div class="warning_text" style="margin-top:0 !important">
-          <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
-          <div class="right-message">
-            {{t "item.max_undesignate" qty=ordersPackage.quantity code=ordersPackage.designation.code}}
+  <div class="partial_undesignate_block">
+    {{#each model.orderPackagesMoreThenZeroQty as |ordersPackage|}}
+      <div class="row">
+        <div class="columns small-3 medium-4 partial_undesignate_textfield">
+          {{partial-undesignate-input id=ordersPackage.id value=ordersPackage.availableQty type="number" min="1" max=ordersPackage.quantity designationPackage=ordersPackage}}
+        </div>
+        <div class="warnings columns small-5 medium-4">
+          <div class="warning_text" style="margin-top:0 !important">
+            <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
+            <div class="right-message">
+              {{t "item.max_undesignate" qty=ordersPackage.quantity code=ordersPackage.designation.code}}
+            </div>
           </div>
         </div>
+
+        {{#message-box btn1Text=(t "okay") btn1Callback=(action "undesignate_partial_qty" orderPackage) btn2Text=(t "cancel") isVisible=promptUserPopUp classNames="popupOverlay designate-form"}}
+
+          <p>{{t "undesignate.partial_undesignate" qty=partial_qty_value code=code}}</p>
+
+        {{/message-box}}
+
+        <div class="columns small-4 medium-4">
+          <button id={{ordersPackage.id}} type="submit" class="button expand {{ordersPackage.id}}"{{action 'getConfirmationPopUp' ordersPackage}}>{{t "item.undesignate"}}</button>
+        </div>
       </div>
-
-      {{#message-box btn1Text=(t "okay") btn1Callback=(action "undesignate_partial_qty" orderPackage) btn2Text=(t "cancel") isVisible=promptUserPopUp classNames="popupOverlay designate-form"}}
-
-        <p>{{t "undesignate.partial_undesignate" qty=partial_qty_value code=code}}</p>
-
-      {{/message-box}}
-
-      <div class="columns small-4 medium-4">
-        <button id={{ordersPackage.id}} type="submit" class="button expand {{ordersPackage.id}}"{{action 'getConfirmationPopUp' ordersPackage}}>{{t "item.undesignate"}}</button>
-      </div>
-    </div>
-  {{/each}}
+    {{/each}}
+  </div>
 
   <div clas="row">
     <div class="columns small-4 undesignate-button">
