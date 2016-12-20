@@ -55,7 +55,7 @@
     </div>
     <div class="confirm_quantity">Confirm the quantities you are moving.</div>
     <div class="columns small-4 partial_designate_textfield">
-      {{partial-move-input id=model.id value=model.availableQty type="number" min="1" max=model.quantity item=model}}
+      {{partial-move-input id=model.id value=model.availableQtyToMove type="number" min="1" max=model.quantity item=model}}
     </div>
     <div class="columns small-4">
       <button id="partial_designate" type="submit" class="button expand"{{action 'move_partial_qty' model}}>{{t "item.move"}}</button>
