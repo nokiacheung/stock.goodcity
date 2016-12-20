@@ -6,12 +6,13 @@ const { getOwner } = Ember;
 
 export default searchModule.extend({
 
-  queryParams: ['searchInput', 'isSet',  'partial_qty'],
+  queryParams: ['searchInput', 'isSet',  'partial_qty', 'packages_location_id'],
   isSet: false,
   isMobileApp: config.cordova.enabled,
   searchInput: "",
   moveItemPath: "",
-  partial_qty: 0,
+  partial_qty: "",
+  packages_location_id: "",
 
   item: Ember.computed.alias("model.item"),
   searchModelName: "location",
@@ -71,6 +72,8 @@ export default searchModule.extend({
     moveItem() {
       var location = this.get("selectedLocation");
       var item = this.get("item");
+      var partial_qty = this.get('partial_qty');
+      // var packages_location_id = this.get('packages_location_id')
 
       var showAllSetItems = this.get("showAllSetItems");
       this.set("showAllSetItems", false);
@@ -83,7 +86,7 @@ export default searchModule.extend({
         url = `/items/${item.get('id')}/move_stockit_item`;
       }
 
-      new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id") })
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id"), partial_qty: partial_qty} )
         .then(data => {
           var itemBackLinePath = this.get('moveItemPath');
           this.get("store").pushPayload(data);
