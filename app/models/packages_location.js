@@ -7,6 +7,7 @@ export default Model.extend({
   item_id: attr('number'),
   quantity: attr('number'),
   location_id: attr('number'),
+  is_first_created: attr('boolean'),
 
   location:  belongsTo('location', { async: false }),
   item:  belongsTo('location', { async: false }),
