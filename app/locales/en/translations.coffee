@@ -70,7 +70,7 @@ I18nTranslationsEn =
     "already_designated": "This item is alreday designated to order {{code}}."
     "already_partially_designated": "Already {{qty}} items are designated to {{code}}, do you still want to designate {{partial_qty}} more?"
     "partial_designate_title": "Designates {{partial_qty}} quantity to order {{code}}"
-    "cannot_designate": "There are partial items already designated to order {{code}}. Use Partial Designate feature to designate more."
+    "cannot_designate": "There are partial items already designated to order {{code}} or order {{code}} is in cancelled state. Use Partial Designate feature to designate more."
 
   "undesignate":
     "form_title": "Remove this item from order {{code}}"
