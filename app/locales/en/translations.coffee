@@ -55,11 +55,12 @@ I18nTranslationsEn =
     "dispatch": "dispatch"
     "undispatch": "undispatch"
     "undesignate": "un-designate"
+    "partial_undesignate": "Un-designate"
     "separate": "separate"
     "move": "Move"
     "show_set_items": "Show other parts from the same set next"
     "multiple": "Multiple"
-    "max_undesignate": "Order: {{code}}<br/>Quantity: {{qty}}"
+    "max_undesignate": "From: {{code}}<br/>Quantity: {{qty}}"
 
   "designate":
     "form_title": "Designating this item to order {{code}}"

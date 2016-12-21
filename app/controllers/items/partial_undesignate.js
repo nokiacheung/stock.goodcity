@@ -4,36 +4,51 @@ const { getOwner } = Ember;
 
 export default Ember.Controller.extend({
   promptUserPopUp: false,
-  partial_qty_value: 0,
-  code: null,
   orderPackage: null,
+  total: 0,
+  values: 0,
+  orderPackegesAndQuantities: null,
+  codeAndQuantities: null,
+  codes: null,
+
+  init() {
+    this.set('promptUserPopUp', false);
+  },
 
   actions: {
-    getConfirmationPopUp(data) {
-      var elmnt = Ember.$(`#${data.id}`)[0];
-      var value = parseInt(elmnt.value);
-      this.set('code', data.get('designation.code'));
-      this.set('partial_qty_value', value);
+    getConfirmationPopUp(item) {
+      var total = 0;
+      var ordersPackages = item.get('orderPackagesMoreThenZeroQty');
+      var elementIds = ordersPackages.getEach('id');
+      var orderPkgQty = [];
+      var oneRecord = {};
+      var codeQty = {};
+      elementIds.forEach(record => {
+        var value = parseInt(Ember.$(`#${record}`)[0].value);
+        var orderPackage = this.get('store').peekRecord('orders_package', record);
+        oneRecord["orders_package_id"] = record;
+        oneRecord["package_id"] = orderPackage.get('packageId');
+        oneRecord["quantity"] = value;
+        orderPkgQty.push(oneRecord);
+        oneRecord = {};
+        codeQty[orderPackage.get('designation.code')] = value;
+        total += value;
+      });
+      this.set('orderPackegesAndQuantities', orderPkgQty);
+      this.set('total', total);
+      this.set('codeAndQuantities', codeQty);
       this.set('promptUserPopUp', true);
-      this.set('orderPackage', data);
     },
 
     undesignate_partial_qty(data) {
-      var elmnt = Ember.$(`#${data.id}`)[0];
-      var value = parseInt(elmnt.value);
 
-      var properties = {
-        orders_package_id: data.get("id"),
-        package_id: data.get('packageId'),
-        quantity: value,
-      };
 
       var loadingView = getOwner(this).lookup('component:loading').append();
       var url;
 
-      url = `/items/${data.get('packageId')}/undesignate_partial_item`;
+      url = `/items/${data.id}/undesignate_partial_item`;
 
-      new AjaxPromise(url, "PUT", this.get('session.authToken'), { package: properties })
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { package: this.get('orderPackegesAndQuantities') })
         .then(data => {
           this.get("store").pushPayload(data);
           loadingView.destroy();
