@@ -5,10 +5,13 @@ export default AuthorizeRoute.extend({
 
   queryParams: {
     isSet: false,
-    showDispatchOverlay: false
+    showDispatchOverlay: false,
+    partial_qty: 0
   },
 
-  partialDesignatePath: false,
+  partial_qnty: Ember.computed.localStorage(),
+
+  partialDesignatePath: true,
   itemDesignateBackLinkPath: Ember.computed.localStorage(),
 
   beforeModel() {
@@ -26,13 +29,15 @@ export default AuthorizeRoute.extend({
       if(routeName === "items.partial_designate") {
         path = "items.index";
         this.set('partialDesignatePath', true);
+      } else {
+        this.set('partialDesignatePath', false);
       }
     }
-
-    if(previousRoute === null) {
-      this.set('partialDesignatePath', "items.partial_designate");
+    if(parseInt(window.localStorage.getItem('partial_qnty'))) {
+      this.set('partialDesignatePath', true);
+    } else {
+      this.set('partialDesignatePath', false);
     }
-
     this.set("itemDesignateBackLinkPath", path);
   },
 
@@ -48,13 +53,12 @@ export default AuthorizeRoute.extend({
 
   setupController(controller, model){
     this._super(controller, model);
-    if(!this.get('partialDesignatePath')) {
+    if(!this.get('partialDesignatePath') && !parseInt(window.localStorage.getItem('partial_qnty'))) {
       controller.set('partial_qty', 0);
       controller.set('notPartialRoute', true);
     } else {
       controller.set('notPartialRoute', false);
     }
-    this.set('partialDesignatePath', false);
     controller.set('searchText', "");
     controller.set('backLinkPath', this.get('itemDesignateBackLinkPath'));
   }
