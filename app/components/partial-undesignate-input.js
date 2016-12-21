@@ -12,6 +12,7 @@ export default Ember.TextField.extend({
 
   didRender() {
     Ember.$('#undesignateButton')[0].disabled = false;
+    this.set('designationPackage', this.get('designationPackage'));
   },
 
   triggerValueChange: Ember.observer('designationPackage.quantity', function() {
@@ -26,10 +27,6 @@ export default Ember.TextField.extend({
     this.set('designationPackage', this.get('designationPackage'));
     this.set('qtyError', false);
     Ember.$(this.element).css("background-color", "#002352");
-  },
-
-  didRender() {
-    this.set('designationPackage', this.get('designationPackage'));
   },
 
   focusTrigger: Ember.observer('value', function() {
