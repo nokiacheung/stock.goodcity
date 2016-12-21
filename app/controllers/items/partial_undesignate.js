@@ -42,7 +42,7 @@ export default Ember.Controller.extend({
 
     undesignate_partial_qty(data) {
 
-
+      var item = data;
       var loadingView = getOwner(this).lookup('component:loading').append();
       var url;
 
@@ -52,6 +52,9 @@ export default Ember.Controller.extend({
         .then(data => {
           this.get("store").pushPayload(data);
           loadingView.destroy();
+          if(!item.get('orderPackagesMoreThenZeroQty.length')) {
+            this.replaceRoute('items.index');
+          }
         })
         .finally(() => {
           loadingView.destroy();
