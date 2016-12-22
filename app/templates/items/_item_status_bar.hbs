@@ -1,4 +1,4 @@
-<div class="row dispatch_details {{if item.sentOn 'dispatched'}} {{if item.designation 'designated'}}">
+<div class="row dispatch_details {{if item.sentOn 'dispatched'}} {{if item.designation 'designated'}} {{if (is-greater item.designatedItemCount 1) 'designated'}}">
   <div class="small-3 columns">
     {{#if (is-greater item.designatedItemCount 1)}}
       {{#link-to 'items.partial_undesignate' item.id tagName='span' href=false}}

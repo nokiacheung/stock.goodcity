@@ -115,9 +115,10 @@ export default Ember.Component.extend({
         return false;
       }
 
-      if(this.get("isDesignatedToCurrentOrder") && !this.get("isSet")) {
-        this.set("displayAlertOverlay", true);
-      } else if(this.get('isDesignatedToCurrentPartialOrder') && this.get('partial_quantity')) {
+      // if(this.get("isDesignatedToCurrentOrder") && !this.get("isSet")) {
+      //   this.set("displayAlertOverlay", true);
+      // } else
+      if(this.get('isDesignatedToCurrentPartialOrder') && this.get('partial_quantity')) {
         if(this.get('designatedOnce') && !this.get('cancelledState')) {
           this.set('partiallyDesignatedPopUp', true);
           return true;
