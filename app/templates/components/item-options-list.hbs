@@ -3,15 +3,12 @@
 </div>
 
 <div class="receive-item-options {{if hidden 'hidden'}} {{if item.isSet 'set-options'}}">
-
-  {{#if item.quantity}}
-    <div class="{{unless item.quantity 'disabled'}}">
-      {{#link-to 'items.partial_designate' item.id tagName='div' href=false}}
-        <i class="fa item-menu fa fa-shopping-basket" {{action 'partialDesignateForSet'}}></i>
-        {{t "item.designate"}}
-      {{/link-to}}
-    </div>
-  {{/if}}
+  <div class="{{unless item.quantity 'disabled'}}">
+    {{#link-to 'items.partial_designate' item.id tagName='div' href=false}}
+      <i class="fa item-menu fa fa-shopping-basket" {{action 'partialDesignateForSet'}}></i>
+      {{t "item.designate"}}
+    {{/link-to}}
+  </div>
 
   <div class="{{if item.sentOn 'disabled'}}">
     {{#link-to 'items.partial_move' item.id tagName='div' href=false}}
