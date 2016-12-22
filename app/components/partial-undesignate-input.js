@@ -11,7 +11,6 @@ export default Ember.TextField.extend({
   store: Ember.inject.service(),
 
   didRender() {
-    Ember.$('#undesignateButton')[0].disabled = false;
     this.set('designationPackage', this.get('designationPackage'));
   },
 
@@ -37,7 +36,7 @@ export default Ember.TextField.extend({
     orderpackagesIds.forEach(id => {
       total += parseInt(Ember.$(`#${id}`)[0].value);
     });
-    if(this.get('value') <= 0 || parseInt(this.get('value')) <= 0 || parseInt(this.get('value')) > this.get('designationPackage.quantity')) {
+    if(this.get('value') < 0 || parseInt(this.get('value')) < 0 || parseInt(this.get('value')) > this.get('designationPackage.quantity')) {
       Ember.$(this.element).css("border", "1px solid #fddbdc");
       Ember.$('#undesignateButton')[0].disabled = true;
       this.$().focus();
