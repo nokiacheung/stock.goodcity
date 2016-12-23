@@ -416,3 +416,15 @@
 .donation-scanner {
   padding-top: 0rem !important;
 }
+
+.warnings {
+  font-size: 0.75rem;
+  color: $coral-red;
+  margin-left: -4px;
+  margin-top: 4px;
+
+  .warning_text {
+    margin: 0.5rem 0;
+    display: inline-flex;
+  }
+}

@@ -6,13 +6,17 @@ const { getOwner } = Ember;
 
 export default searchModule.extend({
 
-  queryParams: ['searchInput', 'isSet',  'partial_qty', 'packages_location_id'],
+  queryParams: ['searchInput', 'isSet'],
   isSet: false,
   isMobileApp: config.cordova.enabled,
   searchInput: "",
   moveItemPath: "",
   partial_qty: "",
   packages_location_id: "",
+  packagesLoacationQty: "",
+  movePartialQty: false,
+  partialRoute: false,
+  cantMoveToSameLocationForSingleLocation: false,
 
   item: Ember.computed.alias("model.item"),
   searchModelName: "location",
@@ -25,6 +29,12 @@ export default searchModule.extend({
   showAllSetItems: false,
   selectedLocation: null,
   hideDetailsLink: true,
+
+  sameSingleLocation: Ember.computed("selectedLocation", function() {
+    if (this.get('item.packages_locations').get('length') === 1){
+     return this.get('item.packages_locations').get('firstObject').get("location_id") === parseInt(this.get('selectedLocation.id'));
+    }
+  }),
 
   onSearchInputChange: Ember.observer("searchInput", function() {
     // wait before applying the filter
@@ -65,15 +75,39 @@ export default searchModule.extend({
 
   actions: {
     displayMoveOverlay(location) {
-      this.set("displayUserPrompt", true);
       this.set("selectedLocation", location);
+      if(this.get('sameSingleLocation')){
+        this.set('cantMoveToSameLocationForSingleLocation', true);
+      } else if(this.get('partialRoute')){
+        this.set('movePartialQty', true);
+      }else{
+        this.set("displayUserPrompt", true);
+      }
     },
+
+    movePartialQty(){
+      var location = this.get("selectedLocation");
+      var item = this.get("item");
+      var packagesLoacationQty = localStorage['packagesLoacationQty'];
+      var totalQty = localStorage["totalQty"];
+
+      var loadingView = getOwner(this).lookup('component:loading').append();
+
+      var url = `/items/${item.id}/move_partial_quantity`;
+
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id"), package: packagesLoacationQty, total_qty: totalQty}).then(data => {
+        this.get("store").pushPayload(data);
+      }).finally(() => {
+        loadingView.destroy();
+      });
+    },
+
 
     moveItem() {
       var location = this.get("selectedLocation");
       var item = this.get("item");
       var partial_qty = this.get('partial_qty');
-      // var packages_location_id = this.get('packages_location_id')
+      var packagesLoacationQty = localStorage['packagesLoacationQty'];
 
       var showAllSetItems = this.get("showAllSetItems");
       this.set("showAllSetItems", false);
@@ -86,16 +120,16 @@ export default searchModule.extend({
         url = `/items/${item.get('id')}/move_stockit_item`;
       }
 
-      new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id"), partial_qty: partial_qty} )
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id"), packages_location_and_qty: packagesLoacationQty} )
         .then(data => {
           var itemBackLinePath = this.get('moveItemPath');
           this.get("store").pushPayload(data);
           if(showAllSetItems) {
             this.transitionToRoute("items", {queryParams: { itemSetId: item.get("itemId") } });
           } if(itemBackLinePath === "items.index") {
-              this.transitionToRoute(itemBackLinePath);
+            this.transitionToRoute(itemBackLinePath);
           } else {
-              this.transitionToRoute("items.detail", item);
+            this.transitionToRoute("items.detail", item);
           }
         })
         .catch((response) => {
