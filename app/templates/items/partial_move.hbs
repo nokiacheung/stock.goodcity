@@ -12,7 +12,7 @@
       </div>
       <div class="small-6 columns location-name">
         {{#unless model.sentOn}}
-          <i class="fa fa-map-marker"></i> {{model.allLocations}}
+          <i class="fa fa-map-marker"></i> multiple
         {{/unless}}
       </div>
       <div class="small-3 columns">
@@ -54,17 +54,29 @@
       </div>
     </div>
     <div class="confirm_quantity">Confirm the quantities you are moving.</div>
-    <div class="columns small-4 partial_designate_textfield">
-      {{partial-move-input id=model.id value=model.availableQtyToMove type="number" min="1" max=model.quantity item=model}}
-    </div>
-    <div class="columns small-4">
-      <button id="partial_designate" type="submit" class="button expand"{{action 'move_partial_qty' model}}>{{t "item.move"}}</button>
-    </div>
-    <div class="columns small-4">
-      {{#link-to 'items.index' tagName='div' href=false}}
-         <button id="cancle_patial_designate" type="submit" class="button expand">{{t "cancel"}}</button>
-      {{/link-to}}
+    {{#each model.packagesLocations as |packages_location|}}
+      <div class="row">
+        <div class="columns small-6 partial_designate_textfield">
+          {{partial-move-input id=packages_location.id value=packages_location.quantity type="number" min="1" max=model.quantity item=model}}
+        </div>
+        <div class="columns small-6">
+          <div id="location-name">
+            {{packages_location.location.name}}
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+  <div class="partial-move-buttons">
+    <div class="row">
+      <div class="columns small-6 medium-6">
+        <button id="partial_designate" type="submit" class="button expand"{{action 'move_partial_qty' model}}>{{t "item.move"}}</button>
+      </div>
+      <div class="columns small-6 medium-6">
+        {{#link-to 'items.index' tagName='div' href=false}}
+           <button id="cancle_patial_designate" type="submit" class="button expand">{{t "cancel"}}</button>
+        {{/link-to}}
+      </div>
     </div>
   </div>
-
 </div>
