@@ -3,6 +3,8 @@
     <div class="small-3 columns">
       {{#if model.sentOn}}
         <i class="fa fa-ship"></i> {{model.designation.code}}
+      {{else if (is-greater model.designatedItemCount 1)}}
+        <i class="fa fa-shopping-basket"></i> {{t "item.multiple"}}
       {{else if model.designation}}
         <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
       {{else}}

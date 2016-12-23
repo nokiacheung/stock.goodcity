@@ -176,7 +176,19 @@ export default Ember.Component.extend({
       this.set("showAllSetItems", false);
       var isSameDesignation = this.get('partial_quantity') && this.get('isDesignatedToCurrentPartialOrder');
 
-      var properties = {
+      var loadingView = getOwner(this).lookup('component:loading').append();
+      var url;
+
+      if(item.get('isSet')) {
+        url = `/items/${item.get('setItem.id')}/designate_stockit_item_set`;
+      } else  if(isSameDesignation || this.get('cancelledState')) {
+        properties.state = "cancelled";
+        url = `/items/${item.get('id')}/update_partial_quantity_of_same_designation`;
+      } else {
+        url = `/items/${item.get('id')}/designate_partial_item`;
+      }
+
+      var  properties = {
         order_id: order.get("id"),
         package_id: item.get('id'),
         quantity: this.get('partial_quantity'),
@@ -187,20 +199,10 @@ export default Ember.Component.extend({
         properties.orders_package_id = this.get('orderPackageId');
       }
 
-      var loadingView = getOwner(this).lookup('component:loading').append();
-      var url;
-
-      if(isSameDesignation || this.get('cancelledState')) {
-        properties.state = "cancelled";
-        url = `/items/${item.get('id')}/update_partial_quantity_of_same_designation`;
-      } else {
-        url = `/items/${item.get('id')}/designate_partial_item`;
-      }
-
       new AjaxPromise(url, "PUT", this.get('session.authToken'), { package: properties })
         .then(data => {
           this.get("store").pushPayload(data);
-          if(this.get("isSet")) {
+          if(item.get("isSet")) {
             this.get('router').transitionTo("items.detail", item, { queryParams: { showDispatchOverlay: this.get('showDispatchOverlay') }});
           } else if(showAllSetItems) {
             this.sendAction("displaySetItems");
