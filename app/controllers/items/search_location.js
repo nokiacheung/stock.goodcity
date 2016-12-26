@@ -11,7 +11,6 @@ export default searchModule.extend({
   isMobileApp: config.cordova.enabled,
   searchInput: "",
   moveItemPath: "",
-  partial_qty: "",
   packages_location_id: "",
   packagesLoacationQty: "",
   movePartialQty: false,
@@ -97,6 +96,7 @@ export default searchModule.extend({
 
       new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id"), package: packagesLoacationQty, total_qty: totalQty}).then(data => {
         this.get("store").pushPayload(data);
+        this.transitionToRoute("items.partial_move", item);
       }).finally(() => {
         loadingView.destroy();
       });
@@ -106,7 +106,6 @@ export default searchModule.extend({
     moveItem() {
       var location = this.get("selectedLocation");
       var item = this.get("item");
-      var partial_qty = this.get('partial_qty');
       var packagesLoacationQty = localStorage['packagesLoacationQty'];
 
       var showAllSetItems = this.get("showAllSetItems");

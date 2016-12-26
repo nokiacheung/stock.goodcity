@@ -10,6 +10,7 @@ export default Ember.Controller.extend({
 
   packagesLoacationQty: Ember.computed.localStorage(),
   totalQty: Ember.computed.localStorage(),
+  originalQty: null,
 
   actions: {
     move_partial_qty(item) {
