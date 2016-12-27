@@ -185,12 +185,6 @@ export default cloudinaryUrl.extend({
     return this.get('packages_locations');
   }),
 
-  movedQty: Ember.computed("packages_locations.[]", function(){
-    var moved_qty = 0;
-    this.get('packages_locations').filterBy('is_first_created', false).forEach((packages_location) => moved_qty += packages_location.get("quantity"));
-    return moved_qty;
-  }),
-
   imageUrlList: Ember.computed('images.[]', function() {
     var imageList = [];
     this.get("images").forEach((image) => imageList.pushObject(image.get("imageUrl")));
