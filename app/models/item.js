@@ -191,6 +191,7 @@ export default cloudinaryUrl.extend({
     return this.get('packagesLocations');
   }),
 
+
   imageUrlList: Ember.computed('images.[]', function() {
     var imageList = [];
     this.get("images").forEach((image) => imageList.pushObject(image.get("imageUrl")));
