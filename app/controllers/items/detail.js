@@ -10,6 +10,7 @@ export default Ember.Controller.extend({
   autoDisplayOverlay: false,
   messageBox: Ember.inject.service(),
   displayScanner: false,
+  designateFullSet: Ember.computed.localStorage(),
 
   grades: Ember.computed(function(){
     return [
@@ -57,6 +58,10 @@ export default Ember.Controller.extend({
   }),
 
   actions: {
+    partialDesignateForSet() {
+      this.set('designateFullSet', true);
+    },
+
     moveItemSet() {
       if(this.get("item.isSet")) {
         if(this.get("item.setItem.canBeMoved")) {

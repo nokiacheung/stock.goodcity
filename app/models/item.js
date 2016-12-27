@@ -6,6 +6,7 @@ import cloudinaryUrl from './cloudinary_url';
 export default cloudinaryUrl.extend({
 
   imageUrl: Ember.computed.alias("image.imageUrl"),
+  designateFullSet: Ember.computed.localStorage(),
 
   thumbImageUrl: Ember.computed('favouriteImage.{angle,cloudinaryId}', function(){
     return this.get("favouriteImage.thumbImageUrl") || this.generateUrl(120, 120, true);
@@ -57,11 +58,11 @@ export default cloudinaryUrl.extend({
   itemId:            attr('number'),
   allowWebPublish:   attr('boolean'),
 
-  designation: belongsTo('designation', { async: false }),
+  designation: belongsTo('designation', { async: true }),
   location:    belongsTo('location', { async: false }),
   code:        belongsTo('code', { async: false }),
   donorCondition: belongsTo('donor_condition', { async: false }),
-  setItem:        belongsTo('set_item', { async: false }),
+  setItem:        belongsTo('set_item', { async: true }),
 
   ordersPackages:    hasMany('ordersPackages', { async: false }),
   images:       hasMany('image', { async: true }),
@@ -73,6 +74,20 @@ export default cloudinaryUrl.extend({
 
   availableQty: Ember.computed("quantity", function() {
     return this.get('quantity');
+  }),
+
+  minSetQty: Ember.computed('setItem.items', function() {
+    if(this.get('isSet') && this.get('designateFullSet')) {
+      var setItems = this.get('setItem.items');
+      var minQty = setItems.canonicalState[0]._data.quantity;
+      setItems.canonicalState.forEach(record =>{
+        var qty = record._data.quantity;
+        if(qty < minQty) {
+          minQty = qty;
+        }
+      });
+      return minQty;
+    }
   }),
 
   imageUrlList: Ember.computed('images.[]', function() {

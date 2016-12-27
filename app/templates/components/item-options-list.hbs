@@ -13,7 +13,7 @@
 
   <div class="{{if item.sentOn 'disabled'}} {{unless item.quantity 'disabled'}}">
     {{#link-to 'items.partial_designate' item.id tagName='div' href=false}}
-      <i class="fa item-menu fa fa-shopping-basket"></i>
+      <i class="fa item-menu fa fa-shopping-basket" {{action 'partialDesignateForSet'}}></i>
       {{t "item.designate"}}
     {{/link-to}}
   </div>
