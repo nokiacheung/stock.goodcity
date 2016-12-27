@@ -25,7 +25,7 @@ export default cloudinaryUrl.extend({
     return totalQty + this.get('quantity');
   }),
 
-  designatedItemCount: Ember.computed("ordersPackages.@each.quantity", function() {
+  designatedItemCount: Ember.computed("ordersPackages.@each.quantity", "ordersPackages.[]", function() {
     return this.get("ordersPackages").filterBy('state', "designated").length;
   }),
 

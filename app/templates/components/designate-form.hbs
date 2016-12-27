@@ -1,6 +1,6 @@
 <a {{action 'displayDesignateOverlay'}}>{{yield}}</a>
 
-{{#message-box btn1Text=(t "designate.designate") btn1Callback=(action "designateItem") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
+{{!-- {{#message-box btn1Text=(t "designate.designate") btn1Callback=(action "designateItem") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
 
   {{#if isSet}}
 
@@ -62,7 +62,7 @@
     </div>
   {{/if}}
 
-{{/message-box}}
+{{/message-box}} --}}
 
 
 {{#message-box btn1Text=(t "okay") isVisible=displayAlertOverlay classNames="popupOverlay designate-form"}}
