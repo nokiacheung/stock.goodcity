@@ -8,6 +8,25 @@ export default Ember.TextField.extend({
   maxlength: "5",
   attributeBindings: [ "name", "id", "value", 'placeholder', 'min', 'max'],
   partial_qty_value: Ember.computed.alias('value'),
+  designateFullSet: Ember.computed.localStorage(),
+
+  minSetQty: Ember.computed('item.setItem.items', function() {
+    if(this.get('item.isSet') && this.get('designateFullSet')) {
+      var setItems = this.get('item.setItem.items');
+      var minQty = setItems.canonicalState[0]._data.quantity;
+      setItems.canonicalState.forEach(record =>{
+        var qty = record._data.quantity;
+        if(qty < minQty) {
+          minQty = qty;
+        }
+      });
+      return minQty;
+    }
+  }),
+
+  didInsertElement() {
+    this.set('value', this.get('minSetQty') || this.get('item.quantity'));
+  },
 
   click() {
     this.set('qtyError', false);
@@ -15,7 +34,7 @@ export default Ember.TextField.extend({
   },
 
   focusTrigger: Ember.observer('value', function() {
-    if(this.get('value') <= 0 || this.get('value') > this.get('item.quantity')) {
+    if(this.get('value') <= 0 || (this.get('item.isSet') && this.get('value') > this.get('minSetQty')) || this.get('value') > this.get('item.quantity')) {
       Ember.$(this.element).css("border", "1px solid #fddbdc");
       Ember.$('#partial_designate')[0].disabled = true;
       this.$().focus();

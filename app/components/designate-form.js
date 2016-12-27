@@ -15,6 +15,7 @@ export default Ember.Component.extend({
   partialDesignatedConfirmationPopUp: false,
   totalPartialDesignatedItems: 0,
   cannotDesignateToSameOrder: false,
+  designateFullSet: Ember.computed.localStorage(),
 
   order: null,
   item: null,
@@ -178,8 +179,13 @@ export default Ember.Component.extend({
 
       var loadingView = getOwner(this).lookup('component:loading').append();
       var url;
+      var  properties = {
+        order_id: order.get("id"),
+        package_id: item.get('id'),
+        quantity: this.get('partial_quantity'),
+      };
 
-      if(item.get('isSet')) {
+      if(item.get('isSet') && this.get('designateFullSet')) {
         url = `/items/${item.get('setItem.id')}/designate_stockit_item_set`;
       } else  if(isSameDesignation || this.get('cancelledState')) {
         properties.state = "cancelled";
@@ -188,11 +194,6 @@ export default Ember.Component.extend({
         url = `/items/${item.get('id')}/designate_partial_item`;
       }
 
-      var  properties = {
-        order_id: order.get("id"),
-        package_id: item.get('id'),
-        quantity: this.get('partial_quantity'),
-      };
 
       if(isSameDesignation) {
         properties.operation = "update";
