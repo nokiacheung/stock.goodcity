@@ -12,7 +12,8 @@
       </div>
       <div class="small-6 columns location-name">
         {{#unless model.sentOn}}
-          <i class="fa fa-map-marker"></i> multiple
+          <i class="fa fa-map-marker"></i>
+          {{#link-to 'items.partial_move' item.id tagName='span' href=false}} Multiple {{/link-to}}
         {{/unless}}
       </div>
       <div class="small-3 columns">
@@ -43,7 +44,7 @@
       <div class="warning_text">
         <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
         <div class="right-message">
-          <div class="move-message">Designates only part of set.</div>
+          <div class="move-message">move only part of set.</div>
         </div>
       </div><br/>
       <div class="warning_text">
