@@ -1,0 +1,76 @@
+<div class="row item_block">
+
+  <div class="row dispatch_details {{if ordersPackage.item.sentOn 'dispatched'}} {{if ordersPackage.item.designation 'designated'}} {{if (is-greater ordersPackage.item.designatedItemCount 1) 'designated'}}">
+    <div class="small-3 columns">
+      {{#if (is-greater ordersPackage.item.designatedItemCount 1)}}
+        {{#link-to 'items.partial_undesignate' ordersPackage.item.id tagName='span' href=false}}
+          <i class="fa fa-shopping-basket"></i> {{t "item.multiple"}}
+        {{/link-to}}
+      {{else if ordersPackage.item.sentOn}}
+        {{#link-to 'orders.detail' ordersPackage.item.designation.id tagName='span' href=false}}
+          <i class="fa fa-ship"></i> {{ordersPackage.item.designation.code}}
+        {{/link-to}}
+      {{else if ordersPackage.item.designation}}
+        {{#link-to 'orders.detail' ordersPackage.item.designation.id tagName='span' href=false}}
+          <i class="fa fa-shopping-basket"></i> {{ordersPackage.item.designation.code}}
+        {{/link-to}}
+      {{else}}
+        {{publish-stock-item item=ordersPackage.item}}
+      {{/if}}
+    </div>
+    <div class="small-6 columns location-name">
+      {{#unless ordersPackage.item.sentOn}}
+        <i class="fa fa-map-marker"></i> {{ordersPackage.item.location.name}}
+      {{/unless}}
+    </div>
+    <div class="small-3 columns">
+      <i class="fa {{if ordersPackage.item.isSet 'fa-tags' 'fa-tag'}}"></i> {{ordersPackage.item.inventoryNumber}}
+    </div>
+  </div>
+
+
+  <div class="row other_details item_details">
+    <div class="small-3 large-2 columns image">
+      <img src={{ordersPackage.item.thumbImageUrl}} class="thumb"/>
+    </div>
+
+    {{#if hideDetailsLink}}
+      <div class="small-6 large-8 columns name_details">
+        <div class="ellipsis name one-line-ellipsis">{{ordersPackage.quantity}} x {{ordersPackage.item.code.name}}</div>
+        <div class="ellipsis two-line-ellipsis">
+          {{ordersPackage.item.notes}}
+        </div>
+      </div>
+    {{else}}
+      {{#link-to 'items.detail' ordersPackage.item.id }}
+        <div class="small-6 large-8 columns name_details">
+          <div class="ellipsis name one-line-ellipsis">{{ordersPackage.quantity}} x {{ordersPackage.item.code.name}}</div>
+          <div class="ellipsis two-line-ellipsis">
+            {{ordersPackage.item.notes}}
+          </div>
+        </div>
+      {{/link-to}}
+    {{/if}}
+
+    {{#if displaySetBlock}}
+      {{#if ordersPackage.item.isSet}}
+        <div class="small-3 large-2 columns">
+          <div class="set-link" {{action "displaySetItems" ordersPackage.item on='click' bubbles=false}}><i class="fa fa-tag"></i> Go to set </div>
+        </div>
+      {{/if}}
+    {{/if}}
+
+    {{#if displayItemOptions}}
+      <div class="small-3 large-2 columns">
+        {{item-options item=ordersPackage.item order=model package=ordersPackage}}
+      </div>
+    {{/if}}
+
+    {{#if displayItemOptionsList}}
+      <div class="small-3 large-2 columns">
+        {{item-options-list item=ordersPackage.item}}
+      </div>
+    {{/if}}
+
+  </div>
+</div>

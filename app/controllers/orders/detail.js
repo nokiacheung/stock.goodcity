@@ -8,8 +8,9 @@ export default Ember.Controller.extend({
   displayItemOptions: true,
   isMobileApp: config.cordova.enabled,
 
-  itemsList: Ember.computed('model.items', 'displayAllItems', function() {
-    return this.get("displayAllItems") ? this.get("model.items") : this.get("model.items").slice(0, 3);
+  itemsList: Ember.computed('model.items', 'displayAllItems', 'model.ordersPackages', function() {
+    var ordersPackages = this.get("model.ordersPackages").filterBy('state', 'designated');
+    return this.get("displayAllItems") ? ordersPackages : ordersPackages.slice(0, 3);
   }),
 
   actions: {
