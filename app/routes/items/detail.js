@@ -46,6 +46,7 @@ export default AuthorizeRoute.extend({
 
   setupController(controller, model){
     this._super(controller, model);
+    controller.set('callOrderObserver', false);
     controller.set('backLinkPath', this.get('itemBackLinkPath'));
   }
 
