@@ -29,6 +29,10 @@ export default Ember.Component.extend({
   alreadyShown: true,
   hasCancelledState: false,
 
+  returnsDesignateFullSet: Ember.computed('item.setItem.items', function() {
+    return !window.localStorage.getItem('designateFullSet').includes(false);
+  }),
+
   overridesDesignation: Ember.computed('item.setItem.designationList.[]', 'order', function() {
 
     if(this.get("item.isSet")) {
@@ -53,7 +57,7 @@ export default Ember.Component.extend({
   triggerOrderClick: Ember.observer("order", "toggleOverlay", function() {
     this.set('hasCancelledState', false);
     this.set('partial_quantity', getOwner(this).lookup('controller:items.search_order').get('partial_qty'));
-    if(this.get("order")) {
+    if(this.get("order") && getOwner(this).lookup('controller:items.detail').get('callOrderObserver')) {
       this.send("displayDesignateOverlay");
     }
   }),

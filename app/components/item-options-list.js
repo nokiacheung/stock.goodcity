@@ -1,4 +1,5 @@
 import Ember from "ember";
+const { getOwner } = Ember;
 
 export default Ember.Component.extend({
   hidden: true,
@@ -12,6 +13,7 @@ export default Ember.Component.extend({
     },
     partialDesignateForSet() {
       this.set('designateFullSet', false);
+      getOwner(this).lookup('controller:items.detail').set('callOrderObserver', true);
     },
   }
 });

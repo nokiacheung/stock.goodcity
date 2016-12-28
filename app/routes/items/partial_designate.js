@@ -14,8 +14,13 @@ export default AuthorizeRoute.extend({
     return this.store.findRecord('item', params.item_id);
   },
 
-  afterModel() {
+  afterModel(model) {
     getOwner(this).lookup('controller:items.search_order').set('notPartialRoute', false);
+    if(model.get('isSet')) {
+      model.get('setItem.items').forEach(item => {
+        this.store.findRecord("item", item.get("id"), { reload: true });
+      });
+    }
   },
 
   setupController(controller, model){

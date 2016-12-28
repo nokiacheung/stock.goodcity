@@ -1,5 +1,6 @@
 import Ember from "ember";
 import AuthorizeRoute from './../authorize';
+const { getOwner } = Ember;
 
 export default AuthorizeRoute.extend({
 
@@ -15,6 +16,7 @@ export default AuthorizeRoute.extend({
   itemDesignateBackLinkPath: Ember.computed.localStorage(),
 
   beforeModel() {
+    getOwner(this).lookup('controller:items.detail').set('callOrderObserver', true);
     this._super(...arguments);
     var previousRoutes = this.router.router.currentHandlerInfos;
     var previousRoute = previousRoutes && previousRoutes.pop();
