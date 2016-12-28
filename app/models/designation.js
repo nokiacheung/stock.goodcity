@@ -32,6 +32,10 @@ export default Model.extend({
     return items.length > 0 && items.filterBy('isDispatched', false).length === 0;
   }),
 
+  designatedOrdersPackages: Ember.computed('ordersPackages.@each.state', function() {
+    return this.get("ordersPackages").filterBy('state', "designated");
+  }),
+
   designatedItems: Ember.computed('items.@each.sentOn', function() {
     return this.get("items").filterBy('sentOn', null);
   }),
