@@ -18,7 +18,7 @@
       {{#if item.hasSingleLocation}}
         {{item.firstLocationName}}
       {{else}}
-        multiple
+        {{#link-to 'items.partial_move' item.id tagName='span' href=false}} Multiple {{/link-to}}
       {{/if}}
     {{/unless}}
   </div>
