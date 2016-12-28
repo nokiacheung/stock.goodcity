@@ -2,7 +2,7 @@ import Ember from "ember";
 
 export default Ember.Controller.extend({
   item: null,
-  // packagesLoacationQty: null,
+  isZeroQuantity: false,
 
   totalInHandItems: Ember.computed('item.quantity', function() {
     return this.get('item.quantity');
@@ -31,7 +31,11 @@ export default Ember.Controller.extend({
       });
       this.set("packagesLoacationQty", packagesLoacationQty);
       this.set("totalQty", totalQty);
-      this.transitionToRoute('items.search_location', item.id);
+      if(this.get('totalQty') === 0){
+        this.set("isZeroQuantity", true);
+      }else{
+        this.transitionToRoute('items.search_location', item.id);
+      }
     }
   }
 });

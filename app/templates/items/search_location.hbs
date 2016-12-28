@@ -128,7 +128,7 @@
   {{/message-box}}
 
   {{#message-box btn1Text=(t "item.move") btn1Callback=(action "movePartialQty") btn2Text=(t "cancel") isVisible=movePartialQty classNames="popupOverlay designate-form"}}
-    <p>Moving this item to Bldg {{selectedLocation.building}} Area {{selectedLocation.area}} abc </p>
+    <p>Moving this item to Bldg {{selectedLocation.building}} Area {{selectedLocation.area}} </p>
 
     {{partial 'orders/item_block'}}
 
@@ -137,5 +137,4 @@
   {{#message-box btn1Text="OK" isVisible=cantMoveToSameLocationForSingleLocation classNames="popupOverlay designate-form"}}
     <p> You are trying to move quantity to same location. Full quantity is located at Bldg {{selectedLocation.building}} Area {{selectedLocation.area}} </p>
   {{/message-box}}
-
 {{/if}}
