@@ -38,10 +38,15 @@ export default Ember.Component.extend({
 
     dispatchItemSet() {
       var item = this.get("item");
+      var order = item.get("designation.id");
       var url = `/items/${item.get('setItem.id')}/dispatch_stockit_item_set`;
       var loadingView = getOwner(this).lookup('component:loading').append();
+      var  properties = {
+        order_id: order,
+        package_id: item.get('id'),
+      };
 
-      new AjaxPromise(url, "PUT", this.get('session.authToken'))
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { package: properties })
         .then(data => {
           this.get("store").pushPayload(data);
         })

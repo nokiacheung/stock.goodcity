@@ -37,6 +37,17 @@ export default Model.extend({
     }
   }),
 
+  hasSingleDesignation: Ember.computed("items.@each.ordersPackages", function() {
+    var lessThenOneDesignation = true;
+    this.get("items").forEach(record => {
+      var designatedOrderPackages = record.get("ordersPackages").filterBy("state", "designated");
+      if(designatedOrderPackages.get("length") > 1) {
+        lessThenOneDesignation = false;
+      }
+    });
+    return lessThenOneDesignation;
+  }),
+
   canBeMoved: Ember.computed('items.@each.hasBoxPallet', function() {
     return this.get("items").filterBy('hasBoxPallet', true).length === 0;
   }),

@@ -24,17 +24,25 @@ export default Ember.Component.extend({
     },
 
     dispatchItem() {
+      var order = this.get("order");
       var item = this.get("item");
+      var pkg = this.get("package");
 
       if(this.get("item.isSet") && !this.get("removeItemFromSet")) {
         this.set("displayError", true);
         return false;
       }
 
+      var  properties = {
+        order_id: order.get("id"),
+        package_id: item.get('id'),
+        order_package_id: pkg.get('id'),
+      };
+
       var url = `/items/${item.get('id')}/dispatch_stockit_item`;
       var loadingView = getOwner(this).lookup('component:loading').append();
 
-      new AjaxPromise(url, "PUT", this.get('session.authToken'))
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { package: properties })
         .then(data => {
           this.get("store").pushPayload(data);
         })
