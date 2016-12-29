@@ -2,7 +2,7 @@
   <div class="small-3 columns">
     {{#if (is-greater item.designatedItemCount 1)}}
       {{#if item.sentOn}}
-        <i class="fa fa-shopping-basket"></i> {{t "item.multiple"}}
+        <i class="fa fa-ship"></i> {{t "item.multiple"}}
       {{else}}
         {{#link-to 'items.partial_undesignate' item.id tagName='span' href=false}}
           <i class="fa fa-shopping-basket"></i> {{t "item.multiple"}}
