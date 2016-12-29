@@ -26,7 +26,7 @@ export default Ember.Component.extend({
     dispatchItem() {
       var order = this.get("order");
       var item = this.get("item");
-      var pkg = this.get("package");
+      var pkg = item.get("ordersPackages").filterBy("designationId", parseInt(order.get("id")));
 
       if(this.get("item.isSet") && !this.get("removeItemFromSet")) {
         this.set("displayError", true);
@@ -36,7 +36,7 @@ export default Ember.Component.extend({
       var  properties = {
         order_id: order.get("id"),
         package_id: item.get('id'),
-        order_package_id: pkg.get('id'),
+        order_package_id: pkg[0].get('id'),
       };
 
       var url = `/items/${item.get('id')}/dispatch_stockit_item`;
