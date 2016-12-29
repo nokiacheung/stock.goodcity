@@ -6,7 +6,7 @@ const { getOwner } = Ember;
 
 export default searchModule.extend({
 
-  queryParams: ['searchInput', 'isSet'],
+  queryParams: ['searchInput', 'isSet', 'isUndispatch', 'isPartialMove'],
   isSet: false,
   isMobileApp: config.cordova.enabled,
   searchInput: "",
@@ -14,8 +14,10 @@ export default searchModule.extend({
   packages_location_id: "",
   packagesLoacationQty: "",
   movePartialQty: false,
-  partialRoute: false,
   cantMoveToSameLocationForSingleLocation: false,
+  isUndispatch: "",
+  isUndispatchFullQuantity: false,
+  isPartialMove: false,
 
   item: Ember.computed.alias("model.item"),
   searchModelName: "location",
@@ -33,6 +35,10 @@ export default searchModule.extend({
     if (this.get('item.packages_locations').get('length') === 1){
      return this.get('item.packages_locations').get('firstObject').get("location_id") === parseInt(this.get('selectedLocation.id'));
     }
+  }),
+
+  totalQty: Ember.computed('selectedLocation', function(){
+    return localStorage['totalQty'];
   }),
 
   onSearchInputChange: Ember.observer("searchInput", function() {
@@ -77,9 +83,11 @@ export default searchModule.extend({
       this.set("selectedLocation", location);
       if(this.get('sameSingleLocation')){
         this.set('cantMoveToSameLocationForSingleLocation', true);
-      } else if(this.get('partialRoute')){
+      } else if(this.get('isUndispatch')){
+        this.set('isUndispatchFullQuantity', true);
+      } else if(this.get('isPartialMove')){
         this.set('movePartialQty', true);
-      }else{
+      } else{
         this.set("displayUserPrompt", true);
       }
     },
@@ -102,6 +110,32 @@ export default searchModule.extend({
       });
     },
 
+    undispatchFullQuantity(){
+      var item = this.get('item');
+      var location = this.get("selectedLocation");
+
+      var url = `/items/${item.get('id')}/move_full_quantity`;
+      var loadingView = getOwner(this).lookup('component:loading').append();
+
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get('id')}).then(data => {
+        this.get("store").pushPayload(data);
+        var itemBackLinkPath = this.get('moveItemPath');
+        if(itemBackLinkPath === "items.index" || itemBackLinkPath === "items"){
+          this.transitionToRoute(itemBackLinkPath);
+        } else {
+          this.transitionToRoute("items.detail", item);
+        }
+      })
+      .catch((response) => {
+        loadingView.destroy();
+        var errorMessage = response.responseJSON.errors[0];
+        if(errorMessage.toLowerCase().indexOf("error") >= 0) {
+          this.get("messageBox").alert(errorMessage);
+        }
+      }).finally(() => {
+        loadingView.destroy();
+      });
+    },
 
     moveItem() {
       var location = this.get("selectedLocation");

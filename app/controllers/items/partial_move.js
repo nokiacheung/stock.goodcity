@@ -34,7 +34,7 @@ export default Ember.Controller.extend({
       if(this.get('totalQty') === 0){
         this.set("isZeroQuantity", true);
       }else{
-        this.transitionToRoute('items.search_location', item.id);
+        this.transitionToRoute('items.search_location', item.id, { queryParams: { isPartialMove: true }});
       }
     }
   }
