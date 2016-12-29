@@ -32,7 +32,7 @@
         {{/if}}
         {{/unless}}
 
-        {{#if hasDesignation}}
+        {{#if (is-equal hasDesignation model.setItem.hasSingleDesignation)}}
           {{dispatch-set item=model order=model.designation autoDisplayOverlay=autoDisplayOverlay}}
         {{/if}}
 
