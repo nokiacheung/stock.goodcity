@@ -28,6 +28,18 @@ export default cloudinaryUrl.extend({
     return totalQty + this.get('quantity');
   }),
 
+  designatedItemCount: Ember.computed("ordersPackages.@each.quantity", "ordersPackages.[]", function() {
+    return this.get("ordersPackages").filterBy('state', "designated").length;
+  }),
+
+  designatedOrdersPackages: Ember.computed("ordersPackages.@each.state", function() {
+    return this.get("ordersPackages").filterBy("state", "designated");
+  }),
+
+  dispatchedOrdersPackages: Ember.computed("ordersPackages.@each.state", function() {
+    return this.get("ordersPackages").filterBy("state", "dispatched");
+  }),
+
   dispatchedItemCount: Ember.computed("ordersPackages.@each.quantity", function() {
     return this.get("ordersPackages").filterBy('state', "dispatched").length;
   }),
@@ -38,10 +50,6 @@ export default cloudinaryUrl.extend({
 
   favouriteImage: Ember.computed('images.@each.favourite', function(){
     return this.get("images").filterBy("favourite", true).get("firstObject");
-  }),
-
-  designatedItemCount: Ember.computed("ordersPackages.@each.quantity", "ordersPackages.[]", function() {
-    return this.get("ordersPackages").filterBy('state', "designated").length;
   }),
 
   desinatedAndDisaptchedItemPackages: Ember.computed("ordersPackages.[]", function() {
@@ -92,8 +100,6 @@ export default cloudinaryUrl.extend({
     return (totalDispatchedQty === received_quantity) ? true : false;
   }),
 
-
-
   hasAllPackagesDesignated: Ember.computed("ordersPackages.@each.state", function() {
     var received_quantity = this.get("receivedQuantity");
     var totalDesignatedQty = 0;
@@ -102,14 +108,6 @@ export default cloudinaryUrl.extend({
       totalDesignatedQty += parseInt(record.get("quantity"));
     });
     return (totalDesignatedQty === received_quantity) ? true : false;
-  }),
-
-  designatedOrdersPackages: Ember.computed("ordersPackages.@each.state", function() {
-    return this.get("ordersPackages").filterBy("state", "designated");
-  }),
-
-  dispatchedOrdersPackages: Ember.computed("ordersPackages.@each.state", function() {
-    return this.get("ordersPackages").filterBy("state", "dispatched");
   }),
 
   ordersPackagesWithStateDesignatedAndDispatched: Ember.computed("ordersPackages.[]", function() {
@@ -145,6 +143,8 @@ export default cloudinaryUrl.extend({
   donorCondition: belongsTo('donor_condition', { async: false }),
   setItem:        belongsTo('set_item', { async: false }),
   packagesLocations: hasMany('packages_location', {async: false}),
+  location:    belongsTo('location', { async: false }),
+
   ordersPackages:    hasMany('ordersPackages', { async: true }),
   images:       hasMany('image', { async: true }),
 
@@ -190,7 +190,6 @@ export default cloudinaryUrl.extend({
   packagesLocationsList: Ember.computed('packagesLocations.[]', function(){
     return this.get('packagesLocations');
   }),
-
 
   imageUrlList: Ember.computed('images.[]', function() {
     var imageList = [];
