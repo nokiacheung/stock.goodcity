@@ -61,6 +61,7 @@ I18nTranslationsEn =
     "show_set_items": "Show other parts from the same set next"
     "multiple": "Multiple"
     "max_undesignate": "From: {{code}}<br/>Quantity: {{qty}}"
+    "already_dispatched": "All designated Items are already dispatched"
 
   "designate":
     "form_title": "Designating this item to order {{code}}"

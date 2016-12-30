@@ -11,7 +11,13 @@ export default AuthorizeRoute.extend({
 
   model(params) {
     getOwner(this).lookup('controller:items.search_order').set('notPartialRoute', false);
-    this.get('store').query('designation', { recently_used: true });
+    var recentlyUsedDesignations = this.get('store').query('designation', { recently_used: true });
+    recentlyUsedDesignations.forEach(record => {
+        if(record.constructor.toString() === "stock@model:designation:") {
+          this.store.query("orders_package", { search_by_order_id: record.get("id")
+        });
+        }
+      });
     return this.store.findRecord('item', params.item_id);
   },
 

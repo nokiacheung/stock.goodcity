@@ -12,7 +12,7 @@ export default Model.extend({
   sentOn: attr('date'),
   state: attr('string'),
 
-  item:    belongsTo('item', { async: false }),
+  item:    belongsTo('item', { async: true }),
   designation:    belongsTo('designation', { async: false }),
 
   availableQty: Ember.computed("quantity", function() {

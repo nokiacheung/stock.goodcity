@@ -41,6 +41,12 @@ export default Ember.TextField.extend({
     var isIndexRoute = currentRoute.name === "items.index" ? true : false;
     if(this.get('hasRecentDesignations') && isIndexRoute) {
       var recentlyUsedDesignations = this.get('store').query('designation', { recently_used: true });
+      recentlyUsedDesignations.forEach(record => {
+        if(record.constructor.toString() === "stock@model:designation:") {
+          this.store.query("orders_package", { search_by_order_id: record.get("id")
+        });
+        }
+      });
       var recentlyUsedLocations = this.get('store').query('location', { recently_used: true });
       this.get('store').pushPayload(recentlyUsedDesignations);
       this.get('store').pushPayload(recentlyUsedLocations);

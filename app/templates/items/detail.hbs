@@ -32,7 +32,7 @@
         {{/if}}
         {{/unless}}
 
-        {{#if hasDesignation}}
+        {{#if model.designatedOrdersPackages.length}}
           {{dispatch-set item=model order=model.designation autoDisplayOverlay=autoDisplayOverlay}}
         {{else if (is-equal model.isSet model.setItem.hasSingleDesignation)}}
           {{dispatch-set item=model order=model.designation autoDisplayOverlay=autoDisplayOverlay}}
