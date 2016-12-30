@@ -1,4 +1,4 @@
-<div class="{{if item.isDispatched 'disabled'}}" {{action 'displayDesignateOverlay'}}>
+<div class="{{if (is-equal package.state 'dispatched') 'disabled'}}" {{action 'displayDesignateOverlay'}}>
   <i class="fa item-menu fa-times-circle-o"></i>
   {{t "item.undesignate"}}
 </div>

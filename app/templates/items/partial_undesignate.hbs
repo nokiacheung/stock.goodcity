@@ -53,29 +53,45 @@
     --}}
   </div>
 
-  <div class="confirm_quantity">Confirm the quantities you are undesignating.</div>
+  {{#if model.orderPackagesMoreThenZeroQty}}
+    <div class="confirm_quantity">Confirm the quantities you are undesignating.</div>
+  {{/if}}
   <div class="partial_undesignate_block">
-    {{#each model.orderPackagesMoreThenZeroQty as |ordersPackage|}}
-      <div class="row">
-        <div class="columns small-4 medium-4 partial_undesignate_textfield">
-          {{partial-undesignate-input id=ordersPackage.id value=ordersPackage.availableQty type="number" min="1" max=ordersPackage.quantity designationPackage=ordersPackage}}
-        </div>
-        <div class="warnings columns small-8 medium-8">
-          <div class="warning_text" style="margin-top:0 !important">
-            <div class="right-message">
-              {{t "item.max_undesignate" qty=ordersPackage.quantity code=ordersPackage.designation.code}}
+    {{#if model.orderPackagesMoreThenZeroQty}}
+      {{#each model.orderPackagesMoreThenZeroQty as |ordersPackage|}}
+        <div class="row">
+          <div class="columns small-4 medium-4 partial_undesignate_textfield">
+            {{partial-undesignate-input id=ordersPackage.id value=ordersPackage.availableQty type="number" min="1" max=ordersPackage.quantity designationPackage=ordersPackage}}
+          </div>
+          <div class="warnings columns small-8 medium-8">
+            <div class="warning_text" style="margin-top:0 !important">
+              <div class="right-message">
+                {{#link-to 'orders.detail' ordersPackage.designation.id tagName='span' href=false}}
+                  {{t "item.max_undesignate" qty=ordersPackage.quantity code=ordersPackage.designation.code}}
+                {{/link-to}}
+              </div>
             </div>
           </div>
-        </div>
 
+        </div>
+      {{/each}}
+    {{else}}
+      <div class="already_dispatched">
+        {{t "item.already_dispatched"}}
       </div>
-    {{/each}}
+    {{/if}}
   </div>
 
   <div class="undesignate-buttons">
     <div clas="row">
       <div class="columns small-6 medium-6">
-        <button id="undesignateButton" type="submit" class="button expand"{{action 'getConfirmationPopUp' model}}>{{t "item.partial_undesignate"}}</button>
+        {{#if model.orderPackagesMoreThenZeroQty}}
+          <button id="undesignateButton" type="submit" class="button expand"{{action 'getConfirmationPopUp' model}}>{{t "item.partial_undesignate"}}</button>
+        {{else}}
+          {{#link-to 'items.index' tagName='div' href=false}}
+            <button type="submit" class="button expand">{{t "okay"}}</button>
+          {{/link-to}}
+        {{/if}}
       </div>
       <div class="columns small-6 medium-6 undesignate-button">
         {{#link-to 'items.index' tagName='div' href=false}}

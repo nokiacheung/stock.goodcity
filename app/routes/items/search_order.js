@@ -46,6 +46,12 @@ export default AuthorizeRoute.extend({
   model(params) {
     var item = this.store.peekRecord("item", params.item_id);
     var recentlyUsedDesignations = this.store.peekAll('designation').filterBy('recentlyUsedAt');
+    recentlyUsedDesignations.forEach(record => {
+        if(record.constructor.toString() === "stock@model:designation:") {
+          this.store.query("orders_package", { search_by_order_id: record.get("id")
+        });
+        }
+      });
 
     return Ember.RSVP.hash({
       item: item || this.store.findRecord('item', params.item_id),

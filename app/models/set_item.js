@@ -38,11 +38,11 @@ export default Model.extend({
   }),
 
   hasSingleDesignation: Ember.computed("items.@each.ordersPackages", function() {
-    var lessThenOneDesignation = true;
+    var lessThenOneDesignation = false;
     this.get("items").forEach(record => {
       var designatedOrderPackages = record.get("ordersPackages").filterBy("state", "designated");
       if(designatedOrderPackages.get("length") > 1) {
-        lessThenOneDesignation = false;
+        lessThenOneDesignation = true;
       }
     });
     return lessThenOneDesignation;

@@ -28,6 +28,17 @@ export default getOrderRoute.extend({
     this.set("orderBackLinkPath", path);
   },
 
+  model(params) {
+    return this.store.findRecord("designation", params.order_id, { reload: true });
+  },
+
+  afterModel(model) {
+    if(model) {
+      var ordersPackages = this.store.query("orders_package", {   search_by_order_id: model.get("id") });
+      this.store.pushPayload(ordersPackages);
+    }
+  },
+
   setupController(controller, model){
     this._super(controller, model);
     controller.set('displayAllItems', model.get('items.length') <= 3);
