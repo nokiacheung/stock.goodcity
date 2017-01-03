@@ -14,8 +14,7 @@
         {{image-zoom item=model}}
       </div>
       <div class="image-action-list">
-
-        {{#unless allDispatched}}
+        {{#unless model.hasAllPackagesDispatched}}
           <span class="non-clickable-set-move" {{action 'moveItemSet'}}>
             <span class="no-avatar non-clickable-set-move">
               <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -23,19 +22,27 @@
           </span>
 
 
-        {{#if model.quantity}}
-          {{#link-to 'items.partial_designate' model.id (query-params isSet=model.isSet) tagName='span' href=false}}
-            <span class="no-avatar" {{action 'partialDesignateForSet'}}>
-              <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-            </span>
-          {{/link-to}}
-        {{/if}}
+          {{#if model.quantity}}
+            {{#if (is-equal model.isSet model.setItem.hasZeroQty)}}
+              {{#link-to 'items.partial_designate' model.id (query-params isSet=model.isSet) tagName='span' href=false}}
+                <span class="no-avatar" {{action 'partialDesignateForSet'}}>
+                  <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                </span>
+              {{/link-to}}
+            {{else if (is-not model.isSet)}}
+              {{#link-to 'items.partial_designate' model.id (query-params isSet=model.isSet) tagName='span' href=false}}
+                <span class="no-avatar" {{action 'partialDesignateForSet'}}>
+                  <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                </span>
+              {{/link-to}}
+            {{/if}}
+          {{/if}}
         {{/unless}}
 
-        {{#if model.designatedOrdersPackages.length}}
+        {{#if (is-equal model.isSet model.setItem.hasSingleDesignation)}}
           {{dispatch-set item=model order=model.designation autoDisplayOverlay=autoDisplayOverlay}}
-        {{else if (is-equal model.isSet model.setItem.hasSingleDesignation)}}
-          {{dispatch-set item=model order=model.designation autoDisplayOverlay=autoDisplayOverlay}}
+        {{else if (is-and model.hasOneDesignatedPackage (is-not model.isSet))}}
+          {{dispatch-set item=model order=model.designation package=model.hasOneDesignatedPackage autoDisplayOverlay=autoDisplayOverlay}}
         {{/if}}
 
         {{#if item.allowLabelPrint}}

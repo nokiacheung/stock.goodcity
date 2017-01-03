@@ -13,7 +13,7 @@ export default Model.extend({
   state: attr('string'),
 
   item:    belongsTo('item', { async: true }),
-  designation:    belongsTo('designation', { async: false }),
+  designation:    belongsTo('designation', { async: true }),
 
   availableQty: Ember.computed("quantity", function() {
     return this.get('quantity');

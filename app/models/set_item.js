@@ -37,12 +37,22 @@ export default Model.extend({
     }
   }),
 
+  hasZeroQty: Ember.computed("items.@each.ordersPackages", function() {
+    var zeroQty = true;
+    this.get("items").forEach(record => {
+      if(record.get("quantity") === 0) {
+        zeroQty = false;
+      }
+    });
+    return zeroQty;
+  }),
+
   hasSingleDesignation: Ember.computed("items.@each.ordersPackages", function() {
-    var lessThenOneDesignation = false;
+    var lessThenOneDesignation = true;
     this.get("items").forEach(record => {
       var designatedOrderPackages = record.get("ordersPackages").filterBy("state", "designated");
-      if(designatedOrderPackages.get("length") > 1) {
-        lessThenOneDesignation = true;
+      if(designatedOrderPackages.get("length") > 1 || designatedOrderPackages.get("length") === 0) {
+        lessThenOneDesignation = false;
       }
     });
     return lessThenOneDesignation;

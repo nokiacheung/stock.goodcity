@@ -30,7 +30,7 @@ export default Ember.TextField.extend({
 
   focusTrigger: Ember.observer('value', function() {
     var id=this.get('designationPackage.packageId');
-    var orderspackages = this.get('store').peekAll('orders_package').filterBy('packageId', id).filterBy('quantity');
+    var orderspackages = this.get('store').peekAll('orders_package').filterBy('packageId', id).filterBy('quantity').filterBy("state", "designated");
     var orderpackagesIds = orderspackages.getEach('id');
     var total = 0;
     orderpackagesIds.forEach(id => {

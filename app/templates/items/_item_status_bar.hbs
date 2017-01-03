@@ -1,20 +1,28 @@
-<div class="row dispatch_details {{if item.sentOn 'dispatched'}} {{if item.designation 'designated'}} {{if (is-greater item.designatedItemCount 1) 'designated'}}">
+<div class="row dispatch_details {{if item.hasAllPackagesDispatched 'dispatched'}} {{if item.desinatedAndDisaptchedItemPackages 'designated'}} {{if (is-greater item.designatedItemCount 1) 'designated'}}">
   <div class="small-3 columns">
     {{#if (is-greater item.desinatedAndDisaptchedItemPackages 1)}}
-      {{#if item.sentOn}}
+      {{#if item.hasAllPackagesDispatched}}
         <i class="fa fa-ship"></i> {{t "item.multiple"}}
+      {{else if item.hasOneDesignatedPackage}}
+        {{#link-to 'items.partial_undesignate' item.id tagName='span' href=false}}
+          <i class="fa fa-shopping-basket"></i> {{item.designation.code}}
+        {{/link-to}}
       {{else}}
         {{#link-to 'items.partial_undesignate' item.id tagName='span' href=false}}
           <i class="fa fa-shopping-basket"></i> {{t "item.multiple"}}
         {{/link-to}}
       {{/if}}
-    {{else if item.sentOn}}
+    {{else if item.hasAllPackagesDispatched}}
       {{#link-to 'orders.detail' item.designation.id tagName='span' href=false}}
         <i class="fa fa-ship"></i> {{item.designation.code}}
       {{/link-to}}
-    {{else if item.designation}}
+    {{else if item.hasOneDesignatedPackage}}
       {{#link-to 'orders.detail' item.designation.id tagName='span' href=false}}
         <i class="fa fa-shopping-basket"></i> {{item.designation.code}}
+      {{/link-to}}
+    {{else if item.hasOneDispatchedPackage}}
+      {{#link-to 'orders.detail' item.hasOneDispatchedPackage.designation.id tagName='span' href=false}}
+        <i class="fa fa-shopping-basket"></i> {{item.hasOneDispatchedPackage.designation.code}}
       {{/link-to}}
     {{else}}
       {{publish-stock-item item=item}}
@@ -28,6 +36,10 @@
       {{else}}
         {{#link-to 'items.partial_move' item.id tagName='span' href=false}} Multiple {{/link-to}}
       {{/if}}
+    {{/unless}}
+
+    {{#unless item.hasAllPackagesDispatched}}
+      <i class="fa fa-map-marker"></i> {{item.location.name}}
     {{/unless}}
   </div>
   <div class="small-3 columns">
