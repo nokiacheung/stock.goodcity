@@ -208,7 +208,7 @@ export default Ember.Component.extend({
         .then(data => {
           this.get("store").pushPayload(data);
           if(item.get("isSet")) {
-            this.get('router').transitionTo("items.detail", item, { queryParams: { showDispatchOverlay: this.get('showDispatchOverlay') }});
+            this.get('router').transitionTo("items.index");
           } else if(showAllSetItems) {
             this.sendAction("displaySetItems");
           } else {

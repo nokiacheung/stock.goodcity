@@ -32,11 +32,31 @@ export default cloudinaryUrl.extend({
   desinatedAndDisaptchedItemPackages: Ember.computed("ordersPackages.[]", function() {
     var orderPackages = this.get("ordersPackages");
     orderPackages.forEach(record => {
-      if(record.get("state") === "cancelled") {
+      if(record && record.get("state") === "cancelled") {
         orderPackages.removeObject(record);
       }
     });
     return orderPackages.get("length");
+  }),
+
+  hasOneDesignatedPackage: Ember.computed("ordersPackages.@each.state", function() {
+    var designatedOrdersPackages = this.get("ordersPackages").filterBy("state", "designated");
+    return (designatedOrdersPackages.get("length") > 1 || designatedOrdersPackages.get("length") === 0) ? false : designatedOrdersPackages[0];
+  }),
+
+  hasOneDispatchedPackage: Ember.computed("ordersPackages.@each.state", function() {
+    var dispatchedOrdersPackages = this.get("ordersPackages").filterBy("state", "dispatched");
+    return (dispatchedOrdersPackages.get("length") > 1 || dispatchedOrdersPackages.get("length") === 0) ? false : dispatchedOrdersPackages[0];
+  }),
+
+  hasAllPackagesDispatched: Ember.computed("ordersPackages.@each.state", function() {
+    var receivedQuantity = this.get("received_quantity");
+    var totalDispatchedQty = 0;
+    var dispatchedOrdersPackages = this.get("ordersPackages").filterBy("state", "dispatched");
+    dispatchedOrdersPackages.forEach(record => {
+      totalDispatchedQty += parseInt(record.get("quantity"));
+    });
+    return (totalDispatchedQty === receivedQuantity) ? true : false;
   }),
 
   designatedOrdersPackages: Ember.computed("ordersPackages.@each.state", function() {
