@@ -14,11 +14,10 @@
         {{image-zoom item=model}}
       </div>
       <div class="image-action-list">
-
         {{#unless model.hasAllPackagesDispatched}}
           {{#unless (is-equal (is-equal model.quantity 0) (is-not model.isSet))}}
             <span {{action 'moveItemSet'}}>
-              <span class="no-avatar">
+              <span class="no-avatar non-clickable-set-move">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
               </span>"
             </span>
