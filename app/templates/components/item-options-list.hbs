@@ -3,7 +3,7 @@
 </div>
 
 <div class="receive-item-options {{if hidden 'hidden'}} {{if item.isSet 'set-options'}}">
-  <div class="{{if item.sentOn 'disabled'}}">
+  <div class="{{if item.hasAllPackagesDispatched 'disabled'}}">
     {{#link-to 'items.partial_move' item.id tagName='div' href=false}}
       <i class="fa item-menu fa fa-map-marker"></i>
       {{t "item.move"}}
