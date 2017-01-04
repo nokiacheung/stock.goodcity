@@ -16,7 +16,6 @@
       <div class="image-action-list">
 
         {{#unless model.hasAllPackagesDispatched}}
-
           {{#unless (is-equal (is-equal model.quantity 0) (is-not model.isSet))}}
             <span {{action 'moveItemSet'}}>
               <span class="no-avatar">
@@ -24,7 +23,6 @@
               </span>
             </span>
           {{/unless}}
-
 
           {{#if model.quantity}}
             {{#if (is-equal model.isSet model.setItem.hasZeroQty)}}
