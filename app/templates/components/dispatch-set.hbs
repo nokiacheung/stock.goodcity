@@ -3,7 +3,7 @@
     <i class="fa fa-ship" aria-hidden="true"></i>
   </span>
 
-  {{#if item.setItem.hasSingleDesignation}}
+  {{#if item.setItem.hasSameSingleDesignation}}
     {{#message-box btn1Text=(t "dispatch.dispatch") btn1Callback=(action "dispatchItemSet") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
 
       <p>Dispatch multi-part set to {{order.code}}</p>
@@ -23,7 +23,7 @@
 
     {{/message-box}}
 
-  {{!-- {{else}}
+  {{else}}
 
     {{#message-box btn1Text="Continue" btn1Callback=(action "assignDesignation") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
 
@@ -51,7 +51,7 @@
           </div>
         {{/each}}
 
-        <div class="custom_radio_button">
+        {{!-- <div class="custom_radio_button">
           {{radio-button name="order" selection=selectedOrder value="chooseOrder" id="chooseOrder"}}
           <label for="chooseOrder">
             <div class="row">
@@ -63,10 +63,10 @@
               </div>
             </div>
           </label>
-        </div>
+        </div> --}}
       </div>
 
-    {{/message-box}} --}}
+    {{/message-box}}
 
   {{/if}}
 {{else}}
