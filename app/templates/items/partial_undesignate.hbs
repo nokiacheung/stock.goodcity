@@ -1,18 +1,28 @@
 <div class="row item_block item_header">
-  <div class="row dispatch_details {{if model.sentOn 'dispatched'}} {{if model.designation 'designated'}}">
+  <div class="row dispatch_details {{if model.hasAllPackagesDispatched 'dispatched'}} {{if model.desinatedAndDisaptchedItemPackages 'designated'}} {{if (is-greater model.designatedItemCount 1) 'designated'}}">
     <div class="small-3 columns">
-      {{#if model.sentOn}}
+      {{#if (is-greater model.desinatedAndDisaptchedItemPackages 1)}}
+        {{#if model.hasAllPackagesDispatched}}
+          <i class="fa fa-ship"></i> {{t "item.multiple"}}
+        {{else if model.hasOneDesignatedPackage}}
+          <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
+        {{else}}
+          <i class="fa fa-shopping-basket"></i> {{t "item.multiple"}}
+        {{/if}}
+      {{else if model.hasAllPackagesDispatched}}
         <i class="fa fa-ship"></i> {{model.designation.code}}
-      {{else if (is-greater model.designatedItemCount 1)}}
-        <i class="fa fa-shopping-basket"></i> {{t "item.multiple"}}
-      {{else if model.designation}}
-        <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
-      {{else}}
-        {{publish-stock-item item=model}}
+      {{else if model.hasOneDesignatedPackage}}
+        {{#link-to 'orders.detail' model.designation.id tagName='span' href=false}}
+          <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
+        {{/link-to}}
+      {{else if model.hasOneDispatchedPackage}}
+        {{#link-to 'orders.detail' model.hasOneDispatchedPackage.designation.id tagName='span' href=false}}
+          <i class="fa fa-shopping-basket"></i> {{model.hasOneDispatchedPackage.designation.code}}
+        {{/link-to}}
       {{/if}}
     </div>
     <div class="small-6 columns location-name">
-      {{#unless model.sentOn}}
+      {{#unless model.hasAllPackagesDispatched}}
         <i class="fa fa-map-marker"></i> {{model.location.name}}
       {{/unless}}
     </div>
