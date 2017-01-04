@@ -27,19 +27,23 @@
     </div>
 
     {{#if hideDetailsLink}}
+      {{#link-to 'items.detail' model.id }}
         <div class="small-6 large-8 columns name_details">
           <div class="ellipsis name one-line-ellipsis">{{model.quantity}} x {{model.code.name}}</div>
           <div class="ellipsis two-line-ellipsis">
             {{model.notes}}
           </div>
         </div>
+      {{/link-to}}
     {{else}}
-      <div class="small-6 large-8 columns name_details">
-        <div class="ellipsis name one-line-ellipsis">{{model.quantity}} x {{model.code.name}}</div>
-        <div class="ellipsis two-line-ellipsis">
-          {{model.notes}}
+      {{#link-to 'items.detail' model.id }}
+        <div class="small-6 large-8 columns name_details">
+          <div class="ellipsis name one-line-ellipsis">{{model.quantity}} x {{model.code.name}}</div>
+          <div class="ellipsis two-line-ellipsis">
+            {{model.notes}}
+          </div>
         </div>
-      </div>
+      {{/link-to}}
     {{/if}}
 
     {{!--

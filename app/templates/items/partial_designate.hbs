@@ -30,19 +30,23 @@
           </div>
 
           {{#if hideDetailsLink}}
+            {{#link-to 'items.detail' item.id }}
               <div class="small-6 large-8 columns name_details">
                 <div class="ellipsis name one-line-ellipsis">{{item.quantity}} x {{item.code.name}}</div>
                 <div class="ellipsis two-line-ellipsis">
                   {{item.notes}}
                 </div>
               </div>
+            {{/link-to}}
           {{else}}
-            <div class="small-6 large-8 columns name_details">
-              <div class="ellipsis name one-line-ellipsis">{{item.quantity}} x {{item.code.name}}</div>
-              <div class="ellipsis two-line-ellipsis">
-                {{item.notes}}
+            {{#link-to 'items.detail' item.id }}
+              <div class="small-6 large-8 columns name_details">
+                <div class="ellipsis name one-line-ellipsis">{{item.quantity}} x {{item.code.name}}</div>
+                <div class="ellipsis two-line-ellipsis">
+                  {{item.notes}}
+                </div>
               </div>
-            </div>
+            {{/link-to}}
           {{/if}}
 
           {{!--
