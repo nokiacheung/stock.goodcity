@@ -1,24 +1,42 @@
 <div class="row item_block item_header">
-  <div class="row dispatch_details {{if model.hasAllPackagesDispatched 'dispatched'}} {{if model.desinatedAndDisaptchedItemPackages 'designated'}} {{if (is-greater model.designatedItemCount 1) 'designated'}}">
+  <div class="row dispatch_details {{if model.hasAllPackagesDispatched 'dispatched'}} {{if model.hasAllPackagesDesignated 'designated'}} {{if (is-and (is-not model.quantity) model.designatedOrdersPackages.length) 'designated'}}">
     <div class="small-3 columns">
-      {{#if (is-greater model.desinatedAndDisaptchedItemPackages 1)}}
-        {{#if model.hasAllPackagesDispatched}}
-          <i class="fa fa-ship"></i> {{t "item.multiple"}}
-        {{else if model.hasOneDesignatedPackage}}
-          <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
+      {{#if model.hasAllPackagesDesignated}}
+        {{#if model.hasOneDesignatedPackage}}
+          {{#link-to 'items.partial_undesignate' model.id tagName='span' href=false}}
+            <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
+          {{/link-to}}
         {{else}}
-          <i class="fa fa-shopping-basket"></i> {{t "item.multiple"}}
+          {{#link-to 'items.partial_undesignate' model.id tagName='span' href=false}}
+            <i class="fa fa-shopping-basket"></i> {{t "item.multiple_designation"}}
+          {{/link-to}}
         {{/if}}
       {{else if model.hasAllPackagesDispatched}}
-        <i class="fa fa-ship"></i> {{model.designation.code}}
-      {{else if model.hasOneDesignatedPackage}}
-        {{#link-to 'orders.detail' model.designation.id tagName='span' href=false}}
-          <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
-        {{/link-to}}
-      {{else if model.hasOneDispatchedPackage}}
-        {{#link-to 'orders.detail' model.hasOneDispatchedPackage.designation.id tagName='span' href=false}}
-          <i class="fa fa-shopping-basket"></i> {{model.hasOneDispatchedPackage.designation.code}}
-        {{/link-to}}
+        {{#if model.hasOneDispatchedPackage}}
+          {{#link-to 'orders.detail' model.hasOneDispatchedPackage.designation.id tagName='span' href=false}}
+            <i class="fa fa-ship"></i> {{model.hasOneDispatchedPackage.designation.code}}
+          {{/link-to}}
+        {{else}}
+          <i class="fa fa-ship"></i> {{t "item.all_dispatched"}}
+        {{/if}}
+      {{else if (is-not model.quantity)}}
+        {{#if model.hasOneDesignatedPackage}}
+          {{#link-to 'items.partial_undesignate' model.id tagName='span' href=false}}
+            <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
+          {{/link-to}}
+        {{else if model.designatedOrdersPackages.length}}
+          {{#link-to 'items.partial_undesignate' model.id tagName='span' href=false}}
+            <i class="fa fa-shopping-basket"></i> {{t "item.multiple_designation"}}
+          {{/link-to}}
+        {{else if model.hasOneDispatchedPackage}}
+          {{#link-to 'orders.detail' model.hasOneDispatchedPackage.designation.id tagName='span' href=false}}
+            <i class="fa fa-ship"></i> {{model.hasOneDispatchedPackage.designation.code}}
+          {{/link-to}}
+        {{else if model.dispatchedOrdersPackages.length}}
+          <i class="fa fa-ship"></i> {{t "item.all_dispatched"}}
+        {{/if}}
+      {{else}}
+        {{publish-stock-item item=model}}
       {{/if}}
     </div>
     <div class="small-6 columns location-name">
