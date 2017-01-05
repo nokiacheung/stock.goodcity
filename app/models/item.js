@@ -50,13 +50,23 @@ export default cloudinaryUrl.extend({
   }),
 
   hasAllPackagesDispatched: Ember.computed("ordersPackages.@each.state", function() {
-    var receivedQuantity = this.get("received_quantity");
+    var received_quantity = this.get("receivedQuantity");
     var totalDispatchedQty = 0;
     var dispatchedOrdersPackages = this.get("ordersPackages").filterBy("state", "dispatched");
     dispatchedOrdersPackages.forEach(record => {
       totalDispatchedQty += parseInt(record.get("quantity"));
     });
-    return (totalDispatchedQty === receivedQuantity) ? true : false;
+    return (totalDispatchedQty === received_quantity) ? true : false;
+  }),
+
+  hasAllPackagesDesignated: Ember.computed("ordersPackages.@each.state", function() {
+    var received_quantity = this.get("receivedQuantity");
+    var totalDesignatedQty = 0;
+    var dispatchedOrdersPackages = this.get("ordersPackages").filterBy("state", "designated");
+    dispatchedOrdersPackages.forEach(record => {
+      totalDesignatedQty += parseInt(record.get("quantity"));
+    });
+    return (totalDesignatedQty === received_quantity) ? true : false;
   }),
 
   designatedOrdersPackages: Ember.computed("ordersPackages.@each.state", function() {
@@ -84,7 +94,7 @@ export default cloudinaryUrl.extend({
   inventoryNumber:   attr('string'),
   caseNumber:        attr('string'),
   quantity:          attr('number'),
-  received_quantity: attr('number'),
+  receivedQuantity:  attr('number'),
 
   length:            attr('number'),
   width:             attr('number'),

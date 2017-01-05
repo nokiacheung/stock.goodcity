@@ -1,7 +1,7 @@
 <a {{action 'displayDesignateOverlay'}}>{{yield}}</a>
 
 {{#message-box btn1Text=(t "okay") isVisible=displayAlertOverlay classNames="popupOverlay designate-form"}}
-  {{#if (is-equal item.isSet returnsDesignateFullSet)}}
+  {{#if (is-and item.isSet (is-equal item.isSet (is-equal item.isSet returnsDesignateFullSet)))}}
     <p>{{t "designate.already_designated" code=order.code}}</p>
     {{#each item.setItem.items as |item|}}
       {{partial 'items/set_item_block'}}
@@ -14,7 +14,7 @@
 
 {{#message-box btn1Text=(t "okay") btn1Callback=(action "designatePartialItem") btn2Text=(t "cancel") isVisible=partialDesignatedConfirmationPopUp classNames="popupOverlay designate-form"}}
 
-  {{#if (is-equal item.isSet returnsDesignateFullSet)}}
+  {{#if (is-and item.isSet (is-equal item.isSet (is-equal item.isSet returnsDesignateFullSet)))}}
     <p>{{t "designate.partial_designate_title" code=order.code qty=totalPartialDesignatedItems partial_qty=partial_quantity}}</p>
     {{#each item.setItem.items as |item|}}
       {{partial 'items/set_item_block'}}
@@ -28,7 +28,7 @@
 
 {{#message-box btn1Text=(t "okay") btn1Callback=(action "designatePartialItem") btn2Text=(t "cancel") isVisible=partiallyDesignatedPopUp classNames="popupOverlay designate-form"}}
 
-  {{#if (is-equal item.isSet returnsDesignateFullSet)}}
+  {{#if (is-and item.isSet (is-equal item.isSet (is-equal item.isSet returnsDesignateFullSet)))}}
     <p>{{t "designate.already_partially_designated" code=order.code qty=totalPartialDesignatedItems partial_qty=partial_quantity}}</p>
     {{#each item.setItem.items as |item|}}
       {{partial 'items/set_item_block'}}

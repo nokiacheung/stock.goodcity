@@ -60,7 +60,8 @@ I18nTranslationsEn =
     "move": "Move"
     "partial_move": "Partial Move"
     "show_set_items": "Show other parts from the same set next"
-    "multiple": "Multiple"
+    "multiple_designation": "designated"
+    "all_dispatched": "Out of stock"
     "max_undesignate": "From: {{code}}<br/>Quantity: {{qty}}"
     "already_dispatched": "All designated Items are already dispatched"
 
