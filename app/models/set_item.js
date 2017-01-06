@@ -41,4 +41,13 @@ export default Model.extend({
     return this.get("items").filterBy('hasBoxPallet', true).length === 0;
   }),
 
+  allPackagesLocations: Ember.computed('items.@each.packages_locations.[]', function(){
+    var setPackagesLocationsList = [];
+    this.get('items').forEach(record => {
+      record.get('packages_locations').forEach(packages_location => {
+        setPackagesLocationsList.push(packages_location);
+      });
+    });
+    return setPackagesLocationsList.sortBy('location_id');
+  }),
 });

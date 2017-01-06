@@ -14,7 +14,10 @@ export default Ember.TextField.extend({
   },
 
   didInsertElement(){
-    return this.set('value', this.get('item.quantity').toString());
+    var quantity = this.get('item.quantity');
+    if(quantity){
+      return this.set('value', quantity.toString());
+    }
   },
 
   focusTrigger: Ember.observer('value', function() {
