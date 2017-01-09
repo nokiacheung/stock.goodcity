@@ -42,7 +42,6 @@ export default getOrderRoute.extend({
   setupController(controller, model){
     if(model) {
       this._super(controller, model);
-      controller.set('displayAllItems', model.get('items.length') <= 3);
       controller.set('backLinkPath', this.get('orderBackLinkPath'));
     }
   }
