@@ -7,7 +7,7 @@ export default Ember.Controller.extend({
   orderPackage: null,
   total: 0,
   values: 0,
-  orderPackegesAndQuantities: null,
+  orderPackagesAndQuantities: null,
   codeAndQuantities: null,
   codes: null,
 
@@ -34,7 +34,7 @@ export default Ember.Controller.extend({
         codeQty[orderPackage.get('designation.code')] = value;
         total += value;
       });
-      this.set('orderPackegesAndQuantities', orderPkgQty);
+      this.set('orderPackagesAndQuantities', orderPkgQty);
       this.set('total', total);
       this.set('codeAndQuantities', codeQty);
       this.set('promptUserPopUp', true);
@@ -48,7 +48,7 @@ export default Ember.Controller.extend({
 
       url = `/items/${data.id}/undesignate_partial_item`;
 
-      new AjaxPromise(url, "PUT", this.get('session.authToken'), { package: this.get('orderPackegesAndQuantities') })
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { package: this.get('orderPackagesAndQuantities') })
         .then(data => {
           this.get("store").pushPayload(data);
           loadingView.destroy();
