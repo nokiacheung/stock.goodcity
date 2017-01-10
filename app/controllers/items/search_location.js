@@ -110,17 +110,6 @@ export default searchModule.extend({
       }
 
       new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id"), package: packagesLoacationQty, total_qty: totalQty}).then(data => {
-        if(this.get('isSet')){
-          JSON.parse(localStorage['setPackagesLoacationQty']).forEach(record =>
-            {
-              var id = record["packages_location_id"];
-              var record_in_ember_data = this.get('store').peekRecord('packages_location', id);
-             if(record_in_ember_data.get('quantity') === record['new_qty']){
-              this.get('store').unloadRecord(record_in_ember_data);
-             }
-            }
-          );
-        }
         this.get("store").pushPayload(data);
         this.transitionToRoute("items.partial_move", item);
       }).finally(() => {

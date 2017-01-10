@@ -136,11 +136,7 @@
   <div class="partial-move-buttons">
     <div class="row">
       <div class="columns small-6 medium-6">
-        {{#if isSet}}
-          <button id="partial_designate" type="submit" class="button expand" {{action 'move_partial_qty_for_set' model }}>{{t "item.move"}}</button>
-        {{else}}
-          <button id="partial_designate" type="submit" class="button expand"{{action 'move_partial_qty' model}}>{{t "item.move"}}</button>
-        {{/if}}
+        <button id="partial_designate" type="submit" class="button expand"{{action 'move_partial_qty_for_set' model}}>{{t "item.move"}}</button>
       </div>
       <div class="columns small-6 medium-6">
         {{#link-to 'items.index' tagName='div' href=false}}
