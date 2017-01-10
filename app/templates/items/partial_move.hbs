@@ -46,18 +46,20 @@
         {{/each}}
 
         <div class="row packages-location-list">
-          {{#each model.setItem.allPackagesLocations as |packages_location|}}
+          {{#each model.setItem.items as |item|}}
+            {{#each item.packagesLocations as |packages_location|}}
               <div class="row">
                 <div class="columns small-6 partial_designate_textfield">
                   {{partial-move-input id=packages_location.id value=packages_location.quantityToMove type="number" min="1" max=packages_location.quantity item=packages_location}}
                 </div>
                 <div class="columns small-6">
                   <div id="location-name">
-                    of {{packages_location.quantity}} from {{packages_location.location.name}} ( {{packages_location.packageInventoryNumber}} )
+                    of {{packages_location.quantity}} from {{packages_location.location.name}}
                   </div>
                 </div>
               </div>
             {{/each}}
+          {{/each}}
         </div>
       {{/if}}
     {{else}}

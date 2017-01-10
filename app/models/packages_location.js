@@ -16,17 +16,4 @@ export default Model.extend({
   quantityToMove: Ember.computed('quantity', function(){
     return this.get('quantity');
   }),
-
-  packageInventoryNumber: Ember.computed('item_id', function(){
-    return this.get('item.inventoryNumber');
-  }),
-
-  updateQuantity: Ember.observer('quantity', function(){
-    var packages_location_id = this.get('id');
-    var packages_location_text_field = Ember.$(`#${packages_location_id}`)[0];
-    if(packages_location_text_field){
-      packages_location_text_field.value = this.get('quantity');
-    }
-  }),
 });
-
