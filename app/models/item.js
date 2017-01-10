@@ -44,6 +44,24 @@ export default cloudinaryUrl.extend({
     return (designatedOrdersPackages.get("length") > 1 || designatedOrdersPackages.get("length") === 0) ? false : designatedOrdersPackages[0];
   }),
 
+  totalDispatchedQty: Ember.computed("ordersPackages.@each.state", function() {
+    var totalDispatchedQty = 0;
+    var dispatchedOrdersPackages = this.get("ordersPackages").filterBy("state", "dispatched");
+    dispatchedOrdersPackages.forEach(record => {
+      totalDispatchedQty += parseInt(record.get("quantity"));
+    });
+    return totalDispatchedQty;
+  }),
+
+  totalDesignatedQty: Ember.computed("ordersPackages.@each.state", function() {
+    var totalDesignatedQty = 0;
+    var dispatchedOrdersPackages = this.get("ordersPackages").filterBy("state", "designated");
+    dispatchedOrdersPackages.forEach(record => {
+      totalDesignatedQty += parseInt(record.get("quantity"));
+    });
+    return totalDesignatedQty;
+  }),
+
   hasOneDispatchedPackage: Ember.computed("ordersPackages.@each.state", function() {
     var dispatchedOrdersPackages = this.get("ordersPackages").filterBy("state", "dispatched");
     return (dispatchedOrdersPackages.get("length") > 1 || dispatchedOrdersPackages.get("length") === 0) ? false : dispatchedOrdersPackages[0];
