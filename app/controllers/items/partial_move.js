@@ -1,8 +1,6 @@
 import Ember from "ember";
 
 export default Ember.Controller.extend({
-  queryParams: ['isSet'],
-  isSet: false,
   item: null,
   isZeroQuantity: false,
 
