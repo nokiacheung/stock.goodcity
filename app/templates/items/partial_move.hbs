@@ -1,123 +1,45 @@
 <div>
   <div class="row item_block item_header">
-    {{#if isSet}}
-      {{#if model.isSet}}
-        {{#each model.setItem.items as |item|}}
-          <div class="row dispatch_details {{if item.sentOn 'dispatched'}} {{if model.designation 'designated'}}">
-            <div class="small-3 columns">
-              {{#if item.sentOn}}
-                <i class="fa fa-ship"></i> {{item.designation.code}}
-              {{else if item.designation}}
-                <i class="fa fa-shopping-basket"></i> {{item.designation.code}}
-              {{else}}
-                {{publish-stock-item item=item}}
-              {{/if}}
-            </div>
-            <div class="small-6 columns location-name">
-              {{#unless model.sentOn}}
-                <i class="fa fa-map-marker"></i>
-                {{#link-to 'items.partial_move' item.id tagName='span' href=false}} Multiple {{/link-to}}
-              {{/unless}}
-            </div>
-            <div class="small-3 columns">
-              <i class="fa {{if model.isSet 'fa-tags' 'fa-tag'}}"></i> {{item.inventoryNumber}}
-            </div>
-          </div>
-          <div class="row other_details item_details">
-            <div class="small-3 large-2 columns image">
-              <img src={{model.thumbImageUrl}} class="thumb"/>
-             </div>
-            {{#if hideDetailsLink}}
-              <div class="small-6 large-8 columns name_details">
-                <div class="ellipsis name one-line-ellipsis">{{item.quantity}} x {{item.code.name}}</div>
-                <div class="ellipsis two-line-ellipsis">
-                  {{model.notes}}
-                </div>
-              </div>
-            {{else}}
-              <div class="small-6 large-8 columns name_details">
-                <div class="ellipsis name one-line-ellipsis">{{item.quantity}} x {{model.code.name}}</div>
-                <div class="ellipsis two-line-ellipsis">
-                  {{model.notes}}
-                </div>
-              </div>
-            {{/if}}
-          </div>
-        {{/each}}
-
-        <div class="row packages-location-list">
-          {{#each model.setItem.items as |item|}}
-            {{#each item.packagesLocations as |packages_location|}}
-              <div class="row">
-                <div class="columns small-6 partial_designate_textfield">
-                  {{partial-move-input id=packages_location.id value=packages_location.quantityToMove type="number" min="1" max=packages_location.quantity item=packages_location}}
-                </div>
-                <div class="columns small-6">
-                  <div id="location-name">
-                    of {{packages_location.quantity}} from {{packages_location.location.name}}
-                  </div>
-                </div>
-              </div>
-            {{/each}}
-          {{/each}}
-        </div>
-      {{/if}}
-    {{else}}
-      <div class="row dispatch_details {{if model.sentOn 'dispatched'}} {{if model.designation 'designated'}}">
-        <div class="small-3 columns">
-          {{#if model.sentOn}}
-            <i class="fa fa-ship"></i> {{model.designation.code}}
-          {{else if model.designation}}
-            <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
-          {{else}}
-            {{publish-stock-item item=model}}
-          {{/if}}
-        </div>
-        <div class="small-6 columns location-name">
-          {{#unless model.sentOn}}
-            <i class="fa fa-map-marker"></i>
-            {{#link-to 'items.partial_move' item.id tagName='span' href=false}} Multiple {{/link-to}}
-          {{/unless}}
-        </div>
-        <div class="small-3 columns">
-          <i class="fa {{if model.isSet 'fa-tags' 'fa-tag'}}"></i> {{model.inventoryNumber}}
-        </div>
-      </div>
-      <div class="row other_details item_details">
-        <div class="small-3 large-2 columns image">
-          <img src={{model.thumbImageUrl}} class="thumb"/>
-        </div>
-        {{#if hideDetailsLink}}
-            <div class="small-6 large-8 columns name_details">
-              <div class="ellipsis name one-line-ellipsis">{{model.quantity}} x {{model.code.name}}</div>
-              <div class="ellipsis two-line-ellipsis">
-                {{model.notes}}
-              </div>
-            </div>
+    <div class="row dispatch_details {{if model.sentOn 'dispatched'}} {{if model.designation 'designated'}}">
+      <div class="small-3 columns">
+        {{#if model.sentOn}}
+          <i class="fa fa-ship"></i> {{model.designation.code}}
+        {{else if model.designation}}
+          <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
         {{else}}
+          {{publish-stock-item item=model}}
+        {{/if}}
+      </div>
+      <div class="small-6 columns location-name">
+        {{#unless model.sentOn}}
+          <i class="fa fa-map-marker"></i>
+          {{#link-to 'items.partial_move' item.id tagName='span' href=false}} Multiple {{/link-to}}
+        {{/unless}}
+      </div>
+      <div class="small-3 columns">
+        <i class="fa {{if model.isSet 'fa-tags' 'fa-tag'}}"></i> {{model.inventoryNumber}}
+      </div>
+    </div>
+    <div class="row other_details item_details">
+      <div class="small-3 large-2 columns image">
+        <img src={{model.thumbImageUrl}} class="thumb"/>
+      </div>
+      {{#if hideDetailsLink}}
           <div class="small-6 large-8 columns name_details">
             <div class="ellipsis name one-line-ellipsis">{{model.quantity}} x {{model.code.name}}</div>
             <div class="ellipsis two-line-ellipsis">
               {{model.notes}}
             </div>
           </div>
-        {{/if}}
-      </div>
-      <div class="confirm_quantity">Confirm the quantities you are moving.</div>
-      {{#each model.packagesLocations as |packages_location|}}
-        <div class="row">
-          <div class="columns small-6 partial_designate_textfield">
-            {{partial-move-input id=packages_location.id value=packages_location.quantityToMove type="number" min="1" max=packages_location.quantity item=packages_location}}
-          </div>
-          <div class="columns small-6">
-            <div id="location-name">
-              of {{packages_location.quantity}} from {{packages_location.location.name}}
-            </div>
+      {{else}}
+        <div class="small-6 large-8 columns name_details">
+          <div class="ellipsis name one-line-ellipsis">{{model.quantity}} x {{model.code.name}}</div>
+          <div class="ellipsis two-line-ellipsis">
+            {{model.notes}}
           </div>
         </div>
-      {{/each}}
-    {{/if}}
-
+      {{/if}}
+    </div>
     <div class="warnings">
       <div class="warning_text">
         <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
@@ -133,7 +55,18 @@
       </div>
     </div>
     <div class="confirm_quantity">Confirm the quantities you are moving.</div>
-
+    {{#each model.packagesLocations as |packages_location|}}
+      <div class="row">
+        <div class="columns small-6 partial_designate_textfield">
+          {{partial-move-input id=packages_location.id value=packages_location.quantityToMove type="number" min="1" max=packages_location.quantity item=packages_location}}
+        </div>
+        <div class="columns small-6">
+          <div id="location-name">
+            of {{packages_location.quantity}} from {{packages_location.location.name}}
+          </div>
+        </div>
+      </div>
+    {{/each}}
   </div>
   <div class="partial-move-buttons">
     <div class="row">

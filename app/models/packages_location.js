@@ -11,7 +11,7 @@ export default Model.extend({
   is_first_created: attr('boolean'),
 
   location:  belongsTo('location', { async: false }),
-  item:  belongsTo('item', { async: false }),
+  item:  belongsTo('location', { async: false }),
 
   quantityToMove: Ember.computed('quantity', function(){
     return this.get('quantity');
