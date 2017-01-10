@@ -66,7 +66,10 @@
     {{else}}
       {{#link-to 'items.detail' model.id }}
         <div class="small-6 large-8 columns name_details">
-          <div class="ellipsis name one-line-ellipsis">{{model.quantity}} x {{model.code.name}}</div>
+          <div class="ellipsis name one-line-ellipsis" style="display: inline!important">{{model.quantity}} x {{model.code.name}}</div>
+          <span style="margin-left: 0.25rem;">
+            {{model.quantity}}/{{model.totalDesignatedQty}}/{{model.totalDispatchedQty}}
+          </span>
           <div class="ellipsis two-line-ellipsis">
             {{model.notes}}
           </div>
