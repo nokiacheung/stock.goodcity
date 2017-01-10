@@ -3,6 +3,10 @@ import AuthorizeRoute from './../authorize';
 
 export default AuthorizeRoute.extend({
 
+  queryParams: {
+    isSet: false
+  },
+
   itemMoveBackLinkPath: Ember.computed.localStorage(),
   itemPreviousRoute: Ember.computed.localStorage(),
 

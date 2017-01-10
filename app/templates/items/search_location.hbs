@@ -98,13 +98,6 @@
     </div>
   {{/message-box}}
 
-  {{#message-box btn1Text=(t "item.move") btn1Callback=(action "movePartialQty") btn2Text=(t "cancel") isVisible=movePartialQtyToLocation classNames="popupOverlay designate-form"}}
-    <p>Moving {{totalQty}} of {{item.quantity}} to Bldg {{selectedLocation.building}} Area {{selectedLocation.area}} </p>
-
-    {{partial 'orders/item_block'}}
-
-  {{/message-box}}
-
 {{else}}
 
   {{#message-box btn1Text=(t "item.move") btn1Callback=(action "moveItem") btn2Text=(t "cancel") isVisible=displayUserPrompt classNames="popupOverlay designate-form"}}
@@ -134,7 +127,7 @@
     </div>
   {{/message-box}}
 
-  {{#message-box btn1Text=(t "item.move") btn1Callback=(action "movePartialQty") btn2Text=(t "cancel") isVisible=movePartialQtyToLocation classNames="popupOverlay designate-form"}}
+  {{#message-box btn1Text=(t "item.move") btn1Callback=(action "movePartialQty") btn2Text=(t "cancel") isVisible=movePartialQty classNames="popupOverlay designate-form"}}
     <p>Moving {{totalQty}} of {{item.quantity}} to Bldg {{selectedLocation.building}} Area {{selectedLocation.area}} </p>
 
     {{partial 'orders/item_block'}}

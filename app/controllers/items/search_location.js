@@ -13,7 +13,7 @@ export default searchModule.extend({
   moveItemPath: "",
   packages_location_id: "",
   packagesLoacationQty: "",
-  movePartialQtyToLocation: false,
+  movePartialQty: false,
   cantMoveToSameLocationForSingleLocation: false,
   isUndispatch: "",
   isUndispatchFullQuantity: false,
@@ -86,28 +86,21 @@ export default searchModule.extend({
       } else if(this.get('isUndispatch')){
         this.set('isUndispatchFullQuantity', true);
       } else if(this.get('isPartialMove')){
-        this.set('movePartialQtyToLocation', true);
+        this.set('movePartialQty', true);
       } else{
         this.set("displayUserPrompt", true);
       }
     },
 
     movePartialQty(){
-      var url;
       var location = this.get("selectedLocation");
       var item = this.get("item");
-      var packagesLoacationQty;
+      var packagesLoacationQty = localStorage['packagesLoacationQty'];
       var totalQty = localStorage["totalQty"];
 
       var loadingView = getOwner(this).lookup('component:loading').append();
 
-      if(this.get('isSet')){
-        packagesLoacationQty = localStorage['setPackagesLoacationQty'];
-        url = `/items/${item.get('setItem.id')}/move_set_partial_qty`;
-      } else {
-        packagesLoacationQty = localStorage['packagesLoacationQty'];
-        url = `/items/${item.id}/move_partial_quantity`;
-      }
+      var url = `/items/${item.id}/move_partial_quantity`;
 
       new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id"), package: packagesLoacationQty, total_qty: totalQty}).then(data => {
         this.get("store").pushPayload(data);
