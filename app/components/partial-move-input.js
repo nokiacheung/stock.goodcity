@@ -10,7 +10,6 @@ export default Ember.TextField.extend({
 
   click() {
     this.set('qtyError', false);
-    Ember.$(this.element).css("color", "white");
     Ember.$(this.element).css("background-color", "#002352");
   },
 
@@ -23,7 +22,7 @@ export default Ember.TextField.extend({
 
   focusTrigger: Ember.observer('value', function() {
     if(this.get('value') < 0 || this.get('value') > this.get('item.quantity') || !(this.get('value').trim())) {
-      Ember.$(this.element).css({ border: "1px solid #f34d4f" });
+      Ember.$(this.element).css("border", "1px solid #fddbdc");
       Ember.$('#partial_designate')[0].disabled = true;
       this.$().focus();
       return false;
