@@ -26,7 +26,7 @@ export default AuthorizeRoute.extend({
 
   model() {
     var _this = this;
-    if(this.controller == undefined || this.controller.get("inventoryNumber")==undefined){
+    if(this.controller === undefined || this.controller.get("inventoryNumber")=== undefined){
       return new AjaxPromise("/inventory_numbers", "POST", this.get('session.authToken'))
         .then(function(data) {
           _this.set("inventoryNumber", data.inventory_number);
