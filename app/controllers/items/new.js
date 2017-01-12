@@ -297,8 +297,10 @@ export default Ember.Controller.extend({
       } else {
 
         loadingView = getOwner(this).lookup('component:loading').append();
+        var locationId = this.get("location.id");
+        var quantity = this.get("quantity");
         var properties = {
-          quantity: _this.get("quantity"),
+          quantity: quantity,
           length: _this.get("length"),
           width: _this.get("width"),
           height: _this.get("height"),
@@ -307,9 +309,10 @@ export default Ember.Controller.extend({
           notes: _this.get("description"),
           grade: _this.get("selectedGrade.id"),
           donor_condition_id: _this.get("selectedCondition.id"),
-          location_id: _this.get("location.id"),
+          location_id: locationId,
           package_type_id: _this.get("code.id"),
-          state_event: 'mark_received'
+          state_event: 'mark_received',
+          packages_locations_attributes: {0: { location_id: locationId, quantity: quantity }}
         };
 
         new AjaxPromise("/packages", "POST", this.get('session.authToken'), { package: properties })

@@ -428,3 +428,7 @@
     display: inline-flex;
   }
 }
+
+.non-clickable-set-move {
+  pointer-events: none;
+}

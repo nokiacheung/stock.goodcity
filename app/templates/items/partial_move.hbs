@@ -13,7 +13,11 @@
       <div class="small-6 columns location-name">
         {{#unless model.sentOn}}
           <i class="fa fa-map-marker"></i>
-          {{#link-to 'items.partial_move' item.id tagName='span' href=false}} Multiple {{/link-to}}
+          {{#if model.hasSingleLocation}}
+            {{model.firstLocationName}}
+          {{else}}
+            {{#link-to 'items.partial_move' item.id tagName='span' href=false}} Multiple {{/link-to}}
+          {{/if}}
         {{/unless}}
       </div>
       <div class="small-3 columns">
@@ -44,18 +48,12 @@
       <div class="warning_text">
         <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
         <div class="right-message">
-          <div class="move-message">move only part of set.</div>
-        </div>
-      </div><br/>
-      <div class="warning_text">
-        <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
-        <div class="right-message">
-          <div class="move-message">You can only move maximum {{totalInHandItems}} items.</div>
+          <div class="move-message">You can only move maximum {{model.quantity}} quantity of item.</div>
         </div>
       </div>
     </div>
-    <div class="confirm_quantity">Confirm the quantities you are moving.</div>
-    {{#each model.packagesLocations as |packages_location|}}
+    <div class="confirm_quantity">Confirm the quantity you are moving.</div>
+    {{#each model.packagesLocationsList as |packages_location|}}
       <div class="row">
         <div class="columns small-6 partial_designate_textfield">
           {{partial-move-input id=packages_location.id value=packages_location.quantityToMove type="number" min="1" max=packages_location.quantity item=packages_location}}
@@ -71,7 +69,7 @@
   <div class="partial-move-buttons">
     <div class="row">
       <div class="columns small-6 medium-6">
-        <button id="partial_designate" type="submit" class="button expand"{{action 'move_partial_qty' model}}>{{t "item.move"}}</button>
+        <button id="partial_move" type="submit" class="button expand"{{action 'move_partial_qty' model}}>{{t "item.move"}}</button>
       </div>
       <div class="columns small-6 medium-6">
         {{#link-to 'items.index' tagName='div' href=false}}

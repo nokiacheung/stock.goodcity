@@ -32,8 +32,8 @@ export default searchModule.extend({
   hideDetailsLink: true,
 
   sameSingleLocation: Ember.computed("selectedLocation", function() {
-    if (this.get('item.packages_locations').get('length') === 1){
-     return this.get('item.packages_locations').get('firstObject').get("location_id") === parseInt(this.get('selectedLocation.id'));
+    if (this.get('item.packagesLocations').get('length') === 1){
+     return this.get('item.packagesLocations').get('firstObject').get("location_id") === parseInt(this.get('selectedLocation.id'));
     }
   }),
 

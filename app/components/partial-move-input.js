@@ -10,7 +10,7 @@ export default Ember.TextField.extend({
 
   click() {
     this.set('qtyError', false);
-    Ember.$(this.element).css("background-color", "#002352");
+    Ember.$(this.element).addClass('change-color');
   },
 
   didInsertElement(){
@@ -20,12 +20,12 @@ export default Ember.TextField.extend({
   focusTrigger: Ember.observer('value', function() {
     if(this.get('value') < 0 || this.get('value') > this.get('item.quantity') || !(this.get('value').trim())) {
       Ember.$(this.element).css("border", "1px solid #fddbdc");
-      Ember.$('#partial_designate')[0].disabled = true;
+      Ember.$('#partial_move')[0].disabled = true;
       this.$().focus();
       return false;
     } else {
       Ember.$(this.element).css("border", "1px solid #8091a9");
-      Ember.$('#partial_designate')[0].disabled = false;
+      Ember.$('#partial_move')[0].disabled = false;
       return true;
     }
   }),
