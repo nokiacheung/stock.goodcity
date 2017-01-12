@@ -15,7 +15,7 @@ export default Ember.Controller.extend({
   actions: {
     move_partial_qty(item) {
       var totalQty = 0;
-      var allPackagesLocations = item.get('packages_locations');
+      var allPackagesLocations = item.get('packagesLocations');
       var elementIds  = allPackagesLocations.getEach('id');
       var packagesLoacationQty = [];
       var record = {};

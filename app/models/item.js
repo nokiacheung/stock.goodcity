@@ -141,7 +141,7 @@ export default cloudinaryUrl.extend({
   setItem:        belongsTo('set_item', { async: false }),
 
   ordersPackages:    hasMany('ordersPackages', { async: true }),
-  packages_locations: hasMany('packages_location', {async: false}),
+  packagesLocations: hasMany('packages_location', {async: false}),
   images:       hasMany('image', { async: true }),
 
   isDispatched: Ember.computed.bool('sentOn'),
@@ -167,22 +167,24 @@ export default cloudinaryUrl.extend({
     }
   }),
 
-  hasSingleLocation: Ember.computed('packages_locations.[]', function(){
-    return this.get('packages_locations').length === 1;
+  hasSingleLocation: Ember.computed('packagesLocations.[]', function(){
+    if(this.get('packagesLocations')){
+      return this.get('packagesLocations').length === 1;
+    }
   }),
 
-  firstLocationName: Ember.computed('packages_locations.[]', function(){
-    return this.get('packages_locations').get('firstObject').get('location.name');
+  firstLocationName: Ember.computed('packagesLocations.[]', function(){
+    return this.get('packagesLocations').get('firstObject').get('location.name');
   }),
 
-  allLocations: Ember.computed('packages_locations.[]', function(){
+  allLocations: Ember.computed('packagesLocations.[]', function(){
     var allLocations = [];
     this.get('packages_locations').forEach((packages_location) => allLocations.pushObject(packages_location.get('location.name')));
     return allLocations.uniq();
   }),
 
-  packagesLocations: Ember.computed('packages_locations.[]', function(){
-    return this.get('packages_locations');
+  packagesLocationsList: Ember.computed('packagesLocations.[]', function(){
+    return this.get('packagesLocations');
   }),
 
   imageUrlList: Ember.computed('images.[]', function() {
