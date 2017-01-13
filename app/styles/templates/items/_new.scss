@@ -61,7 +61,10 @@
     }
 
     .value.height input {
-      width: 10.4rem;
+      width: 97%;
+      @media #{$small-only} {
+      width: 93%;
+    }
     }
   }
 
