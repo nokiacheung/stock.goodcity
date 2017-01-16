@@ -12,6 +12,9 @@ export default getOrderRoute.extend({
 
     if(previousRoute) {
       var routeName = previousRoute.name;
+      if(routeName === "items.history") {
+        window.location.reload();
+      }
       if(routeName.indexOf("orders")) {
         switch(routeName) {
           case "items.search_order": path = "items"; break;

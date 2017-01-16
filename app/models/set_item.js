@@ -58,6 +58,32 @@ export default Model.extend({
     return lessThenOneDesignation;
   }),
 
+  designatedAndDispatchedOrdersPackages: Ember.computed("items.@each.ordersPackages", function() {
+    var designatedAndDispatchedPackages = [];
+    this.get("items").forEach(record => {
+      var orderPackages = record.get("ordersPackages").filterBy("quantity");
+      orderPackages.forEach(record => {
+        if(record && record.get("state") !== "cancelled") {
+          designatedAndDispatchedPackages.push(record);
+        }
+      });
+    });
+    return designatedAndDispatchedPackages;
+  }),
+
+  setItemOrdersPackages: Ember.computed("items.@each.ordersPackages", function() {
+    var designatedAndDispatchedPackages = [];
+    this.get("items").forEach(record => {
+      var orderPackages = record.get("ordersPackages").filterBy("quantity");
+      orderPackages.forEach(record => {
+        if(record && record.get("state") !== "cancelled") {
+          designatedAndDispatchedPackages.push(record);
+        }
+      });
+    });
+    return designatedAndDispatchedPackages.get("length");
+  }),
+
   hasSameSingleDesignation: Ember.computed("items.@each.ordersPackages", function() {
     var sameSingleDesignation = true;
     var designatedPackages = [];

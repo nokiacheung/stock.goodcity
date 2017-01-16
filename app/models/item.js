@@ -30,7 +30,7 @@ export default cloudinaryUrl.extend({
   }),
 
   desinatedAndDisaptchedItemPackages: Ember.computed("ordersPackages.[]", function() {
-    var orderPackages = this.get("ordersPackages");
+    var orderPackages = this.get("ordersPackages").filterBy("quantity");
     orderPackages.forEach(record => {
       if(record && record.get("state") === "cancelled") {
         orderPackages.removeObject(record);
@@ -97,6 +97,16 @@ export default cloudinaryUrl.extend({
 
   dispatchedItemCount: Ember.computed("ordersPackages.@each.quantity", function() {
     return this.get("ordersPackages").filterBy('state', "dispatched").length;
+  }),
+
+  ordersPackagesWithStateDesignatedAndDispatched: Ember.computed("ordersPackages.[]", function() {
+    var orderPackages = this.get("ordersPackages").filterBy("quantity");
+    orderPackages.forEach(record => {
+      if(record && record.get("state") === "cancelled") {
+        orderPackages.removeObject(record);
+      }
+    });
+    return orderPackages;
   }),
 
   cancelledItemCount: Ember.computed("ordersPackages.@each.quantity", function() {
