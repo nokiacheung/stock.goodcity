@@ -8,6 +8,7 @@ export default Model.extend({
   description: attr('string'),
   code:        belongsTo('code', { async: false }),
   items:       hasMany('item', { async: false }),
+  designatedSetItemOrderPackages: [],
 
   multiQuantitySet: Ember.computed('items.@each.quantity', function() {
     return this.get("items").rejectBy('quantity', 1).length > 0;
@@ -26,7 +27,11 @@ export default Model.extend({
   }),
 
   designations: Ember.computed("items.@each.orderCode", "allDesignated", function() {
-    return this.get("designatedItems").map(a => a.get('designation')).uniq();
+    var designatedPackages = [];
+    this.get("designatedSetItemOrderPackages").forEach(designationId => {
+      designatedPackages.push(this.store.peekRecord('designation', designationId));
+    });
+    return designatedPackages;
   }),
 
   shareSingleDesignation: Ember.computed("items.@each.orderCode", "allDesignated", function() {
@@ -98,6 +103,7 @@ export default Model.extend({
         sameSingleDesignation = false;
       }
     });
+    this.set("designatedSetItemOrderPackages", designatedPackages);
     return (designatedPackages.get("length") === this.get("items.length") && sameSingleDesignation) ? true : false;
   }),
 
