@@ -29,13 +29,29 @@
 {{#message-box btn1Text=(t "okay") btn1Callback=(action "designatePartialItem") btn2Text=(t "cancel") isVisible=partiallyDesignatedPopUp classNames="popupOverlay designate-form"}}
 
   {{#if (is-and item.isSet (is-equal item.isSet (is-equal item.isSet returnsDesignateFullSet)))}}
-    <p>{{t "designate.already_partially_designated" code=order.code qty=totalPartialDesignatedItems partial_qty=partial_quantity}}</p>
     {{#each item.setItem.items as |item|}}
       {{partial 'items/set_item_block'}}
     {{/each}}
+    {{#each designatedSetOrdersPackages as |ordersPackage|}}
+      <div class="warnings">
+        <div class="warning_text">
+          <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
+          <div class="right-message">
+            <div>Increases {{ordersPackage.state}} quantity by {{js-add ordersPackage.quantity partial_quantity}} for {{ordersPackage.designation.code}}! ({{ordersPackage.quantity}} previously {{ordersPackage.state}} - item {{ordersPackage.item.inventoryNumber}})</div>
+          </div>
+        </div>
+      </div>
+    {{/each}}
   {{else}}
-    <p>{{t "designate.already_partially_designated" code=order.code qty=totalPartialDesignatedItems partial_qty=partial_quantity}}</p>
     {{partial 'orders/item_block'}}
+    <div class="warnings">
+      <div class="warning_text">
+        <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
+        <div class="right-message">
+          <div>Increases {{designatedRecord.state}} quantity by {{js-add totalPartialDesignatedItems partial_quantity}} for {{order.code}}! ({{totalPartialDesignatedItems}} previously {{designatedRecord.state}})</div>
+        </div>
+      </div>
+    </div>
   {{/if}}
 {{/message-box}}
 

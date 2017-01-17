@@ -12,8 +12,10 @@ export default Ember.Component.extend({
   partial_quantity: 0,
   messageBox: Ember.inject.service(),
   partiallyDesignatedPopUp: false,
+  designatedSetOrdersPackages: [],
   partialDesignatedConfirmationPopUp: false,
   totalPartialDesignatedItems: 0,
+  designatedRecord: null,
   cannotDesignateToSameOrder: false,
   designateFullSet: Ember.computed.localStorage(),
 
@@ -97,15 +99,31 @@ export default Ember.Component.extend({
     this.set('hasCancelledState', false);
     var order = this.get('order');
     var item = this.get('item');
-    this.get('store').peekAll("orders_package").filterBy("itemId", parseInt(item.id)).forEach(record => {
-      if(record.get('itemId') === parseInt(item.id) && record.get('designationId') === parseInt(order.id)) {
-          total += record.get('quantity');
-          this.set('alreadyPartiallyDesignated', true);
-          this.set('orderPackageId', record.get('id'));
-        }
+    var designatedSetOrdersPackages = [];
+    if(item.get("isSet")) {
+      item.get("setItem.items").forEach(item => {
+      item.get("ordersPackages").forEach(record => {
+        if(record.get("state") !== "cancelled" && record.get('itemId') === parseInt(item.id) && record.get('designationId') === parseInt(order.id)) {
+            this.set('alreadyPartiallyDesignated', true);
+            this.set('orderPackageId', record.get('id'));
+            designatedSetOrdersPackages.push(record);
+          }
+        });
       });
-    this.set('totalPartialDesignatedItems', total);
-    return this.get('alreadyPartiallyDesignated');
+      this.set("designatedSetOrdersPackages", designatedSetOrdersPackages);
+      return this.get("alreadyPartiallyDesignated");
+    } else {
+      this.get('store').peekAll("orders_package").filterBy("itemId", parseInt(item.id)).forEach(record => {
+        if(record.get('itemId') === parseInt(item.id) && record.get('designationId') === parseInt(order.id)) {
+            total += record.get('quantity');
+            this.set("designatedRecord", record);
+            this.set('alreadyPartiallyDesignated', true);
+            this.set('orderPackageId', record.get('id'));
+          }
+        });
+      this.set('totalPartialDesignatedItems', total);
+      return this.get('alreadyPartiallyDesignated');
+    }
   }),
 
   actions: {
@@ -120,9 +138,6 @@ export default Ember.Component.extend({
         return false;
       }
 
-      // if(this.get("isDesignatedToCurrentOrder") && !this.get("isSet")) {
-      //   this.set("displayAlertOverlay", true);
-      // } else
       if(this.get('isDesignatedToCurrentPartialOrder') && this.get('partial_quantity')) {
         if(this.get('designatedOnce') && !this.get('cancelledState')) {
           this.set('partiallyDesignatedPopUp', true);
