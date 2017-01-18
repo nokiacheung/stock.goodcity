@@ -6,8 +6,9 @@ const { getOwner } = Ember;
 
 export default searchModule.extend({
 
-  queryParams: ['searchInput', 'isSet', 'isUndispatch', 'isPartialMove'],
+  queryParams: ['searchInput', 'isSet', 'isUndispatch', 'isPartialMove', 'ordersPackageId'],
   isSet: false,
+  ordersPackageId: null,
   isMobileApp: config.cordova.enabled,
   searchInput: "",
   moveItemPath: "",
@@ -117,7 +118,7 @@ export default searchModule.extend({
       var url = `/items/${item.get('id')}/move_full_quantity`;
       var loadingView = getOwner(this).lookup('component:loading').append();
 
-      new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get('id')}).then(data => {
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get('id'), ordersPackageId: this.get("ordersPackageId")}).then(data => {
         this.get("store").pushPayload(data);
         var itemBackLinkPath = this.get('moveItemPath');
         if(itemBackLinkPath === "items.index" || itemBackLinkPath === "items"){
