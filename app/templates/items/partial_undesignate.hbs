@@ -92,9 +92,7 @@
           <div class="warnings columns small-8 medium-8">
             <div class="warning_text" style="margin-top:0 !important">
               <div class="right-message">
-                {{#link-to 'orders.detail' ordersPackage.designation.id tagName='span' href=false}}
-                  {{t "item.max_undesignate" qty=ordersPackage.quantity code=ordersPackage.designation.code}}
-                {{/link-to}}
+                {{t "item.max_undesignate" qty=ordersPackage.quantity code=ordersPackage.designation.code}}
               </div>
             </div>
           </div>
