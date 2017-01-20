@@ -93,7 +93,7 @@
   <div class="row">
     <div class="small-12 columns item_count">
       <span>{{t "order_details.items"}}</span>
-      ({{model.designatedItems.length}} Designated, {{model.dispatchedItems.length}} Dispatched)
+      ({{model.designatedOrdersPackages.length}} Designated, {{model.dispatchedOrdersPackages.length}} Dispatched)
     </div>
   </div>
 
@@ -110,8 +110,8 @@
     </div>
   {{/unless}}
 
-  {{#each itemsList as |item|}}
-    {{partial "orders/item_block"}}
+  {{#each itemsList as |ordersPackage|}}
+    {{partial "orders/orders_packages"}}
   {{/each}}
 
   <div class="row show_more" >

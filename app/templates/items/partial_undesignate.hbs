@@ -1,0 +1,134 @@
+<div class="row item_block item_header">
+  <div class="row dispatch_details {{if model.hasAllPackagesDispatched 'dispatched'}} {{if model.hasAllPackagesDesignated 'designated'}} {{if (is-and (is-not model.quantity) model.designatedOrdersPackages.length) 'designated'}}">
+    <div class="small-3 columns">
+      {{#if model.hasAllPackagesDesignated}}
+        {{#if model.hasOneDesignatedPackage}}
+          {{#link-to 'items.partial_undesignate' model.id tagName='span' href=false}}
+            <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
+          {{/link-to}}
+        {{else}}
+          {{#link-to 'items.partial_undesignate' model.id tagName='span' href=false}}
+            <i class="fa fa-shopping-basket"></i> {{t "item.multiple_designation"}}
+          {{/link-to}}
+        {{/if}}
+      {{else if model.hasAllPackagesDispatched}}
+        {{#if model.hasOneDispatchedPackage}}
+          {{#link-to 'orders.detail' model.hasOneDispatchedPackage.designation.id tagName='span' href=false}}
+            <i class="fa fa-ship"></i> {{model.hasOneDispatchedPackage.designation.code}}
+          {{/link-to}}
+        {{else}}
+          <i class="fa fa-ship"></i> {{t "item.all_dispatched"}}
+        {{/if}}
+      {{else if (is-not model.quantity)}}
+        {{#if model.hasOneDesignatedPackage}}
+          {{#link-to 'items.partial_undesignate' model.id tagName='span' href=false}}
+            <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
+          {{/link-to}}
+        {{else if model.designatedOrdersPackages.length}}
+          {{#link-to 'items.partial_undesignate' model.id tagName='span' href=false}}
+            <i class="fa fa-shopping-basket"></i> {{t "item.multiple_designation"}}
+          {{/link-to}}
+        {{else if model.hasOneDispatchedPackage}}
+          {{#link-to 'orders.detail' model.hasOneDispatchedPackage.designation.id tagName='span' href=false}}
+            <i class="fa fa-ship"></i> {{model.hasOneDispatchedPackage.designation.code}}
+          {{/link-to}}
+        {{else if model.dispatchedOrdersPackages.length}}
+          <i class="fa fa-ship"></i> {{t "item.all_dispatched"}}
+        {{/if}}
+      {{else}}
+        {{publish-stock-item item=model}}
+      {{/if}}
+    </div>
+    <div class="small-6 columns location-name">
+      {{#unless model.hasAllPackagesDispatched}}
+        <i class="fa fa-map-marker"></i> {{model.location.name}}
+      {{/unless}}
+    </div>
+    <div class="small-3 columns">
+      <i class="fa {{if model.isSet 'fa-tags' 'fa-tag'}}"></i> {{model.inventoryNumber}}
+    </div>
+  </div>
+
+  <div class="row other_details item_details">
+    <div class="small-3 large-2 columns image">
+      <img src={{model.thumbImageUrl}} class="thumb"/>
+    </div>
+
+    {{#if hideDetailsLink}}
+      {{#link-to 'items.detail' model.id }}
+        <div class="small-6 large-8 columns name_details">
+          <div class="ellipsis name one-line-ellipsis">{{model.quantity}} x {{model.code.name}}</div>
+          <div class="ellipsis two-line-ellipsis">
+            {{model.notes}}
+          </div>
+        </div>
+      {{/link-to}}
+    {{else}}
+      {{#link-to 'items.detail' model.id }}
+        <div class="small-6 large-8 columns name_details">
+          <div class="ellipsis name one-line-ellipsis" style="display: inline!important">{{model.quantity}} x {{model.code.name}}</div>
+          <span style="margin-left: 0.25rem;">
+            {{model.quantity}}/{{model.totalDesignatedQty}}/{{model.totalDispatchedQty}}
+          </span>
+          <div class="ellipsis two-line-ellipsis">
+            {{model.notes}}
+          </div>
+        </div>
+      {{/link-to}}
+    {{/if}}
+
+  </div>
+
+  {{#if model.orderPackagesMoreThenZeroQty}}
+    <div class="confirm_quantity">Confirm the quantities you are undesignating.</div>
+  {{/if}}
+  <div class="partial_undesignate_block">
+    {{#if model.orderPackagesMoreThenZeroQty}}
+      {{#each model.orderPackagesMoreThenZeroQty as |ordersPackage|}}
+        <div class="row">
+          <div class="columns small-4 medium-4 partial_undesignate_textfield">
+            {{partial-undesignate-input id=ordersPackage.id value=ordersPackage.availableQty type="number" min="1" max=ordersPackage.quantity designationPackage=ordersPackage}}
+          </div>
+          <div class="warnings columns small-8 medium-8">
+            <div class="warning_text" style="margin-top:0 !important">
+              <div class="right-message">
+                {{t "item.max_undesignate" qty=ordersPackage.quantity code=ordersPackage.designation.code}}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      {{/each}}
+    {{else}}
+      <div class="already_dispatched">
+        {{t "item.already_dispatched"}}
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="undesignate-buttons">
+    <div clas="row">
+      <div class="columns small-6 medium-6">
+        {{#if model.orderPackagesMoreThenZeroQty}}
+          <button id="undesignateButton" type="submit" class="button expand"{{action 'getConfirmationPopUp' model}}>{{t "item.partial_undesignate"}}</button>
+        {{else}}
+          {{#link-to 'items.index' tagName='div' href=false}}
+            <button type="submit" class="button expand">{{t "okay"}}</button>
+          {{/link-to}}
+        {{/if}}
+      </div>
+      <div class="columns small-6 medium-6 undesignate-button">
+        {{#link-to 'items.index' tagName='div' href=false}}
+           <button type="submit" class="button expand">{{t "cancel"}}</button>
+        {{/link-to}}
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{{#message-box btn1Text=(t "okay") btn1Callback=(action "undesignate_partial_qty" model) btn2Text=(t "cancel") isVisible=promptUserPopUp classNames="popupOverlay designate-form undesignate-popup"}}
+  <div class="undesignate-message">
+    {{{print-key-value-pair codeAndQuantities}}}
+  </div>
+{{/message-box}}

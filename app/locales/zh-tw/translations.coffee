@@ -49,12 +49,19 @@ I18nTranslationsEn =
   "item":
     "edit": "edit"
     "designate": "designate"
+    "designate_partial": "Designate"
+    "partial_designate": "partial designate"
     "dispatch": "dispatch"
     "undispatch": "undispatch"
     "undesignate": "un-designate"
+    "partial_undesignate": "Un-designate"
     "separate": "separate"
     "move": "Move"
     "show_set_items": "Show other parts from the same set next"
+    "multiple_designation": "designated"
+    "all_dispatched": "Out of stock"
+    "max_undesignate": "From: {{code}}<br/>Quantity: {{qty}}"
+    "already_dispatched": "All designated Items are already dispatched"
 
   "designate":
     "form_title": "Designating this item to order {{code}}"
@@ -62,12 +69,16 @@ I18nTranslationsEn =
     "overrides_existing": "Overrides an existing designation."
     "quantity" : "Designates quantity of {{quantity}}."
     "already_designated": "This item is alreday designated to order {{code}}."
+    "already_partially_designated": "Already {{qty}} items are designated to {{code}}, do you still want to designate {{partial_qty}} more?"
+    "partial_designate_title": "Designates {{partial_qty}} quantity to order {{code}}"
+    "cannot_designate": "There are partial items already designated to order {{code}} or order {{code}} is in cancelled state. Use Partial Designate feature to designate more."
 
   "undesignate":
     "form_title": "Remove this item from order {{code}}"
     "undesignate": "Undesignate"
     "quantity": "Undesignates quantity of {{quantity}}."
     "set_part": "Undesignates only part of set."
+    "partial_undesignate": "Undesignates {{qty}} from order {{code}}."
 
   "dispatch":
     "dispatch": "Dispatch"

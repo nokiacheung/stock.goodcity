@@ -11,6 +11,14 @@ export default AuthorizeRoute.extend({
     return this.store.findRecord("item", params.item_id, { reload: true });
   },
 
+  afterModel(model) {
+    if(model.get('isSet')) {
+      model.get('setItem.items').forEach(item => {
+        this.store.findRecord("item", item.get("id"), { reload: true });
+      });
+    }
+  },
+
   itemBackLinkPath: Ember.computed.localStorage(),
 
   beforeModel() {
@@ -38,6 +46,7 @@ export default AuthorizeRoute.extend({
 
   setupController(controller, model){
     this._super(controller, model);
+    controller.set('callOrderObserver', false);
     controller.set('backLinkPath', this.get('itemBackLinkPath'));
   }
 

@@ -4,25 +4,25 @@
 
 <div class="receive-item-options {{if hidden 'hidden'}} {{if item.isSet 'set-options'}}">
 
-  <div class="{{if item.sentOn 'disabled'}}">
+  <div class="{{unless item.quantity 'disabled'}}">
     {{#link-to 'items.search_location' item.id tagName='div' href=false}}
       <i class="fa item-menu fa fa-map-marker"></i>
       {{t "item.move"}}
     {{/link-to}}
   </div>
 
-  <div class="{{if item.sentOn 'disabled'}}">
-    {{#link-to 'items.search_order' item.id tagName='div' href=false}}
-      <i class="fa item-menu fa fa-shopping-basket"></i>
+  <div class="{{unless item.quantity 'disabled'}}">
+    {{#link-to 'items.partial_designate' item.id tagName='div' href=false}}
+      <i class="fa item-menu fa fa-shopping-basket" {{action 'partialDesignateForSet'}}></i>
       {{t "item.designate"}}
     {{/link-to}}
   </div>
 
-  {{#if item.sentOn}}
+  {{#if item.hasOneDispatchedPackage}}
     {{ undispatch-item item=item closeList=(action 'toggle' true) }}
   {{else}}
-    <div class="{{unless item.designation 'disabled'}}">
-      {{dispatch-form item=item order=item.designation closeList=(action 'toggle' true) }}
+    <div class="{{unless item.hasOneDesignatedPackage 'disabled'}}">
+      {{dispatch-form item=item order=item.designation package=item.hasOneDesignatedPackage closeList=(action 'toggle' true) }}
     </div>
   {{/if}}
 

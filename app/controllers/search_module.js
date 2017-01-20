@@ -19,6 +19,7 @@ export default Ember.Controller.extend(InfinityRoute, {
   }),
 
   i18n: Ember.inject.service(),
+  store: Ember.inject.service(),
   isLoading: false,
   hasNoResults: false,
   itemSetId: null,
@@ -52,6 +53,11 @@ export default Ember.Controller.extend(InfinityRoute, {
         { perPage: 25, startingPage: 1, modelPath: 'filteredResults',stockRequest: true },
         { searchText: "searchText", itemId: "itemSetId", toDesignateItem: "toDesignateItem"})
         .then(data => {
+          data.forEach(record => {
+            if(record.constructor.toString() === "stock@model:designation:") {
+              this.store.query("orders_package", { search_by_order_id: record.get("id") });
+            }
+          });
           if(this.get("searchText") === data.meta.search) {
             this.set("filteredResults", data);
             this.set("hasNoResults", data.get("length") === 0);

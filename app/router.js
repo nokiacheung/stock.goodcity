@@ -18,10 +18,13 @@ Router.map(function() {
     this.route("new");
 
     this.route("detail", { path: "/:item_id" });
+    this.route("history", { path: "/:item_id/history" } );
     this.route("edit_images", { path: "/:item_id/edit_images" });
     this.route("search_location", { path: "/:item_id/search_location" });
     this.route("search_order", { path: "/:item_id/search_order" });
     this.route("search_code", { path: "/:item_id/search_code" });
+    this.route("partial_designate", { path: "/:item_id/partial_designate" });
+    this.route("partial_undesignate", { path: "/:item_id/partial_undesignate" });
   });
 
   this.route("orders", function() {

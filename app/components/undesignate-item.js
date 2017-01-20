@@ -6,6 +6,9 @@ export default Ember.Component.extend({
   displayUserPrompt: false,
   store: Ember.inject.service(),
   hideDetailsLink: true,
+  item: null,
+  orderPackage: null,
+  package: null,
 
   actions: {
     displayDesignateOverlay() {
@@ -14,10 +17,18 @@ export default Ember.Component.extend({
 
     undesignateItem() {
       var item = this.get("item");
-      var loadingView = getOwner(this).lookup('component:loading').append();
-      var url = `/items/${item.get('id')}/undesignate_stockit_item`;
+      var orderPackage = this.get("package");
+      var data = [];
+      var record = {};
+      record["orders_package_id"] = orderPackage.get('id');
+      record["package_id"] = orderPackage.get('packageId');
+      record["quantity"] = orderPackage.get('quantity');
+      data.push(record);
 
-      new AjaxPromise(url, "PUT", this.get('session.authToken'))
+      var loadingView = getOwner(this).lookup('component:loading').append();
+      var url = `/items/${item.get('id')}/undesignate_partial_item`;
+
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { package: data })
         .then(data => {
           this.get("store").pushPayload(data);
         })

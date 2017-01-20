@@ -12,9 +12,12 @@
 
 @import "templates/index";
 @import "templates/items/detail";
+@import "templates/items/history";
 @import "templates/items/new";
 @import "templates/items/index";
 @import "templates/items/edit_images";
+@import "templates/items/partial_designate";
+@import "templates/items/partial_undesignate";
 @import "templates/orders/detail";
 @import "templates/orders/index";
 @import "templates/orders/items";

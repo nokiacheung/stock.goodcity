@@ -1,4 +1,4 @@
-<div class="{{if item.sentOn 'disabled'}}" {{action "printBarcode"}}>
+<div class="{{if item.hasAllPackagesDispatched 'disabled'}}" {{action "printBarcode"}}>
   {{yield}}
 </div>
 
