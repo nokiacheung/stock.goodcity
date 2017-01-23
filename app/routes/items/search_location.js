@@ -7,6 +7,7 @@ export default AuthorizeRoute.extend({
     isSet: false
   },
 
+  orderId: null,
   itemMoveBackLinkPath: Ember.computed.localStorage(),
   itemPreviousRoute: Ember.computed.localStorage(),
 
@@ -17,6 +18,9 @@ export default AuthorizeRoute.extend({
     var path = "items.index";
 
     if(previousRoute) {
+      if(previousRoute.name === "orders.detail") {
+        this.set("orderId", previousRoute.params.order_id);
+      }
       this.set('itemPreviousRoute', previousRoute.name);
       var routeName = previousRoute.name;
       if(routeName.indexOf("detail")){
@@ -40,6 +44,7 @@ export default AuthorizeRoute.extend({
   setupController(controller, model){
     this._super(controller, model);
     controller.set('searchText', "");
+    controller.set("orderIdForOrderDetail", this.get("orderId"));
     controller.set('moveItemPath', this.get('itemPreviousRoute'));
     controller.set('backLinkPath', this.get('itemMoveBackLinkPath'));
   }
