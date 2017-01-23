@@ -4,9 +4,8 @@ export default Ember.TextField.extend({
   item: null,
   value: "",
   tagName: "input",
-  type:    "number",
   maxlength: "5",
-  attributeBindings: [ "name", "id", "value", 'placeholder', 'min', 'max'],
+  attributeBindings: [ "name", "id", "value", 'placeholder'],
 
   click() {
     this.set('qtyError', false);
@@ -18,7 +17,9 @@ export default Ember.TextField.extend({
   },
 
   focusTrigger: Ember.observer('value', function() {
-    if(this.get('value') < 0 || this.get('value') > this.get('item.quantity') || !(this.get('value').trim())) {
+    var regex = /^\d+$/;
+    var input_value = this.get('value');
+    if(input_value < 0 || input_value > this.get('item.quantity') || !(input_value.trim()) || !(regex.test(input_value))) {
       Ember.$(this.element).css("border", "1px solid #fddbdc");
       Ember.$('#partial_move')[0].disabled = true;
       this.$().focus();
