@@ -18,7 +18,7 @@ export default Ember.Controller.extend({
     return (ordersPackages.canonicalState.length) >= 3 ? this.set("displayAllItems", false) : this.set("displayAllItems", true);
   }),
 
-  itemsList: Ember.computed('model.items', 'displayAllItems', 'model.ordersPackages', function() {
+  itemsList: Ember.computed('model.items', 'displayAllItems', 'model.ordersPackages', 'model.ordersPackages.@each.quantity', function() {
     var ordersPackages = this.get("model.ordersPackages").filterBy("quantity");
     return this.get("displayAllItems") ? ordersPackages : ordersPackages.slice(0, 3);
   }),
