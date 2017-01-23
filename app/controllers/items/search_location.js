@@ -8,6 +8,7 @@ export default searchModule.extend({
 
   queryParams: ['searchInput', 'isSet', 'isUndispatch', 'isPartialMove', 'ordersPackageId'],
   isSet: false,
+  orderIdForOrderDetail: null,
   ordersPackageId: null,
   isMobileApp: config.cordova.enabled,
   searchInput: "",
