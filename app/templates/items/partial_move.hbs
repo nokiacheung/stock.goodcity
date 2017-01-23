@@ -56,7 +56,7 @@
     {{#each model.packagesLocationsList as |packages_location|}}
       <div class="row">
         <div class="columns small-6 partial_designate_textfield">
-          {{partial-move-input id=packages_location.id value=packages_location.quantityToMove type="number" min="1" max=packages_location.quantity item=packages_location}}
+          {{partial-move-input id=packages_location.id value=packages_location.quantityToMove item=packages_location}}
         </div>
         <div class="columns small-6">
           <div id="location-name">
