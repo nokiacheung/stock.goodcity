@@ -1,6 +1,6 @@
 import FactoryGuy from 'ember-data-factory-guy';
 
-FactoryGuy.define('code',{
+FactoryGuy.define('orders_package',{
   sequences: {
     id: function(num) {
       return num + 100;

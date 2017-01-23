@@ -22,6 +22,7 @@ FactoryGuy.define('item', {
     createdAt:        '12/01/2016',
     updatedAt:        '12/01/2016',
     notes:             "Example",
+    orders_packages:   FactoryGuy.hasMany('orders_package'),
     // designation:      FactoryGuy.belongsTo('designation')
   }
 });
