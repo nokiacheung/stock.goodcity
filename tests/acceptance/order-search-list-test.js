@@ -32,7 +32,7 @@ test("Order has designated OrdersPackage", function(assert) {
   visit("/orders/");
 
   mockFindAll('designation').returns({ json: {designations: [designation.toJSON({includeId: true})], items: [item.toJSON({includeId: true})], orders_packages: [orders_package.toJSON({includeId: true})], meta: {search: designation.get('code').toString()}}});
-    mockFindAll('orders_package').returns({ json: {orders_packages: [orders_package.toJSON({includeId: true})]}});
+  mockFindAll('orders_package').returns({ json: {orders_packages: [orders_package.toJSON({includeId: true})]}});
 
   fillIn('#searchText', designation.get("code"));
 
@@ -47,7 +47,7 @@ test("Order has dispatched OrdersPackage", function(assert) {
   visit("/orders/");
 
   mockFindAll('designation').returns({ json: {designations: [designation.toJSON({includeId: true})], items: [item1.toJSON({includeId: true})], orders_packages: [orders_package1.toJSON({includeId: true})], meta: {search: designation.get('code').toString()}}});
-    mockFindAll('orders_package').returns({ json: {orders_packages: [orders_package1.toJSON({includeId: true})]}});
+  mockFindAll('orders_package').returns({ json: {orders_packages: [orders_package1.toJSON({includeId: true})]}});
 
   fillIn('#searchText', designation.get("code"));
 
