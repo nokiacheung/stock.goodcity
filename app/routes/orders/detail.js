@@ -4,6 +4,7 @@ import Ember from 'ember';
 export default getOrderRoute.extend({
 
   orderBackLinkPath: Ember.computed.localStorage(),
+  itemIdforHistoryRoute: null,
 
   beforeModel() {
     var previousRoutes = this.router.router.currentHandlerInfos;
@@ -13,7 +14,7 @@ export default getOrderRoute.extend({
     if(previousRoute) {
       var routeName = previousRoute.name;
       if(routeName === "items.history") {
-        window.location.reload();
+        this.set("itemIdforHistoryRoute", previousRoute.params.item_id);
       }
       if(routeName.indexOf("orders")) {
         switch(routeName) {
@@ -44,6 +45,11 @@ export default getOrderRoute.extend({
 
   setupController(controller, model){
     if(model) {
+      var itemId = this.get('itemIdforHistoryRoute');
+      if(itemId)
+      {
+        controller.set('itemIdforHistoryRoute', itemId);
+      }
       this._super(controller, model);
       controller.set('backLinkPath', this.get('orderBackLinkPath'));
     }

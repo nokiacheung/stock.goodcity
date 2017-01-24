@@ -1,9 +1,16 @@
 <nav class="tab-bar order_fixed_header">
   <section class="left-small">
+  {{#if (is-equal backLinkPath "items.history")}}
+    {{#link-to "items.history" itemIdforHistoryRoute classNames="back" }}
+      <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
+      <div>{{t "back"}}</div>
+    {{/link-to}}
+  {{else}}
     {{#link-to backLinkPath classNames="back" }}
       <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
       <div>{{t "back"}}</div>
     {{/link-to}}
+  {{/if}}
   </section>
 
   <section class="middle tab-bar-section">
