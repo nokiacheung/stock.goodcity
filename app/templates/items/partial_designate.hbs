@@ -199,9 +199,9 @@
   <div class="confirm_quantity">Confirm the quantities you are designating.</div>
     <div class="columns small-4 partial_designate_textfield">
       {{#if model.isSet}}
-        {{partial-designate-input id=model.id value=model.minSetQty type="number" min="1" max=model.quantity item=model}}
+        {{partial-designate-input id=model.id value=model.minSetQty item=model}}
       {{else}}
-        {{partial-designate-input id=model.id value=model.availableQty type="number" min="1" max=model.quantity item=model}}
+        {{partial-designate-input id=model.id value=model.availableQty item=model}}
       {{/if}}
     </div>
     <div class="columns small-4">
