@@ -87,7 +87,7 @@
       {{#each model.orderPackagesMoreThenZeroQty as |ordersPackage|}}
         <div class="row">
           <div class="columns small-4 medium-4 partial_undesignate_textfield">
-            {{partial-undesignate-input id=ordersPackage.id value=ordersPackage.availableQty type="number" min="1" max=ordersPackage.quantity designationPackage=ordersPackage}}
+            {{partial-undesignate-input id=ordersPackage.id value=ordersPackage.availableQty designationPackage=ordersPackage}}
           </div>
           <div class="warnings columns small-8 medium-8">
             <div class="warning_text" style="margin-top:0 !important">
