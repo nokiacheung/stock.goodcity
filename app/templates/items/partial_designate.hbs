@@ -179,12 +179,14 @@
   {{/if}}
 
   <div class="warnings">
-    <div class="warning_text">
-      <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
-      <div class="right-message">
-        <div class="move-message">Designates only part of set.</div>
-      </div>
-    </div><br/>
+    {{#if model.isSet}}
+      <div class="warning_text">
+        <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
+        <div class="right-message">
+          <div class="move-message">Designates only part of set.</div>
+        </div>
+      </div><br/>
+    {{/if}}
     <div class="warning_text">
       <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
       <div class="right-message">
