@@ -23,7 +23,7 @@ FactoryGuy.define('item', {
     updatedAt:        '12/01/2016',
     notes:             "Example",
     orders_packages:   FactoryGuy.hasMany('orders_package'),
-    // designation:      FactoryGuy.belongsTo('designation')
+    designation:      FactoryGuy.belongsTo('designation')
   }
 });
 

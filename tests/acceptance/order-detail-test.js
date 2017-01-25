@@ -15,8 +15,8 @@ module('Order search list', {
     App = startApp({}, 2);
     TestHelper.setup();
     designation = FactoryGuy.make("designation", { state: "closed" });
-    item = FactoryGuy.make("item", { state: "submitted" });
-    item1 = FactoryGuy.make("item", { state: "submitted", quantity: 10 });
+    item = FactoryGuy.make("item", { state: "submitted" , designation: designation});
+    item1 = FactoryGuy.make("item", { state: "submitted", quantity: 10 , designation: designation});
     orders_package = FactoryGuy.make("orders_package", { state: "designated", quantity: 6, item: item, designation: designation });
     orders_package1 = FactoryGuy.make("orders_package", { state: "dispatched", quantity: 4, item: item1, designation: designation });
 
