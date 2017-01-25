@@ -23,6 +23,7 @@ export default Ember.Controller.extend({
         var value = parseInt(Ember.$(`#${packages_location_id}`)[0].value);
         var packages_location = this.get('store').peekRecord('packages_location', packages_location_id);
         record["packages_location_id"] = packages_location_id;
+        record["location_id"] = packages_location.get('location_id');
         record["package_id"] = packages_location.get('package_id');
         record["new_qty"] = value;
         totalQty += value;

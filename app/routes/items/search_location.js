@@ -47,5 +47,6 @@ export default AuthorizeRoute.extend({
     controller.set("orderIdForOrderDetail", this.get("orderId"));
     controller.set('moveItemPath', this.get('itemPreviousRoute'));
     controller.set('backLinkPath', this.get('itemMoveBackLinkPath'));
+    controller.set('selectedLocation', null);
   }
 });

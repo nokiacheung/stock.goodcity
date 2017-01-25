@@ -40,7 +40,12 @@ export default searchModule.extend({
   }),
 
   totalQty: Ember.computed('selectedLocation', function(){
-    return localStorage['totalQty'];
+    var existingPackagesLocation = JSON.parse(localStorage['packagesLoacationQty']).findBy('location_id', parseInt(this.get('selectedLocation.id')));
+    if(existingPackagesLocation){
+      return localStorage['totalQty'] - existingPackagesLocation['new_qty'];
+    } else {
+      return localStorage['totalQty'];
+    }
   }),
 
   onSearchInputChange: Ember.observer("searchInput", function() {
@@ -179,5 +184,4 @@ export default searchModule.extend({
         });
     }
   },
-
 });
