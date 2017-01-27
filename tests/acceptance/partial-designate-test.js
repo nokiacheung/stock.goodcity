@@ -34,7 +34,6 @@ module('Item search list', {
 });
 
 test("Partially designating a Package", function(assert) {
-  var done = assert.async();
   assert.expect(4);
 
   mockFindAll('designation').returns({json: {designations: [designation.toJSON({includeId: true})]}});
@@ -66,12 +65,12 @@ test("Partially designating a Package", function(assert) {
 
   andThen(function() {
     //actions list
-    click($('.options-link-open'));
+    click(find('.options-link-open'));
   });
 
   andThen(function() {
     //designate
-    click($('.receive-item-options div:eq(2) div'));
+    click(find('.receive-item-options div:eq(2) div'));
   });
 
   andThen(function() {
@@ -79,8 +78,8 @@ test("Partially designating a Package", function(assert) {
     assert.equal(currentPath(), "items.partial_designate");
     andThen(function() {
       //putting value to textfield and clicking ok
-      fillIn($('.partial_designate_textfield input'), 5);
-      click($('button#partial_designate'));
+      fillIn(find('.partial_designate_textfield input'), 5);
+      click(find('button#partial_designate'));
     });
   });
 
@@ -88,10 +87,10 @@ test("Partially designating a Package", function(assert) {
     //search order to designate
     assert.equal(currentPath(), "items.search_order");
     //clicking on first recently used order
-    click($('ul.list li:first'));
+    click(find('ul.list li:first'));
     andThen(function() {
       //click ok on messagebox
-      click($('div#messageBox:eq(2) a:last'));
+      click(find('div#messageBox:eq(2) a:last'));
     });
   });
 
@@ -99,6 +98,5 @@ test("Partially designating a Package", function(assert) {
     //redirect to item's index after partial designate
     assert.equal(currentPath(), "items.index");
   });
-  done();
 });
 
