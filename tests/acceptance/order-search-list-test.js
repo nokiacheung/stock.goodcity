@@ -37,7 +37,7 @@ test("Order has designated OrdersPackage", function(assert) {
   fillIn('#searchText', designation.get("code"));
 
   andThen(function(){
-    assert.equal(parseInt($('ul.list li:first div.small-4.columns').text().trim().replace(/ +/g, "")), 1);
+    assert.equal(parseInt(find('ul.list li:first div.small-4.columns').text().trim().replace(/ +/g, "")), 1);
   });
 });
 
@@ -52,6 +52,6 @@ test("Order has dispatched OrdersPackage", function(assert) {
   fillIn('#searchText', designation.get("code"));
 
   andThen(function(){
-    assert.equal(parseInt($('ul.list li:first div.small-4.columns').text().trim().replace(/ +/g, "").slice(-1)), 1);
+    assert.equal(parseInt(find('ul.list li:first div.small-4.columns').text().trim().replace(/ +/g, "").slice(-1)), 1);
   });
 });

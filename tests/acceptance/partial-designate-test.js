@@ -61,14 +61,8 @@ test("Partially designating a Package", function(assert) {
 
   andThen(function() {
     assert.equal(currentPath(), "items.index");
-  });
-
-  andThen(function() {
     //actions list
     click(find('.options-link-open'));
-  });
-
-  andThen(function() {
     //designate
     click(find('.receive-item-options div:eq(2) div'));
   });
@@ -76,11 +70,9 @@ test("Partially designating a Package", function(assert) {
   andThen(function() {
     //partial designate page
     assert.equal(currentPath(), "items.partial_designate");
-    andThen(function() {
-      //putting value to textfield and clicking ok
-      fillIn(find('.partial_designate_textfield input'), 5);
-      click(find('button#partial_designate'));
-    });
+    //putting value to textfield and clicking ok
+    fillIn(find('.partial_designate_textfield input'), 5);
+    click(find('button#partial_designate'));
   });
 
   andThen(function() {
@@ -88,10 +80,11 @@ test("Partially designating a Package", function(assert) {
     assert.equal(currentPath(), "items.search_order");
     //clicking on first recently used order
     click(find('ul.list li:first'));
-    andThen(function() {
-      //click ok on messagebox
-      click(find('div#messageBox:eq(2) a:last'));
-    });
+  });
+
+  andThen(function() {
+    //click ok on messagebox
+    click(find('div#messageBox:eq(2) a:last'));
   });
 
   andThen(function() {
