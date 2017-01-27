@@ -34,6 +34,7 @@ module('Item search list', {
 });
 
 test("Partially designating a Package", function(assert) {
+  var done = assert.async();
   assert.expect(4);
 
   mockFindAll('designation').returns({json: {designations: [designation.toJSON({includeId: true})]}});
@@ -98,5 +99,6 @@ test("Partially designating a Package", function(assert) {
     //redirect to item's index after partial designate
     assert.equal(currentPath(), "items.index");
   });
+  done();
 });
 
