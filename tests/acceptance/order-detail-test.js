@@ -10,7 +10,7 @@ import { mockFindAll } from 'ember-data-factory-guy';
 
 var App, designation, item, item1, orders_package, orders_package1;
 
-module('Order search list', {
+module('Acceptance: Order Detail', {
   beforeEach: function() {
     App = startApp({}, 2);
     TestHelper.setup();
@@ -41,7 +41,7 @@ test("Designated/Dispatched item count on Order detail", function(assert) {
 
   andThen(function() {
     assert.equal(currentPath(), "orders.detail");
-    assert.equal(find('.item_count').text().trim().replace(/(\r\n|\n|\r)/gm,""), "Items      (1 Designated, 1 Dispatched)");
+    assert.equal($('.item_count').text().trim().replace(/(\r\n|\n|\r)/gm,""), "Items      (1 Designated, 1 Dispatched)");
   });
 });
 
@@ -51,49 +51,49 @@ test("Dispatched/Designated OrdersPackage's status_bar has different colors", fu
   andThen(function() {
     assert.equal(currentPath(), "orders.detail");
     //status bar color for designated OrdersPackage
-    assert.equal(find('.item_block div.dispatch_details.designated').css('background-color'), "rgb(51, 79, 117)");
+    assert.equal($('.item_block div.dispatch_details.designated').css('background-color'), "rgb(51, 79, 117)");
     //status bar color for dispatched OrdersPackage
-    assert.equal(find('.item_block div.dispatch_details.dispatched').css('background-color'), "rgb(0, 28, 66)");
+    assert.equal($('.item_block div.dispatch_details.dispatched').css('background-color'), "rgb(0, 28, 66)");
   });
 });
 
 test("Available actions for designated OrdersPackage", function(assert) {
   assert.expect(3);
 
-  click(find('.options-link-open:first'));
+  click($('.options-link-open:first'));
 
   andThen(function() {
     //available actions are dispatch and un-designate
     assert.equal(currentPath(), "orders.detail");
-    assert.equal(find('div.receive-options:eq(0) div .fa-ship').parent().text().trim(), "dispatch");
-    assert.equal(find('div.receive-options:eq(0) div .fa-times-circle-o').parent().text().trim(), "un-designate");
+    assert.equal($('div.receive-options:eq(0) div .fa-ship').parent().text().trim(), "dispatch");
+    assert.equal($('div.receive-options:eq(0) div .fa-times-circle-o').parent().text().trim(), "un-designate");
   });
 });
 
 test("Available actions for dispatched OrdersPackage", function(assert) {
   assert.expect(3);
 
-  click(find('.options-link-open:first'));
+  click($('.options-link-open:first'));
 
   andThen(function() {
     //available action is undispatch
     assert.equal(currentPath(), "orders.detail");
-    assert.equal(find('div.receive-options:eq(1) div .fa-exclamation-triangle:first').parent().text().trim(), "undispatch");
+    assert.equal($('div.receive-options:eq(1) div .fa-exclamation-triangle:first').parent().text().trim(), "undispatch");
     //un-designate action disabled
-    assert.equal(find('div.receive-options:eq(1) div .fa-times-circle-o').parent().attr('class'), "disabled");
+    assert.equal($('div.receive-options:eq(1) div .fa-times-circle-o').parent().attr('class'), "disabled");
   });
 });
 
 test("Item description shows quantity of OrdersPackage not Item", function(assert) {
   assert.expect(3);
 
-  click(find('.options-link-open:first'));
+  click($('.options-link-open:first'));
 
   andThen(function() {
     assert.equal(currentPath(), "orders.detail");
     //qty of designated Orderspackage
-    assert.equal(find('.one-line-ellipsis:first').text().substr(0,2).trim(), "6");
+    assert.equal($('.one-line-ellipsis:first').text().substr(0,2).trim(), "6");
     //qty of dispatched Orderspackage
-    assert.equal(find('.one-line-ellipsis:last').text().substr(0,2).trim(), "4");
+    assert.equal($('.one-line-ellipsis:last').text().substr(0,2).trim(), "4");
   });
 });

@@ -11,7 +11,7 @@ import { mockFindAll } from 'ember-data-factory-guy';
 
 var App, designation, designation1, item, item1, item2, item3, item4, item5, orders_package, orders_package1, orders_package2, orders_package3, orders_package4, orders_package5, orders_package6;
 
-module('Item search list', {
+module('Acceptance: Item search list', {
   beforeEach: function() {
     App = startApp({}, 2);
     TestHelper.setup();
@@ -51,9 +51,9 @@ test("Item status bar shows In-stock for non-designated item", function(assert) 
 
   andThen(function() {
     assert.equal(currentPath(), "items.index");
-    assert.equal(find('.item_block div.dispatch_details div.stock_status:first').text().trim(), "In Stock");
+    assert.equal($('.item_block div.dispatch_details div.stock_status:first').text().trim(), "In Stock");
     //Test for available/designated/dispatched item count
-    assert.equal(find('.available-designate-dispatch-count:first').text().trim(), "10/0/0");
+    assert.equal($('.available-designate-dispatch-count:first').text().trim(), "10/0/0");
   });
 });
 
@@ -66,9 +66,9 @@ test("Item status bar shows designation code if full qty is designated to one or
 
   andThen(function() {
     assert.equal(currentPath(), "items.index");
-    assert.equal(find('.item_block div.dispatch_details div:first').text().trim(), "L24404");
+    assert.equal($('.item_block div.dispatch_details div:first').text().trim(), "L24404");
     //Test for available/designated/dispatched item count
-    assert.equal(find('.available-designate-dispatch-count:first').text().trim(), "0/10/0");
+    assert.equal($('.available-designate-dispatch-count:first').text().trim(), "0/10/0");
   });
 });
 
@@ -81,9 +81,9 @@ test("Item status bar shows In-stock if item(qty > 0) is partially designated", 
 
   andThen(function() {
     assert.equal(currentPath(), "items.index");
-    assert.equal(find('.item_block div.dispatch_details div.stock_status').text().trim(), "In Stock");
+    assert.equal($('.item_block div.dispatch_details div.stock_status').text().trim(), "In Stock");
     //Test for available/designated/dispatched item count
-    assert.equal(find('.available-designate-dispatch-count:first').text().trim(), "5/5/0");
+    assert.equal($('.available-designate-dispatch-count:first').text().trim(), "5/5/0");
   });
 });
 
@@ -96,9 +96,9 @@ test("Item status bar shows 'designated' if item(qty = 0) is partially designate
 
   andThen(function() {
     assert.equal(currentPath(), "items.index");
-    assert.equal(find('.item_block div.dispatch_details div span').text().trim(), "designated");
+    assert.equal($('.item_block div.dispatch_details div span').text().trim(), "designated");
     //Test for available/designated/dispatched item count
-    assert.equal(find('.available-designate-dispatch-count:first').text().trim(), "0/10/0");
+    assert.equal($('.available-designate-dispatch-count:first').text().trim(), "0/10/0");
   });
 });
 
@@ -111,9 +111,9 @@ test("Item status bar shows Order code if item(qty = 0) is partially dispatched 
 
   andThen(function() {
     assert.equal(currentPath(), "items.index");
-    assert.equal(find('.item_block div.dispatch_details div span').text().trim(), "L24401");
+    assert.equal($('.item_block div.dispatch_details div span').text().trim(), "L24401");
     //Test for available/designated/dispatched item count
-    assert.equal(find('.available-designate-dispatch-count:first').text().trim(), "0/0/10");
+    assert.equal($('.available-designate-dispatch-count:first').text().trim(), "0/0/10");
   });
 });
 
@@ -126,8 +126,8 @@ test("Item status bar shows 'Out of Stock' if item(qty = 0) is fully dispatched 
 
   andThen(function() {
     assert.equal(currentPath(), "items.index");
-    assert.equal(find('.item_block div.dispatch_details div.small-3.columns:first').text().trim(), "Out of stock");
+    assert.equal($('.item_block div.dispatch_details div.small-3.columns:first').text().trim(), "Out of stock");
     //Test for available/designated/dispatched item count
-    assert.equal(find('.available-designate-dispatch-count:first').text().trim(), "0/0/10");
+    assert.equal($('.available-designate-dispatch-count:first').text().trim(), "0/0/10");
   });
 });

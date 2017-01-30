@@ -11,7 +11,7 @@ import { mockFindAll } from 'ember-data-factory-guy';
 
 var App, item, designation1, designation2, orders_package1, orders_package2;
 
-module('Order search list', {
+module('Acceptance: Item history', {
   beforeEach: function() {
     App = startApp({}, 2);
     TestHelper.setup();
@@ -35,7 +35,7 @@ module('Order search list', {
 test("Designated/Dispatched orders_packages count on item's history", function(assert) {
   assert.expect(2);
   assert.equal(currentPath(), "items.history");
-  assert.equal(find('.history-block div.row').length, 3);
+  assert.equal($('.history-block div.row').length, 3);
 });
 
 test("Designated/Dispatched orders_packages have ship/basket icons and respective status_bar color", function(assert) {

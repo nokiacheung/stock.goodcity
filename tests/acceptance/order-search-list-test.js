@@ -10,7 +10,7 @@ import { mockFindAll } from 'ember-data-factory-guy';
 
 var App, designation, item, item1, orders_package, orders_package1;
 
-module('Order search list', {
+module('Acceptance: Order search list', {
   beforeEach: function() {
     App = startApp({}, 2);
     TestHelper.setup();

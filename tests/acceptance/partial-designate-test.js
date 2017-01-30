@@ -11,7 +11,7 @@
 
 // var App, designation, item, item1, orders_package, orders_package1;
 
-// module('Item search list', {
+// module('Acceptance: Partial designate', {
 //   beforeEach: function() {
 //     App = startApp({}, 2);
 //     TestHelper.setup();
