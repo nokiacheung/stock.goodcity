@@ -34,9 +34,8 @@ module('Item search list', {
 });
 
 test("Partially designating a Package", function(assert) {
-  assert.expect(4);
-  var done = assert.async(4);
-
+  assert.expect(1);
+  var done = assert.async(1);
   mockFindAll('designation').returns({json: {designations: [designation.toJSON({includeId: true})]}});
 
   mockFindAll('item').returns({ json: {items: [item1.toJSON({includeId: true})], orders_packages: [orders_package1.toJSON({includeId: true})], meta: {search: item1.get('inventoryNumber').toString()}}});
@@ -61,46 +60,25 @@ test("Partially designating a Package", function(assert) {
   fillIn("#searchText", item.get("inventoryNumber"));
 
   andThen(function() {
-    assert.equal(currentPath(), "items.index");
     //actions list
-    andThen(function() {
-      click(find('.options-link-open'));
-      //designate
-      click(find('.receive-item-options div:eq(2) div'));
-    });
-    done();
+    click(find('.options-link-open'));
+    //designate
+    click(find('.receive-item-options div:eq(2) div'));
   });
 
   andThen(function() {
-    //partial designate page
     assert.equal(currentPath(), "items.partial_designate");
-    andThen(function() {
-      //putting value to textfield and clicking ok
-      fillIn(find('.partial_designate_textfield input'), 5);
-      click(find('button#partial_designate'));
-    });
     done();
+    //putting value to textfield and clicking ok
+    fillIn(find('.partial_designate_textfield input'), 5);
+    click(find('button#partial_designate'));
   });
 
   andThen(function() {
-    //search order to designate
-    assert.equal(currentPath(), "items.search_order");
-    andThen(function() {
-      //clicking on first recently used order
-      click(find('ul.list li:first'));
-    });
-    done();
-  });
-
-  andThen(function() {
+    //clicking on first recently used order
+    click(find('ul.list li:first'));
     //click ok on messagebox
     click(find('div#messageBox:eq(2) a:last'));
-  });
-
-  andThen(function() {
-    //redirect to item's index after partial designate
-    assert.equal(currentPath(), "items.index");
-    done();
   });
 });
 
