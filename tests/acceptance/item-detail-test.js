@@ -13,13 +13,13 @@ module('Acceptance: Item Detail', {
   beforeEach: function() {
     App = startApp({}, 2);
     TestHelper.setup();
-    order1 = FactoryGuy.make("designation", { state: "closed" });
-    order2 = FactoryGuy.make("designation", { state: "closed" });
-    pkg = FactoryGuy.make("item", { state: "submitted" , quantity: 10});
-    pkg1 = FactoryGuy.make("item", { state: "submitted" , designation: order2, quantity: 4});
-    pkg2 = FactoryGuy.make("item", { state: "submitted" , designation: order2, quantity: 0});
-    orders_pkg1 = FactoryGuy.make("orders_package", { state: "designated", quantity: 6, item: pkg1, designation: order1 });
-    orders_pkg2 = FactoryGuy.make("orders_package", { state: "dispatched", quantity: 10, item: pkg2, designation: order2 });
+    order1 = FactoryGuy.make("designation", { id: 100, state: "submitted" });
+    order2 = FactoryGuy.make("designation", { id: 101, state: "submitted" });
+    pkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 10});
+    pkg1 = FactoryGuy.make("item", { id: 51, state: "submitted" , designation: order2, quantity: 4});
+    pkg2 = FactoryGuy.make("item", { id: 52, state: "submitted" , designation: order2, quantity: 0});
+    orders_pkg1 = FactoryGuy.make("orders_package", { id: 500, state: "designated", quantity: 6, item: pkg1, designation: order1 });
+    orders_pkg2 = FactoryGuy.make("orders_package", { id: 501, state: "dispatched", quantity: 10, item: pkg2, designation: order2 });
   },
   afterEach: function() {
     Ember.run(function() { TestHelper.teardown(); });
