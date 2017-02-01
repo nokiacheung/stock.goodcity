@@ -31,17 +31,57 @@ module('Acceptance: Item Available actions', {
   }
 });
 
-test("Partially un-designating a Package", function(assert) {
-  assert.expect(1);
+test("Fully un-designating a Package", function(assert) {
+  assert.expect(2);
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
         items: [pkg1.toJSON({includeId: true})],
         orders_packages: [orders_pkg1.toJSON({includeId: true})]
       }
   });
 
+  mockFindAll('item').returns({ json: {items: [pkg1.toJSON({includeId: true})], orders_packages: [orders_pkg1.toJSON({includeId: true})], designations:[order1.toJSON({includeId: true})], meta: {search: pkg1.get('inventoryNumber').toString()}}});
+
   assert.equal(currentPath(), "items.index");
   fillIn("#searchText", pkg1.get("inventoryNumber"));
   andThen(function() {
+    //clicking on order code
     click($('.item_block:first div:first div:first'));
+  });
+  andThen(function() {
+    assert.equal(currentPath(), "items.partial_undesignate");
+    //clicking on undesignate button
+    click($('.undesignateButton'));
+  });
+  andThen(function() {
+    //clicking ok of message box
+    click($('#messageBox a:last'));
+  });
+});
+
+test("Partially un-designating a Package", function(assert) {
+  assert.expect(2);
+  $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
+        items: [pkg1.toJSON({includeId: true})],
+        orders_packages: [orders_pkg1.toJSON({includeId: true})]
+      }
+  });
+
+  mockFindAll('item').returns({ json: {items: [pkg1.toJSON({includeId: true})], orders_packages: [orders_pkg1.toJSON({includeId: true})], designations:[order1.toJSON({includeId: true})], meta: {search: pkg1.get('inventoryNumber').toString()}}});
+
+  assert.equal(currentPath(), "items.index");
+  fillIn("#searchText", pkg1.get("inventoryNumber"));
+  andThen(function() {
+    //clicking on order code
+    click($('.item_block:first div:first div:first'));
+  });
+  andThen(function() {
+    assert.equal(currentPath(), "items.partial_undesignate");
+    //clicking on undesignate button
+    fillIn($("input#500"), 5);
+    click($('.undesignateButton'));
+  });
+  andThen(function() {
+    //clicking ok of message box
+    click($('#messageBox a:last'));
   });
 });
