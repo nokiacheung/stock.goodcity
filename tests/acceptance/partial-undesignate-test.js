@@ -75,7 +75,7 @@
 //     click($('.item_block:first div:first div:first'));
 //   });
 //   andThen(function() {
-//     assert.equal(currentPath(), "items.partial_undesignate");
+//     assert.equal(currentPath(), "items.index");
 //     //clicking on undesignate button
 //     fillIn($("input#500"), 5);
 //     click($('.undesignateButton'));
