@@ -19,7 +19,7 @@ moduleForComponent('auto-resize-textarea', 'Integration | Component | auto resiz
   }
 });
 
-test('is an input tag', function(assert) {
+test('is an textarea tag', function(assert) {
   assert.expect(1);
   assert.equal($('#description').prop('tagName'), 'TEXTAREA');
 });
