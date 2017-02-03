@@ -15,13 +15,6 @@
       </div>
       <div class="image-action-list">
         {{#unless model.hasAllPackagesDispatched}}
-          {{#unless (is-equal (is-equal model.quantity 0) (is-not model.isSet))}}
-            <span {{action 'moveItemSet'}}>
-              <span class="no-avatar non-clickable-set-move">
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-              </span>"
-          {{/unless}}
-
           {{#if model.quantity}}
             {{#if (is-equal model.isSet model.setItem.hasZeroQty)}}
               {{#link-to 'items.partial_designate' model.id (query-params isSet=model.isSet) tagName='span' href=false}}
@@ -76,3 +69,4 @@
 
   {{partial "items/sticky_footer"}}
 </section>
+

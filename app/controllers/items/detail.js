@@ -72,7 +72,7 @@ export default Ember.Controller.extend({
           this.get("messageBox").alert("One or more items from this set are part of box or pallet. You can only move it using Stockit.");
         }
       } else {
-        this.transitionToRoute('items.search_location', this.get("item.id"), { queryParams: { isSet: false, partial_qty: "" }});
+        this.transitionToRoute('items.search_location', this.get("item.id"), { queryParams: { isSet: false, isPartialMove: false}});
       }
     },
   }

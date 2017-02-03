@@ -129,7 +129,12 @@
       </div>
       <div class="small-6 columns location-name">
         {{#unless model.hasAllPackagesDispatched}}
-          <i class="fa fa-map-marker"></i> {{model.location.name}}
+          <i class="fa fa-map-marker"></i>
+          {{#if model.hasSingleLocation}}
+            {{model.firstLocationName}}
+          {{else}}
+            {{#link-to 'items.partial_move' item.id tagName='span' href=false}} Multiple {{/link-to}}
+          {{/if}}
         {{/unless}}
       </div>
       <div class="small-3 columns">
