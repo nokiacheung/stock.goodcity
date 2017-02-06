@@ -39,7 +39,6 @@ export default searchModule.extend({
             this.set("filteredResults", data);
             this.set("hasNoResults", data.get("length") === 0);
           }
-
           if(data.get("length") === 1) {
             Ember.run.debounce(this, this.triggerDisplayDesignateOverlay, 100);
           }
