@@ -8,7 +8,6 @@ machine:
 dependencies:
   pre:
     - brew update
-    - brew unlink node
     - brew install homebrew/versions/node4-lts
     - brew install watchman
     - brew install android-sdk
