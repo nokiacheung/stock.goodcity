@@ -7,12 +7,17 @@ export default searchModule.extend({
   queryParams: ['searchInput'],
   searchInput: "",
   hideDetailsLink: true,
+  dataOnceRequested: false,
 
   orderId: Ember.computed.alias("model.id"),
-  displaySetBlock: true,
   isMobileApp: config.cordova.enabled,
   autoDisplayOverlay: false,
   minSearchTextLength: 2,
+
+  onSearchTextChange: Ember.observer("searchText", function() {
+    this.set('dataOnceRequested', false);
+    this._super(...arguments);
+  }),
 
   applyFilter() {
     this.set("autoDisplayOverlay", false);
@@ -24,6 +29,12 @@ export default searchModule.extend({
         { perPage: 25, startingPage: 1, modelPath: 'filteredResults', stockRequest: true },
         { orderId: "orderId", searchText: "searchText", itemId: "itemSetId" })
         .then(data => {
+          data.forEach(item => {
+            if(item.get('itemId') && !this.get('dataOnceRequested')) {
+              this.set('dataOnceRequested', true);
+              this.send('displaySetItems', item);
+            }
+          })
           if(this.get("searchText").trim() === data.meta.search) {
             this.set("filteredResults", data);
             this.set("hasNoResults", data.get("length") === 0);

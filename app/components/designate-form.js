@@ -132,13 +132,13 @@ export default Ember.Component.extend({
       this.set('partialDesignatedConfirmationPopUp', false);
       this.set('cannotDesignateToSameOrder', false);
 
-      if(this.get('isDesignatedToCurrentPartialOrder') && getOwner(this).lookup('controller:items.search_order').get('notPartialRoute'))
+      if(getOwner(this).lookup('controller:items.search_order').get('notPartialRoute') && this.get('isDesignatedToCurrentPartialOrder') )
       {
         this.set('cannotDesignateToSameOrder', true);
         return false;
       }
 
-      if(this.get('isDesignatedToCurrentPartialOrder') && this.get('partial_quantity')) {
+      if(this.get('partial_quantity') && this.get('isDesignatedToCurrentPartialOrder') ) {
         if(this.get('designatedOnce') && !this.get('cancelledState')) {
           this.set('partiallyDesignatedPopUp', true);
           return true;
@@ -157,30 +157,31 @@ export default Ember.Component.extend({
     },
 
     designateItem() {
+
       var order = this.get("order");
       var item = this.get("item");
-      var showAllSetItems = this.get("showAllSetItems");
+      //var showAllSetItems = this.get("showAllSetItems");
       this.set("showAllSetItems", false);
 
       var loadingView = getOwner(this).lookup('component:loading').append();
-      var url;
+      var url = `/items/${item.get('id')}/designate_partial_item`;
 
-      if(this.get("isSet")) {
-        url = `/items/${item.get('setItem.id')}/designate_stockit_item_set`;
-      } else {
-        url = `/items/${item.get('id')}/designate_stockit_item`;
-      }
+      var  properties = {
+        order_id: order.get("id"),
+        package_id: item.get('id'),
+        quantity: item.get('quantity'),
+      };
 
-      new AjaxPromise(url, "PUT", this.get('session.authToken'), { order_id: order.get("id") })
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { package: properties })
         .then(data => {
           this.get("store").pushPayload(data);
-          if(this.get("isSet")) {
-            this.get('router').transitionTo("items.detail", item, { queryParams: { showDispatchOverlay: this.get('showDispatchOverlay') }});
-          } else if(showAllSetItems) {
-            this.sendAction("displaySetItems");
-          } else {
+          // if(this.get("isSet")) {
+          //   this.get('router').transitionTo("items.detail", item, { queryParams: { showDispatchOverlay: this.get('showDispatchOverlay') }});
+          // } else if(showAllSetItems) {
+          //   this.sendAction("displaySetItems");
+          // } else {
             this.get('router').transitionTo("orders.detail", order);
-          }
+          // }
         })
         .finally(() => {
           loadingView.destroy();
