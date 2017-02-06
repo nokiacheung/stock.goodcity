@@ -14,7 +14,7 @@ export default searchModule.extend({
   searchInput: "",
   moveItemPath: "",
   packages_location_id: "",
-  packagesLoacationQty: "",
+  packagesLocationQty: "",
   movePartialQty: false,
   cantMoveToSameLocationForSingleLocation: false,
   isUndispatch: "",
@@ -34,13 +34,13 @@ export default searchModule.extend({
   hideDetailsLink: true,
 
   sameSingleLocation: Ember.computed("selectedLocation", function() {
-    if (this.get('item.packagesLocations').get('length') === 1){
-     return this.get('item.packagesLocations').get('firstObject').get("location_id") === parseInt(this.get('selectedLocation.id'));
+    if (this.get('item.packagesLocations').length === 1){
+     return this.get('item.packagesLocations.firstObject.locationId') === parseInt(this.get('selectedLocation.id'));
     }
   }),
 
   totalQty: Ember.computed('selectedLocation', function(){
-    var existingPackagesLocation = JSON.parse(localStorage['packagesLoacationQty']).findBy('location_id', parseInt(this.get('selectedLocation.id')));
+    var existingPackagesLocation = JSON.parse(localStorage['packagesLocationQty']).findBy('location_id', parseInt(this.get('selectedLocation.id')));
     if(existingPackagesLocation){
       return localStorage['totalQty'] - existingPackagesLocation['new_qty'];
     } else {
@@ -102,14 +102,14 @@ export default searchModule.extend({
     movePartialQty(){
       var location = this.get("selectedLocation");
       var item = this.get("item");
-      var packagesLoacationQty = localStorage['packagesLoacationQty'];
+      var packagesLocationQty = localStorage['packagesLocationQty'];
       var totalQty = localStorage["totalQty"];
 
       var loadingView = getOwner(this).lookup('component:loading').append();
 
       var url = `/items/${item.id}/move_partial_quantity`;
 
-      new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id"), package: packagesLoacationQty, total_qty: totalQty}).then(data => {
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id"), package: packagesLocationQty, total_qty: totalQty}).then(data => {
         this.get("store").pushPayload(data);
         this.transitionToRoute("items.partial_move", item);
       }).finally(() => {
@@ -147,7 +147,7 @@ export default searchModule.extend({
     moveItem() {
       var location = this.get("selectedLocation");
       var item = this.get("item");
-      var packagesLoacationQty = localStorage['packagesLoacationQty'];
+      var packagesLocationQty = localStorage['packagesLocationQty'];
 
       var showAllSetItems = this.get("showAllSetItems");
       this.set("showAllSetItems", false);
@@ -160,7 +160,7 @@ export default searchModule.extend({
         url = `/items/${item.get('id')}/move_stockit_item`;
       }
 
-      new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id"), packages_location_and_qty: packagesLoacationQty} )
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id"), packages_location_and_qty: packagesLocationQty} )
         .then(data => {
           var itemBackLinePath = this.get('moveItemPath');
           this.get("store").pushPayload(data);

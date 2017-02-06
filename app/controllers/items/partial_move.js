@@ -3,12 +3,7 @@ import Ember from "ember";
 export default Ember.Controller.extend({
   item: null,
   isZeroQuantity: false,
-
-  totalInHandItems: Ember.computed('item.quantity', function() {
-    return this.get('item.quantity');
-  }),
-
-  packagesLoacationQty: Ember.computed.localStorage(),
+  packagesLocationQty: Ember.computed.localStorage(),
   totalQty: Ember.computed.localStorage(),
   originalQty: null,
 
@@ -17,20 +12,20 @@ export default Ember.Controller.extend({
       var totalQty = 0;
       var allPackagesLocations = item.get('packagesLocations');
       var elementIds  = allPackagesLocations.getEach('id');
-      var packagesLoacationQty = [];
+      var packagesLocationQty = [];
       var record = {};
       elementIds.forEach(packages_location_id => {
         var value = parseInt(Ember.$(`#${packages_location_id}`)[0].value);
         var packages_location = this.get('store').peekRecord('packages_location', packages_location_id);
         record["packages_location_id"] = packages_location_id;
-        record["location_id"] = packages_location.get('location_id');
-        record["package_id"] = packages_location.get('package_id');
+        record["location_id"] = packages_location.get('locationId');
+        record["package_id"] = packages_location.get('packageId');
         record["new_qty"] = value;
         totalQty += value;
-        packagesLoacationQty.push(record);
+        packagesLocationQty.push(record);
         record = {};
       });
-      this.set("packagesLoacationQty", packagesLoacationQty);
+      this.set("packagesLocationQty", packagesLocationQty);
       this.set("totalQty", totalQty);
       if(this.get('totalQty') === 0){
         this.set("isZeroQuantity", true);

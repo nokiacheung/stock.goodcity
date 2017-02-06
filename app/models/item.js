@@ -171,13 +171,11 @@ export default cloudinaryUrl.extend({
   }),
 
   hasSingleLocation: Ember.computed('packagesLocations.[]', function(){
-    if(this.get('packagesLocations')){
-      return this.get('packagesLocations').length === 1;
-    }
+    return Ember.isEqual(this.get('packagesLocations').length, 1);
   }),
 
   firstLocationName: Ember.computed('packagesLocations.[]', function(){
-    return this.get('packagesLocations').get('firstObject').get('location.name');
+    return this.get('packagesLocations').get('firstObject.location.name');
   }),
 
   allLocations: Ember.computed('packagesLocations.[]', function(){
