@@ -37,7 +37,7 @@ export default searchModule.extend({
               this.set('dataOnceRequested', true);
               this.send('displaySetItems', item);
             }
-          })
+          });
           if(this.get("searchText").trim() === data.meta.search) {
             this.set("filteredResults", data);
             this.set("hasNoResults", data.get("length") === 0);
@@ -46,7 +46,7 @@ export default searchModule.extend({
           if(data.get("length") === 1) {
             Ember.run.debounce(this, this.triggerDisplayDesignateOverlay, 100);
           }
-        });
+        })
         .finally(() => this.set("isLoading", false));
     }
     this.set("filteredResults", []);
