@@ -46,7 +46,7 @@ export default searchModule.extend({
           if(data.get("length") === 1) {
             Ember.run.debounce(this, this.triggerDisplayDesignateOverlay, 100);
           }
-        })
+        });
         .finally(() => this.set("isLoading", false));
     }
     this.set("filteredResults", []);
