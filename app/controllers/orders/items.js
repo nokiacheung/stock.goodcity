@@ -30,7 +30,10 @@ export default searchModule.extend({
         { orderId: "orderId", searchText: "searchText", itemId: "itemSetId" })
         .then(data => {
           data.forEach(item => {
-            if(item.get('itemId') && !this.get('dataOnceRequested')) {
+            if(item && item.get("quantity") === 0) {
+              data.removeObject(item);
+            }
+            if(item &&item.get('itemId') && !this.get('dataOnceRequested')) {
               this.set('dataOnceRequested', true);
               this.send('displaySetItems', item);
             }
@@ -39,6 +42,7 @@ export default searchModule.extend({
             this.set("filteredResults", data);
             this.set("hasNoResults", data.get("length") === 0);
           }
+
           if(data.get("length") === 1) {
             Ember.run.debounce(this, this.triggerDisplayDesignateOverlay, 100);
           }
