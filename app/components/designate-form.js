@@ -157,10 +157,8 @@ export default Ember.Component.extend({
     },
 
     designateItem() {
-
       var order = this.get("order");
       var item = this.get("item");
-      //var showAllSetItems = this.get("showAllSetItems");
       this.set("showAllSetItems", false);
 
       var loadingView = getOwner(this).lookup('component:loading').append();
@@ -175,13 +173,7 @@ export default Ember.Component.extend({
       new AjaxPromise(url, "PUT", this.get('session.authToken'), { package: properties })
         .then(data => {
           this.get("store").pushPayload(data);
-          // if(this.get("isSet")) {
-          //   this.get('router').transitionTo("items.detail", item, { queryParams: { showDispatchOverlay: this.get('showDispatchOverlay') }});
-          // } else if(showAllSetItems) {
-          //   this.sendAction("displaySetItems");
-          // } else {
-            this.get('router').transitionTo("orders.detail", order);
-          // }
+          this.get('router').transitionTo("orders.detail", order);
         })
         .finally(() => {
           loadingView.destroy();
