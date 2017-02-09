@@ -23,7 +23,6 @@ export default Ember.TextField.extend({
 
   click() {
     this.set('designationPackage', this.get('designationPackage'));
-    this.set('qtyError', false);
     Ember.$(this.element).css("background-color", "#002352");
   },
 
