@@ -59,7 +59,7 @@ test("Available actions for partially-designated item(qty > 0)", function(assert
 });
 
 test("Available actions for fully-designated item(qty = 0)", function(assert) {
-  assert.expect(3);
+  assert.expect(2);
    visit("/items");
   fillIn("#searchText", pkg2.get("inventoryNumber"));
   mockFindAll('item').returns({ json: {items: [pkg2.toJSON({includeId: true})], orders_packages: [orders_pkg2.toJSON({includeId: true})], designations:[order2.toJSON({includeId: true})], meta: {search: pkg2.get('inventoryNumber').toString()}}});
@@ -67,9 +67,7 @@ test("Available actions for fully-designated item(qty = 0)", function(assert) {
     assert.equal(currentPath(), "items.index");
     click($('div.options-link-open'));
     //Move is disabled as qty = 0
-    assert.equal($('div.receive-item-options div.disabled:first').text().trim(), "Move");
-    //designate is disabled
-    assert.equal($('div.receive-item-options div.disabled:last').text().trim(), "designate");
+    assert.equal($('div.receive-item-options div.disabled:first').text().trim(), "designate");
   });
 });
 

@@ -96,7 +96,7 @@ test("Item status bar shows 'designated' if item(qty = 0) is partially designate
 
   andThen(function() {
     assert.equal(currentPath(), "items.index");
-    assert.equal($('.item_block div.dispatch_details div span').text().trim(), "designated");
+    assert.equal($('.item_block div.dispatch_details div span').text().trim().substr(0,10), "designated");
     //Test for available/designated/dispatched item count
     assert.equal($('.available-designate-dispatch-count:first').text().trim(), "0/10/0");
   });
@@ -111,7 +111,7 @@ test("Item status bar shows Order code if item(qty = 0) is partially dispatched 
 
   andThen(function() {
     assert.equal(currentPath(), "items.index");
-    assert.equal($('.item_block div.dispatch_details div span').text().trim(), "L24401");
+    assert.equal($('.item_block div.dispatch_details div span').text().trim().substr(0,6), "L24401");
     //Test for available/designated/dispatched item count
     assert.equal($('.available-designate-dispatch-count:first').text().trim(), "0/0/10");
   });
