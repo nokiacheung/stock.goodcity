@@ -26,7 +26,7 @@ export default AuthorizeRoute.extend({
 
   model() {
     var _this = this;
-    if(!this.controller || !this.controller.get("inventoryNumber")){
+    if(!this.controller || !this.controller.get("inventoryNumber") || !this.inventoryNumber){
       return new AjaxPromise("/inventory_numbers", "POST", this.get('session.authToken'))
         .then(function(data) {
           _this.set("inventoryNumber", data.inventory_number);
@@ -40,6 +40,7 @@ export default AuthorizeRoute.extend({
 
   setupController(controller, model){
     this._super(controller, model);
+
     controller.set('inventoryNumber', this.get('inventoryNumber'));
     controller.set('displayInventoryOptions', false);
     controller.set('autoGenerateInventory', true);
