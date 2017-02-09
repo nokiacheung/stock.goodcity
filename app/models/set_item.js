@@ -107,10 +107,7 @@ export default Model.extend({
     return (designatedPackages.get("length") === this.get("items.length") && sameSingleDesignation) ? true : false;
   }),
 
-
-
   canBeMoved: Ember.computed('items.@each.hasBoxPallet', function() {
     return this.get("items").filterBy('hasBoxPallet', true).length === 0;
   }),
-
 });

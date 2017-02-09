@@ -5,7 +5,7 @@
     </span>
   </div>
 {{else if (is-equal package.state "dispatched")}}
-  {{undispatch-item item=item closeList=closeList }}
+  {{undispatch-item item=item package=package closeList=closeList }}
 {{else}}
   <div {{action 'displayDispatchOverlay'}}>
     <i class="fa item-menu fa-ship"></i>

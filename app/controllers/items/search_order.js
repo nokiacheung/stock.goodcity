@@ -9,7 +9,6 @@ export default searchModule.extend({
   toDesignateItem: true,
   partial_qty: 0,
   notPartialRoute: false,
-
   item: Ember.computed.alias("model.item"),
   searchModelName: "designation",
   minSearchTextLength: 2,

@@ -3,6 +3,7 @@ import Ember from "ember";
 export default Ember.TextField.extend({
   item: null,
   value: "",
+  tagName: "input",
   maxlength: "5",
   attributeBindings: [ "name", "id", "value", 'placeholder'],
   partial_qty_value: Ember.computed.alias('value'),

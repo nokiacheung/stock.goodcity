@@ -58,11 +58,13 @@ I18nTranslationsEn =
     "partial_undesignate": "Un-designate"
     "separate": "separate"
     "move": "Move"
+    "partial_move": "Partial Move"
     "show_set_items": "Show other parts from the same set next"
     "multiple_designation": "designated"
     "all_dispatched": "Out of stock"
     "max_undesignate": "From: {{code}}<br/>Quantity: {{qty}}"
     "already_dispatched": "All designated Items are already dispatched"
+    "multiple": "Multiple"
 
   "designate":
     "form_title": "Designating this item to order {{code}}"

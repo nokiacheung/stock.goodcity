@@ -41,7 +41,11 @@
     </div>
     <div class="small-6 columns location-name">
       {{#unless model.hasAllPackagesDispatched}}
-        <i class="fa fa-map-marker"></i> {{model.location.name}}
+        {{#if model.hasSingleLocation}}
+          {{model.firstLocationName}}
+        {{else}}
+          {{#link-to 'items.partial_move' model.id tagName='span' href=false}} Multiple {{/link-to}}
+        {{/if}}
       {{/unless}}
     </div>
     <div class="small-3 columns">
@@ -76,7 +80,6 @@
         </div>
       {{/link-to}}
     {{/if}}
-
   </div>
 
   {{#if model.orderPackagesMoreThenZeroQty}}
@@ -124,7 +127,6 @@
       </div>
     </div>
   </div>
-
 </div>
 
 {{#message-box btn1Text=(t "okay") btn1Callback=(action "undesignate_partial_qty" model) btn2Text=(t "cancel") isVisible=promptUserPopUp classNames="popupOverlay designate-form undesignate-popup"}}

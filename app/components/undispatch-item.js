@@ -8,8 +8,8 @@ export default Ember.Component.extend({
   actions: {
     undispatchItem() {
       var item = this.get("item");
-      var url = `/items/${item.get('id')}/undispatch_stockit_item`;
-      this.send("resqustAPI", url);
+      var pkg = this.get("package");
+      this.router.transitionTo('items.search_location', item.get("id"), { queryParams: { isUndispatch: true, ordersPackageId: pkg.get("id") }});
     },
 
     resqustAPI(url) {

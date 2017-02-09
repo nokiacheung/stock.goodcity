@@ -6,11 +6,20 @@ const { getOwner } = Ember;
 
 export default searchModule.extend({
 
-  queryParams: ['searchInput', 'isSet'],
+  queryParams: ['searchInput', 'isSet', 'isUndispatch', 'isPartialMove', 'ordersPackageId'],
   isSet: false,
+  orderIdForOrderDetail: null,
+  ordersPackageId: null,
   isMobileApp: config.cordova.enabled,
   searchInput: "",
   moveItemPath: "",
+  packages_location_id: "",
+  packagesLocationQty: "",
+  movePartialQty: false,
+  cantMoveToSameLocationForSingleLocation: false,
+  isUndispatch: "",
+  isUndispatchFullQuantity: false,
+  isPartialMove: false,
 
   item: Ember.computed.alias("model.item"),
   searchModelName: "location",
@@ -23,6 +32,21 @@ export default searchModule.extend({
   showAllSetItems: false,
   selectedLocation: null,
   hideDetailsLink: true,
+
+  sameSingleLocation: Ember.computed("selectedLocation", function() {
+    if (this.get('item.packagesLocations').length === 1){
+     return this.get('item.packagesLocations.firstObject.locationId') === parseInt(this.get('selectedLocation.id'));
+    }
+  }),
+
+  totalQty: Ember.computed('selectedLocation', function(){
+    var existingPackagesLocation = JSON.parse(localStorage['packagesLocationQty']).findBy('location_id', parseInt(this.get('selectedLocation.id')));
+    if(existingPackagesLocation){
+      return localStorage['totalQty'] - existingPackagesLocation['new_qty'];
+    } else {
+      return localStorage['totalQty'];
+    }
+  }),
 
   onSearchInputChange: Ember.observer("searchInput", function() {
     // wait before applying the filter
@@ -63,13 +87,67 @@ export default searchModule.extend({
 
   actions: {
     displayMoveOverlay(location) {
-      this.set("displayUserPrompt", true);
       this.set("selectedLocation", location);
+      if(this.get('sameSingleLocation')){
+        this.set('cantMoveToSameLocationForSingleLocation', true);
+      } else if(this.get('isUndispatch')){
+        this.set('isUndispatchFullQuantity', true);
+      } else if(this.get('isPartialMove')){
+        this.set('movePartialQty', true);
+      } else{
+        this.set("displayUserPrompt", true);
+      }
+    },
+
+    movePartialQty(){
+      var location = this.get("selectedLocation");
+      var item = this.get("item");
+      var packagesLocationQty = localStorage['packagesLocationQty'];
+      var totalQty = localStorage["totalQty"];
+
+      var loadingView = getOwner(this).lookup('component:loading').append();
+
+      var url = `/items/${item.id}/move_partial_quantity`;
+
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id"), package: packagesLocationQty, total_qty: totalQty}).then(data => {
+        this.get("store").pushPayload(data);
+        this.transitionToRoute("items.partial_move", item);
+      }).finally(() => {
+        loadingView.destroy();
+      });
+    },
+
+    undispatchFullQuantity(){
+      var item = this.get('item');
+      var location = this.get("selectedLocation");
+
+      var url = `/items/${item.get('id')}/move_full_quantity`;
+      var loadingView = getOwner(this).lookup('component:loading').append();
+
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get('id'), ordersPackageId: this.get("ordersPackageId")}).then(data => {
+        this.get("store").pushPayload(data);
+        var itemBackLinkPath = this.get('moveItemPath');
+        if(itemBackLinkPath === "items.index" || itemBackLinkPath === "items"){
+          this.transitionToRoute(itemBackLinkPath);
+        } else {
+          this.transitionToRoute("items.detail", item);
+        }
+      })
+      .catch((response) => {
+        loadingView.destroy();
+        var errorMessage = response.responseJSON.errors[0];
+        if(errorMessage.toLowerCase().indexOf("error") >= 0) {
+          this.get("messageBox").alert(errorMessage);
+        }
+      }).finally(() => {
+        loadingView.destroy();
+      });
     },
 
     moveItem() {
       var location = this.get("selectedLocation");
       var item = this.get("item");
+      var packagesLocationQty = localStorage['packagesLocationQty'];
 
       var showAllSetItems = this.get("showAllSetItems");
       this.set("showAllSetItems", false);
@@ -82,16 +160,16 @@ export default searchModule.extend({
         url = `/items/${item.get('id')}/move_stockit_item`;
       }
 
-      new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id") })
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id"), packages_location_and_qty: packagesLocationQty} )
         .then(data => {
           var itemBackLinePath = this.get('moveItemPath');
           this.get("store").pushPayload(data);
           if(showAllSetItems) {
             this.transitionToRoute("items", {queryParams: { itemSetId: item.get("itemId") } });
           } if(itemBackLinePath === "items.index") {
-              this.transitionToRoute(itemBackLinePath);
+            this.transitionToRoute(itemBackLinePath);
           } else {
-              this.transitionToRoute("items.detail", item);
+            this.transitionToRoute("items.detail", item);
           }
         })
         .catch((response) => {
@@ -106,5 +184,4 @@ export default searchModule.extend({
         });
     }
   },
-
 });

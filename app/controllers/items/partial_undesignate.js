@@ -34,6 +34,7 @@ export default Ember.Controller.extend({
         codeQty[orderPackage.get('designation.code')] = value;
         total += value;
       });
+
       this.set('orderPackagesAndQuantities', orderPkgQty);
       this.set('total', total);
       this.set('codeAndQuantities', codeQty);
@@ -41,7 +42,6 @@ export default Ember.Controller.extend({
     },
 
     undesignate_partial_qty(data) {
-
       var item = data;
       var loadingView = getOwner(this).lookup('component:loading').append();
       var url;

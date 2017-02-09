@@ -35,6 +35,7 @@ export default AuthorizeRoute.extend({
         this.set('partialDesignatePath', false);
       }
     }
+
     if(parseInt(window.localStorage.getItem('partial_qnty'))) {
       this.set('partialDesignatePath', true);
     } else {
