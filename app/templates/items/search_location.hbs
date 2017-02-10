@@ -128,7 +128,7 @@
   {{/message-box}}
 
   {{#message-box btn1Text=(t "item.move") btn1Callback=(action "movePartialQty") btn2Text=(t "cancel") isVisible=movePartialQty classNames="popupOverlay designate-form"}}
-    <p>Moving {{totalQty}} of {{item.quantity}} to Bldg {{selectedLocation.building}} Area {{selectedLocation.area}} </p>
+    <p>Moving {{totalQty}} of {{item.availableQtyForMove}} to Bldg {{selectedLocation.building}} Area {{selectedLocation.area}} </p>
 
     {{partial 'orders/item_block'}}
 
