@@ -178,12 +178,6 @@ export default cloudinaryUrl.extend({
     return this.get('packagesLocations').get('firstObject.location.name');
   }),
 
-  allLocations: Ember.computed('packagesLocations.[]', function(){
-    var allLocations = [];
-    this.get('packagesLocations').forEach((packages_location) => allLocations.pushObject(packages_location.get('location.name')));
-    return allLocations.uniq();
-  }),
-
   packagesLocationsList: Ember.computed('packagesLocations.[]', function(){
     var packagesLocations = [];
     this.get('packagesLocations').forEach((packages_location) => {
@@ -191,7 +185,7 @@ export default cloudinaryUrl.extend({
         packagesLocations.pushObject(packages_location);
       }
     });
-    return packagesLocations;
+    return packagesLocations.uniq;
   }),
 
   availableQtyForMove: Ember.computed('packagesLocations.[]', function(){
