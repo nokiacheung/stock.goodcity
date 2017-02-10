@@ -5,6 +5,38 @@ import cloudinaryUrl from './cloudinary_url';
 
 export default cloudinaryUrl.extend({
 
+  notes:             attr('string'),
+  grade:             attr('string'),
+  inventoryNumber:   attr('string'),
+  caseNumber:        attr('string'),
+  quantity:          attr('number'),
+  receivedQuantity:  attr('number'),
+
+  length:            attr('number'),
+  width:             attr('number'),
+  height:            attr('number'),
+
+  sentOn:            attr('date'),
+  isSet:             attr('boolean'),
+  hasBoxPallet:      attr('boolean'),
+  itemId:            attr('number'),
+  allowWebPublish:   attr('boolean'),
+
+  designation: belongsTo('designation', { async: true }),
+  location:    belongsTo('location', { async: false }),
+  code:        belongsTo('code', { async: false }),
+  donorCondition: belongsTo('donor_condition', { async: false }),
+  setItem:        belongsTo('set_item', { async: false }),
+  packagesLocations: hasMany('packages_location', {async: false}),
+
+  ordersPackages:    hasMany('ordersPackages', { async: true }),
+  images:       hasMany('image', { async: true }),
+
+  isDispatched: Ember.computed.bool('sentOn'),
+  isDesignated: Ember.computed.bool('designation'),
+  orderCode: Ember.computed.alias('designation.code'),
+  updatedAt: attr("date"),
+
   imageUrl: Ember.computed.alias("image.imageUrl"),
   designateFullSet: Ember.computed.localStorage(),
 
@@ -120,38 +152,6 @@ export default cloudinaryUrl.extend({
     return orderPackages;
   }),
 
-  notes:             attr('string'),
-  grade:             attr('string'),
-  inventoryNumber:   attr('string'),
-  caseNumber:        attr('string'),
-  quantity:          attr('number'),
-  receivedQuantity:  attr('number'),
-
-  length:            attr('number'),
-  width:             attr('number'),
-  height:            attr('number'),
-
-  sentOn:            attr('date'),
-  isSet:             attr('boolean'),
-  hasBoxPallet:      attr('boolean'),
-  itemId:            attr('number'),
-  allowWebPublish:   attr('boolean'),
-
-  designation: belongsTo('designation', { async: true }),
-  location:    belongsTo('location', { async: false }),
-  code:        belongsTo('code', { async: false }),
-  donorCondition: belongsTo('donor_condition', { async: false }),
-  setItem:        belongsTo('set_item', { async: false }),
-  packagesLocations: hasMany('packages_location', {async: false}),
-
-  ordersPackages:    hasMany('ordersPackages', { async: true }),
-  images:       hasMany('image', { async: true }),
-
-  isDispatched: Ember.computed.bool('sentOn'),
-  isDesignated: Ember.computed.bool('designation'),
-  orderCode: Ember.computed.alias('designation.code'),
-  updatedAt: attr("date"),
-
   availableQty: Ember.computed("quantity", function() {
     return this.get('quantity');
   }),
@@ -180,12 +180,28 @@ export default cloudinaryUrl.extend({
 
   allLocations: Ember.computed('packagesLocations.[]', function(){
     var allLocations = [];
-    this.get('packages_locations').forEach((packages_location) => allLocations.pushObject(packages_location.get('location.name')));
+    this.get('packagesLocations').forEach((packages_location) => allLocations.pushObject(packages_location.get('location.name')));
     return allLocations.uniq();
   }),
 
   packagesLocationsList: Ember.computed('packagesLocations.[]', function(){
-    return this.get('packagesLocations');
+    var packagesLocations = [];
+    this.get('packagesLocations').forEach((packages_location) => {
+      if(packages_location.get('location.building') !== 'Dispatched'){
+        packagesLocations.pushObject(packages_location);
+      }
+    });
+    return packagesLocations;
+  }),
+
+  availableQtyForMove: Ember.computed('packagesLocations.[]', function(){
+    var quantityToMove = this.get('receivedQuantity');
+    this.get('packagesLocations').forEach((packages_location) => {
+      if(packages_location.get('location.building') === 'Dispatched'){
+        quantityToMove -= packages_location.get('quantity');
+      }
+    });
+    return quantityToMove;
   }),
 
   imageUrlList: Ember.computed('images.[]', function() {
