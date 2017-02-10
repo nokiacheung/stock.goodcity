@@ -185,7 +185,7 @@ export default cloudinaryUrl.extend({
         packagesLocations.pushObject(packages_location);
       }
     });
-    return packagesLocations.uniq;
+    return packagesLocations.uniq();
   }),
 
   availableQtyForMove: Ember.computed('packagesLocations.[]', function(){
