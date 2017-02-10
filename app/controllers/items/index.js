@@ -10,7 +10,6 @@ export default searchModule.extend({
 
   isMobileApp: config.cordova.enabled,
   displayItemOptions: false,
-  displaySetBlock: false,
   displayItemOptionsList: true,
   searchModelName: "item",
   minSearchTextLength: 2,
