@@ -13,6 +13,7 @@ export default Ember.TextField.extend({
   },
 
   didInsertElement(){
+    Ember.$(this.element).addClass('change-color');
     return this.set('value', this.get('item.quantity').toString());
   },
 

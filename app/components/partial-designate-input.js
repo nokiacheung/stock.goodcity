@@ -24,6 +24,7 @@ export default Ember.TextField.extend({
   }),
 
   didInsertElement() {
+    Ember.$(this.element).css("background-color", "#002352");
     this.set('value', this.get('minSetQty') || this.get('item.quantity'));
   },
 
