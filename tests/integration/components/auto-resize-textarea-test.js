@@ -24,7 +24,7 @@ test('is an textarea tag', function(assert) {
   assert.equal($('#description').prop('tagName'), 'TEXTAREA');
 });
 
-test('is of text type', function(assert) {
+test('is of textarea type', function(assert) {
   assert.expect(1);
   assert.equal($('#description')[0].type, "textarea");
 });
