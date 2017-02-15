@@ -36,7 +36,7 @@ module('Acceptance: Partial designate', {
 });
 
 test("Partially moving a Package", function(assert) {
-  assert.expect(2);
+  assert.expect(4);
   var location = FactoryGuy.make("location");
   $.mockjax({url: '/api/v1/item*', type: 'PUT', status: 200,responseText: {
         items: [item.toJSON({includeId: true})]
@@ -58,6 +58,21 @@ test("Partially moving a Package", function(assert) {
   });
   andThen(function() {
     //clicking move on messagebox
+    click($('div#messageBox:eq(2) a:last'));
+  });
+  andThen(function() {
+    //back to partial move screen
+    assert.equal(currentPath(), "items.partial_move");
+    click($('#partial_move'));
+  });
+
+  andThen(function() {
+    assert.equal(currentPath(), "items.search_location");
+    //selcting first location to move
+    click($('ul.list-activity li:first'));
+  });
+  andThen(function() {
+    //moving item to same location again
     click($('div#messageBox:eq(2) a:last'));
   });
   andThen(function() {
