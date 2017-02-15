@@ -95,8 +95,27 @@ test("Partially moving a Package", function(assert) {
 //     click($('.options-link-open'));
 //   });
 //   andThen(function() {
-//     //move action is disabled
+//     //move action is enabled
 //     assert.equal($('.receive-item-options div:first.disabled')[0], undefined);
+//   });
+// });
+
+// test("Move is disabled if full quantity is dispatched", function(assert) {
+//   assert.expect(1);
+//   var item1 = FactoryGuy.make("item", { state: "submitted", quantity: 0 });
+//   var orders_package1 = FactoryGuy.make("orders_package", { state: "dispatched", quantity: 5 });
+//   click($('.two-line-ellipsis'));
+//   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
+//       items: [item1.toJSON({includeId: true})],
+//       orders_packages: [orders_package1.toJSON({includeId: true})]
+//       }
+//   });
+//   andThen(function() {
+//     click($('.options-link-open'));
+//   });
+//   andThen(function() {
+//     //move action is disabled
+//     assert.equal($('.receive-item-options div:first.disabled')[0], 'disabled');
 //   });
 // });
 
