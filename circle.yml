@@ -40,7 +40,7 @@ test:
 
 deployment:
   staging:
-    branch: ci-mobile-provision
+    branch: master
     commands:
       - bundle exec cap staging deploy
       - bundle exec rake staging ios app:build
