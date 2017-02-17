@@ -20,13 +20,13 @@ dependencies:
     - npm rebuild node-sass
     - npm install bower ember-cli phantomjs-prebuilt cordova
     - gem update fastlane
+
+  post:
+    - ./node_modules/bower/bin/bower install
     - PATH=$(npm bin):$PATH; azure-filestore download -f goodcity.keystore:
         pwd: cordova
     - PATH=$(npm bin):$PATH; azure-filestore download -d google-play -f $GOOGLE_PLAY_KEY_FILE:
         pwd: fastlane
-
-  post:
-    - ./node_modules/bower/bin/bower install
 
 test:
   pre:
