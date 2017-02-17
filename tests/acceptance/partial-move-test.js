@@ -12,7 +12,7 @@ import { mockFindAll } from 'ember-data-factory-guy';
 
 var App, designation, item, orders_package, package_location;
 
-module('Acceptance: Partial designate', {
+module('Acceptance: Partial move', {
   beforeEach: function() {
     App = startApp({}, 2);
     TestHelper.setup();
