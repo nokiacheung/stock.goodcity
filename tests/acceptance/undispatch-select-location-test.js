@@ -46,6 +46,7 @@ test("Moving item to selected location on undispatch", function(assert) {
   andThen(function() {
     assert.equal(currentPath(), "orders.detail");
     andThen(function() {
+      //clicking on undispatch
       click($('div.options-link-open:first'));
       click($('.fa-exclamation-triangle:first'));
     });
@@ -53,8 +54,10 @@ test("Moving item to selected location on undispatch", function(assert) {
 
   andThen(function() {
     assert.equal(currentPath(), "items.search_location");
+    //selecting first location
     click($('ul.list-activity li:first'));
     andThen(function() {
+      //clicking on move of messageBox
       click($('div#messageBox:eq(5) a:last'));
     });
   });
