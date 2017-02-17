@@ -6,12 +6,12 @@ import hbs from 'htmlbars-inline-precompile';
 
 var App;
 
-moduleForComponent('auto-resize-textarea', 'Integration | Component | auto resize textarea', {
+moduleForComponent('partial-move-input', 'Integration | Component | partial move input', {
   integration: true,
   beforeEach: function() {
     App = startApp({}, 2);
     TestHelper.setup();
-    this.render(hbs`{{auto-resize-textarea id="description"}}`);
+    this.render(hbs`{{partial-move-input id=1}}`);
   },
   afterEach: function() {
     Ember.run(function() { TestHelper.teardown(); });
@@ -19,18 +19,17 @@ moduleForComponent('auto-resize-textarea', 'Integration | Component | auto resiz
   }
 });
 
-test('is an textarea tag', function(assert) {
+test('is an input tag', function(assert) {
   assert.expect(1);
-  assert.equal($('#description').prop('tagName'), 'TEXTAREA');
+  assert.equal($('#1').prop('tagName'), 'INPUT');
 });
 
-test('is of textarea type', function(assert) {
+test('is of text type', function(assert) {
   assert.expect(1);
-  assert.equal($('#description')[0].type, "textarea");
+  assert.equal($('#1')[0].type, "text");
 });
 
-test('initial height is 70px', function(assert) {
+test('maximum allowed characters are 5', function(assert) {
   assert.expect(1);
-  assert.equal($('#description').css('height'), "70px");
+  assert.equal($('#1')[0].maxLength, 5);
 });
-
