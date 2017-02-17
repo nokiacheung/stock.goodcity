@@ -4,6 +4,9 @@ machine:
     XCODE_SCHEME: stock.goodcity
     XCODE_WORKSPACE: stock.goodcity
     GYM_CODE_SIGNING_IDENTITY: "iPhone Distribution: Crossroads Foundation Limited"
+    FL_TESTFAIRY_AUTO_UPDATE: "on"
+    PILOT_SKIP_SUBMISSION: true
+    PILOT_WAIT_PROCESSING_INTERVAL: 60
 
 dependencies:
   pre:
@@ -14,17 +17,16 @@ dependencies:
     - echo 'export ANDROID_HOME=/usr/local/opt/android-sdk' >> ~/.circlerc
     - ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --all --filter platform-tools,build-tools-23.0.3,android-23,extra-android-m2repository,extra-google-m2repository
     - echo 'export PATH=$ANDROID_HOME/build-tools/23.0.3:$PATH' >> ~/.circlerc
-    - npm install bower ember-cli phantomjs-prebuilt cordova
     - npm rebuild node-sass
+    - npm install bower ember-cli phantomjs-prebuilt cordova
     - gem update fastlane
+    - PATH=$(npm bin):$PATH; azure-filestore download -f goodcity.keystore:
+        pwd: cordova
+    - PATH=$(npm bin):$PATH; azure-filestore download -d google-play -f $GOOGLE_PLAY_KEY_FILE:
+        pwd: fastlane
+
   post:
-    - bower install
-    - |
-      if [ "${CIRCLE_BRANCH}" = 'live' ] ; then
-        echo 'export PROVISIONING_FILE=stock.goodcity.hk.mobileprovision' >> ~/.circlerc
-      else
-        echo 'export PROVISIONING_FILE=stock-staging.goodcity.hk.mobileprovision' >> ~/.circlerc
-      fi
+    - ./node_modules/bower/bin/bower install
 
 test:
   pre:
@@ -33,35 +35,23 @@ test:
     - sleep 5
   override:
     - ./node_modules/ember-cli/bin/ember test
+  post:
+    - echo "Killing ember server to free memory for app build" && killall ember
 
 deployment:
   staging:
-    branch: master
+    branch: ci-mobile-provision
     commands:
-      - PATH=$(npm bin):$PATH; azure-filestore download -f stock-staging.goodcity.hk.mobileprovision:
-          pwd: scripts
-      - ./install-provisioning-file.sh:
-          pwd: scripts
       - bundle exec cap staging deploy
-      - PATH=$(npm bin):$PATH; azure-filestore download -f goodcity.keystore:
-          pwd: cordova
-      - bundle exec rake staging android app:release
-      - bundle exec rake staging ios app:release
-
+      - bundle exec rake staging ios app:build
+      - fastlane ios staging
+      - bundle exec rake staging android app:build
+      - fastlane android staging
   production:
     branch: live
     commands:
-      - PATH=$(npm bin):$PATH; azure-filestore download -f stock.goodcity.hk.mobileprovision:
-          pwd: scripts
-      - ./install-provisioning-file.sh:
-          pwd: scripts
-      - PATH=$(npm bin):$PATH; azure-filestore download -f goodcity.keystore:
-          pwd: cordova
-      - PATH=$(npm bin):$PATH; azure-filestore download -d google-play -f $GOOGLE_PLAY_KEY_FILE:
-          pwd: fastlane
       - bundle exec cap production deploy
-      - bundle exec rake production android app:release
-      - bundle exec rake production ios app:release
+      - bundle exec rake production android app:build
+      - bundle exec rake production ios app:build
       - fastlane android beta
-      - fastlane ios upload
       - fastlane ios beta
