@@ -1,11 +1,41 @@
 <div>
   <div class="row item_block item_header">
-    <div class="row dispatch_details {{if model.sentOn 'dispatched'}} {{if model.designation 'designated'}}">
+    <div class="row dispatch_details {{if model.hasAllPackagesDispatched 'dispatched'}} {{if model.hasAllPackagesDesignated 'designated'}} {{if (is-and (is-not model.quantity) model.designatedOrdersPackages.length) 'designated'}}">
       <div class="small-3 columns">
-        {{#if model.sentOn}}
-          <i class="fa fa-ship"></i> {{model.designation.code}}
-        {{else if model.designation}}
-          <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
+        {{#if model.hasAllPackagesDesignated}}
+          {{#if model.hasOneDesignatedPackage}}
+            {{#link-to 'items.partial_undesignate' model.id tagName='span' href=false}}
+              <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
+            {{/link-to}}
+          {{else}}
+            {{#link-to 'items.partial_undesignate' model.id tagName='span' href=false}}
+              <i class="fa fa-shopping-basket"></i> {{t "item.multiple_designation"}}
+            {{/link-to}}
+          {{/if}}
+        {{else if model.hasAllPackagesDispatched}}
+          {{#if model.hasOneDispatchedPackage}}
+            {{#link-to 'orders.detail' model.hasOneDispatchedPackage.designation.id tagName='span' href=false}}
+              <i class="fa fa-ship"></i> {{model.hasOneDispatchedPackage.designation.code}}
+            {{/link-to}}
+          {{else}}
+            <i class="fa fa-ship"></i> {{t "item.all_dispatched"}}
+          {{/if}}
+        {{else if (is-not model.quantity)}}
+          {{#if model.hasOneDesignatedPackage}}
+            {{#link-to 'items.partial_undesignate' model.id tagName='span' href=false}}
+              <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
+            {{/link-to}}
+          {{else if model.designatedOrdersPackages.length}}
+            {{#link-to 'items.partial_undesignate' model.id tagName='span' href=false}}
+              <i class="fa fa-shopping-basket"></i> {{t "item.multiple_designation"}}
+            {{/link-to}}
+          {{else if model.hasOneDispatchedPackage}}
+            {{#link-to 'orders.detail' model.hasOneDispatchedPackage.designation.id tagName='span' href=false}}
+              <i class="fa fa-ship"></i> {{model.hasOneDispatchedPackage.designation.code}}
+            {{/link-to}}
+          {{else if model.dispatchedOrdersPackages.length}}
+            <i class="fa fa-ship"></i> {{t "item.all_dispatched"}}
+          {{/if}}
         {{else}}
           {{publish-stock-item item=model}}
         {{/if}}
@@ -16,7 +46,7 @@
           {{#if model.hasSingleLocation}}
             {{model.firstLocationName}}
           {{else}}
-            {{#link-to 'items.partial_move' item.id tagName='span' href=false}} Multiple {{/link-to}}
+            {{#link-to 'items.partial_move' model.id tagName='span' href=false}} Multiple {{/link-to}}
           {{/if}}
         {{/unless}}
       </div>
@@ -29,18 +59,24 @@
         <img src={{model.thumbImageUrl}} class="thumb"/>
       </div>
       {{#if hideDetailsLink}}
-        {{#link-to 'items.detail' model.id}}
+        {{#link-to 'items.detail' model.id }}
           <div class="small-6 large-8 columns name_details">
-            <div class="ellipsis name one-line-ellipsis">{{model.quantity}} x {{model.code.name}}</div>
+            <div class="ellipsis name one-line-ellipsis" style="display: inline !important">{{model.quantity}} x {{model.code.name}}</div>
+            <span style="margin-left: 0.25rem;">
+              {{model.quantity}}/{{model.totalDesignatedQty}}/{{model.totalDispatchedQty}}
+            </span>
             <div class="ellipsis two-line-ellipsis">
               {{model.notes}}
             </div>
           </div>
         {{/link-to}}
       {{else}}
-        {{#link-to 'items.detail' model.id}}
+        {{#link-to 'items.detail' model.id }}
           <div class="small-6 large-8 columns name_details">
-            <div class="ellipsis name one-line-ellipsis">{{model.quantity}} x {{model.code.name}}</div>
+            <div class="ellipsis name one-line-ellipsis" style="display: inline !important">{{model.quantity}} x {{model.code.name}}</div>
+            <span style="margin-left: 0.25rem;">
+              {{model.quantity}}/{{model.totalDesignatedQty}}/{{model.totalDispatchedQty}}
+            </span>
             <div class="ellipsis two-line-ellipsis">
               {{model.notes}}
             </div>
