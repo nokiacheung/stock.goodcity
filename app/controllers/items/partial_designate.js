@@ -10,7 +10,7 @@ export default Ember.Controller.extend({
   }),
 
   returnsDesignateFullSet: Ember.computed('item.setItem.items', function() {
-    var designateFullSet = window.localStorage.getItem('designateFullSet')
+    var designateFullSet = window.localStorage.getItem('designateFullSet');
     return designateFullSet !== null ? !designateFullSet.includes(false) : false;
   }),
 
