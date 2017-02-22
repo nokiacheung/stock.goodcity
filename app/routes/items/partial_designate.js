@@ -3,6 +3,7 @@ import AuthorizeRoute from './../authorize';
 const { getOwner } = Ember;
 
 export default AuthorizeRoute.extend({
+  designateFullSet: Ember.computed.localStorage(),
 
   beforeModel() {
     this._super(...arguments);
@@ -28,5 +29,12 @@ export default AuthorizeRoute.extend({
   setupController(controller, model){
     this._super(controller, model);
     controller.set('item', model);
+    var isDesignateFullSet = window.localStorage.getItem('designateFullSet');
+    if(isDesignateFullSet !== null) {
+      controller.set('returnsDesignateFullSet', !window.localStorage.getItem('designateFullSet').includes(false));
+    } else {
+      this.set('designateFullSet', false);
+      controller.set('returnsDesignateFullSet', false);
+    }
   }
 });

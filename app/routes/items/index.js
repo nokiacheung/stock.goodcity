@@ -17,6 +17,7 @@ export default AuthorizeRoute.extend({
   },
 
   setupController(controller, model){
+    this._super(controller, model);
     this.set('designateFullSet', false);
     this.set('partial_qnty', 0);
     this._super(controller, model);
