@@ -72,18 +72,18 @@ PLATFORMS.each do |platform|
 end
 
 namespace :ember do
-  multitask install_parallel: %w(bower_install npm_install)
+  multitask install_parallel: %w(yarn_install)
   desc "Ember install dependencies"
   task :install do
     Dir.chdir(ROOT_PATH) do
       Rake::MultiTask["ember:install_parallel"].invoke
     end
   end
-  task :bower_install do
-    sh %{ bower install }
-  end
-  task :npm_install do
-    sh %{ npm install }
+  # task :bower_install do
+  #   sh %{ bower install }
+  # end
+  task :yarn_install do
+    sh %{ yarn install }
   end
   desc "Ember build with Cordova enabled"
   task :build do
@@ -103,8 +103,8 @@ end
 namespace :cordova do
   desc "Install cordova package globally"
   task :install do
-    sh %{ npm list --depth 1 --global cordova; if [ $? -ne 0 ]; then npm install -g cordova; fi }
-    sh %{ npm list --depth 1 --global cordova-update-config; if [ $? -ne 0 ]; then npm install -g cordova-update-config; fi }
+    sh %{ yarn list --depth 1 --global cordova; if [ $? -ne 0 ]; then yarn add -g cordova; fi }
+    sh %{ yarn list --depth 1 --global cordova-update-config; if [ $? -ne 0 ]; then yarn add -g cordova-update-config; fi }
   end
   desc "Cordova prepare {platform}"
   task :prepare do
