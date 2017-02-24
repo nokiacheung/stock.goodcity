@@ -61,6 +61,7 @@ export default Ember.Component.extend({
     this.set('partial_quantity', getOwner(this).lookup('controller:items.search_order').get('partial_qty'));
     if(this.get("order") && getOwner(this).lookup('controller:items.detail').get('callOrderObserver')) {
       this.send("displayDesignateOverlay");
+      Ember.$('.popupOverlay #messageBox').addClass("makeScrollable");
     }
   }),
 
