@@ -1,5 +1,6 @@
 machine:
   environment:
+    PATH: "./node_modules/.bin"
     GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx1024m -XX:+HeapDumpOnOutOfMemoryError"'
     XCODE_SCHEME: stock.goodcity
     XCODE_WORKSPACE: stock.goodcity
@@ -9,6 +10,10 @@ machine:
     PILOT_WAIT_PROCESSING_INTERVAL: 60
 
 dependencies:
+  override:
+    - yarn
+  cache_directories:
+    - ~/.cache/yarn
   pre:
     - brew update
     - brew install homebrew/versions/node4-lts
@@ -17,8 +22,8 @@ dependencies:
     - echo 'export ANDROID_HOME=/usr/local/opt/android-sdk' >> ~/.circlerc
     - ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --all --filter platform-tools,build-tools-23.0.3,android-23,extra-android-m2repository,extra-google-m2repository
     - echo 'export PATH=$ANDROID_HOME/build-tools/23.0.3:$PATH' >> ~/.circlerc
-    - npm rebuild node-sass
-    - npm install bower ember-cli phantomjs-prebuilt cordova
+    - yarn install --force node-sass
+    - yarn add bower ember-cli phantomjs-prebuilt cordova
     - gem update fastlane
 
   post:
