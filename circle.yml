@@ -11,7 +11,7 @@ machine:
     - mkdir ~/.yarn-cache
 dependencies:
   override:
-    - yarn
+    - yarn install
   cache_directories:
     - ~/.cache/yarn
   pre:
@@ -23,8 +23,7 @@ dependencies:
     - ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --all --filter platform-tools,build-tools-23.0.3,android-23,extra-android-m2repository,extra-google-m2repository
     - echo 'export PATH=$ANDROID_HOME/build-tools/23.0.3:$PATH' >> ~/.circlerc
     - curl -o- -L https://yarnpkg.com/install.sh | bash
-    - yarn remove node-sass
-    - yarn add node-sass@latest
+    - yarn add --force node-sass
     - yarn add bower ember-cli phantomjs-prebuilt cordova
     - gem update fastlane
 
