@@ -50,10 +50,10 @@ deployment:
     branch: master
     commands:
       - bundle exec cap staging deploy
-      - bundle exec rake staging ios app:build
-      - fastlane ios staging
       - bundle exec rake staging android app:build
       - fastlane android staging
+      - bundle exec rake staging ios app:build
+      - fastlane ios staging
   production:
     branch: live
     commands:
