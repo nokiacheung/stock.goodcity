@@ -7,8 +7,13 @@ machine:
     FL_TESTFAIRY_AUTO_UPDATE: "on"
     PILOT_SKIP_SUBMISSION: true
     PILOT_WAIT_PROCESSING_INTERVAL: 60
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
 
 dependencies:
+  override:
+    - yarn install
+  cache_directories:
+    - ~/.cache/yarn
   pre:
     - brew update
     - brew install homebrew/versions/node4-lts
@@ -17,8 +22,11 @@ dependencies:
     - echo 'export ANDROID_HOME=/usr/local/opt/android-sdk' >> ~/.circlerc
     - ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --all --filter platform-tools,build-tools-23.0.3,android-23,extra-android-m2repository,extra-google-m2repository
     - echo 'export PATH=$ANDROID_HOME/build-tools/23.0.3:$PATH' >> ~/.circlerc
-    - npm rebuild node-sass
-    - npm install bower ember-cli phantomjs-prebuilt cordova
+    # - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+    # - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+    # - sudo apt-get install yarn
+    - yarn add --force node-sass
+    - yarn add bower ember-cli phantomjs-prebuilt cordova
     - gem update fastlane
 
   post:
