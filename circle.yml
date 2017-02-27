@@ -24,7 +24,8 @@ dependencies:
     - echo 'export PATH=$ANDROID_HOME/build-tools/23.0.3:$PATH' >> ~/.circlerc
     - curl -o- -L https://yarnpkg.com/install.sh | bash
     - yarn add --force node-sass
-    - yarn add bower ember-cli phantomjs-prebuilt cordova
+    - yarn add bower ember-cli phantomjs-prebuilt
+    - yarn add cordova
     - gem update fastlane
     - bundle install
 
@@ -54,7 +55,7 @@ deployment:
       - fastlane android staging
       - bundle exec rake staging ios app:build
       - fastlane ios staging
-  production:
+    production:
     branch: live
     commands:
       - bundle exec cap production deploy
