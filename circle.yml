@@ -55,7 +55,7 @@ deployment:
       - fastlane android staging
       - bundle exec rake staging ios app:build
       - fastlane ios staging
-    production:
+  production:
     branch: live
     commands:
       - bundle exec cap production deploy
