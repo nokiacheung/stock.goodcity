@@ -72,7 +72,7 @@ PLATFORMS.each do |platform|
 end
 
 namespace :ember do
-  multitask install_parallel: %w(bower_install npm_install yarn_install)
+  multitask install_parallel: %w(npm_install yarn_install)
   desc "Ember install dependencies"
   task :install do
     Dir.chdir(ROOT_PATH) do
