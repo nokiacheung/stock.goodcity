@@ -22,9 +22,9 @@ dependencies:
     - echo 'export ANDROID_HOME=/usr/local/opt/android-sdk' >> ~/.circlerc
     - ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --all --filter platform-tools,build-tools-23.0.3,android-23,extra-android-m2repository,extra-google-m2repository
     - echo 'export PATH=$ANDROID_HOME/build-tools/23.0.3:$PATH' >> ~/.circlerc
-    # - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-    # - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-    # - sudo apt-get install yarn
+    - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+    - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+    - apt-get install yarn
     - yarn add --force node-sass
     - yarn add bower ember-cli phantomjs-prebuilt cordova
     - gem update fastlane
