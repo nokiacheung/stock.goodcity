@@ -7,13 +7,8 @@ machine:
     FL_TESTFAIRY_AUTO_UPDATE: "on"
     PILOT_SKIP_SUBMISSION: true
     PILOT_WAIT_PROCESSING_INTERVAL: 60
-  pre:
-    - mkdir ~/.yarn-cache
+
 dependencies:
-  override:
-    - yarn install
-  cache_directories:
-    - ~/.cache/yarn
   pre:
     - brew update
     - brew install homebrew/versions/node4-lts
@@ -22,11 +17,9 @@ dependencies:
     - echo 'export ANDROID_HOME=/usr/local/opt/android-sdk' >> ~/.circlerc
     - ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --all --filter platform-tools,build-tools-23.0.3,android-23,extra-android-m2repository,extra-google-m2repository
     - echo 'export PATH=$ANDROID_HOME/build-tools/23.0.3:$PATH' >> ~/.circlerc
-    - curl -o- -L https://yarnpkg.com/install.sh | bash
-    - yarn add --force node-sass
-    - yarn add bower ember-cli phantomjs-prebuilt cordova
+    - npm rebuild node-sass
+    - npm install bower ember-cli phantomjs-prebuilt cordova
     - gem update fastlane
-    - bundle install
 
   post:
     - ./node_modules/bower/bin/bower install
@@ -62,3 +55,4 @@ deployment:
       - bundle exec rake production ios app:build
       - fastlane android beta
       - fastlane ios beta
+
