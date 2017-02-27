@@ -106,8 +106,8 @@ end
 namespace :cordova do
   desc "Install cordova package globally"
   task :install do
-    sh %{ yarn list --depth 1 --global cordova; if [ $? -ne 0 ]; then yarn add cordova --g; fi }
-    sh %{ yarn list --depth 1 --global cordova-update-config; if [ $? -ne 0 ]; then yarn add cordova-update-config --g ; fi }
+    sh %{ yarn global add cordova }
+    sh %{ yarn global add cordova-update-config }
   end
   desc "Cordova prepare {platform}"
   task :prepare do
