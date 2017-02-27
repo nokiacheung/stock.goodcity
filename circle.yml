@@ -25,6 +25,7 @@ dependencies:
     - curl -o- -L https://yarnpkg.com/install.sh | bash
     - yarn add --force node-sass
     - yarn add bower ember-cli phantomjs-prebuilt cordova
+    - bundle install
     - gem update fastlane
 
   post:
