@@ -72,7 +72,7 @@ PLATFORMS.each do |platform|
 end
 
 namespace :ember do
-  multitask install_parallel: %w(npm_install yarn_install)
+  multitask install_parallel: %w(npm_install yarn_install bower_install)
   desc "Ember install dependencies"
   task :install do
     Dir.chdir(ROOT_PATH) do
@@ -106,8 +106,8 @@ end
 namespace :cordova do
   desc "Install cordova package globally"
   task :install do
-    sh %{ npm install --global cordova  }
-    sh %{ npm install --global cordova-update-config }
+    sh %{ npm list --depth 1 --global cordova; if [ $? -ne 0 ]; then npm install --global cordova ; fi }
+    sh %{ npm list --depth 1 --global cordova-update-config; if [ $? -ne 0 ]; then npm install --global cordova-update-config; fi }
   end
   desc "Cordova prepare {platform}"
   task :prepare do
