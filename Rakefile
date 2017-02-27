@@ -72,18 +72,18 @@ PLATFORMS.each do |platform|
 end
 
 namespace :ember do
-  multitask install_parallel: %w(yarn_install)
+  multitask install_parallel: %w(bower_install npm_install)
   desc "Ember install dependencies"
   task :install do
     Dir.chdir(ROOT_PATH) do
       Rake::MultiTask["ember:install_parallel"].invoke
     end
   end
-  # task :bower_install do
-  #   sh %{ bower install }
-  # end
-  task :yarn_install do
-    sh %{ yarn install }
+  task :bower_install do
+    sh %{ bower install }
+  end
+  task :npm_install do
+    sh %{ npm install }
   end
   desc "Ember build with Cordova enabled"
   task :build do
