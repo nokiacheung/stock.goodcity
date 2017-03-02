@@ -170,12 +170,12 @@ export default cloudinaryUrl.extend({
     }
   }),
 
-  hasSingleLocation: Ember.computed('packagesLocations.[]', function(){
-    return Ember.isEqual(this.get('packagesLocations').length, 1);
+  hasSingleLocation: Ember.computed('packagesLocations.[]', 'packagesLocationsList', function(){
+    return Ember.isEqual(this.get('packagesLocationsList').length, 1);
   }),
 
-  firstLocationName: Ember.computed('packagesLocations.[]', function(){
-    return this.get('packagesLocations').get('firstObject.location.name');
+  firstLocationName: Ember.computed('packagesLocations.[]', 'packagesLocationsList', function(){
+    return this.get('packagesLocationsList').get('firstObject.location.name');
   }),
 
   packagesLocationsList: Ember.computed('packagesLocations.[]', function(){
