@@ -1,4 +1,161 @@
-<div class="row item_block item_header">
+<div class="status-block">
+  <div class="row">
+    <div class="undesignate-header">
+      <div class="columns small-3 medium-3 large-3 back-link">
+        {{#if (is-equal partialUndesignateBackLinkpath 'items.detail')}}
+          {{#link-to 'items.detail' model.id classNames="back"}}
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+            <div class="back-text">
+              Back
+            </div>
+          {{/link-to}}
+        {{else}}
+          {{#link-to "items.index" class="back"}}
+            <i class="fa fa-angle-left" aria-hidden="true"></i>
+            <div class="back-text">
+              Back
+            </div>
+          {{/link-to}}
+        {{/if}}
+      </div>
+      <div class="columns small-9 medium-9 large-9 inventory-status">
+        <i class="fa {{if model.isSet 'fa-tags' 'fa-tag'}}"></i> {{model.inventoryNumber}}: Status
+      </div>
+      <br><hr/>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="available-items">
+      <div class="columns small-5 medium-5 large-5 available-lebel">
+        <i class="fa fa-eye-slash" aria-hidden="true"></i> <span class="available">Available</span> <span class="private">(Private)</span>
+      </div>
+      <div class="columns small-4 medium-4 large-4 available-quantity">
+        Qty: {{model.quantity}}
+      </div>
+      <div class="columns small-3 medium-3 large-3 publish-item">
+        {{#if model.quantity}}
+          {{publish-item item=model}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+
+  {{#if model.designatedOrdersPackages.length}}
+    <div class="row">
+      <div class="designated-items">
+        <div class="columns small-4 medium-4 large-4 designated-block">
+          <i class="fa fa-shopping-basket"></i>
+          <span class="designated-text">Designated</span>
+        </div>
+        <div class="columns small-8 medium-8 large-8 designated-quantity">
+          Qty: {{model.totalDesignatedQty}}
+        </div>
+      </div>
+    </div>
+
+
+    {{#each model.designatedOrdersPackages as |ordersPackage|}}
+      <div class="row">
+        <div class="order-block">
+          {{#link-to "orders.detail" ordersPackage.designation.id tagName='span' href=false}}
+            <div class="columns small-9 medium-9 large-9 designated-list">
+              <div class="columns small-8 medium-8 large-8 orders-package-detail">
+                {{ordersPackage.designation.code}} - {{ordersPackage.designation.status}}
+              </div>
+              <div class="columns small-4 medium-4 large-4 orders-package-quantity">
+                Qty: {{ordersPackage.quantity}}
+              </div>
+              <br/>
+              <div class="columns small-8 medium-8 large-8 ellipsis name two-line-ellipsis organisation-name">
+                {{ordersPackage.designation.organisation.name}}
+              </div>
+            </div>
+          {{/link-to}}
+          <div class="columns small-1 medium-1 large-1 modify-packages">
+            <i class="fa fa-pencil-square" aria-hidden="true"></i>
+            <br>
+            <span class="modify-text">Modify</span>
+          </div>
+          <div class="columns small-1 medium-1 large-1 dispatch-packages">
+            <i class="fa fa-ship" aria-hidden="true"></i>
+            <br>
+            <span class="modify-text">Dispatch</span>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  {{/if}}
+
+  {{#if model.dispatchedOrdersPackages.length}}
+    <div class="row">
+      <div class="dispatched-items">
+        <div class="columns small-4 medium-4 large-4 dispatched-block">
+          <i class="fa fa-ship"></i>
+          <span class="designated-text">Dispatched</span>
+        </div>
+        <div class="columns small-8 medium-8 large-8 dispatched-quantity">
+          Qty: {{model.totalDispatchedQty}}
+        </div>
+      </div>
+    </div>
+
+    {{#each model.dispatchedOrdersPackages as |ordersPackage|}}
+      <div class="row">
+        <div class="order-block">
+          {{#link-to "orders.detail" ordersPackage.designation.id tagName='span' href=false}}
+            <div class="columns small-9 medium-9 large-9 dispatched-list">
+              <div class="columns small-8 medium-8 large-8 orders-package-detail">
+                {{ordersPackage.designation.code}} - {{ordersPackage.designation.status}}
+              </div>
+              <div class="columns small-4 medium-4 large-4 orders-package-quantity">
+                Qty: {{ordersPackage.quantity}}
+              </div>
+              <br/>
+              <div class="columns small-8 medium-8 large-8 ellipsis name two-line-ellipsis organisation-name">
+                {{ordersPackage.designation.organisation.name}}
+              </div>
+            </div>
+          {{/link-to}}
+          <div class="columns small-1 medium-1 large-1 modify-packages">
+          </div>
+          <div class="columns small-1 medium-1 large-1 undispatch-packages">
+            <i class="fa fa-reply" aria-hidden="true"></i>
+            <br>
+            <span class="modify-text">Undispatch</span>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+    <br/>
+  {{/if}}
+  <div class="row">
+    <hr/>
+  </div>
+  <div class="status-qty">
+    <div class="row">
+      <div class="columns small-5 medium-5 large-5 on-hand">
+        Total quantity on hand:
+      </div>
+      <div class="columns small-7 medium-7 large-7 on-hand-quantity">
+        {{model.onHandQty}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns small-5 medium-5 large-5 lifetime-hand">
+        Total Lifetime quantity:
+      </div>
+      <div class="columns small-7 medium-7 large-7 lifetime-hand-quantity">
+        {{model.receivedQuantity}}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{{!-- <div class="row item_block item_header">
   <div class="row dispatch_details {{if model.hasAllPackagesDispatched 'dispatched'}} {{if model.hasAllPackagesDesignated 'designated'}} {{if (is-and (is-not model.quantity) model.designatedOrdersPackages.length) 'designated'}}">
     <div class="small-3 columns">
       {{#if model.hasAllPackagesDesignated}}
@@ -36,7 +193,7 @@
           <i class="fa fa-ship"></i> {{t "item.all_dispatched"}}
         {{/if}}
       {{else}}
-        {{publish-stock-item item=model}}
+        {{publish-item item=model}}
       {{/if}}
     </div>
     <div class="small-6 columns location-name">
@@ -134,3 +291,4 @@
     {{{print-key-value-pair codeAndQuantities}}}
   </div>
 {{/message-box}}
+ --}}

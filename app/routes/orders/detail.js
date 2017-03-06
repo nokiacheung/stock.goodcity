@@ -13,7 +13,7 @@ export default getOrderRoute.extend({
 
     if(previousRoute) {
       var routeName = previousRoute.name;
-      if(routeName === "items.history") {
+      if(routeName === "items.history" || routeName === "items.partial_undesignate") {
         this.set("itemIdforHistoryRoute", previousRoute.params.item_id);
       }
       if(routeName.indexOf("orders")) {

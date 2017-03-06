@@ -57,6 +57,10 @@ test("Redirects to Orders's detail on clicking any row", function(assert) {
         items: [orders_package1.toJSON({includeId: true})]
       }
   });
+  $.mockjax({url: "/api/v1/designation*", type: 'GET', status: 200,responseText: {
+        designations: [designation1.toJSON({includeId: true})]
+      }
+  });
   andThen(function() {
     assert.equal(currentPath(), "orders.detail");
   });

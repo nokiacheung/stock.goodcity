@@ -58,7 +58,7 @@ test("Moving item to selected location on undispatch", function(assert) {
     click($('ul.list-activity li:first'));
     andThen(function() {
       //clicking on move of messageBox
-      click($('div#messageBox:eq(5) a:last'));
+      click($('div#messageBox:eq(3) a:last'));
     });
   });
   andThen(function() {

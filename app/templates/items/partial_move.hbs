@@ -37,7 +37,9 @@
             <i class="fa fa-ship"></i> {{t "item.all_dispatched"}}
           {{/if}}
         {{else}}
-          {{publish-stock-item item=model}}
+          <div class="stock_status">
+            <i class="fa {{if published 'fa-eye' 'fa-eye-slash'}}" aria-hidden="true"></i> In Stock
+          </div>
         {{/if}}
       </div>
       <div class="small-6 columns location-name">
