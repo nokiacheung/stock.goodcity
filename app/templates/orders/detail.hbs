@@ -5,6 +5,11 @@
       <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
       <div>{{t "back"}}</div>
     {{/link-to}}
+  {{else if (is-equal backLinkPath "items.partial_undesignate")}}
+    {{#link-to "items.partial_undesignate" itemIdforHistoryRoute classNames="back" }}
+      <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
+      <div>{{t "back"}}</div>
+    {{/link-to}}
   {{else}}
     {{#link-to backLinkPath classNames="back" }}
       <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>

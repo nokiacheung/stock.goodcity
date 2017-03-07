@@ -54,7 +54,7 @@ export default cloudinaryUrl.extend({
 
   onHandQty: Ember.computed("ordersPackages.@each.quantity", function() {
     var totalQty = 0;
-    this.get('ordersPackages').filterBy('state', "designated").forEach(record => {
+    this.get('ordersPackages').filterBy('state', "designated").filterBy("quantity").forEach(record => {
       totalQty += record.get('quantity');
     });
     return totalQty + this.get('quantity');
@@ -65,11 +65,11 @@ export default cloudinaryUrl.extend({
   }),
 
   designatedOrdersPackages: Ember.computed("ordersPackages.@each.state", function() {
-    return this.get("ordersPackages").filterBy("state", "designated");
+    return this.get("ordersPackages").filterBy("state", "designated").filterBy("quantity");
   }),
 
   dispatchedOrdersPackages: Ember.computed("ordersPackages.@each.state", function() {
-    return this.get("ordersPackages").filterBy("state", "dispatched");
+    return this.get("ordersPackages").filterBy("state", "dispatched").filterBy("quantity");
   }),
 
   dispatchedItemCount: Ember.computed("ordersPackages.@each.quantity", function() {
@@ -110,8 +110,8 @@ export default cloudinaryUrl.extend({
 
   totalDesignatedQty: Ember.computed("ordersPackages.@each.state", function() {
     var totalDesignatedQty = 0;
-    var dispatchedOrdersPackages = this.get("ordersPackages").filterBy("state", "designated");
-    dispatchedOrdersPackages.forEach(record => {
+    var designatedOrdersPackages = this.get("ordersPackages").filterBy("state", "designated");
+    designatedOrdersPackages.forEach(record => {
       totalDesignatedQty += parseInt(record.get("quantity"));
     });
     return totalDesignatedQty;

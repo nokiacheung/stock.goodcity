@@ -58,7 +58,7 @@ test("Partially moving a Package", function(assert) {
   });
   andThen(function() {
     //clicking move on messagebox
-    click($('div#messageBox:eq(2) a:last'));
+    click($('div#messageBox:eq(1) a:last'));
   });
   andThen(function() {
     //back to partial move screen
@@ -73,7 +73,7 @@ test("Partially moving a Package", function(assert) {
   });
   andThen(function() {
     //moving item to same location again
-    click($('div#messageBox:eq(2) a:last'));
+    click($('div#messageBox:eq(1) a:last'));
   });
   andThen(function() {
     //back to partial move screen

@@ -10,6 +10,7 @@ export default Ember.Controller.extend({
   orderPackagesAndQuantities: null,
   codeAndQuantities: null,
   codes: null,
+  partialUndesignateBackLinkpath: Ember.computed.localStorage(),
 
   init() {
     this.set('promptUserPopUp', false);
