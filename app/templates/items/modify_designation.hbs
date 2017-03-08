@@ -1,0 +1,60 @@
+<div class="modify-designation-block">
+  <div class="row">
+    <div class="designation-header">
+      Designation to {{model.ordersPackage.designation.code}}
+    </div>
+  </div>
+  <div class="row item-order-detail">
+    <div class="columns small-2 medium-2 large-2 item-name">
+      Item:
+    </div>
+    <div class="columns small-3 medium-3 large-3 item-number">
+      {{model.ordersPackage.item.inventoryNumber}}
+    </div>
+    <div class="columns small-7 medium-7 large-7 item-type ellipsis name one-line-ellipsis">
+      {{model.ordersPackage.item.notes}}
+    </div>
+    <br/>
+    <div class="columns small-2 medium-2 large-2 order-name">
+      Order:
+    </div>
+    <div class="columns small-3 medium-3 large-3 order-code">
+      {{model.ordersPackage.designation.code}}
+    </div>
+    <div class="columns small-7 medium-7 large-7 order-organisation-name ellipsis name two-line-ellipsis">
+      {{model.ordersPackage.designation.organisation.name}}
+    </div>
+  </div>
+  <br/>
+  <div class="row quantity-message">
+    <div class="columns small-7 medium-7 large-7 qty-message">
+      Quantity designated to {{model.ordersPackage.designation.code}}
+    </div>
+    <div class="columns small-4 medium-5 large-4 max-qty">
+      (Maximum {{model.ordersPackage.qtyToModify}})
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="columns small-4 medium-4 large-4 partial_undesignate_textfield">
+      {{partial-undesignate-input id=model.ordersPackage.id value=model.ordersPackageQty designationPackage=model.ordersPackage}}
+    </div>
+    <div class="columns small-4 medium-3 large-3 modify-order">
+      <button id="undesignateButton" type="submit" class="button expand" {{action "undesignateItem" model.ordersPackage}}>Save</button>
+    </div>
+    <div class="columns small-4 medium-3 large-3 dont-modify">
+      {{#link-to 'items.partial_undesignate' model.ordersPackage.item.id tagName='span' href=false}}
+        <button class="button expand">Not now</button>
+      {{/link-to}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="columns small-12 medium-12 large-12 cancel-designation">
+      <u {{action "displayUserPrompt" model.ordersPackage}}>Cancel the designation of this item</u>
+    </div>
+  </div>
+</div>
+
+{{#message-box btn1Text=(t "okay") btn1Callback=(action "undesignateItem" model.ordersPackage) btn2Text=(t "cancel") isVisible=modifyDesignatedQty classNames="popupOverlay designate-form"}}
+  <p>{{t "designate.modify_designation" qty=model.ordersPackage.quantity code=model.ordersPackage.designation.code}}</p>
+{{/message-box}}
