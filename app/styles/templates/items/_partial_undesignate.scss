@@ -41,9 +41,15 @@
       font-size: 2.2rem;
       padding-bottom: -1rem;
       margin-top: -0.6rem;
+      @media only screen and (max-width: 20em) {
+        font-size: 1.8rem !important;
+      }
     }
     .back-text {
       display: inline;
+      @media only screen and (max-width: 20em) {
+        font-size: 0.7rem !important;
+      }
     }
   }
   .inventory-status {
@@ -53,6 +59,9 @@
     @media #{$small-only} {
       padding-left: 2.5rem;
       font-size: 0.85rem !important;
+    }
+    @media only screen and (max-width: 20em) {
+      font-size: 0.75rem !important;
     }
   }
 }
@@ -68,11 +77,17 @@
       @media #{$small-only} {
         font-size: 0.85rem !important;
       }
+      @media only screen and (max-width: 20em) {
+        font-size: 0.7rem !important;
+      }
     }
     .private {
       font-size: 0.85rem;
       @media #{$small-only} {
         font-size: 0.7rem !important;
+      }
+      @media only screen and (max-width: 20em) {
+        font-size: 0.6rem !important;
       }
     }
   }
@@ -81,11 +96,18 @@
     @media #{$small-only} {
       padding-left: 1.1rem !important;
     }
+    @media only screen and (max-width: 20em) {
+      font-size: 0.7rem !important;
+    }
   }
   .publish-item {
     padding-left: 3rem;
     @media #{$small-only} {
       padding-left: 1rem !important;
+    }
+    @media only screen and (max-width: 20em) {
+      font-size: 0.7rem !important;
+      padding-left: 0.7rem !important;
     }
   }
 }
@@ -100,11 +122,19 @@
     @media #{$small-only} {
       font-size: 0.85rem !important;
     }
+    @media only screen and (max-width: 20em) {
+      font-size: 0.7rem !important;
+    }
   }
   .designated-quantity {
     padding: 0.15rem 0 0 6.5rem;
     @media #{$small-only} {
       padding-left: 2.8rem !important;
+    }
+    @media only screen and (max-width: 20em) {
+      font-size: 0.7rem !important;
+      padding: 0 0 0 6.5rem;
+      padding-left: 2.5rem !important;
     }
   }
 }
@@ -117,11 +147,17 @@
     background: #334f75;
     margin-left: 1rem;
     width: 64%;
+    @media only screen and (max-width: 20em) {
+      font-size: 0.7rem !important;
+    }
   }
   .orders-package-quantity {
     padding-left: 1.7rem;
     @media #{$small-only} {
       padding-left: 0 !important;
+    }
+    @media only screen and (max-width: 20em) {
+      font-size: 0.7rem !important;
     }
   }
 }
@@ -138,6 +174,15 @@
       font-size: 1.5rem !important;
       padding: 0.4rem 0.4rem 0.1rem 0.4rem !important;
     }
+    @media only screen and (max-width: 20em) {
+      font-size: 1.2rem !important;
+      padding: 0.4rem 0.3rem 0.1rem 0.5rem !important;
+    }
+  }
+  .modify-text {
+    @media only screen and (max-width: 20em) {
+      font-size: 0.6rem !important;
+    }
   }
 }
 
@@ -146,12 +191,23 @@
   @media #{$small-only} {
     margin-right: 1.8rem !important;
   }
+  @media only screen and (max-width: 20em) {
+    margin-right: 1.65rem !important;
+  }
   i {
     font-size: 1.7rem;
     padding: 0.7rem 0.7rem 0.3rem 1rem;
     @media #{$small-only} {
       font-size: 1.5rem !important;
       padding:  0.4rem 0.2rem 0.1rem 0.6rem !important;
+    }
+    @media only screen and (max-width: 20em) {
+      font-size: 1.2rem !important;
+    }
+  }
+  .dispatch-text {
+    @media only screen and (max-width: 20em) {
+      font-size: 0.6rem !important;
     }
   }
 }
@@ -166,11 +222,19 @@
     @media #{$small-only} {
       font-size: 0.85rem !important;
     }
+    @media only screen and (max-width: 20em) {
+      font-size: 0.7rem !important;
+    }
   }
   .dispatched-quantity {
     padding: 0.15rem 0 0 6.5rem;
     @media #{$small-only} {
       padding-left: 2.8rem !important;
+    }
+    @media only screen and (max-width: 20em) {
+      font-size: 0.7rem !important;
+      padding: 0 0 0 6.5rem;
+      padding-left: 2.5rem !important;
     }
   }
 }
@@ -183,11 +247,17 @@
     background: #001C42;
     margin-left: 1rem;
     width: 64%;
+    @media only screen and (max-width: 20em) {
+      font-size: 0.7rem !important;
+    }
   }
   .orders-package-quantity {
     padding-left: 1.7rem;
     @media #{$small-only} {
       padding-left: 0 !important;
+    }
+    @media only screen and (max-width: 20em) {
+      font-size: 0.7rem !important;
     }
   }
 }
@@ -204,10 +274,21 @@
       font-size: 1.5rem !important;
       padding:  0.4rem 0.2rem 0.1rem 0.9rem !important;
     }
+    @media only screen and (max-width: 20em) {
+      font-size: 1.2rem !important;
+    }
+  }
+  .undispatch-text {
+    @media only screen and (max-width: 20em) {
+      font-size: 0.6rem !important;
+    }
   }
 }
 
 .status-qty {
+  @media only screen and (max-width: 20em) {
+    font-size: 0.6rem !important;
+  }
   margin-left: 4%;
 }
 
