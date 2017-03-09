@@ -149,17 +149,19 @@
 }
 
 .image-action-list {
-  margin-left: 40rem;
+  margin-left: 34rem;
   top: 10.5rem;
   position: absolute;
 
-  @media #{$small-only} {
+  @media only screen and (max-width: 780px) {
+    margin-left: 0rem;
     right: 0rem;
-    top: 9rem;
   }
-  @media #{$medium-only} {
-    right: 1rem;
+  @media #{$small-only} {
+    top: 9.5rem;
   }
+
+
 
   >div {
     display: inline-block;
