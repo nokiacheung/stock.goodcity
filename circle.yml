@@ -27,7 +27,6 @@ dependencies:
     - gem update fastlane
   override:
     - yarn install
-    - bower install
   post:
     - ./node_modules/bower/bin/bower install
     - PATH=$(npm bin):$PATH; azure-filestore download -f goodcity.keystore:
