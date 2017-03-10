@@ -37,7 +37,7 @@
   <br/>
   <div class="row">
     <div class="columns small-4 medium-4 large-4 partial_undesignate_textfield">
-      {{partial-undesignate-input id=model.ordersPackage.id value=model.ordersPackageQty designationPackage=model.ordersPackage}}
+      {{partial-undesignate-input id=model.ordersPackage.id designationPackage=model.ordersPackage}}
     </div>
     <div class="columns small-4 medium-3 large-3 modify-order">
       <button id="undesignateButton" type="submit" class="button expand" {{action "undesignateItem" model.ordersPackage}}>Save</button>

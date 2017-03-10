@@ -15,13 +15,13 @@ export default Ember.TextField.extend({
   didRender() {
     this.set('designationPackage', this.get('designationPackage'));
     if(this.get("alreadyRendered")) {
-      this.set('value', this.get('designationPackage.quantity') - 1);
+      this.set('value', this.get('designationPackage.quantity') + this.get("designationPackage.item.quantity"));
       this.set("alreadyRendered", false);
     }
   },
 
   triggerValueChange: Ember.observer('designationPackage.quantity', 'ordersPackageQty', function() {
-    this.set('value', this.get('designationPackage.quantity') - 1);
+    this.set('value', this.get('designationPackage.quantity') + this.get("designationPackage.item.quantity"));
   }),
 
   focusIn() {
@@ -36,7 +36,7 @@ export default Ember.TextField.extend({
   focusOut() {
     var regex = /^\d+$/;
     var input_value = this.get('value');
-    if(input_value < 0 || parseInt(input_value) < 0 || parseInt(input_value) >= this.get('designationPackage.quantity') || !(regex.test(input_value))) {
+    if(input_value < 0 || parseInt(input_value) < 0 || parseInt(input_value) > (this.get('designationPackage.quantity') + this.get('designationPackage.item.quantity')) || !(regex.test(input_value))) {
       Ember.$(this.element).css("border", "1px solid #fddbdc");
       Ember.$('#undesignateButton')[0].disabled = true;
       this.$().focus();
@@ -47,7 +47,7 @@ export default Ember.TextField.extend({
   focusTrigger: Ember.observer('value', 'designationPackage', function() {
     var regex = /^\d+$/;
     var input_value = this.get('value');
-    if(input_value < 0 || parseInt(input_value) < 0 || parseInt(input_value) >= this.get('designationPackage.quantity') || !(regex.test(input_value))) {
+    if(input_value < 0 || parseInt(input_value) < 0 || parseInt(input_value) > (this.get('designationPackage.quantity') + this.get('designationPackage.item.quantity'))|| !(regex.test(input_value))) {
       Ember.$(this.element).css("border", "1px solid #fddbdc");
       Ember.$('#undesignateButton')[0].disabled = true;
       this.$().focus();

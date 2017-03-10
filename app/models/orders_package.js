@@ -19,7 +19,7 @@ export default Model.extend({
     return this.get('quantity');
   }),
 
-  qtyToModify: Ember.computed("quantity", function() {
-    return this.get('quantity') - 1;
+  qtyToModify: Ember.computed("quantity", "item.quantity", function() {
+    return this.get('quantity') + this.get("item.quantity");
   }),
 });
