@@ -42,34 +42,56 @@
 }
 
 .packages-location-block {
-    margin-top: 1rem;
-    .designated-list {
-      color: white;
-      padding: 1rem;
-      background: #334f75 !important;
-      margin-left: 3%;
-      width: 94%;
-      @media only screen and (max-width: 20em) {
-        font-size: 0.7rem !important;
-      }
-    }
-    .orders-package-quantity {
-      padding-left: 1.7rem;
-      @media #{$small-only} {
-        padding-left: 0 !important;
-      }
-      @media only screen and (max-width: 20em) {
-        font-size: 0.7rem !important;
-      }
-    }
-    .move-link{
-      // padding-left: 20%;
-      text-decoration: underline;
-    }
-    .packages-location-quantity{
-      // padding-left: 20%;
+  margin-top: 1rem;
+  .designated-list {
+    color: white;
+    padding: 1rem;
+    background: #334f75 !important;
+    margin-left: 3%;
+    width: 94%;
+    @media only screen and (max-width: 20em) {
+      font-size: 0.7rem !important;
     }
   }
+  .orders-package-quantity {
+    padding-left: 1.7rem;
+    @media #{$small-only} {
+      padding-left: 0 !important;
+    }
+    @media only screen and (max-width: 20em) {
+      font-size: 0.7rem !important;
+    }
+  }
+  .move-link{
+    // padding-left: 20%;
+    text-decoration: underline;
+  }
+  .packages-location-quantity{
+    // padding-left: 20%;
+  }
+}
+
+.packages-location-header {
+  .designated-list {
+    color: white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: 3%;
+    width: 94%;
+    @media only screen and (max-width: 20em) {
+      font-size: 0.7rem !important;
+    }
+  }
+  .orders-package-quantity {
+    padding-left: 1.7rem;
+    @media #{$small-only} {
+      padding-left: 0 !important;
+    }
+    @media only screen and (max-width: 20em) {
+      font-size: 0.7rem !important;
+    }
+  }
+}
 
 .location-name{
   padding-left: 4%;
@@ -91,4 +113,12 @@
 
 .proceed-to-choose-destination{
   padding-left: 3%;
+}
+
+.text-align-right{
+  text-align: right;
+}
+
+.padding-zero{
+  padding: 0;
 }
