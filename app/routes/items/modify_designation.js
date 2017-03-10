@@ -1,4 +1,5 @@
 import AuthorizeRoute from './../authorize';
+import Ember from 'ember';
 
 export default AuthorizeRoute.extend({
 
@@ -10,17 +11,17 @@ export default AuthorizeRoute.extend({
   model(params) {
     this.set("ordersPackageId", params.ordersPackageId);
     var item = this.store.peekRecord("item", params.item_id);
-    var orderPackage = this.store.peekRecord("orders_package", params.ordersPackageId);
+    var ordersPackage = this.store.peekRecord("orders_package", params.ordersPackageId);
     return Ember.RSVP.hash({
       item: item || this.store.findRecord('item', params.item_id),
-      ordersPackage: orderPackage || this.store.findRecord("orders_package", params.ordersPackageId)
+      ordersPackage: ordersPackage || this.store.findRecord("orders_package", params.ordersPackageId)
     });
   },
 
   afterModel(model) {
     var ordersPkg = model.ordersPackage;
     var designation =  this.store.peekRecord("designation", ordersPkg.get('designationId')) || this.store.findRecord("designation", ordersPkg.get('designationId'));
-    return ordersPkg;
+    return designation;
   },
 
   setupController(controller, model){
