@@ -10,8 +10,8 @@ machine:
     PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
 
 dependencies:
-  override:
-    - yarn install
+  cache_directories:
+    - ~/.cache/yarn
   pre:
     - brew update
     - brew install homebrew/versions/node4-lts
@@ -25,7 +25,9 @@ dependencies:
     - yarn add bower ember-cli phantomjs-prebuilt cordova
     - bundle install
     - gem update fastlane
-
+  override:
+    - yarn install
+    - bower install
   post:
     - ./node_modules/bower/bin/bower install
     - PATH=$(npm bin):$PATH; azure-filestore download -f goodcity.keystore:
