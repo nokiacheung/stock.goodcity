@@ -56,5 +56,5 @@
 </div>
 
 {{#message-box btn1Text=(t "okay") btn1Callback=(action "undesignateItem" model.ordersPackage) btn2Text=(t "cancel") isVisible=modifyDesignatedQty classNames="popupOverlay designate-form"}}
-  <p>{{t "designate.modify_designation" qty=model.ordersPackage.quantity code=model.ordersPackage.designation.code}}</p>
+  <p>{{t "designate.modify_designation" code=model.ordersPackage.designation.code}}</p>
 {{/message-box}}
