@@ -6,6 +6,7 @@ export default Ember.Controller.extend({
   packagesLocationQty: Ember.computed.localStorage(),
   totalQty: Ember.computed.localStorage(),
   originalQty: null,
+  isEditing: false,
 
   actions: {
     move_partial_qty(item) {
@@ -32,6 +33,9 @@ export default Ember.Controller.extend({
       }else{
         this.transitionToRoute('items.search_location', item.id, { queryParams: { isPartialMove: true }});
       }
+    },
+    editPackagesLocation(packagesLocation){
+      packagesLocation.set('isEditing', true);
     }
   }
 });
