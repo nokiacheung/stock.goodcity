@@ -32,7 +32,7 @@ export default Ember.Component.extend({
   hasCancelledState: false,
 
   returnsDesignateFullSet: Ember.computed('item.setItem.items', function() {
-    return !window.localStorage.getItem('designateFullSet').includes(false);
+    return window.localStorage.getItem('designateFullSet') ? !window.localStorage.getItem('designateFullSet').includes(false) : false;
   }),
 
   overridesDesignation: Ember.computed('item.setItem.designationList.[]', 'order', function() {
