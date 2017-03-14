@@ -1,6 +1,7 @@
 import Ember from "ember";
 import AjaxPromise from 'stock/utils/ajax-promise';
 const { getOwner } = Ember;
+import config from '../config/environment';
 
 export default Ember.Component.extend({
   displayUserPrompt: false,
@@ -18,6 +19,7 @@ export default Ember.Component.extend({
   designatedRecord: null,
   cannotDesignateToSameOrder: false,
   designateFullSet: Ember.computed.localStorage(),
+  env: config.APP.environment,
 
   order: null,
   item: null,
@@ -32,7 +34,7 @@ export default Ember.Component.extend({
   hasCancelledState: false,
 
   returnsDesignateFullSet: Ember.computed('item.setItem.items', function() {
-    if(!window.localStorage.getItem('designateFullSet')) {
+    if(this.get("env") === "test") {
       return false;
     }
     return !window.localStorage.getItem('designateFullSet').includes(false);
