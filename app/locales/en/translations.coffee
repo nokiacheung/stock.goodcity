@@ -67,6 +67,7 @@ I18nTranslationsEn =
     "multiple": "Multiple"
 
   "designate":
+    "modify_designation": "Cancels the designation to order {{code}}"
     "form_title": "Designating this item to order {{code}}"
     "designate": "Designate"
     "overrides_existing": "Overrides an existing designation."
