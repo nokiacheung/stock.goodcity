@@ -16,15 +16,17 @@ export default Ember.Controller.extend({
       var packagesLocationQty = [];
       var record = {};
       elementIds.forEach(packages_location_id => {
-        var value = parseInt(Ember.$(`#${packages_location_id}`)[0].value);
-        var packages_location = this.get('store').peekRecord('packages_location', packages_location_id);
-        record["packages_location_id"] = packages_location_id;
-        record["location_id"] = packages_location.get('locationId');
-        record["package_id"] = packages_location.get('packageId');
-        record["new_qty"] = value;
-        totalQty += value;
-        packagesLocationQty.push(record);
-        record = {};
+        if(Ember.$(`#${packages_location_id}`).length){
+          var value = parseInt(Ember.$(`#${packages_location_id}`)[0].value);
+          var packages_location = this.get('store').peekRecord('packages_location', packages_location_id);
+          record["packages_location_id"] = packages_location_id;
+          record["location_id"] = packages_location.get('locationId');
+          record["package_id"] = packages_location.get('packageId');
+          record["new_qty"] = value;
+          totalQty += value;
+          packagesLocationQty.push(record);
+          record = {};
+        }
       });
       this.set("packagesLocationQty", packagesLocationQty);
       this.set("totalQty", totalQty);
@@ -40,7 +42,11 @@ export default Ember.Controller.extend({
     },
 
     notNow(item){
-      item.get('packagesLocations').filterBy('isEditing', true).setEach('isEditing', false);
+      var editedPackagesLocations = item.get('packagesLocations').filterBy('isEditing', true);
+      editedPackagesLocations.forEach(packagesLocation => {
+        Ember.$(`#packages-qty-location-${packagesLocation.id}`)[0].innerText = packagesLocation.get('quantity');
+      });
+      editedPackagesLocations.setEach('isEditing', false);
       this.set('isEditing', false);
     }
   }

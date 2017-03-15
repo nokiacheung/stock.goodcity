@@ -43,6 +43,7 @@ export default AuthorizeRoute.extend({
 
   setupController(controller, model){
     this._super(controller, model);
+    model.item.get('packagesLocations').filterBy('isEditing', true).setEach('isEditing', false);
     controller.set('searchText', "");
     controller.set("orderIdForOrderDetail", this.get("orderId"));
     controller.set('moveItemPath', this.get('itemPreviousRoute'));
@@ -50,3 +51,4 @@ export default AuthorizeRoute.extend({
     controller.set('selectedLocation', null);
   }
 });
+

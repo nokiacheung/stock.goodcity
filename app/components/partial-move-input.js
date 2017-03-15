@@ -55,7 +55,8 @@ export default Ember.TextField.extend({
     var itemQuantity = this.get('item.quantity');
     var newQty = 0;
     var packagesLocationQtyId = '#packages-qty-location-' + this.get('item.id');
-    if(regex.test(this.get('value')) && (!(this.get('value') > itemQuantity))){
+    var isValGreater = this.get('value') > itemQuantity;
+    if(!(isValGreater) && regex.test(this.get('value'))){
       newQty = this.get('item.quantity') - this.get('value');
       Ember.$(packagesLocationQtyId).text(newQty);
     }
@@ -64,7 +65,7 @@ export default Ember.TextField.extend({
       Ember.$(packagesLocationQtyId).text(newQty);
     }
     Ember.$('.location_block input').map(function(){
-      if(regex.test(this.value) && (!(this.value > itemQuantity))){
+      if(regex.test(this.value) && (!(isValGreater))){
         total += parseInt(this.value);
       }
     });
