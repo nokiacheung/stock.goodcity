@@ -35,7 +35,13 @@ export default Ember.Controller.extend({
       }
     },
     editPackagesLocation(packagesLocation){
+      this.set('isEditing', true);
       packagesLocation.set('isEditing', true);
+    },
+
+    notNow(item){
+      item.get('packagesLocations').filterBy('isEditing', true).setEach('isEditing', false);
+      this.set('isEditing', false);
     }
   }
 });
