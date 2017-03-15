@@ -24,13 +24,9 @@
     <div class="row dispatch_details {{if (is-equal package.state 'dispatched') 'dispatched'}} {{if (is-equal package.state 'designated') 'designated'}} {{if (is-greater package.item.designatedItemCount 1) 'designated'}}">
       <div class="small-3 columns">
         {{#if (is-equal package.state 'dispatched')}}
-          {{#link-to 'orders.detail' package.item.designation.id tagName='span' href=false}}
             <i class="fa fa-ship"></i> {{package.designation.code}}
-          {{/link-to}}
         {{else if (is-equal package.state 'designated')}}
-          {{#link-to 'orders.detail' package.item.designation.id tagName='span' href=false}}
             <i class="fa fa-shopping-basket"></i> {{package.designation.code}}
-          {{/link-to}}
         {{else}}
           <div class="stock_status">
             <i class="fa {{if published 'fa-eye' 'fa-eye-slash'}}" aria-hidden="true"></i> In Stock
