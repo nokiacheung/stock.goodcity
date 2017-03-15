@@ -22,7 +22,6 @@
               {{else if item.designatedOrdersPackages.length}}
                   <i class="fa fa-shopping-basket"></i> {{t "item.multiple_designation"}}
               {{else if item.hasOneDispatchedPackage}}
-                {{#link-to 'orders.detail' item.hasOneDispatchedPackage.designation.id tagName='span' href=false}}
                   <i class="fa fa-ship"></i> {{item.hasOneDispatchedPackage.designation.code}}
               {{else if item.dispatchedOrdersPackages.length}}
                 <i class="fa fa-ship"></i> {{t "item.all_dispatched"}}

@@ -4,13 +4,9 @@
       <div class="small-3 columns">
         {{#if model.hasAllPackagesDesignated}}
           {{#if model.hasOneDesignatedPackage}}
-            {{#link-to 'items.partial_undesignate' model.id tagName='span' href=false}}
               <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
-            {{/link-to}}
           {{else}}
-            {{#link-to 'items.partial_undesignate' model.id tagName='span' href=false}}
               <i class="fa fa-shopping-basket"></i> {{t "item.multiple_designation"}}
-            {{/link-to}}
           {{/if}}
         {{else if model.hasAllPackagesDispatched}}
           {{#if model.hasOneDispatchedPackage}}
@@ -22,17 +18,11 @@
           {{/if}}
         {{else if (is-not model.quantity)}}
           {{#if model.hasOneDesignatedPackage}}
-            {{#link-to 'items.partial_undesignate' model.id tagName='span' href=false}}
               <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
-            {{/link-to}}
           {{else if model.designatedOrdersPackages.length}}
-            {{#link-to 'items.partial_undesignate' model.id tagName='span' href=false}}
               <i class="fa fa-shopping-basket"></i> {{t "item.multiple_designation"}}
-            {{/link-to}}
           {{else if model.hasOneDispatchedPackage}}
-            {{#link-to 'orders.detail' model.hasOneDispatchedPackage.designation.id tagName='span' href=false}}
               <i class="fa fa-ship"></i> {{model.hasOneDispatchedPackage.designation.code}}
-            {{/link-to}}
           {{else if model.dispatchedOrdersPackages.length}}
             <i class="fa fa-ship"></i> {{t "item.all_dispatched"}}
           {{/if}}
