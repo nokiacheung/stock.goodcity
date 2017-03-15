@@ -26,14 +26,23 @@
   </div>
 
   <div class="row">
-    <div class="available-items">
-      <div class="columns small-5 medium-5 large-5 available-lebel">
-        <i class="fa fa-eye-slash" aria-hidden="true"></i> <span class="available">Available</span> <span class="private">(Private)</span>
+    <div class="item-status-header first">
+      <div class="columns small-4 item-status-block">
+        <i class="fa fa-eye-slash" aria-hidden="true"></i>
+        <span class="item-status-text">Available</span>
       </div>
-      <div class="columns small-4 medium-4 large-4 available-quantity">
-        Qty: {{model.quantity}}
+      <div class="columns small-5 item-status-quantity">
+        <div class="columns small-5 item-status-quantity">
+          Qty:
+        </div>
+        <div class="columns small-5 item-status-quantity">
+          {{model.totalDesignatedQty}}
+        </div>
+        <div class="columns small-4 item-status-quantity">
+
+        </div>
       </div>
-      <div class="columns small-3 medium-3 large-3 publish-item">
+      <div class="columns small-3 item-status-quantity">
         {{#if model.quantity}}
           {{publish-item item=model}}
         {{/if}}
@@ -43,14 +52,26 @@
 
   {{#if model.designatedOrdersPackages.length}}
     <div class="row">
-      <div class="designated-items">
-        <div class="columns small-4 medium-4 large-4 designated-block">
+      <div class="item-status-header">
+        <div class="columns small-4 item-status-block">
           <i class="fa fa-shopping-basket"></i>
-          <span class="designated-text">Designated</span>
+          <span class="item-status-text">Designated</span>
         </div>
-        <div class="columns small-8 medium-8 large-8 designated-quantity">
-          Qty: {{model.totalDesignatedQty}}
+        <div class="columns small-5 item-status-quantity">
+          <div class="columns small-5 item-status-quantity">
+            Qty:
+          </div>
+          <div class="columns small-5 item-status-quantity">
+            {{model.totalDesignatedQty}}
+          </div>
+          <div class="columns small-4 item-status-quantity">
+
+          </div>
         </div>
+        <div class="columns small-2 item-status-quantity">
+
+        </div>
+
       </div>
     </div>
 
@@ -59,12 +80,15 @@
       <div class="row">
         <div class="order-block">
           {{#link-to "orders.detail" ordersPackage.designation.id tagName='span' href=false}}
-            <div class="columns small-9 medium-9 large-9 designated-list">
-              <div class="columns small-8 medium-8 large-8 orders-package-detail">
+            <div class="columns small-9 medium-9 large-9 package-list light-theme">
+              <div class="columns small-7 orders-package-detail">
                 {{ordersPackage.designation.code}} - {{ordersPackage.designation.status}}
               </div>
-              <div class="columns small-4 medium-4 large-4 orders-package-quantity">
-                Qty: {{ordersPackage.quantity}}
+              <div class="columns small-2 orders-package-quantity">
+                Qty:
+              </div>
+              <div class="columns small-3 orders-package-quantity">
+                11211
               </div>
               <br/>
               <div class="columns small-8 medium-8 large-8 ellipsis name two-line-ellipsis organisation-name">
@@ -91,13 +115,24 @@
 
   {{#if model.dispatchedOrdersPackages.length}}
     <div class="row">
-      <div class="dispatched-items">
-        <div class="columns small-4 medium-4 large-4 dispatched-block">
+      <div class="item-status-header">
+        <div class="columns small-4 item-status-block">
           <i class="fa fa-ship"></i>
-          <span class="designated-text">Dispatched</span>
+          <span class="item-status-text">Dispatched</span>
         </div>
-        <div class="columns small-8 medium-8 large-8 dispatched-quantity">
-          Qty: {{model.totalDispatchedQty}}
+        <div class="columns small-5 item-status-quantity">
+          <div class="columns small-5 item-status-quantity">
+            Qty:
+          </div>
+          <div class="columns small-5 item-status-quantity">
+             {{model.totalDispatchedQty}}
+          </div>
+          <div class="columns small-4 item-status-quantity">
+
+          </div>
+        </div>
+        <div class="columns small-2 item-status-quantity">
+
         </div>
       </div>
     </div>
@@ -106,12 +141,15 @@
       <div class="row">
         <div class="order-block">
           {{#link-to "orders.detail" ordersPackage.designation.id tagName='span' href=false}}
-            <div class="columns small-9 medium-9 large-9 dispatched-list">
-              <div class="columns small-8 medium-8 large-8 orders-package-detail">
+            <div class="columns small-9 medium-9 large-9 package-list dark-theme">
+              <div class="columns small-7 orders-package-detail">
                 {{ordersPackage.designation.code}} - {{ordersPackage.designation.status}}
               </div>
-              <div class="columns small-4 medium-4 large-4 orders-package-quantity">
-                Qty: {{ordersPackage.quantity}}
+              <div class="columns small-2  orders-package-quantity">
+                Qty:
+              </div>
+              <div class="columns small-3 orders-package-quantity">
+                {{ordersPackage.quantity}}
               </div>
               <br/>
               <div class="columns small-8 medium-8 large-8 ellipsis name two-line-ellipsis organisation-name">
@@ -136,19 +174,26 @@
   </div>
   <div class="status-qty">
     <div class="row">
-      <div class="columns small-5 medium-5 large-4 on-hand">
+      <div class="columns small-5 medium-4  on-hand">
         Total quantity on hand:
       </div>
-      <div class="columns small-7 medium-7 large-8 on-hand-quantity">
+      <div class="columns small-1 align-right ">
         {{model.onHandQty}}
       </div>
+      <div class="columns small-5">
+
+      </div>
+
     </div>
     <div class="row">
-      <div class="columns small-5 medium-5 large-4 lifetime-hand">
+      <div class="columns small-5  medium-4 ">
         Total Lifetime quantity:
       </div>
-      <div class="columns small-7 medium-7 large-8 lifetime-hand-quantity">
+      <div class="columns small-1 align-right">
         {{model.receivedQuantity}}
+      </div>
+      <div class="columns small-5">
+
       </div>
     </div>
   </div>
