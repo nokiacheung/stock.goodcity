@@ -36,7 +36,7 @@
           Qty:
         </div>
         <div class="columns small-5 item-status-quantity">
-          {{model.totalDesignatedQty}}
+          {{model.quantity}}
         </div>
         <div class="columns small-4 item-status-quantity">
 
@@ -96,7 +96,7 @@
               </div>
             </div>
           {{/link-to}}
-          <div class="columns small-1 medium-1 large-1 modify-packages">
+          <div class="columns small-1 medium-1 large-1 modify-packages allign-modify-package">
             {{#link-to "items.modify_designation" model.id (query-params ordersPackageId=ordersPackage.id) tagName='span' href=false}}
               <i class="fa fa-pencil-square" aria-hidden="true"></i>
               <br>
