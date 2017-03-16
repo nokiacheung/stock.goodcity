@@ -37,16 +37,17 @@ export default Ember.TextField.extend({
     }
     var regex = /^\d+$/;
     var input_value = this.get('value');
+
     if(input_value < 0 || input_value > this.get('item.quantity') || !(input_value.trim()) || !(regex.test(input_value))) {
-      Ember.$(this.element).css("border", "1px solid #f34d4f");
-      Ember.$('#partial_move')[0].disabled = true;
+      Ember.$(this.element).closest('div').addClass("has-error");
       this.$().focus();
       return false;
     } else {
-      Ember.$(this.element).css("border", "1px solid #8091a9");
+      Ember.$(this.element).closest('div').removeClass("has-error");
       Ember.$('#partial_move')[0].disabled = false;
       return true;
     }
+
   }),
 
   valueChanged: Ember.observer('value', function(){

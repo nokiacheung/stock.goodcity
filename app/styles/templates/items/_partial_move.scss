@@ -75,7 +75,7 @@
         margin: 0;
         font-size: 0.7rem !important;
         padding-top: 0.4rem !important;
-        text-align: center;
+        text-align: right;
       }
       @media #{$medium-only} {
         width: 6rem;
@@ -83,7 +83,7 @@
         margin: 0;
         padding: 0;
         float: right;
-        text-align: center;
+        text-align: right;
         font-size: 1rem;
         padding-right: 0.3rem !important;
       }
@@ -93,16 +93,12 @@
         width: 7rem;
         height: 2.5rem;
         float: right;
-        text-align: center;
+        text-align: right;
       }
     }
   }
   .move-link{
-    // padding-left: 20%;
     text-decoration: underline;
-  }
-  .packages-location-quantity{
-    // padding-left: 20%;
   }
 }
 
@@ -156,4 +152,10 @@
 
 .padding-zero{
   padding: 0;
+}
+
+.move-qty.has-error{
+  input{
+    color: $light-black !important;
+  }
 }
