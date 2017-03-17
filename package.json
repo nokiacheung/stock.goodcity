@@ -59,6 +59,9 @@
   },
   "dependencies": {
     "azure-api": "git://github.com/crossroads/azure-api.git#master",
-    "cordova-lib": "https://github.com/crossroads/goodcity-lib.git"
+    "blueimp-file-upload": "^9.17.0",
+    "cloudinary-jquery-file-upload": "^2.2.0",
+    "cordova-lib": "https://github.com/crossroads/goodcity-lib.git",
+    "jquery": "^3.2.0"
   }
 }
