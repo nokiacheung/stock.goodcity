@@ -61,5 +61,9 @@ export default Ember.Controller.extend({
           loadingView.destroy();
         });
     },
+
+    dispatch(item, orderPackage){
+      this.transitionToRoute('items.partial_dispatch', item.id, { queryParams: { orderPackageId: orderPackage.id }});
+    }
   }
 });

@@ -36,7 +36,7 @@
              {{packagesLocation.quantity}}
           </div>
           <div class="columns small-2 move-link text-align-right move-qty">
-            {{partial-move-input id=id  value=1}}
+            {{partial-disptach-input id=packagesLocation.id item=packagesLocation ordersPackage=orderPackage value=1}}
           </div>
         </div>
       </div>
@@ -45,14 +45,14 @@
     <div class="row">
       <div class='columns small-12 medium-12 large-12 total-to-move'>
         <div class="columns small-8 text-align-right">
-          Total to dispatch (must = 11)
+          Total to dispatch (must = {{orderPackage.quantity}})
         </div>
         <div class="columns small-4 text-align-right ">
           <div class="columns small-1">
 
           </div>
-          <div class="columns small-10 align-left">
-          02232
+          <div class="columns small-10 align-left total-move">
+            0
           </div>
         </div>
 
@@ -61,7 +61,7 @@
     <div class="row">
       <div class="packages-location-block partial-move-buttons">
         <div class="columns small-5 medium-5">
-          <button id="partial_move" type="submit" class="button expand"{{action 'move_partial_qty' model}}>{{t "item.move"}}</button>
+          <button id="partial_move" type="submit" disabled class="button expand"{{action 'dispatchQty' model}}>Dispatch</button>
         </div>
         <div class="columns small-5 medium-5">
           <button id="not-now" {{action 'notNow' model}} class="button expand">Not now</button>
