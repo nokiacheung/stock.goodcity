@@ -20,7 +20,7 @@ export default Ember.TextField.extend({
     }
     this.set('designationPackage', this.get('designationPackage'));
     if(this.get("alreadyRendered")) {
-      this.set('value', this.get('designationPackage.quantity') + this.get("designationPackage.item.quantity"));
+      this.set('value', this.get('designationPackage.quantity'));
       this.set("alreadyRendered", false);
     }
   },
@@ -29,7 +29,7 @@ export default Ember.TextField.extend({
     if(this.get("env") === "test") {
       return false;
     }
-    this.set('value', this.get('designationPackage.quantity') + this.get("designationPackage.item.quantity"));
+    this.set('value', this.get('designationPackage.quantity'));
   }),
 
   focusIn() {
