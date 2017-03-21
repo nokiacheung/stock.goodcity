@@ -37,7 +37,7 @@
         <div class="warning_text">
           <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
           <div class="right-message">
-            <div>Increases {{ordersPackage.state}} quantity by {{js-add ordersPackage.quantity partial_quantity}} for {{ordersPackage.designation.code}}! ({{ordersPackage.quantity}} previously {{ordersPackage.state}} - item {{ordersPackage.item.inventoryNumber}})</div>
+            <div>Increases {{ordersPackage.state}} quantity to {{js-add ordersPackage.quantity partial_quantity}} for {{ordersPackage.designation.code}}! ({{ordersPackage.quantity}} previously {{ordersPackage.state}} - item {{ordersPackage.item.inventoryNumber}})</div>
           </div>
         </div>
       </div>
@@ -48,7 +48,7 @@
       <div class="warning_text">
         <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
         <div class="right-message">
-          <div>Increases {{designatedRecord.state}} quantity by {{js-add totalPartialDesignatedItems partial_quantity}} for {{order.code}}! ({{totalPartialDesignatedItems}} previously {{designatedRecord.state}})</div>
+          <div>Increases {{designatedRecord.state}} quantity to {{js-add totalPartialDesignatedItems partial_quantity}} for {{order.code}}! ({{totalPartialDesignatedItems}} previously {{designatedRecord.state}})</div>
         </div>
       </div>
     </div>
