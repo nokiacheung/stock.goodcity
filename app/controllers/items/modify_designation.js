@@ -41,10 +41,8 @@ export default Ember.Controller.extend({
         })
         .finally(() => {
           loadingView.destroy();
-          if(inputValue === 0 || this.get("modifyDesignatedQty")) {
-            this.set("modifyDesignatedQty", false);
-            this.transitionToRoute("items.partial_undesignate", item.get("id"));
-          }
+          this.set("modifyDesignatedQty", false);
+          this.transitionToRoute("items.partial_undesignate", item.get("id"));
         });
     },
   }
