@@ -15,4 +15,8 @@ export default Model.extend({
   quantityToMove: Ember.computed('quantity', function(){
     return this.get('quantity');
   }),
+
+  siblingPackagesLocations: Ember.computed('itemId', function(){
+    return this.get('item.packagesLocations');
+  }),
 });

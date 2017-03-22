@@ -4,6 +4,7 @@ import config from '../config/environment';
 export default Ember.TextField.extend({
   item: null,
   value: "",
+  total: 0,
   env: config.APP.environment,
   tagName: "input",
   maxlength: "5",
@@ -50,14 +51,16 @@ export default Ember.TextField.extend({
 
     if(input_value < 0 || input_value > this.get('item.quantity') || !(input_value.trim()) || !(regex.test(input_value))) {
       Ember.$(this.element).closest('div').addClass("has-error");
+      Ember.$('#partial_move')[0].disabled = true;
       this.$().focus();
       return false;
+    } else if(isInvalid){
+      Ember.$('#partial_move')[0].disabled = true;
     } else {
       Ember.$(this.element).closest('div').removeClass("has-error");
       Ember.$('#partial_move')[0].disabled = false;
       return true;
     }
-
   }),
 
   valueChanged: Ember.observer('value', function(){
@@ -67,20 +70,27 @@ export default Ember.TextField.extend({
     var newQty = 0;
     var packagesLocationQtyId = '#packages-qty-location-' + this.get('item.id');
     var isValGreater = this.get('value') > itemQuantity;
+    var recordToSkipId;
     if(!(isValGreater) && regex.test(this.get('value'))){
       newQty = this.get('item.quantity') - this.get('value');
       Ember.$(packagesLocationQtyId).text(newQty);
     }
     else{
       newQty = this.get('item.quantity');
+      recordToSkipId = this.id;
       Ember.$(packagesLocationQtyId).text(newQty);
     }
     Ember.$('.location_block input').map(function(){
-      if(regex.test(this.value) && (!(isValGreater))){
-        total += parseInt(this.value);
+      if(regex.test(this.value)){
+        if(this.id !== recordToSkipId){
+          total += parseInt(this.value);
+        }
+        else{
+          Ember.$('#partial_move')[0].disabled = true;
+        }
       }
     });
-    Ember.$('.total-move').text(total);
-    console.log(total);
+    this.set('total', total);
+    Ember.$('.total-move').text(this.get('total'));
   }),
 });
