@@ -37,6 +37,16 @@ export default Ember.TextField.extend({
     }
     var regex = /^\d+$/;
     var input_value = this.get('value');
+    var siblingPackagesLocations = this.get('item.siblingPackagesLocations');
+    var isInvalid;
+
+    siblingPackagesLocations.forEach(sibling => {
+      if(Ember.$(`#${sibling.id}`).length){
+        if(Ember.$(`#${sibling.id}`)[0].value > sibling.get('quantity')){
+          isInvalid = true;
+        }
+      }
+    });
 
     if(input_value < 0 || input_value > this.get('item.quantity') || !(input_value.trim()) || !(regex.test(input_value))) {
       Ember.$(this.element).closest('div').addClass("has-error");

@@ -2,10 +2,12 @@
   <div class="row">
     <div class='move_location_header'>
       <div class="columns small-3 medium-3 large-3 back-link">
-        <i class="fa fa-angle-left" aria-hidden="true"></i>
-        <div class='back-text'>
-          Back
-        </div>
+        {{#link-to 'items.detail' model.id classNames="back"}}
+          <i class="fa fa-angle-left" aria-hidden="true"></i>
+          <div class='back-text'>
+            Back
+          </div>
+        {{/link-to}}
       </div>
       <div class='class= columns small-9 medium-9 large-9 inventory_number_location'>
         <i class="fa {{if model.isSet 'fa-tags' 'fa-tag'}}"></i> {{model.inventoryNumber}}: Location
