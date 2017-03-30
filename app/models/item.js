@@ -170,6 +170,10 @@ export default cloudinaryUrl.extend({
     }
   }),
 
+  isSingletonItem: Ember.computed('quantity', function() {
+    return this.get("receivedQuantity") === 1;
+  }),
+
   hasSingleLocation: Ember.computed('packagesLocations.[]', 'packagesLocationsList', function(){
     return Ember.isEqual(this.get('packagesLocationsList').length, 1);
   }),
