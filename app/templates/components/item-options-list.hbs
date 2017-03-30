@@ -18,7 +18,10 @@
   </div>
 
   <div class="{{unless item.hasOneDesignatedPackage 'disabled'}}">
-    {{dispatch-form item=item order=item.designation package=item.hasOneDesignatedPackage closeList=(action 'toggle' true) }}
+    {{#link-to 'items.partial_dispatch' item.id tagName='div' href=false}}
+      <i class="fa item-menu fa-ship"></i>
+      {{t "item.dispatch"}}
+    {{/link-to}}
   </div>
 
   {{#print-label item=item closeList=(action 'toggle' true)}}
