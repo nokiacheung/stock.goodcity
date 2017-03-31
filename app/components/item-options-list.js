@@ -6,7 +6,6 @@ export default Ember.Component.extend({
   item: null,
   designateFullSet: Ember.computed.localStorage(),
 
-
   actions: {
     toggle(value) {
       this.set("hidden", value);

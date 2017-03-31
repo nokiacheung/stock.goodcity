@@ -22,4 +22,8 @@ export default Model.extend({
   qtyToModify: Ember.computed("quantity", "item.quantity", function() {
     return this.get('quantity') + this.get("item.quantity");
   }),
+
+  orderCode: Ember.computed("designation", function(){
+    return this.get('designation.code');
+  }),
 });

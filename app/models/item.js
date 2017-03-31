@@ -182,6 +182,10 @@ export default cloudinaryUrl.extend({
     return this.get('packagesLocationsList').get('firstObject.location.name');
   }),
 
+  firstOrdersPackage: Ember.computed('ordersPackages.[]', function(){
+    return this.get('ordersPackages.firstObject');
+  }),
+
   packagesLocationsList: Ember.computed('packagesLocations.[]', function(){
     var packagesLocations = [];
     this.get('packagesLocations').forEach((packages_location) => {
