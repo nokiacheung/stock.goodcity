@@ -17,7 +17,6 @@ dependencies:
     - brew install homebrew/versions/node4-lts
     - brew install watchman
     - echo 'export ANDROID_HOME=/usr/local/Caskroom/android-sdk' >> ~/.circlerc
-    - echo y | android list sdk --all --use-sdk-wrapper
     - echo y | android update sdk --no-ui --filter "tools" --use-sdk-wrapper
     - echo y | android update sdk --no-ui --filter "platform-tools" --use-sdk-wrapper
     - echo y | android update sdk --no-ui --filter "android-23" --use-sdk-wrapper
