@@ -16,6 +16,7 @@ dependencies:
     - brew update
     - brew install homebrew/versions/node4-lts
     - brew install watchman
+    - brew cask install android-sdk
     - echo 'export ANDROID_HOME=/usr/local/Caskroom/android-sdk' >> ~/.circlerc
     - echo y | android update sdk --no-ui --filter "tools" --use-sdk-wrapper
     - echo y | android update sdk --no-ui --filter "platform-tools" --use-sdk-wrapper
