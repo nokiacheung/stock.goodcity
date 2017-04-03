@@ -26,11 +26,24 @@
           {{/if}}
         {{/unless}}
 
-        {{#if (is-equal model.isSet model.setItem.hasSingleDesignation)}}
-          {{dispatch-set item=model order=model.designation autoDisplayOverlay=autoDisplayOverlay}}
-        {{else if (is-and model.hasOneDesignatedPackage (is-not model.isSet))}}
-          {{dispatch-set item=model order=model.designation package=model.hasOneDesignatedPackage autoDisplayOverlay=autoDisplayOverlay}}
+        {{#if (is-and model.hasOneDesignatedPackage (is-not model.isSet))}}
+          <div class="{{unless item.hasOneDesignatedPackage 'disabled'}}">
+            {{#link-to 'items.partial_dispatch' item.id (query-params orderPackageId=model.firstOrdersPackage.id) tagName='div' href=false}}
+              <span class="no-avatar">
+                <i class="fa fa-ship" aria-hidden="true"></i>
+              </span>
+            {{/link-to}}
+          </div>
         {{/if}}
+
+        {{!--
+          {{#if (is-equal model.isSet model.setItem.hasSingleDesignation)}}
+            {{dispatch-set item=model order=model.designation autoDisplayOverlay=autoDisplayOverlay}}
+          {{else if (is-and model.hasOneDesignatedPackage (is-not model.isSet))}}
+            {{dispatch-set item=model order=model.designation package=model.hasOneDesignatedPackage autoDisplayOverlay=autoDisplayOverlay}}
+          {{/if}}
+        --}}
+
 
         {{#if item.allowLabelPrint}}
           {{#print-label item=item closeList=""}}

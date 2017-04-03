@@ -7,6 +7,7 @@ export default Ember.Controller.extend({
   item: null,
   queryParams: ["orderPackageId"],
   orderPackageId: null,
+  partialDispatchBackLinkpath: Ember.computed.localStorage(),
 
   orderPackage: Ember.computed('orderPackageId', function(){
     var orderPackage = this.get('store').peekRecord('OrdersPackage', this.get('orderPackageId'));
@@ -14,7 +15,7 @@ export default Ember.Controller.extend({
   }),
 
   order: Ember.computed('orderPackage', function(){
-    var order = this.get('store').peekRecord('Order', this.get('orderPackage.order_id'));
+    var order = this.get('store').peekRecord('Order', this.get('orderPackage.orderId'));
   }),
 
   actions: {

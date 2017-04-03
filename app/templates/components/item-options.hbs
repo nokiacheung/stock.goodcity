@@ -8,7 +8,12 @@
     Label
   {{/print-label}}
 
-  {{dispatch-form item=item order=order package=package closeList=(action 'toggle' true) }}
+  <div class="{{unless item.hasOneDesignatedPackage 'disabled'}}">
+    {{#link-to 'items.partial_dispatch' item.id (query-params orderPackageId=item.firstOrdersPackage.id) tagName='div' href=false}}
+      <i class="fa item-menu fa-ship"></i>
+      {{t "item.dispatch"}}
+    {{/link-to}}
+  </div>
 
   {{undesignate-item item=item order=order package=package closeList=(action 'toggle' true) }}
 

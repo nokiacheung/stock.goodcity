@@ -5,7 +5,7 @@ import { belongsTo } from 'ember-data/relationships';
 
 export default Model.extend({
   packageId: attr('number'),
-  order_id: attr('number'),
+  orderId: attr('number'),
   itemId: attr('number'),
   designationId: attr('number'),
   quantity: attr('number'),
@@ -25,5 +25,9 @@ export default Model.extend({
 
   orderCode: Ember.computed("designation", function(){
     return this.get('designation.code');
+  }),
+
+  isSingleQuantity: Ember.computed('quantity', function(){
+    return this.get('quantity') === 1;
   }),
 });
