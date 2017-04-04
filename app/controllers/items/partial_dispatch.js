@@ -14,10 +14,6 @@ export default Ember.Controller.extend({
     return orderPackage;
   }),
 
-  order: Ember.computed('orderPackage', function(){
-    var order = this.get('store').peekRecord('Order', this.get('orderPackage.orderId'));
-  }),
-
   actions: {
     dispatchQty(item){
       var elementIds  = item.get('packagesLocations').getEach('id');

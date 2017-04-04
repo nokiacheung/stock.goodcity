@@ -8,14 +8,16 @@
     Label
   {{/print-label}}
 
-  <div class="{{unless item.hasOneDesignatedPackage 'disabled'}}">
-    {{#link-to 'items.partial_dispatch' item.id (query-params orderPackageId=item.firstOrdersPackage.id) tagName='div' href=false}}
+  {{#if (is-equal ordersPackage.state "dispatched")}}
+    {{undispatch-item item=item package=ordersPackage closeList=closeList }}
+  {{else}}
+    {{#link-to 'items.partial_dispatch' item.id (query-params orderPackageId=ordersPackage.id) tagName='div' href=false}}
       <i class="fa item-menu fa-ship"></i>
       {{t "item.dispatch"}}
     {{/link-to}}
-  </div>
+  {{/if}}
 
-  {{undesignate-item item=item order=order package=package closeList=(action 'toggle' true) }}
+  {{undesignate-item item=item order=order package=ordersPackage closeList=(action 'toggle' true) }}
 
   <div class="options-link-close" {{action "toggle" true}}>
     <i class="fa item-menu fa-angle-right"></i>

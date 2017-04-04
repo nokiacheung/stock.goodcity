@@ -1,4 +1,5 @@
 import AuthorizeRoute from './../authorize';
+import Ember from 'ember';
 
 export default AuthorizeRoute.extend({
 
@@ -15,7 +16,6 @@ export default AuthorizeRoute.extend({
 
     if(previousRoute) {
       var routeName = previousRoute.name;
-      debugger
       if(routeName === "items"){
         this.set("partialDispatchBackLinkpath", "items.index");
       } else if(routeName === "items.partial_undesignate" || routeName === 'orders.detail') {
@@ -29,4 +29,9 @@ export default AuthorizeRoute.extend({
   model(params){
     return this.store.peekRecord("item", params.item_id) || this.store.findRecord('item', params.item_id);
   },
+
+  setupController(controller, model){
+    this._super(controller, model);
+    controller.set('partialDispatchBackLinkpath', this.get('partialDispatchBackLinkpath'));
+  }
 });
