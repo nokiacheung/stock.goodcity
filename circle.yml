@@ -26,7 +26,7 @@ dependencies:
     - echo y | android update sdk --no-ui --filter "build-tools-23.0.1" --use-sdk-wrapper
     - export ANDROID_HOME="/usr/local/share/android-sdk" >> ~/.circlerc
     - export PATH=$ANDROID_HOME/build-tools/23.0.1:$PATH >> ~/.circlerc
-    - sudo chmod /usr/local/share/android-sdk
+    - sudo chmod 777 /usr/local/share/android-sdk
     - curl -o- -L https://yarnpkg.com/install.sh | bash
     - yarn add --force node-sass
     - yarn add bower ember-cli phantomjs-prebuilt cordova
