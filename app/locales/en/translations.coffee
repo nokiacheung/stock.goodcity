@@ -56,6 +56,7 @@ I18nTranslationsEn =
     "undispatch": "undispatch"
     "undesignate": "un-designate"
     "partial_undesignate": "Un-designate"
+    "partial_undispatch": "Undispatch"
     "separate": "separate"
     "move": "Move"
     "partial_move": "Partial Move"
