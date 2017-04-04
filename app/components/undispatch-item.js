@@ -4,6 +4,7 @@ const { getOwner } = Ember;
 
 export default Ember.Component.extend({
   store: Ember.inject.service(),
+  isUndispatchFromPartialUndesignate: false,
 
   actions: {
     undispatchItem() {
