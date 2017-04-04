@@ -16,7 +16,7 @@ dependencies:
     - brew update
     - brew install homebrew/versions/node4-lts
     - brew install watchman
-    - yum install wget
+    - sudo apt-get install wget
     - wget http://dl.google.com/android/android-sdk_r24.2-linux.tgz
     # # - echo 'export ANDROID_HOME=/usr/local/Caskroom/android-sdk' >> ~/.circlerc
     # - echo y | android update sdk --no-ui --filter "tools" --use-sdk-wrapper
