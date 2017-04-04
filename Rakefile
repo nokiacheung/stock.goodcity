@@ -105,6 +105,7 @@ namespace :cordova do
   task :install do
     sh %{ npm list --depth 1 --global cordova; if [ $? -ne 0 ]; then npm install -g cordova; fi }
     sh %{ npm list --depth 1 --global cordova-update-config; if [ $? -ne 0 ]; then npm install -g cordova-update-config; fi }
+    sh %{ export ANDROID_HOME=/usr/local/share/android-sdk; export PATH=$ANDROID_HOME/build-tools/23.0.1:$PATH >> ~/.circlerc }
   end
   desc "Cordova prepare {platform}"
   task :prepare do

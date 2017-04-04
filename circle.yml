@@ -54,8 +54,6 @@ deployment:
   staging:
     branch: master
     commands:
-      - export ANDROID_HOME=/usr/local/share/android-sdk
-      - export PATH=$ANDROID_HOME/build-tools/23.0.1:$PATH >> ~/.circlerc
       - bundle exec cap staging deploy
       - bundle exec rake staging ios app:build
       - fastlane ios staging
