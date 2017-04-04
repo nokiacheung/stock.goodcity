@@ -22,6 +22,14 @@
       {{item.inventoryNumber}}
     </div>
   {{/link-to}}
+{{else if (is-equal backLinkPath 'items.partial_undesignate')}}
+  {{#link-to 'items.partial_undesignate' item.id classNames="back"}}
+    <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
+    <div class="back_text">
+      <i class="fa fa-tag"></i>
+      {{item.inventoryNumber}}
+    </div>
+  {{/link-to}}
 {{else}}
   {{#link-to backLinkPath class="back"}}
     <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
