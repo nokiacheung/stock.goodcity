@@ -16,16 +16,18 @@ dependencies:
     - brew update
     - brew install homebrew/versions/node4-lts
     - brew install watchman
-    - brew cask install android-sdk
-    # - echo 'export ANDROID_HOME=/usr/local/Caskroom/android-sdk' >> ~/.circlerc
-    - echo y | android update sdk --no-ui --filter "tools" --use-sdk-wrapper
-    - echo y | android update sdk --no-ui --filter "platform-tools" --use-sdk-wrapper
-    # - echo y | android update sdk --no-ui --filter "extra-android-m2repository" --use-sdk-wrapper
-    # - echo y | android update sdk --no-ui --filter "extra-google-m2repository" --use-sdk-wrapper
-    - echo y | android update sdk --no-ui --filter "android-23" --use-sdk-wrapper
-    - echo y | android update sdk --no-ui --filter "build-tools-23.0.1" --use-sdk-wrapper
+    - yum install wget
+    - wget http://dl.google.com/android/android-sdk_r24.2-linux.tgz
+    # # - echo 'export ANDROID_HOME=/usr/local/Caskroom/android-sdk' >> ~/.circlerc
+    # - echo y | android update sdk --no-ui --filter "tools" --use-sdk-wrapper
+    # - echo y | android update sdk --no-ui --filter "platform-tools" --use-sdk-wrapper
+    # # - echo y | android update sdk --no-ui --filter "extra-android-m2repository" --use-sdk-wrapper
+    # # - echo y | android update sdk --no-ui --filter "extra-google-m2repository" --use-sdk-wrapper
+    # - echo y | android update sdk --no-ui --filter "android-24" --use-sdk-wrapper
+    # - echo y | android update sdk --no-ui --filter "build-tools-24.2.0" --use-sdk-wrapper
+    - android update sdk --no-ui
     - export ANDROID_HOME=/usr/local/share/android-sdk
-    - export PATH=$ANDROID_HOME/build-tools/23.0.1:$PATH >> ~/.circlerc
+    - export PATH=${PATH}:$HOME/sdk/android-sdk-linux/platform-tools:$HOME/sdk/android-sdk-linux/tools:$HOME/sdk/android-sdk-linux/build-tools/22.0.1/:$PATH >> ~/.circlerc
     - curl -o- -L https://yarnpkg.com/install.sh | bash
     - yarn add --force node-sass
     - yarn add bower ember-cli phantomjs-prebuilt cordova
