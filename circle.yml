@@ -16,28 +16,16 @@ dependencies:
     - brew update
     - brew install homebrew/versions/node4-lts
     - brew install watchman
-    - wget http://dl.google.com/android/android-sdk_r24.2-linux.tgz
-    - tar -xvf android-sdk_r24.2-linux.tgz
-    - android update sdk --no-ui
-
-      # set path
-    - vi ~/.circlerc << EOT
-
-      export PATH=${PATH}:$HOME/sdk/android-sdk-linux/platform-tools:$HOME/sdk/android-sdk-linux/tools:$HOME/sdk/android-sdk-linux/build-tools/22.0.1/
-
-      EOT
-
-    - source ~/.circlerc
-
+    - brew cask install android-sdk
     # - echo 'export ANDROID_HOME=/usr/local/Caskroom/android-sdk' >> ~/.circlerc
-    # - echo y | android update sdk --no-ui --filter "tools" --use-sdk-wrapper
-    # - echo y | android update sdk --no-ui --filter "platform-tools" --use-sdk-wrapper
-    # # - echo y | android update sdk --no-ui --filter "extra-android-m2repository" --use-sdk-wrapper
-    # # - echo y | android update sdk --no-ui --filter "extra-google-m2repository" --use-sdk-wrapper
-    # - echo y | android update sdk --no-ui --filter "android-23" --use-sdk-wrapper
-    # - echo y | android update sdk --no-ui --filter "build-tools-23.0.1" --use-sdk-wrapper
-    # - export ANDROID_HOME=/usr/local/share/android-sdk
-    # - export PATH=$ANDROID_HOME/build-tools/23.0.1:$PATH >> ~/.circlerc
+    - echo y | android update sdk --no-ui --filter "tools" --use-sdk-wrapper
+    - echo y | android update sdk --no-ui --filter "platform-tools" --use-sdk-wrapper
+    # - echo y | android update sdk --no-ui --filter "extra-android-m2repository" --use-sdk-wrapper
+    # - echo y | android update sdk --no-ui --filter "extra-google-m2repository" --use-sdk-wrapper
+    - echo y | android update sdk --no-ui --filter "android-23" --use-sdk-wrapper
+    - echo y | android update sdk --no-ui --filter "build-tools-23.0.1" --use-sdk-wrapper
+    - export ANDROID_HOME=/usr/local/share/android-sdk
+    - export PATH=${PATH}:$HOME/sdk/android-sdk-linux/platform-tools:$HOME/sdk/android-sdk-linux/tools:$HOME/sdk/android-sdk-linux/build-tools/22.0.1/ >> ~/.circlerc
     - curl -o- -L https://yarnpkg.com/install.sh | bash
     - yarn add --force node-sass
     - yarn add bower ember-cli phantomjs-prebuilt cordova
