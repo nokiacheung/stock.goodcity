@@ -12,7 +12,7 @@
       {{/if}}
     {{else if item.hasAllPackagesDispatched}}
       {{#if item.hasOneDispatchedPackage}}
-        {{#link-to 'orders.detail' item.hasOneDispatchedPackage.designation.id tagName='span' href=false}}
+        {{#link-to 'items.partial_undesignate' item.id tagName='span' href=false}}
           <i class="fa fa-ship"></i> {{item.hasOneDispatchedPackage.designation.code}}
         {{/link-to}}
       {{else}}
@@ -28,7 +28,7 @@
           <i class="fa fa-shopping-basket"></i> {{t "item.multiple_designation"}}
         {{/link-to}}
       {{else if item.hasOneDispatchedPackage}}
-        {{#link-to 'orders.detail' item.hasOneDispatchedPackage.designation.id tagName='span' href=false}}
+        {{#link-to 'items.partial_undesignate' item.id tagName='span' href=false}}
           <i class="fa fa-ship"></i> {{item.hasOneDispatchedPackage.designation.code}}
         {{/link-to}}
       {{else if item.dispatchedOrdersPackages.length}}
