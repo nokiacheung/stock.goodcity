@@ -128,7 +128,6 @@ export default Ember.Controller.extend({
       .then(i => {
         i.unloadRecord();
         this.reloadItem();
-        this.initPreviewImage();
         controller.transitionToRoute("items.edit_images", item);
       })
     .finally(() => loadingView.destroy());
@@ -186,8 +185,8 @@ export default Ember.Controller.extend({
           img.save()
             .then(i => {
               i.unloadRecord();
-              var store = this.get("store");
               this.reloadItem();
+              this.initPreviewImage();
               if (!this.get("favouriteImage")) {
                 this.send("setFavourite");
               }
