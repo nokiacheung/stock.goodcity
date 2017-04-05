@@ -42,14 +42,14 @@ export default Ember.TextField.extend({
 
     if(input_value < 0 || input_value > this.get('item.quantity') || !(input_value.trim()) || !(regex.test(input_value))) {
       Ember.$(this.element).closest('div').addClass("has-error");
-      Ember.$('#partial_move')[0].disabled = true;
+      Ember.$('#partial_move').addClass('disabled');
       this.$().focus();
       return false;
     } else if(this.get('total') > this.get('ordersPackage.quantity') || this.get('total') < this.get('ordersPackage.quantity') ){
-      Ember.$('#partial_move')[0].disabled = true;
+      Ember.$('#partial_move').addClass('disabled');
     }else {
       Ember.$(this.element).closest('div').removeClass("has-error");
-      Ember.$('#partial_move')[0].disabled = false;
+      Ember.$('#partial_move').removeClass('disabled');
       Ember.$('.move-qty').removeClass('has-error');
       return true;
     }
@@ -76,6 +76,7 @@ export default Ember.TextField.extend({
         total += parseInt(this.value);
       }
     });
+
     this.set('total', total);
     Ember.$('.total-move').text(total);
   }),
