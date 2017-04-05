@@ -28,8 +28,15 @@
   <div class="row">
     <div class="item-status-header first">
       <div class="columns small-4 item-status-block">
+      {{#unless model.allowWebPublish}}
         <i class="fa fa-eye-slash" aria-hidden="true"></i>
-        <span class="item-status-text">Available </span><span class="item-status-private-text">(Private)</span>
+      {{else}}
+        <i class="fa fa-eye" aria-hidden="true"></i>
+      {{/unless}}
+        <span class="item-status-text">Available </span>
+        {{#unless model.allowWebPublish}}
+          <span class="item-status-private-text">(Private)</span>
+        {{/unless}}
       </div>
       <div class="columns small-5 item-status-quantity">
         <div class="columns small-5 item-status-quantity">
@@ -42,7 +49,7 @@
 
         </div>
       </div>
-      <div class="columns small-3 item-status-quantity">
+      <div class="columns small-3 item-status-quantity publish-item">
         {{#if model.quantity}}
           {{publish-item item=model}}
         {{/if}}

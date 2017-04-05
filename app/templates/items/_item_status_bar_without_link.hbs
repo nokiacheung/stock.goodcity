@@ -25,7 +25,7 @@
       {{/if}}
     {{else}}
         <div class="stock_status">
-          <i class="fa {{if published 'fa-eye' 'fa-eye-slash'}}" aria-hidden="true"></i> In Stock
+          <i class="fa {{if item.allowWebPublish 'fa-eye' 'fa-eye-slash'}}" aria-hidden="true"></i> In Stock
         </div>
     {{/if}}
   </div>
