@@ -58,7 +58,6 @@ deployment:
       - fastlane ios staging
       - bundle exec rake staging android app:build
       - fastlane android staging
-
     branch: master
     commands:
       - bundle exec cap staging deploy
