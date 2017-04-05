@@ -127,11 +127,15 @@ export default Ember.Controller.extend({
     img.save()
       .then(i => {
         i.unloadRecord();
-        var store = this.get("store");
-        store.pushPayload(store.findRecord("item", item.id));
+        this.reloadItem();
         controller.transitionToRoute("items.edit_images", item);
       })
     .finally(() => loadingView.destroy());
+  },
+
+  reloadItem: function() {
+    var store = this.get("store");
+    store.pushPayload(store.findRecord("item", this.get("item.id")));
   },
 
   confirmRemoveLastImage: function() {
@@ -182,8 +186,7 @@ export default Ember.Controller.extend({
             .then(i => {
               i.unloadRecord();
               var store = this.get("store");
-              store.pushPayload(store.findRecord("item", this.get("item.id")));
-              this.initPreviewImage();
+              this.reloadItem();
               if (!this.get("favouriteImage")) {
                 this.send("setFavourite");
               }
