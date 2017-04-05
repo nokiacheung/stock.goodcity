@@ -7,7 +7,8 @@ machine:
     FL_TESTFAIRY_AUTO_UPDATE: "on"
     PILOT_SKIP_SUBMISSION: true
     PILOT_WAIT_PROCESSING_INTERVAL: 60
-    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:$HOME/.yarn/bin"
+    ANDROID_HOME: "${HOME}/android-sdk"
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:$HOME/.yarn/bin:$ANDROID_HOME/tools"
 
 dependencies:
   cache_directories:
@@ -16,15 +17,17 @@ dependencies:
     - brew update
     - brew install homebrew/versions/node4-lts
     - brew install watchman
-    - brew cask install android-sdk
-    - export ANDROID_HOME=/usr/local/Caskroom/android-sdk >> ~/.circlerc
+    - mkdir -p $ANDROID_HOME
+    - curl -o $ANDROID_HOME/android-sdk.zip https://dl.google.com/android/repository/tools_r23.0.1-macosx.zip
+    - unzip -d $ANDROID_HOME/android-sdk $ANDROID_HOME/android-sdk.zip
+    #- brew cask install android-sdk
     - echo y | android update sdk --no-ui --filter "tools" --use-sdk-wrapper
     - echo y | android update sdk --no-ui --filter "platform-tools" --use-sdk-wrapper
     # - echo y | android update sdk --no-ui --filter "extra-android-m2repository" --use-sdk-wrapper
     # - echo y | android update sdk --no-ui --filter "extra-google-m2repository" --use-sdk-wrapper
     - echo y | android update sdk --no-ui --filter "android-23" --use-sdk-wrapper
     - echo y | android update sdk --no-ui --filter "build-tools-23.0.1" --use-sdk-wrapper
-    - export PATH=$PATH:$ANDROID_HOME/build-tools/23.0.1:$ANDROID_HOME/platform-tools >> ~/.circlerc
+    #- echo 'export PATH=$PATH:$ANDROID_HOME/build-tools/23.0.1:$ANDROID_HOME/platform-tools' >> ~/.circlerc
     - curl -o- -L https://yarnpkg.com/install.sh | bash
     - yarn add --force node-sass
     - yarn add bower ember-cli phantomjs-prebuilt cordova
