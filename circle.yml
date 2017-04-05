@@ -20,15 +20,7 @@ dependencies:
     - mkdir -p $ANDROID_HOME
     - curl -o $ANDROID_HOME/android-sdk.zip https://dl.google.com/android/repository/tools_r23.0.1-macosx.zip
     - unzip -d $ANDROID_HOME $ANDROID_HOME/android-sdk.zip
-    - ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --all --filter platform-tools,build-tools-23.0.3,android-23,extra-android-m2repository,extra-google-m2repository
-    #- brew cask install android-sdk
-    #- echo y | android update sdk --no-ui --filter "tools" --use-sdk-wrapper
-    #- echo y | android update sdk --no-ui --filter "platform-tools" --use-sdk-wrapper
-    # - echo y | android update sdk --no-ui --filter "extra-android-m2repository" --use-sdk-wrapper
-    # - echo y | android update sdk --no-ui --filter "extra-google-m2repository" --use-sdk-wrapper
-    #- echo y | android update sdk --no-ui --filter "android-23" --use-sdk-wrapper
-    #- echo y | android update sdk --no-ui --filter "build-tools-23.0.1" --use-sdk-wrapper
-    #- echo 'export PATH=$PATH:$ANDROID_HOME/build-tools/23.0.1:$ANDROID_HOME/platform-tools' >> ~/.circlerc
+    - ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --all --filter platform-tools,build-tools-23.0.1,android-23,extra-android-m2repository,extra-google-m2repository
     - curl -o- -L https://yarnpkg.com/install.sh | bash
     - yarn add --force node-sass
     - yarn add bower ember-cli phantomjs-prebuilt cordova
