@@ -128,6 +128,7 @@ export default Ember.Controller.extend({
       .then(i => {
         i.unloadRecord();
         this.reloadItem();
+        this.initPreviewImage();
         controller.transitionToRoute("items.edit_images", item);
       })
     .finally(() => loadingView.destroy());
