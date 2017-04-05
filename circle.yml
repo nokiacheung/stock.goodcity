@@ -7,7 +7,8 @@ machine:
     FL_TESTFAIRY_AUTO_UPDATE: "on"
     PILOT_SKIP_SUBMISSION: true
     PILOT_WAIT_PROCESSING_INTERVAL: 60
-    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+    ANDROID_HOME: /usr/local/Caskroom/android-sdk
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:$ANDROID_HOME/build-tools/23.0.1:$ANDROID_HOME/platform-tools"
 
 dependencies:
   cache_directories:
@@ -23,8 +24,8 @@ dependencies:
     # - echo y | android update sdk --no-ui --filter "extra-google-m2repository" --use-sdk-wrapper
     - echo y | android update sdk --no-ui --filter "android-23" --use-sdk-wrapper
     - echo y | android update sdk --no-ui --filter "build-tools-23.0.1" --use-sdk-wrapper
-    - export ANDROID_HOME=/usr/local/Caskroom/android-sdk/
-    - export PATH=$ANDROID_HOME/build-tools/23.0.1:$PATH >> ~/.circlerc
+    # - echo export ANDROID_HOME=/usr/local/Caskroom/android-sdk/
+    # - export PATH=$ANDROID_HOME/build-tools/25.2.3:$PATH >> ~/.circlerc
     - curl -o- -L https://yarnpkg.com/install.sh | bash
     - yarn add --force node-sass
     - yarn add bower ember-cli phantomjs-prebuilt cordova
