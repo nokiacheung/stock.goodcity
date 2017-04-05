@@ -7,8 +7,7 @@ machine:
     FL_TESTFAIRY_AUTO_UPDATE: "on"
     PILOT_SKIP_SUBMISSION: true
     PILOT_WAIT_PROCESSING_INTERVAL: 60
-    ANDROID_HOME: /usr/local/Caskroom/android-sdk
-    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:$ANDROID_HOME/build-tools/23.0.1:$ANDROID_HOME/platform-tools"
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:$HOME/.yarn/bin"
 
 dependencies:
   cache_directories:
@@ -18,14 +17,14 @@ dependencies:
     - brew install homebrew/versions/node4-lts
     - brew install watchman
     - brew cask install android-sdk
+    - export ANDROID_HOME=/usr/local/Caskroom/android-sdk >> ~/.circlerc
     - echo y | android update sdk --no-ui --filter "tools" --use-sdk-wrapper
     - echo y | android update sdk --no-ui --filter "platform-tools" --use-sdk-wrapper
     # - echo y | android update sdk --no-ui --filter "extra-android-m2repository" --use-sdk-wrapper
     # - echo y | android update sdk --no-ui --filter "extra-google-m2repository" --use-sdk-wrapper
     - echo y | android update sdk --no-ui --filter "android-23" --use-sdk-wrapper
     - echo y | android update sdk --no-ui --filter "build-tools-23.0.1" --use-sdk-wrapper
-    # - echo export ANDROID_HOME=/usr/local/Caskroom/android-sdk/
-    # - export PATH=$ANDROID_HOME/build-tools/25.2.3:$PATH >> ~/.circlerc
+    - export PATH=$PATH:$ANDROID_HOME/build-tools/23.0.1:$ANDROID_HOME/platform-tools >> ~/.circlerc
     - curl -o- -L https://yarnpkg.com/install.sh | bash
     - yarn add --force node-sass
     - yarn add bower ember-cli phantomjs-prebuilt cordova
@@ -34,7 +33,7 @@ dependencies:
   override:
     - yarn install
   post:
-    - ./node_modules/bower/bin/bower install
+    - bower install
     - PATH=$(npm bin):$PATH; azure-filestore download -f goodcity.keystore:
         pwd: cordova
     - PATH=$(npm bin):$PATH; azure-filestore download -d google-play -f $GOOGLE_PLAY_KEY_FILE:
@@ -42,11 +41,11 @@ dependencies:
 
 test:
   pre:
-    - ./node_modules/ember-cli/bin/ember server --port 4203:
+    - ember server --port 4203:
         background: true
     - sleep 5
   override:
-    - ./node_modules/ember-cli/bin/ember test
+    - ember test
   post:
     - echo "Killing ember server to free memory for app build" && killall ember
 
