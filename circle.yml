@@ -13,7 +13,7 @@ machine:
 dependencies:
   cache_directories:
     - ~/.yarn
-    - ${ANDROID_HOME}
+    - ~/android-sdk
   pre:
     - brew update
     - brew install homebrew/versions/node4-lts
@@ -22,7 +22,7 @@ dependencies:
     - curl -o ${ANDROID_HOME}/android-sdk.zip https://dl.google.com/android/repository/tools_r23.0.1-macosx.zip && unzip -d ${ANDROID_HOME} ${ANDROID_HOME}/android-sdk.zip
     - ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --all --filter platform-tools,build-tools-23.0.1,android-23,extra-android-m2repository,extra-google-m2repository
     - if ! (which yarn); then curl -o- -L https://yarnpkg.com/install.sh | bash; fi
-    - if ! (yarn list node-sass | grep node-sass); then yarn add --force node-sass; fi
+    - yarn add --force node-sass
     - if ! (yarn list bower | grep bower); then yarn add bower; fi
     - if ! (yarn list ember-cli | grep ember-cli); then yarn add ember-cli; fi
     - if ! (yarn list phantomjs-prebuilt | grep phantomjs-prebuilt); then yarn add phantomjs-prebuilt; fi
