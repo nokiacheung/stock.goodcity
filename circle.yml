@@ -8,22 +8,26 @@ machine:
     PILOT_SKIP_SUBMISSION: true
     PILOT_WAIT_PROCESSING_INTERVAL: 60
     ANDROID_HOME: "${HOME}/android-sdk"
-    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:$HOME/.yarn/bin:$ANDROID_HOME/tools"
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:$HOME/.yarn/bin:${ANDROID_HOME}/tools"
 
 dependencies:
   cache_directories:
     - ~/.yarn
+    - ${ANDROID_HOME}
   pre:
     - brew update
     - brew install homebrew/versions/node4-lts
     - brew install watchman
-    - mkdir -p $ANDROID_HOME
-    - curl -o $ANDROID_HOME/android-sdk.zip https://dl.google.com/android/repository/tools_r23.0.1-macosx.zip
-    - unzip -d $ANDROID_HOME $ANDROID_HOME/android-sdk.zip
+    - mkdir -p ${ANDROID_HOME}
+    - curl -o ${ANDROID_HOME}/android-sdk.zip https://dl.google.com/android/repository/tools_r23.0.1-macosx.zip
+    - unzip -d ${ANDROID_HOME} ${ANDROID_HOME}/android-sdk.zip
     - ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --all --filter platform-tools,build-tools-23.0.1,android-23,extra-android-m2repository,extra-google-m2repository
     - if ! (which yarn); then curl -o- -L https://yarnpkg.com/install.sh | bash; fi
     - if ! (yarn list | grep node-sass); then yarn add --force node-sass; fi
-    - yarn add bower ember-cli phantomjs-prebuilt cordova
+    - if ! (yarn list | grep bower); then yarn add bower; fi
+    - if ! (yarn list | grep ember-cli); then yarn add ember-cli; fi
+    - if ! (yarn list | grep phantomjs-prebuilt); then yarn add phantomjs-prebuilt; fi
+    - if ! (yarn list | grep cordova); then yarn add cordova; fi
     - bundle install
     - gem update fastlane
   override:
