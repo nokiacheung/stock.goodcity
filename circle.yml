@@ -21,8 +21,8 @@ dependencies:
     - curl -o $ANDROID_HOME/android-sdk.zip https://dl.google.com/android/repository/tools_r23.0.1-macosx.zip
     - unzip -d $ANDROID_HOME $ANDROID_HOME/android-sdk.zip
     - ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --all --filter platform-tools,build-tools-23.0.1,android-23,extra-android-m2repository,extra-google-m2repository
-    - curl -o- -L https://yarnpkg.com/install.sh | bash
-    - yarn add --force node-sass
+    - if ! (which yarn); then curl -o- -L https://yarnpkg.com/install.sh | bash; fi
+    - if ! (yarn list | grep node-sass); then yarn add --force node-sass; fi
     - yarn add bower ember-cli phantomjs-prebuilt cordova
     - bundle install
     - gem update fastlane
