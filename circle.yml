@@ -12,7 +12,7 @@ machine:
 
 dependencies:
   cache_directories:
-    - ~/.cache/yarn
+    - ~/.yarn
   pre:
     - brew update
     - brew install homebrew/versions/node4-lts
@@ -50,8 +50,8 @@ deployment:
     branch: GCW-1506-Update-android-sdk-to-fix-build
     commands:
       #- bundle exec cap staging deploy
-      #- bundle exec rake staging ios app:build
-      #- fastlane ios staging
+      - bundle exec rake staging ios app:build
+      - fastlane ios staging
       - bundle exec rake staging android app:build
       - fastlane android staging
   production:
