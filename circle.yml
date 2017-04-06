@@ -47,9 +47,9 @@ test:
 
 deployment:
   staging:
-    branch: GCW-1506-Update-android-sdk-to-fix-build
+    branch: master
     commands:
-      #- bundle exec cap staging deploy
+      - bundle exec cap staging deploy
       - bundle exec rake staging ios app:build
       - fastlane ios staging
       - bundle exec rake staging android app:build
