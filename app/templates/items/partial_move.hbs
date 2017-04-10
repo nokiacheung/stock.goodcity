@@ -1,117 +1,89 @@
-<div>
-  <div class="row item_block item_header">
-    <div class="row dispatch_details {{if model.hasAllPackagesDispatched 'dispatched'}} {{if model.hasAllPackagesDesignated 'designated'}} {{if (is-and (is-not model.quantity) model.designatedOrdersPackages.length) 'designated'}}">
-      <div class="small-3 columns">
-        {{#if model.hasAllPackagesDesignated}}
-          {{#if model.hasOneDesignatedPackage}}
-              <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
-          {{else}}
-              <i class="fa fa-shopping-basket"></i> {{t "item.multiple_designation"}}
-          {{/if}}
-        {{else if model.hasAllPackagesDispatched}}
-          {{#if model.hasOneDispatchedPackage}}
-            {{#link-to 'orders.detail' model.hasOneDispatchedPackage.designation.id tagName='span' href=false}}
-              <i class="fa fa-ship"></i> {{model.hasOneDispatchedPackage.designation.code}}
-            {{/link-to}}
-          {{else}}
-            <i class="fa fa-ship"></i> {{t "item.all_dispatched"}}
-          {{/if}}
-        {{else if (is-not model.quantity)}}
-          {{#if model.hasOneDesignatedPackage}}
-              <i class="fa fa-shopping-basket"></i> {{model.designation.code}}
-          {{else if model.designatedOrdersPackages.length}}
-              <i class="fa fa-shopping-basket"></i> {{t "item.multiple_designation"}}
-          {{else if model.hasOneDispatchedPackage}}
-              <i class="fa fa-ship"></i> {{model.hasOneDispatchedPackage.designation.code}}
-          {{else if model.dispatchedOrdersPackages.length}}
-            <i class="fa fa-ship"></i> {{t "item.all_dispatched"}}
-          {{/if}}
-        {{else}}
-          <div class="stock_status">
-            <i class="fa {{if model.allowWebPublish 'fa-eye' 'fa-eye-slash'}}" aria-hidden="true"></i> In Stock
-          </div>
-        {{/if}}
-      </div>
-      <div class="small-6 columns location-name">
-        {{#unless model.hasAllPackagesDispatched}}
-          <i class="fa fa-map-marker"></i>
-          {{#if model.hasSingleLocation}}
-            {{model.firstLocationName}}
-          {{else}}
-            {{#link-to 'items.partial_move' model.id tagName='span' href=false}} Multiple {{/link-to}}
-          {{/if}}
-        {{/unless}}
-      </div>
-      <div class="small-3 columns">
-        <i class="fa {{if model.isSet 'fa-tags' 'fa-tag'}}"></i> {{model.inventoryNumber}}
-      </div>
-    </div>
-    <div class="row other_details item_details">
-      <div class="small-3 large-2 columns image">
-        <img src={{model.thumbImageUrl}} class="thumb"/>
-      </div>
-      {{#if hideDetailsLink}}
-        {{#link-to 'items.detail' model.id }}
-          <div class="small-6 large-8 columns name_details">
-            <div class="ellipsis name one-line-ellipsis" style="display: inline !important">{{model.quantity}} x {{model.code.name}}</div>
-            <span style="margin-left: 0.25rem;">
-              {{model.quantity}}/{{model.totalDesignatedQty}}/{{model.totalDispatchedQty}}
-            </span>
-            <div class="ellipsis two-line-ellipsis">
-              {{model.notes}}
-            </div>
+<div class="location_block">
+  <div class="row">
+    <div class='move_location_header'>
+      <div class="columns small-3 medium-3 large-3 back-link">
+        {{#link-to 'items.detail' model.id classNames="back"}}
+          <i class="fa fa-angle-left" aria-hidden="true"></i>
+          <div class='back-text'>
+            Back
           </div>
         {{/link-to}}
-      {{else}}
-        {{#link-to 'items.detail' model.id }}
-          <div class="small-6 large-8 columns name_details">
-            <div class="ellipsis name one-line-ellipsis" style="display: inline !important">{{model.quantity}} x {{model.code.name}}</div>
-            <span style="margin-left: 0.25rem;">
-              {{model.quantity}}/{{model.totalDesignatedQty}}/{{model.totalDispatchedQty}}
-            </span>
-            <div class="ellipsis two-line-ellipsis">
-              {{model.notes}}
-            </div>
-          </div>
-        {{/link-to}}
-      {{/if}}
-    </div>
-    <div class="warnings">
-      <div class="warning_text">
-        <div class="left-icon"><i class="fa fa-exclamation-triangle"></i></div>
-        <div class="right-message">
-          <div class="move-message">You can only move maximum {{model.availableQtyForMove}} quantity of item.</div>
-        </div>
       </div>
-    </div>
-    <div class="confirm_quantity">Confirm the quantity you are moving.</div>
-    {{#each model.packagesLocationsList as |packages_location|}}
-      <div class="row">
-        <div class="columns small-6 partial_designate_textfield">
-          {{partial-move-input id=packages_location.id value=packages_location.quantityToMove item=packages_location}}
-        </div>
-        <div class="columns small-6">
-          <div id="location-name">
-            of {{packages_location.quantity}} from {{packages_location.location.name}}
-          </div>
-        </div>
+      <div class='class= columns small-9 medium-9 large-9 inventory_number_location'>
+        <i class="fa {{if model.isSet 'fa-tags' 'fa-tag'}}"></i> {{model.inventoryNumber}}: Location
       </div>
-    {{/each}}
+      <br><hr/>
+    </div>
   </div>
-  <div class="partial-move-buttons">
+  <div class="row">
+    <div class="packages-location-header">
+      <div class="columns small-12 medium-12 large-12 designated-list">
+        <div class="columns small-4 medium-3 large-4">
+          Locations: {{model.packagesLocationsList.length}}
+        </div>
+        <div class="columns small-4 medium-3 large-4 text-align-right">
+          Total on Hand:
+        </div>
+        <div class="columns small-2 medium-2 large-1 text-align-right">
+          {{model.availableQtyForMove}}
+        </div>
+        <div class="columns small-2 medium-3 large-3">
+        </div>
+      </div>
+    </div>
+  </div>
+  {{#each model.packagesLocations as |packagesLocation|}}
     <div class="row">
-      <div class="columns small-6 medium-6">
-        <button id="partial_move" type="submit" class="button expand"{{action 'move_partial_qty' model}}>{{t "item.move"}}</button>
-      </div>
-      <div class="columns small-6 medium-6">
-        {{#link-to 'items.index' tagName='div' href=false}}
-           <button id="cancle_patial_designate" type="submit" class="button expand">{{t "cancel"}}</button>
-        {{/link-to}}
+      <div class="packages-location-block">
+        <div class="columns small-12 medium-12 large-12 designated-list">
+          <div class="columns small-3 medium-3 large-4 orders-package-detail">
+            <i class="fa fa-map-marker"></i>
+            {{packagesLocation.location.name}}
+          </div>
+          <div class="columns small-4 medium-3 large-4 text-align-right">
+            Qty:
+          </div>
+          <div id="packages-qty-location-{{packagesLocation.id}}" class="columns small-2 medium-2 large-1 text-align-right packages-location-qty">
+             {{packagesLocation.quantity}}
+          </div>
+          {{#if packagesLocation.isEditing}}
+            <div class="columns small-3 medium-4 large-3 move-link text-align-right move-qty">
+              {{partial-move-input id=packagesLocation.id item=packagesLocation value=1}}
+            </div>
+          {{else}}
+            <div {{action 'editPackagesLocation' packagesLocation}} class="columns small-3 medium-4 large-3 move-link text-align-right">
+              Move
+            </div>
+          {{/if}}
+        </div>
       </div>
     </div>
-  </div>
+  {{/each}}
+  {{#if isEditing}}
+    <div class="row">
+      <div class='columns small-12 medium-12 large-12 total-to-move'>
+        <div class="columns small-10 medium-8 large-9 text-align-right">
+          Total to move
+        </div>
+        <div class="columns small-2 medium-4 large-3 text-align-right total-move">
+          0
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="partial-move-buttons">
+        <div class="columns small-5 medium-5">
+          <button id="partial_move" type="submit" class="button expand"{{action 'move_partial_qty' model}}>{{t "item.move"}}</button>
+        </div>
+        <div class="columns small-5 medium-5">
+          <button id="not-now" {{action 'notNow' model}} class="button expand">Not now</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns small-12 medium-12 large-12 proceed-to-choose-destination">
+        Proceeds to choose destination
+      </div>
+    </div>
+  {{/if}}
 </div>
-
-{{#message-box btn1Text="OK" isVisible=isZeroQuantity classNames="popupOverlay designate-form"}}
-  <p> Total quantity is 0. Plaese add some quantity to move. </p>
-{{/message-box}}

@@ -18,7 +18,12 @@
     </div>
     <div class="small-6 columns location-name">
       {{#unless (is-equal ordersPackage.state 'dispatched')}}
-        <i class="fa fa-map-marker"></i> {{ordersPackage.item.location.name}}
+        <i class="fa fa-map-marker"></i>
+        {{#if ordersPackage.item.hasSingleLocation}}
+          {{ordersPackage.item.firstLocationName}}
+        {{else}}
+          Multiple
+        {{/if}}
       {{/unless}}
     </div>
     <div class="small-3 columns">
@@ -61,13 +66,13 @@
 
     {{#if displayItemOptions}}
       <div class="small-3 large-2 columns">
-        {{item-options item=ordersPackage.item order=model package=ordersPackage}}
+        {{item-options item=ordersPackage.item order=model ordersPackage=ordersPackage}}
       </div>
     {{/if}}
 
     {{#if displayItemOptionsList}}
       <div class="small-3 large-2 columns">
-        {{item-options-list item=ordersPackage.item}}
+        {{item-options-list item=ordersPackage.item ordersPackage=ordersPackage}}
       </div>
     {{/if}}
 
