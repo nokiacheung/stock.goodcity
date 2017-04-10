@@ -40,7 +40,7 @@ export default Ember.TextField.extend({
     var regex = /^\d+$/;
     var input_value = this.get('value');
     var siblingPackagesLocations = this.get('item.siblingPackagesLocations');
-    var isInvalid;
+    var isInvalid = false;
 
     siblingPackagesLocations.forEach(sibling => {
       if(Ember.$(`#${sibling.id}`).length){
