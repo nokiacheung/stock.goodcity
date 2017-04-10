@@ -42,11 +42,11 @@ export default Ember.Controller.extend({
     },
 
     notNow(item){
-      var editedPackagesLocations = item.get('packagesLocations').filterBy('isEditing', true);
-      editedPackagesLocations.forEach(packagesLocation => {
-        Ember.$(`#packages-qty-location-${packagesLocation.id}`)[0].innerText = packagesLocation.get('quantity');
+      var editedPackageLocations = item.get('packageLocations').filterBy('isEditing', true);
+      editedPackageLocations.forEach(packageLocation => {
+        Ember.$(`#packages-qty-location-${packageLocation.id}`)[0].innerText = packageLocation.get('quantity');
       });
-      editedPackagesLocations.setEach('isEditing', false);
+      editedPackageLocations.setEach('isEditing', false);
       this.set('isEditing', false);
     }
   }

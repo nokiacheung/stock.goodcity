@@ -10,8 +10,7 @@ export default Ember.Controller.extend({
   partialDispatchBackLinkpath: Ember.computed.localStorage(),
 
   orderPackage: Ember.computed('orderPackageId', function(){
-    var orderPackage = this.get('store').peekRecord('OrdersPackage', this.get('orderPackageId'));
-    return orderPackage;
+    return this.get('store').peekRecord('OrdersPackage', this.get('orderPackageId'));
   }),
 
   actions: {
