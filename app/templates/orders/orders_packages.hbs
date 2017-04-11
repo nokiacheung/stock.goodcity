@@ -21,7 +21,7 @@
         <i class="fa fa-map-marker"></i>
         {{#if ordersPackage.item.hasSingleLocation}}
           {{ordersPackage.item.firstLocationName}}
-        {{else}}
+        {{else if ordersPackage.item.hasMultiLocations}}
           Multiple
         {{/if}}
       {{/unless}}

@@ -47,7 +47,7 @@
       <i class="fa fa-map-marker"> </i>
       {{#if item.hasSingleLocation}}
         {{item.firstLocationName}}
-      {{else}}
+      {{else if item.hasMultiLocations}}
         {{#link-to 'items.partial_move' item.id tagName='span' href=false}} Multiple {{/link-to}}
       {{/if}}
     {{/unless}}

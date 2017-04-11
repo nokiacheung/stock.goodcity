@@ -26,7 +26,7 @@
           {{/if}}
         {{/unless}}
 
-        {{#if (is-and model.hasOneDesignatedPackage (is-not model.isSet))}}
+        {{#if (is-and model.hasSingleDesignation (is-not model.isSet))}}
           <div class="{{unless item.hasOneDesignatedPackage 'disabled'}}">
             {{#link-to 'items.partial_dispatch' item.id (query-params orderPackageId=model.firstOrdersPackage.id) tagName='div' href=false}}
               <span class="no-avatar">

@@ -40,6 +40,10 @@ export default cloudinaryUrl.extend({
   imageUrl: Ember.computed.alias("image.imageUrl"),
   designateFullSet: Ember.computed.localStorage(),
 
+  isDispatchedForQuantity: Ember.computed('ordersPackages.[]', function(){
+    return this.get('ordersPackages').isAny('state', 'dispatched');
+  }),
+
   available_qty: Ember.computed("quantity", function() {
     return this.get('quantity');
   }),
@@ -97,6 +101,10 @@ export default cloudinaryUrl.extend({
   hasOneDesignatedPackage: Ember.computed("ordersPackages.@each.state", function() {
     var designatedOrdersPackages = this.get("ordersPackages").filterBy("state", "designated");
     return (designatedOrdersPackages.get("length") > 1 || designatedOrdersPackages.get("length") === 0) ? false : designatedOrdersPackages[0];
+  }),
+
+  hasSingleDesignation: Ember.computed("orderPackages.[]", function(){
+    this.get('ordersPackages').length === 1;
   }),
 
   totalDispatchedQty: Ember.computed("ordersPackages.@each.state", function() {
@@ -178,6 +186,10 @@ export default cloudinaryUrl.extend({
     return Ember.isEqual(this.get('packagesLocationsList').length, 1);
   }),
 
+  hasMultiLocations: Ember.computed('packagesLocations.[]', function(){
+    return this.get('packagesLocations').length > 1;
+  }),
+
   firstLocationName: Ember.computed('packagesLocations.[]', 'packagesLocationsList', function(){
     return this.get('packagesLocationsList').get('firstObject.location.name');
   }),
@@ -220,7 +232,7 @@ export default cloudinaryUrl.extend({
     return setItemImages.uniq();
   }),
 
-  allowLabelPrint: Ember.computed("", function() {
-    return !this.get("isDispatched") && !this.get("isSet");
+  allowLabelPrint: Ember.computed("ordersPackages.[]", function() {
+    return !(this.get('isDispatchedForQuantity')) && !this.get("isSet");
   }),
 });
