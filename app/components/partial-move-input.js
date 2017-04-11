@@ -55,7 +55,10 @@ export default Ember.TextField.extend({
       Ember.$('#partial_move')[0].disabled = true;
       this.$().focus();
       return false;
-    } else if(isInvalid){
+    } else if(this.get('total') === 0) {
+      Ember.$('.location_block input').closest('div').addClass('has-error');
+      Ember.$('#partial_move')[0].disabled = true;
+    } else if(isInvalid) {
       Ember.$('#partial_move')[0].disabled = true;
     } else {
       Ember.$(this.element).closest('div').removeClass("has-error");
@@ -84,8 +87,7 @@ export default Ember.TextField.extend({
       if(regex.test(this.value)){
         if(this.id !== recordToSkipId){
           total += parseInt(this.value);
-        }
-        else{
+        } else {
           Ember.$('#partial_move')[0].disabled = true;
         }
       }
