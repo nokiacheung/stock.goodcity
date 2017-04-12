@@ -41,22 +41,23 @@ test("Available actions for non-designated item", function(assert) {
     assert.equal(currentPath(), "items.index");
     click($('div.options-link-open'));
     //dispatch disabled(all other options are enabled)
-    assert.equal($('div.receive-item-options div:eq(4)')[0].className, 'disabled');
+    assert.equal($('div.receive-item-options div:eq(4)')[0].className, 'disabled disabled');
   });
 });
 
-test("Available actions for partially-designated item(qty > 0)", function(assert) {
-  assert.expect(2);
-   visit("/items");
-  fillIn("#searchText", pkg1.get("inventoryNumber"));
-  mockFindAll('item').returns({ json: {items: [pkg1.toJSON({includeId: true})], orders_packages: [orders_pkg1.toJSON({includeId: true})], designations:[order2.toJSON({includeId: true})], meta: {search: pkg1.get('inventoryNumber').toString()}}});
-  andThen(function() {
-    assert.equal(currentPath(), "items.index");
-    click($('div.options-link-open'));
-    //All actions are enabled including dispatch
-    assert.equal($('div.receive-item-options div.disabled')[0], undefined);
-  });
-});
+// NOT Needed for now as we've disabled all actions for partial qty package
+// test("Available actions for partially-designated item(qty > 0)", function(assert) {
+//   assert.expect(2);
+//    visit("/items");
+//   fillIn("#searchText", pkg1.get("inventoryNumber"));
+//   mockFindAll('item').returns({ json: {items: [pkg1.toJSON({includeId: true})], orders_packages: [orders_pkg1.toJSON({includeId: true})], designations:[order2.toJSON({includeId: true})], meta: {search: pkg1.get('inventoryNumber').toString()}}});
+//   andThen(function() {
+//     assert.equal(currentPath(), "items.index");
+//     click($('div.options-link-open'));
+//     //All actions are enabled including dispatch
+//     assert.equal($('div.receive-item-options div.disabled')[0], undefined);
+//   });
+// });
 
 test("Available actions for fully-designated item(qty = 0)", function(assert) {
   assert.expect(2);
@@ -67,7 +68,7 @@ test("Available actions for fully-designated item(qty = 0)", function(assert) {
     assert.equal(currentPath(), "items.index");
     click($('div.options-link-open'));
     //Move is disabled as qty = 0
-    assert.equal($('div.receive-item-options div.disabled:first').text().trim(), "designate");
+    assert.equal($('div.receive-item-options div.disabled:first').text().trim(), "Move");
   });
 });
 
