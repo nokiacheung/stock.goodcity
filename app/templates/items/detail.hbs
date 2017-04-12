@@ -8,7 +8,7 @@
         {{image-zoom item=model}}
       </div>
       <div class="image-action-list">
-        {{#unless model.hasAllPackagesDispatched}}
+        {{!-- {{#unless model.hasAllPackagesDispatched}}
           {{#if model.quantity}}
             {{#if (is-equal model.isSet model.setItem.hasZeroQty)}}
               {{#link-to 'items.partial_designate' model.id (query-params isSet=model.isSet) tagName='span' href=false}}
@@ -24,9 +24,9 @@
               {{/link-to}}
             {{/if}}
           {{/if}}
-        {{/unless}}
+        {{/unless}} --}}
 
-        {{#if (is-and model.hasSingleDesignation (is-not model.isSet))}}
+        {{!-- {{#if (is-and model.hasSingleDesignation (is-not model.isSet))}}
           <div class="{{unless item.hasOneDesignatedPackage 'disabled'}}">
             {{#link-to 'items.partial_dispatch' item.id (query-params orderPackageId=model.firstOrdersPackage.id) tagName='div' href=false}}
               <span class="no-avatar">
@@ -34,7 +34,7 @@
               </span>
             {{/link-to}}
           </div>
-        {{/if}}
+        {{/if}} --}}
 
         {{#if item.allowLabelPrint}}
           {{#print-label item=item closeList=""}}
