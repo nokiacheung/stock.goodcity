@@ -45,23 +45,14 @@
         </div>
       </div>
     {{else}}
-      {{#if ordersPackage.item.isSingletonItem}}
-        {{#link-to 'items.detail' ordersPackage.item.id }}
-          <div class="small-6 large-8 columns name_details">
-            <div class="ellipsis name one-line-ellipsis">{{ordersPackage.quantity}} x {{ordersPackage.item.code.name}}</div>
-            <div class="ellipsis two-line-ellipsis">
-              {{ordersPackage.item.notes}}
-            </div>
-          </div>
-        {{/link-to}}
-      {{else}}
+      {{#link-to 'items.detail' ordersPackage.item.id disabled=(is-not ordersPackage.item.isSingletonItem) }}
         <div class="small-6 large-8 columns name_details">
           <div class="ellipsis name one-line-ellipsis">{{ordersPackage.quantity}} x {{ordersPackage.item.code.name}}</div>
           <div class="ellipsis two-line-ellipsis">
             {{ordersPackage.item.notes}}
           </div>
         </div>
-      {{/if}}
+      {{/link-to}}
     {{/if}}
 
     {{#if displayItemOptions}}
