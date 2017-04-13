@@ -18,7 +18,7 @@
   </div>
 
   <div class="{{unless item.isSingletonItem 'disabled'}} {{unless item.hasOneDesignatedPackage 'disabled'}}">
-    {{#link-to 'items.partial_dispatch' item.id (query-params orderPackageId=ordersPackage.id) tagName='div' href=false}}
+    {{#link-to 'items.partial_dispatch' item.id (query-params orderPackageId=item.firstDesignatedOrdersPackage.id) tagName='div' href=false}}
       <i class="fa item-menu fa-ship"></i>
       {{t "item.dispatch"}}
     {{/link-to}}

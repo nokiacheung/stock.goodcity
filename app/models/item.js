@@ -41,7 +41,16 @@ export default cloudinaryUrl.extend({
   designateFullSet: Ember.computed.localStorage(),
 
   isDispatchedForQuantity: Ember.computed('ordersPackages.[]', function(){
-    return this.get('ordersPackages').isAny('state', 'dispatched');
+    var isDispatched = false;
+    var allOrdersPackages = this.get('ordersPackages');
+    if(allOrdersPackages.get('length') > 0){
+      isDispatched = allOrdersPackages.isEvery('state', 'dispatched');
+    }
+    return isDispatched;
+  }),
+
+  firstDesignatedOrdersPackage: Ember.computed('designatedOrdersPackages', function(){
+    return this.get('designatedOrdersPackages').get('firstObject');
   }),
 
   available_qty: Ember.computed("quantity", function() {
