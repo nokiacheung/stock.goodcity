@@ -108,7 +108,7 @@ export default cloudinaryUrl.extend({
   }),
 
   hasSingleDesignation: Ember.computed("orderPackages.[]", function(){
-    return this.get('ordersPackages').length === 1;
+    return this.get('ordersPackages').filterBy('state', 'designated').get('length') === 1;
   }),
 
   totalDispatchedQty: Ember.computed("ordersPackages.@each.state", function() {

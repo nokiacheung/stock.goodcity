@@ -8,15 +8,9 @@
         {{image-zoom item=model}}
       </div>
       <div class="image-action-list">
-        {{!-- {{#unless model.hasAllPackagesDispatched}}
+        {{#unless model.hasAllPackagesDispatched}}
           {{#if model.quantity}}
-            {{#if (is-equal model.isSet model.setItem.hasZeroQty)}}
-              {{#link-to 'items.partial_designate' model.id (query-params isSet=model.isSet) tagName='span' href=false}}
-                <span class="no-avatar" {{action 'partialDesignateForSet'}}>
-                  <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                </span>
-              {{/link-to}}
-            {{else if (is-not model.isSet)}}
+            {{#if (is-not model.isSet)}}
               {{#link-to 'items.partial_designate' model.id (query-params isSet=model.isSet) tagName='span' href=false}}
                 <span class="no-avatar" {{action 'partialDesignateForSet'}}>
                   <i class="fa fa-shopping-basket" aria-hidden="true"></i>
@@ -24,17 +18,19 @@
               {{/link-to}}
             {{/if}}
           {{/if}}
-        {{/unless}} --}}
+        {{/unless}}
 
-        {{!-- {{#if (is-and model.hasSingleDesignation (is-not model.isSet))}}
-          <div class="{{unless item.hasOneDesignatedPackage 'disabled'}}">
-            {{#link-to 'items.partial_dispatch' item.id (query-params orderPackageId=model.firstOrdersPackage.id) tagName='div' href=false}}
-              <span class="no-avatar">
-                <i class="fa fa-ship" aria-hidden="true"></i>
-              </span>
-            {{/link-to}}
-          </div>
-        {{/if}} --}}
+        {{#unless model.isSet}}
+          {{#if (is-and item.hasOneDesignatedPackage (is-not model.hasAllPackagesDispatched))}}
+            <div class="{{unless item.hasOneDesignatedPackage 'disabled'}}">
+              {{#link-to 'items.partial_dispatch' item.id (query-params orderPackageId=model.firstDesignatedOrdersPackage.id) tagName='div' href=false}}
+                <span class="no-avatar">
+                  <i class="fa fa-ship" aria-hidden="true"></i>
+                </span>
+              {{/link-to}}
+            </div>
+          {{/if}}
+        {{/unless}}
 
         {{#if item.allowLabelPrint}}
           {{#print-label item=item closeList=""}}
