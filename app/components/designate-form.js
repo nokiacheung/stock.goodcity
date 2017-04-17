@@ -107,12 +107,16 @@ export default Ember.Component.extend({
     var item = this.get('item');
     var designatedSetOrdersPackages = [];
     if(item.get("isSet")) {
-      item.get("setItem.items").forEach(item => {
-      item.get("ordersPackages").forEach(record => {
+      item.get("setItem.items").forEach(pkg => {
+      pkg.get("ordersPackages").forEach(record => {
         if(record.get("state") !== "cancelled" && record.get('itemId') === parseInt(item.id) && record.get('designationId') === parseInt(order.id)) {
             this.set('alreadyPartiallyDesignated', true);
             this.set('orderPackageId', record.get('id'));
             designatedSetOrdersPackages.push(record);
+            if(!this.get('designateFullSet')) {
+              this.set("designatedRecord", record);
+              this.set('totalPartialDesignatedItems', record.get("quantity"));
+            }
           }
         });
       });
@@ -207,6 +211,7 @@ export default Ember.Component.extend({
         url = `/items/${item.get('setItem.id')}/designate_stockit_item_set`;
       } else  if(isSameDesignation || this.get('cancelledState')) {
         properties.state = "cancelled";
+        properties.orders_package_id = this.get('orderPackageId');
         url = `/items/${item.get('id')}/update_partial_quantity_of_same_designation`;
       } else {
         url = `/items/${item.get('id')}/designate_partial_item`;
