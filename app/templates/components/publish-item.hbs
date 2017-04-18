@@ -1,4 +1,4 @@
-<div class="" {{action 'displayPublishOverlay'}}>
+<div class="" onclick={{if item.isSingletonItem (action 'displayPublishOverlay')}} style={{if item.isSingletonItem "cursor: pointer;"}}>
   <u>
   {{#if published}}
     Unpublish
