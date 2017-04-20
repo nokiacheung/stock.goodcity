@@ -31,9 +31,9 @@ module('Acceptance: Partial undesignate/modify', {
 test("BackLink redirects to Item's detail if previous route was Item's detail", function(assert) {
   assert.expect(1);
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
-        items: [pkg1.toJSON({includeId: true})],
-        orders_packages: [orders_pkg1.toJSON({includeId: true})]
-      }
+      items: [pkg1.toJSON({includeId: true})],
+      orders_packages: [orders_pkg1.toJSON({includeId: true})]
+    }
   });
   //visiting Item's detail
   visit("/items/" + pkg1.id);
@@ -58,9 +58,9 @@ test("BackLink redirects to Item's index(search) if previous route was Item's in
   mockFindAll('item').returns({ json: {items: [pkg1.toJSON({includeId: true})], orders_packages: [orders_pkg1.toJSON({includeId: true})], designations:[order1.toJSON({includeId: true})], meta: {search: pkg1.get('inventoryNumber').toString()}}});
   mockFindAll('designation').returns({json: {designations: [order1.toJSON({includeId: true})], orders_packages: [orders_pkg1.toJSON({includeId: true})], items: [pkg1.toJSON({includeId: true})]}});
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
-        items: [pkg1.toJSON({includeId: true})],
-        orders_packages: [orders_pkg1.toJSON({includeId: true})]
-      }
+      items: [pkg1.toJSON({includeId: true})],
+      orders_packages: [orders_pkg1.toJSON({includeId: true})]
+    }
   });
 
   //Visiting Item's index
@@ -89,9 +89,9 @@ test("BackLink redirects to Item's index(search) if previous route was Item's in
 test("Available actions for designated OrdersPackages are modify and dispatch", function(assert) {
   assert.expect(2);
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
-        items: [pkg1.toJSON({includeId: true})],
-        orders_packages: [orders_pkg1.toJSON({includeId: true})]
-      }
+      items: [pkg1.toJSON({includeId: true})],
+      orders_packages: [orders_pkg1.toJSON({includeId: true})]
+    }
   });
 
   visit("/items/" + pkg1.id + "/partial_undesignate");
@@ -110,9 +110,9 @@ test("Available actions for designated OrdersPackages are modify and dispatch", 
 test("Available action for dispatched OrdersPackages is Undispatch", function(assert) {
   assert.expect(1);
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
-        items: [pkg1.toJSON({includeId: true})],
-        orders_packages: [orders_pkg2.toJSON({includeId: true})]
-      }
+      items: [pkg1.toJSON({includeId: true})],
+      orders_packages: [orders_pkg2.toJSON({includeId: true})]
+    }
   });
 
   visit("/items/" + pkg1.id + "/partial_undesignate");
@@ -126,9 +126,9 @@ test("Available action for dispatched OrdersPackages is Undispatch", function(as
 test("Designated and Dispatched OrdersPackages have respective background colors", function(assert) {
   assert.expect(2);
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
-        items: [pkg1.toJSON({includeId: true})],
-        orders_packages: [orders_pkg1.toJSON({includeId: true}), orders_pkg2.toJSON({includeId: true})]
-      }
+      items: [pkg1.toJSON({includeId: true})],
+      orders_packages: [orders_pkg1.toJSON({includeId: true}), orders_pkg2.toJSON({includeId: true})]
+    }
   });
 
   visit("/items/" + pkg1.id + "/partial_undesignate");
@@ -143,15 +143,15 @@ test("Designated and Dispatched OrdersPackages have respective background colors
 
 test("Clicking on cancel designation of Item cancels designation", function(assert) {
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
-        items: [pkg1.toJSON({includeId: true})],
-        orders_packages: [orders_pkg1.toJSON({includeId: true})]
-      }
+      items: [pkg1.toJSON({includeId: true})],
+      orders_packages: [orders_pkg1.toJSON({includeId: true})]
+    }
   });
 
   $.mockjax({url: '/api/v1/item*', type: 'PUT', status: 200,responseText: {
-        items: [pkg1.toJSON({includeId: true})],
-        orders_packages: [orders_pkg1.toJSON({includeId: true})]
-      }
+      items: [pkg1.toJSON({includeId: true})],
+      orders_packages: [orders_pkg1.toJSON({includeId: true})]
+    }
   });
 
   //visiting Item's partial undesignate
@@ -181,15 +181,15 @@ test("Clicking on cancel designation of Item cancels designation", function(asse
 test("Cancel designation of OrdersPackage by modifying quantity", function(assert) {
   assert.expect(1);
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
-        items: [pkg1.toJSON({includeId: true})],
-        orders_packages: [orders_pkg1.toJSON({includeId: true})]
-      }
+      items: [pkg1.toJSON({includeId: true})],
+      orders_packages: [orders_pkg1.toJSON({includeId: true})]
+    }
   });
 
   $.mockjax({url: '/api/v1/item*', type: 'PUT', status: 200,responseText: {
-        items: [pkg1.toJSON({includeId: true})],
-        orders_packages: [orders_pkg1.toJSON({includeId: true})]
-      }
+      items: [pkg1.toJSON({includeId: true})],
+      orders_packages: [orders_pkg1.toJSON({includeId: true})]
+    }
   });
 
   //visiting Item's partial undesignate
@@ -215,15 +215,15 @@ test("Cancel designation of OrdersPackage by modifying quantity", function(asser
 test("Dispatching designated OrdersPackage", function(assert) {
   assert.expect(1);
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
-        items: [pkg1.toJSON({includeId: true})],
-        orders_packages: [orders_pkg1.toJSON({includeId: true})]
-      }
+      items: [pkg1.toJSON({includeId: true})],
+      orders_packages: [orders_pkg1.toJSON({includeId: true})]
+    }
   });
 
   $.mockjax({url: '/api/v1/item*', type: 'PUT', status: 200,responseText: {
-        items: [pkg1.toJSON({includeId: true})],
-        orders_packages: [orders_pkg1.toJSON({includeId: true})]
-      }
+      items: [pkg1.toJSON({includeId: true})],
+      orders_packages: [orders_pkg1.toJSON({includeId: true})]
+    }
   });
 
   //visiting Item's partial undesignate
@@ -252,15 +252,15 @@ test("Undispatching dispatched OrdersPackage", function(assert) {
   mockFindAll('location').returns({json: {locations: [location.toJSON({includeId: true})]}});
 
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
-        items: [pkg1.toJSON({includeId: true})],
-        orders_packages: [orders_pkg1.toJSON({includeId: true})]
-      }
+      items: [pkg1.toJSON({includeId: true})],
+      orders_packages: [orders_pkg1.toJSON({includeId: true})]
+    }
   });
 
   $.mockjax({url: '/api/v1/item*', type: 'PUT', status: 200,responseText: {
-        items: [pkg1.toJSON({includeId: true})],
-        orders_packages: [orders_pkg1.toJSON({includeId: true})]
-      }
+      items: [pkg1.toJSON({includeId: true})],
+      orders_packages: [orders_pkg1.toJSON({includeId: true})]
+    }
   });
 
   //visiting Item's partial undesignate
