@@ -1,87 +1,288 @@
-// import Ember from 'ember';
-// import { module, test } from 'qunit';
-// import startApp from '../helpers/start-app';
-// import '../factories/orders_package';
-// import '../factories/designation';
-// import '../factories/item';
-// import '../factories/location';
-// import FactoryGuy from 'ember-data-factory-guy';
-// import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
-// import { mockFindAll } from 'ember-data-factory-guy';
+import Ember from 'ember';
+import { module, test } from 'qunit';
+import startApp from '../helpers/start-app';
+import '../factories/orders_package';
+import '../factories/designation';
+import '../factories/item';
+import '../factories/location';
+import FactoryGuy from 'ember-data-factory-guy';
+import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
+import { mockFindAll } from 'ember-data-factory-guy';
 
-// var App, pkg1, order1, orders_pkg1;
+var App, pkg1, order1, orders_pkg1, orders_pkg2;
 
-// module('Acceptance: Item Available actions', {
-//   beforeEach: function() {
-//     App = startApp({}, 2);
-//     TestHelper.setup();
-//     var location = FactoryGuy.make("location");
-//     order1 = FactoryGuy.make("designation", { id: 100, state: "submitted" });
-//     pkg1 = FactoryGuy.make("item", { id: 51, state: "submitted" , designation: order1, quantity: 0});
-//     orders_pkg1 = FactoryGuy.make("orders_package", { id: 500, state: "designated", quantity: 10, item: pkg1, designation: order1 });
+module('Acceptance: Partial undesignate/modify', {
+  beforeEach: function() {
+    App = startApp({}, 2);
+    TestHelper.setup();
+    var location = FactoryGuy.make("location");
+    mockFindAll('location').returns({json: {locations: [location.toJSON({includeId: true})]}});
+    order1 = FactoryGuy.make("designation", { id: 100, state: "submitted" });
+    pkg1 = FactoryGuy.make("item", { id: 51, state: "submitted" , designation: order1, quantity: 0});
+    orders_pkg1 = FactoryGuy.make("orders_package", { id: 500, state: "designated", quantity: 1, item: pkg1, designationId: order1.id });
+    orders_pkg2 = FactoryGuy.make("orders_package", { id: 501, state: "dispatched", quantity: 1, item: pkg1, designationId: order1.id, sent_on: Date.now() });
+  },
+  afterEach: function() {
+    Ember.run(function() { TestHelper.teardown(); });
+    Ember.run(App, 'destroy');
+  }
+});
 
-//     mockFindAll('item').returns({ json: {items: [pkg1.toJSON({includeId: true})], orders_packages: [orders_pkg1.toJSON({includeId: true})], designations:[order1.toJSON({includeId: true})], meta: {search: pkg1.get('inventoryNumber').toString()}}});
-//     mockFindAll('location').returns({json: {locations: [location.toJSON({includeId: true})]}});
-//     mockFindAll('designation').returns({json: {designations: [order1.toJSON({includeId: true})], orders_packages: [orders_pkg1.toJSON({includeId: true})], items: [pkg1.toJSON({includeId: true})]}});
-//     visit("/items");
-//   },
-//   afterEach: function() {
-//     Ember.run(function() { TestHelper.teardown(); });
-//     Ember.run(App, 'destroy');
-//   }
-// });
+test("BackLink redirects to Item's detail if previous route was Item's detail", function(assert) {
+  assert.expect(1);
+  $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
+        items: [pkg1.toJSON({includeId: true})],
+        orders_packages: [orders_pkg1.toJSON({includeId: true})]
+      }
+  });
+  //visiting Item's detail
+  visit("/items/" + pkg1.id);
 
-// test("Fully un-designating a Package", function(assert) {
-//   assert.expect(2);
-//   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
-//         items: [pkg1.toJSON({includeId: true})],
-//         orders_packages: [orders_pkg1.toJSON({includeId: true})]
-//       }
-//   });
+  //clicking on status bar
+  andThen(function() {
+    click(find('.fa-shopping-basket'));
+  });
 
-//   mockFindAll('item').returns({ json: {items: [pkg1.toJSON({includeId: true})], orders_packages: [orders_pkg1.toJSON({includeId: true})], designations:[order1.toJSON({includeId: true})], meta: {search: pkg1.get('inventoryNumber').toString()}}});
+  //clicking on back link icon
+  andThen(function() {
+    click(find('.back-text'));
+  });
 
-//   assert.equal(currentPath(), "items.index");
-//   fillIn("#searchText", pkg1.get("inventoryNumber"));
-//   andThen(function() {
-//     //clicking on order code
-//     click($('.item_block:first div:first div:first'));
-//   });
-//   andThen(function() {
-//     assert.equal(currentPath(), "items.partial_undesignate");
-//     //clicking on undesignate button
-//     click($('.undesignateButton'));
-//   });
-//   andThen(function() {
-//     //clicking ok of message box
-//     click($('#messageBox a:last'));
-//   });
-// });
+  andThen(function() {
+    assert.equal(currentPath(), "items.detail");
+  });
+});
 
-// test("Partially un-designating a Package", function(assert) {
-//   assert.expect(2);
-//   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
-//         items: [pkg1.toJSON({includeId: true})],
-//         orders_packages: [orders_pkg1.toJSON({includeId: true})]
-//       }
-//   });
+test("BackLink redirects to Item's index(search) if previous route was Item's index", function(assert) {
+  assert.expect(1);
+  mockFindAll('item').returns({ json: {items: [pkg1.toJSON({includeId: true})], orders_packages: [orders_pkg1.toJSON({includeId: true})], designations:[order1.toJSON({includeId: true})], meta: {search: pkg1.get('inventoryNumber').toString()}}});
+  mockFindAll('designation').returns({json: {designations: [order1.toJSON({includeId: true})], orders_packages: [orders_pkg1.toJSON({includeId: true})], items: [pkg1.toJSON({includeId: true})]}});
+  $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
+        items: [pkg1.toJSON({includeId: true})],
+        orders_packages: [orders_pkg1.toJSON({includeId: true})]
+      }
+  });
 
-//   mockFindAll('item').returns({ json: {items: [pkg1.toJSON({includeId: true})], orders_packages: [orders_pkg1.toJSON({includeId: true})], designations:[order1.toJSON({includeId: true})], meta: {search: pkg1.get('inventoryNumber').toString()}}});
+  //Visiting Item's index
+  visit("/items");
 
-//   assert.equal(currentPath(), "items.index");
-//   fillIn("#searchText", pkg1.get("inventoryNumber"));
-//   andThen(function() {
-//     //clicking on order code
-//     click($('.item_block:first div:first div:first'));
-//   });
-//   andThen(function() {
-//     assert.equal(currentPath(), "items.index");
-//     //clicking on undesignate button
-//     fillIn($("input#500"), 5);
-//     click($('.undesignateButton'));
-//   });
-//   andThen(function() {
-//     //clicking ok of message box
-//     click($('#messageBox a:last'));
-//   });
-// });
+  //Searching for Item using Inventory Number
+  andThen(function() {
+    fillIn("#searchText", pkg1.get("inventoryNumber"));
+  });
+
+  //clicking on order code
+  andThen(function() {
+    click($('.dispatch_details div:first span'));
+  });
+
+  //Clicking on BackLink
+  andThen(function() {
+    click(find('.back-text'));
+  });
+
+  andThen(function() {
+    assert.equal(currentPath(), "items.index");
+  });
+});
+
+test("Available actions for designated OrdersPackages are modify and dispatch", function(assert) {
+  assert.expect(2);
+  $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
+        items: [pkg1.toJSON({includeId: true})],
+        orders_packages: [orders_pkg1.toJSON({includeId: true})]
+      }
+  });
+
+  visit("/items/" + pkg1.id + "/partial_undesignate");
+
+  //Modify Action available
+  andThen(function() {
+    assert.equal(find('.modify-text').text(), "Modify");
+  });
+
+  //Dispatch Action available
+  andThen(function() {
+    assert.equal(find('.dispatch-text').text(), "Dispatch");
+  });
+});
+
+test("Available action for dispatched OrdersPackages is Undispatch", function(assert) {
+  assert.expect(1);
+  $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
+        items: [pkg1.toJSON({includeId: true})],
+        orders_packages: [orders_pkg2.toJSON({includeId: true})]
+      }
+  });
+
+  visit("/items/" + pkg1.id + "/partial_undesignate");
+
+  //Undispatch Action available
+  andThen(function() {
+    assert.equal(find('.undispatch-packages').text().trim(), "Undispatch");
+  });
+});
+
+test("Designated and Dispatched OrdersPackages have respective background colors", function(assert) {
+  assert.expect(2);
+  $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
+        items: [pkg1.toJSON({includeId: true})],
+        orders_packages: [orders_pkg1.toJSON({includeId: true}), orders_pkg2.toJSON({includeId: true})]
+      }
+  });
+
+  visit("/items/" + pkg1.id + "/partial_undesignate");
+
+  andThen(function() {
+    //designated OrdersPackage
+    assert.equal($('.light-theme').css( "background-color" ), "rgb(51, 79, 117)");
+    //dispatched OrdersPackage
+    assert.equal($('.dark-theme').css( "background-color" ), "rgb(0, 28, 66)");
+  });
+});
+
+test("Clicking on cancel designation of Item cancels designation", function(assert) {
+  $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
+        items: [pkg1.toJSON({includeId: true})],
+        orders_packages: [orders_pkg1.toJSON({includeId: true})]
+      }
+  });
+
+  $.mockjax({url: '/api/v1/item*', type: 'PUT', status: 200,responseText: {
+        items: [pkg1.toJSON({includeId: true})],
+        orders_packages: [orders_pkg1.toJSON({includeId: true})]
+      }
+  });
+
+  //visiting Item's partial undesignate
+  visit("/items/" + pkg1.id + "/partial_undesignate");
+
+  //Clicking on modify
+  andThen(function() {
+    click(find('.modify-text'));
+  });
+
+  //Clicking on cancel designation link
+  andThen(function() {
+    click(find('.cancel-designation'));
+  });
+
+  //Clicking on okay button of messagebox
+  andThen(function() {
+    click(find('#messageBox #btn1'));
+  });
+
+  //Redirected back to partial undesignate page
+  andThen(function() {
+    assert.equal(currentPath(), "items.partial_undesignate");
+  });
+});
+
+test("Cancel designation of OrdersPackage by modifying quantity", function(assert) {
+  assert.expect(1);
+  $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
+        items: [pkg1.toJSON({includeId: true})],
+        orders_packages: [orders_pkg1.toJSON({includeId: true})]
+      }
+  });
+
+  $.mockjax({url: '/api/v1/item*', type: 'PUT', status: 200,responseText: {
+        items: [pkg1.toJSON({includeId: true})],
+        orders_packages: [orders_pkg1.toJSON({includeId: true})]
+      }
+  });
+
+  //visiting Item's partial undesignate
+  visit("/items/" + pkg1.id + "/partial_undesignate");
+
+  //Clicking on modify
+  andThen(function() {
+    click(find('.modify-text'));
+  });
+
+  //Filling text field with 0 qty and pressing okay
+  andThen(function() {
+    fillIn(('.partial_undesignate_textfield input'), 0);
+    click('#undesignateButton');
+  });
+
+  //Redirected back to partial undesignate page
+  andThen(function() {
+    assert.equal(currentPath(), "items.partial_undesignate");
+  });
+});
+
+test("Dispatching designated OrdersPackage", function(assert) {
+  assert.expect(1);
+  $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
+        items: [pkg1.toJSON({includeId: true})],
+        orders_packages: [orders_pkg1.toJSON({includeId: true})]
+      }
+  });
+
+  $.mockjax({url: '/api/v1/item*', type: 'PUT', status: 200,responseText: {
+        items: [pkg1.toJSON({includeId: true})],
+        orders_packages: [orders_pkg1.toJSON({includeId: true})]
+      }
+  });
+
+  //visiting Item's partial undesignate
+  visit("/items/" + pkg1.id + "/partial_undesignate");
+
+  //Clicking on dispatch
+  andThen(function() {
+    click(find('.dispatch-text'));
+  });
+
+  //Clicking on dispatch on dispatch page
+  andThen(function() {
+    click('#partial_dispatch');
+  });
+
+  //Redirected back to Item's detail
+  andThen(function() {
+    assert.equal(currentPath(), "items.detail");
+  });
+});
+
+test("Undispatching dispatched OrdersPackage", function(assert) {
+  assert.expect(1);
+
+  var location = FactoryGuy.make("location");
+  mockFindAll('location').returns({json: {locations: [location.toJSON({includeId: true})]}});
+
+  $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
+        items: [pkg1.toJSON({includeId: true})],
+        orders_packages: [orders_pkg1.toJSON({includeId: true})]
+      }
+  });
+
+  $.mockjax({url: '/api/v1/item*', type: 'PUT', status: 200,responseText: {
+        items: [pkg1.toJSON({includeId: true})],
+        orders_packages: [orders_pkg1.toJSON({includeId: true})]
+      }
+  });
+
+  //visiting Item's partial undesignate
+  visit("/items/" + pkg1.id + "/partial_undesignate");
+
+  //Clicking on Undispatch
+  andThen(function() {
+    click(find('.undispatch-text'));
+  });
+
+  //Clicking on first location on recently used location list
+  andThen(function() {
+    click('.building_name');
+  });
+
+  //Clicking Move on messageBox
+  andThen(function() {
+    click(find('#messageBox #btn1'));
+  });
+
+  //Redirected back to Item's detail
+  andThen(function() {
+    assert.equal(currentPath(), "items.detail");
+  });
+});
