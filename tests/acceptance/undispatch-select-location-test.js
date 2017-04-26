@@ -36,7 +36,7 @@ module('Acceptance: Undispatch select location', {
 });
 
 test("Moving item to selected location on undispatch", function(assert) {
-  assert.expect(3);
+  assert.expect(4);
   var location = FactoryGuy.make("location");
   mockFindAll('location').returns({json: {locations: [location.toJSON({includeId: true})]}});
   $.mockjax({url: '/api/v1/item*', type: 'PUT', status: 200,responseText: {
@@ -63,5 +63,6 @@ test("Moving item to selected location on undispatch", function(assert) {
   });
   andThen(function() {
     assert.equal(currentPath(), "items.detail");
+    assert.equal(find('.stock_status').text().trim(), "In Stock");
   });
 });
