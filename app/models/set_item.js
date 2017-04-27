@@ -18,6 +18,10 @@ export default Model.extend({
     return this.get("items").filterBy('designation', null).length === 0;
   }),
 
+  sortedItems: Ember.computed('items', function() {
+    return this.get("items").sortBy('id');
+  }),
+
   allDispatched: Ember.computed('items.@each.isDispatched', function() {
     return this.get("items").filterBy('isDispatched', false).length === 0;
   }),
