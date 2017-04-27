@@ -89,7 +89,7 @@ export default cloudinaryUrl.extend({
   }),
 
   favouriteImage: Ember.computed('images.@each.favourite', function(){
-    return this.get("images").filterBy("favourite", true).get("firstObject");
+    return this.get("images").filterBy("favourite", true).get("firstObject") || this.store.peekAll("image").filterBy("itemId", parseInt(this.id)).filterBy("favourite", true).get("firstObject");
   }),
 
   desinatedAndDisaptchedItemPackages: Ember.computed("ordersPackages.[]", function() {
