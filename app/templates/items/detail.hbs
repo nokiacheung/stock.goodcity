@@ -52,7 +52,7 @@
     {{/if}}
 
     {{#if model.isSet}}
-      {{#each model.setItem.items as |item|}}
+      {{#each model.setItem.sortedItems as |item|}}
         {{partial 'items/item_detail_block'}}
       {{/each}}
     {{else}}
