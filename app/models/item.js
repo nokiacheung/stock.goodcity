@@ -222,13 +222,13 @@ export default cloudinaryUrl.extend({
     return quantityToMove;
   }),
 
-  imageUrlList: Ember.computed('images.[]', function() {
+  imageUrlList: Ember.computed('images', 'setItem.@each.items.images.[]', 'setItem.@each.items.@each.imageUrl', 'setItem.@each.items.@each.thumbImageUrl', function() {
     var imageList = [];
-    this.get("images").forEach((image) => imageList.pushObject(image.get("imageUrl")));
+    this.store.peekAll("image").filterBy("itemId", parseInt(this.id)).forEach((image) => imageList.pushObject(image.get("imageUrl")));
     return imageList.uniq();
   }),
 
-  setImages: Ember.computed('setItem.@each.items.@each.imageUrlList.[]', function() {
+  setImages: Ember.computed('setItem.@each.items.@each.imageUrlList.[]', 'images', 'setItem.@each.items.images.[]', 'setItem.@each.items.@each.imageUrl', 'setItem.@each.items.@each.thumbImageUrl',  function() {
     var setItemImages = [];
     this.get("setItem.items").forEach((item) => {
       setItemImages = setItemImages.concat(item.get("imageUrlList"));

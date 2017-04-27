@@ -13,8 +13,10 @@ export default AuthorizeRoute.extend({
 
   afterModel(model) {
     if(model.get('isSet')) {
-      model.get('setItem.items').forEach(item => {
-        this.store.findRecord("item", item.get("id"), { reload: true });
+      return Ember.RSVP.hash({
+        items: model.get('setItem.items').forEach(item => {
+          this.store.findRecord("item", item.get("id"), { reload: true });
+        })
       });
     }
   },
