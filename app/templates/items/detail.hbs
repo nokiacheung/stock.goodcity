@@ -8,7 +8,7 @@
         {{image-zoom item=model}}
       </div>
       <div class="image-action-list">
-        {{#unless model.hasAllPackagesDispatched}}
+        {{#unless (is-or model.hasAllPackagesDispatched model.hasAllPackagesDesignated)}}
           {{#if model.quantity}}
             {{#if (is-not model.isSet)}}
               {{#link-to 'items.partial_designate' model.id (query-params isSet=model.isSet) tagName='span' href=false}}

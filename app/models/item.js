@@ -147,8 +147,8 @@ export default cloudinaryUrl.extend({
   hasAllPackagesDesignated: Ember.computed("ordersPackages.@each.state", function() {
     var received_quantity = this.get("receivedQuantity");
     var totalDesignatedQty = 0;
-    var dispatchedOrdersPackages = this.get("ordersPackages").filterBy("state", "designated");
-    dispatchedOrdersPackages.forEach(record => {
+    var designatedOrdersPackages = this.get("ordersPackages").filterBy("state", "designated");
+    designatedOrdersPackages.forEach(record => {
       totalDesignatedQty += parseInt(record.get("quantity"));
     });
     return (totalDesignatedQty === received_quantity) ? true : false;
