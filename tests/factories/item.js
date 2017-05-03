@@ -22,9 +22,11 @@ FactoryGuy.define('item', {
     createdAt:        '12/01/2016',
     updatedAt:        '12/01/2016',
     notes:             "Example",
+    length:            10,
+    width:             10,
+    height:            10,
     orders_packages:   FactoryGuy.hasMany('orders_package'),
-    designation:      FactoryGuy.belongsTo('designation')
-  }
+    designation:       FactoryGuy.belongsTo('designation')  }
 });
 
 export default {};
