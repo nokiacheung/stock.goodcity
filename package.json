@@ -24,7 +24,7 @@
     "active-model-adapter": "2.1.1",
     "broccoli-asset-rev": "^2.4.2",
     "ember-ajax": "^2.5.1",
-    "ember-cli": "~2.13.0",
+    "ember-cli": "2.13.0",
     "ember-cli-app-version": "^2.0.1",
     "ember-cli-babel": "^5.1.10",
     "ember-cli-coffeescript": "^1.15.0",
@@ -58,6 +58,8 @@
     "morgan": "^1.7.0"
   },
   "dependencies": {
+    "cordova": "^6.5.0",
+    "phantomjs-prebuilt": "^2.1.14",
     "azure-api": "git://github.com/crossroads/azure-api.git#master",
     "blueimp-file-upload": "^9.17.0",
     "cloudinary-jquery-file-upload": "^2.2.0",
