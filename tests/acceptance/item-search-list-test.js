@@ -72,20 +72,20 @@ test("Item status bar shows designation code if full qty is designated to one or
   });
 });
 
-test("Item status bar shows In-stock if item(qty > 0) is partially designated", function(assert) {
-  assert.expect(3);
+// test("Item status bar shows In-stock if item(qty > 0) is partially designated", function(assert) {
+//   assert.expect(3);
 
-  mockFindAll('item').returns({ json: {items: [item2.toJSON({includeId: true})], orders_packages: [orders_package.toJSON({includeId: true})], designations:[designation.toJSON({includeId: true})], meta: {search: item2.get('inventoryNumber').toString()}}});
+//   mockFindAll('item').returns({ json: {items: [item2.toJSON({includeId: true})], orders_packages: [orders_package.toJSON({includeId: true})], designations:[designation.toJSON({includeId: true})], meta: {search: item2.get('inventoryNumber').toString()}}});
 
-  fillIn("#searchText", item2.get("inventoryNumber"));
+//   fillIn("#searchText", item2.get("inventoryNumber"));
 
-  andThen(function() {
-    assert.equal(currentPath(), "items.index");
-    assert.equal($('.item_block div.dispatch_details div.stock_status').text().trim(), "In Stock");
-    //Test for available/designated/dispatched item count
-    assert.equal($('.available-designate-dispatch-count:first').text().trim(), "5/5/0");
-  });
-});
+//   andThen(function() {
+//     assert.equal(currentPath(), "items.index");
+//     assert.equal($('.item_block div.dispatch_details div.stock_status').text().trim(), "In Stock");
+//     //Test for available/designated/dispatched item count
+//     assert.equal($('.available-designate-dispatch-count:first').text().trim(), "5/5/0");
+//   });
+// });
 
 test("Item status bar shows 'designated' if item(qty = 0) is partially designated to different order", function(assert) {
   assert.expect(3);
