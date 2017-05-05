@@ -25,7 +25,7 @@ dependencies:
     - yarn install
   post:
     - yarn add --force node-sass
-    - yarn add bower
+    - yarn add ember-cli@2.12.2 bower
     - bundle install
     - gem update fastlane
     - bower install
