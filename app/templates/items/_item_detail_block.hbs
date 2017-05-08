@@ -47,17 +47,17 @@
         <div class="row">
           <div class="columns small-3">Size (cm) </div>
           <div class="columns small-3 value">
-            L: {{numeric-inline-input id=(concat 'qty' item.id) name="length" class="numeric-input item-length small-3" value=item.length maxlength="5" pattern="[1-9][0-9]{0,4}" item=item}}
+            L: {{numeric-inline-input id=(concat 'qty' item.id) name="length" class="numeric-input item-length small-3" value=item.lengt item=item}}
             <span><i class="fa fa-times" aria-hidden="true"></i></span>
           </div>
 
           <div class="columns small-3 value">
-            W: {{numeric-inline-input id=(concat 'wth' item.id) name="width" class="numeric-input item-width small-3" value=item.width maxlength="5"  pattern="[1-9][0-9]{0,4}" item=item}}
+            W: {{numeric-inline-input id=(concat 'wth' item.id) name="width" class="numeric-input item-width small-3" value=item.width item=item}}
             <span><i class="fa fa-times" aria-hidden="true"></i></span>
           </div>
 
           <div class="columns small-3 value">
-            H: {{numeric-inline-input id=(concat 'hgt' item.id) name="height" class="numeric-input item-height small-3" value=item.height maxlength="5" pattern="[1-9][0-9]{0,4}" item=item}}
+            H: {{numeric-inline-input id=(concat 'hgt' item.id) name="height" class="numeric-input item-height small-3" value=item.heigh item=item}}
           </div>
         </div>
         <div class="row">
