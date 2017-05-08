@@ -13,10 +13,6 @@
     }
   }
 
-  .dispatch_details {
-    font-weight: 900;
-  }
-
   .search {
     margin-top: 0;
   }
@@ -63,6 +59,7 @@
   }
 
   .dispatch_details {
+    font-weight: 900;
     margin-bottom: 1rem;
 
     @media #{$small-only} {
