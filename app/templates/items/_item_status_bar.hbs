@@ -1,6 +1,6 @@
 <div class="row dispatch_details {{if item.hasAllPackagesDispatched 'dispatched'}} {{if item.hasAllPackagesDesignated 'designated'}} {{if (is-and (is-not item.quantity) item.designatedOrdersPackages.length) 'designated'}}">
   {{#link-to 'items.partial_undesignate' item.id tagName='span' href=false}}
-    <div class="small-3 columns">
+    <div class="small-3 columns" style="cursor: pointer;">
       {{#if item.hasAllPackagesDesignated}}
         {{#if item.hasOneDesignatedPackage}}
           {{#link-to 'items.partial_undesignate' item.id tagName='span' href=false}}
