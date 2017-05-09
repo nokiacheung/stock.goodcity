@@ -51,8 +51,12 @@
   <div class="small-6 columns location-name">
     {{#unless item.hasAllPackagesDispatched}}
       <i class="fa fa-map-marker"> </i>
-      {{#if (is-or item.hasSingleLocation hasSingleAndDispatchLocation)}}
-        {{item.firstLocationName}}
+      {{#if item.hasSingleLocation}}
+        {{#if hasSingleAndDispatchLocation}}
+          {{item.firstAllLocationName}}
+        {{else}}
+          {{item.firstLocationName}}
+        {{/if}}
       {{else if item.hasMultiLocations}}
         {{#link-to 'items.partial_move' item.id tagName='span' href=false}} Multiple {{/link-to}}
       {{/if}}

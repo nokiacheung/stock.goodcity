@@ -191,12 +191,16 @@ export default cloudinaryUrl.extend({
   }),
 
   hasSingleAndDispatchLocation: Ember.computed('packagesLocations.[]', 'packagesLocations', function(){
-    var pckgesLocations = this.get('packagesLocations');
-    return Ember.isEqual(pckgesLocations.length, 1) && (pckgesLocations.get('firstObject.location.building') === "Dispatched") && (!this.get("hasAllPackagesDispatched"));
+    var pkgLocations = this.get('packagesLocations');
+    return Ember.isEqual(pkgLocations.length, 1) && (pkgLocations.get('firstObject.location.building') === "Dispatched") && (!this.get("hasAllPackagesDispatched"));
   }),
 
   hasMultiLocations: Ember.computed('packagesLocations.[]', function(){
     return this.get('packagesLocations').length > 1;
+  }),
+
+  firstAllLocationName: Ember.computed('packagesLocations.[]', 'packagesLocations', function(){
+    return this.get('packagesLocations').get('firstObject.location.name');
   }),
 
   firstLocationName: Ember.computed('packagesLocations.[]', 'packagesLocationsList', function(){
