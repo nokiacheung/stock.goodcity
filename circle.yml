@@ -25,7 +25,7 @@ dependencies:
     - yarn install
   post:
     - yarn add --force node-sass
-    - yarn add bower ember-cli@2.12.2 phantomjs-prebuilt cordova@6.5.1-nightly.2017.5.1.6f7d314c
+    - yarn add bower ember-cli@2.12.2 phantomjs-prebuilt cordova@6.5.0
     - bundle install
     - gem update fastlane
     - bower install
