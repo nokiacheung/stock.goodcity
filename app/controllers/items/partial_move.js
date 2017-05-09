@@ -13,7 +13,7 @@ export default Ember.Controller.extend({
       var totalQty = 0;
       var allPackagesLocations = item.get('packagesLocationsList');
       if(item.get('hasSingleAndDispatchLocation')){
-        allPackagesLocations = item.get('firstAllLocationName');
+        allPackagesLocations = item.get('packagesLocations');
       }
 
       var elementIds  = allPackagesLocations.getEach('id');
