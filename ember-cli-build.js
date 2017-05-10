@@ -56,7 +56,7 @@ module.exports = function(defaults) {
   app.import('bower_components/blueimp-file-upload/js/vendor/jquery.ui.widget.js');
   app.import('bower_components/blueimp-file-upload/js/jquery.iframe-transport.js');
   app.import('bower_components/blueimp-file-upload/js/jquery.fileupload.js');
-  app.import('bower_components/cloudinary/js/load-image.min.js');
+  app.import('bower_components/cloudinary/js/load-image.all.min.js');
   app.import('bower_components/cloudinary/js/canvas-to-blob.min.js');
   app.import('bower_components/blueimp-file-upload/js/jquery.fileupload-process.js');
   app.import('bower_components/blueimp-file-upload/js/jquery.fileupload-image.js');
