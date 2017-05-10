@@ -53,8 +53,6 @@
       <i class="fa fa-map-marker"> </i>
       {{#if item.hasSingleAndDispatchLocation}}
         {{item.firstAllLocationName}}
-      {{else if hasSingleLocation}}
-        {{item.firstLocationName}}
       {{else if item.hasMultiLocations}}
         {{#link-to 'items.partial_move' item.id tagName='span' href=false}} Multiple {{/link-to}}
       {{/if}}
