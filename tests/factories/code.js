@@ -16,8 +16,6 @@ FactoryGuy.define('code',{
     id:   FactoryGuy.generate('id'),
     name: FactoryGuy.generate("name"),
     code: "ABC",
-    defaultChildPackages: "ABC",
-    otherChildPackages: "ABC",
   }
 });
 export default {};

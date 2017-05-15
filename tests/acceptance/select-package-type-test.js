@@ -32,7 +32,9 @@ test("Redirect to /search_code after clicking Add item to inventory", function(a
   assert.expect(1);
 
   $.mockjax({url: '/api/v1/package_type*', type: 'GET', status: 200,responseText: {
-      codes: [code.toJSON({includeId: true})],
+    codes: [{"id":9,"name":"Baby Crib","code":"BBS","other_child_packages":"FXX","default_child_packages":"BBS,BBM,BBC","other_terms":"Cot","visible_in_selects":true,"location_id":262},
+ {"id":18,"name":"Child bed, Set (base, mattress)","code":"BCS","other_child_packages":"FXX","default_child_packages":"BCS,BCB,BCM","other_terms":null,"visible_in_selects":true,"location_id":262}, ],
+      // codes: [code.toJSON({includeId: true})],
       meta: {search: code.get('name').toString()}
     }
   });
@@ -40,7 +42,13 @@ test("Redirect to /search_code after clicking Add item to inventory", function(a
   andThen(function() {
 
     assert.equal(currentPath(), "search_code");
-    fillIn("#searchText", code.get('name'));
+    fillIn("#searchText", "Baby Crib");
+    click($('.list li:first')[0]);
+    andThen(function() {
+
+    assert.equal(currentPath(), "search_code");
+    fillIn("#searchText", "Baby Crib");
+  });
   });
 });
 
