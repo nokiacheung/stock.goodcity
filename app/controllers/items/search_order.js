@@ -20,6 +20,7 @@ export default searchModule.extend({
   showAllSetItems: false,
   selectedDesignation: null,
   toggleOverlay: true,
+  disableMessageBoxLink: false,
 
   actions: {
 

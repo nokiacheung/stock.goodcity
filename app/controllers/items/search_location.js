@@ -20,6 +20,7 @@ export default searchModule.extend({
   isUndispatch: "",
   isUndispatchFullQuantity: false,
   isPartialMove: false,
+  disableMessageBoxLink: false,
 
   item: Ember.computed.alias("model.item"),
   searchModelName: "location",

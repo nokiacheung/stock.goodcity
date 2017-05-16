@@ -68,6 +68,7 @@ export default AuthorizeRoute.extend({
     } else {
       controller.set('notPartialRoute', false);
     }
+    controller.set("disableMessageBoxLink", true);
     controller.set('searchText', "");
     controller.set('backLinkPath', this.get('itemDesignateBackLinkPath'));
   }

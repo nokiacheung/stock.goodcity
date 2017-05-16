@@ -45,6 +45,7 @@ export default AuthorizeRoute.extend({
     this._super(controller, model);
     model.item.get('packagesLocations').filterBy('isEditing', true).setEach('isEditing', false);
     controller.set('searchText', "");
+    controller.set("disableMessageBoxLink", true);
     controller.set("orderIdForOrderDetail", this.get("orderId"));
     controller.set('moveItemPath', this.get('itemPreviousRoute'));
     controller.set('backLinkPath', this.get('itemMoveBackLinkPath'));
