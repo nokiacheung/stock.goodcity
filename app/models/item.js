@@ -27,7 +27,7 @@ export default cloudinaryUrl.extend({
   code:        belongsTo('code', { async: false }),
   donorCondition: belongsTo('donor_condition', { async: false }),
   setItem:        belongsTo('set_item', { async: false }),
-  packagesLocations: hasMany('packages_location', {async: false}),
+  packagesLocations: hasMany('packages_location', { async: true }),
 
   ordersPackages:    hasMany('ordersPackages', { async: true }),
   images:       hasMany('image', { async: true }),
