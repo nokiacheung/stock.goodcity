@@ -41,7 +41,7 @@ export default AuthorizeRoute.extend({
     } else {
       this.set('partialDesignatePath', false);
     }
-    this.set("itemDesignateBackLinkPath", "items.partial_designate");
+    this.set("itemDesignateBackLinkPath", path);
   },
 
   model(params) {
