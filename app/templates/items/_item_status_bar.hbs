@@ -55,6 +55,8 @@
         {{item.firstAllLocationName}}
       {{else if item.hasMultiLocations}}
         {{#link-to 'items.partial_move' item.id tagName='span' href=false}} Multiple {{/link-to}}
+      {{else}}
+        {{item.firstLocationName}}
       {{/if}}
     {{/unless}}
   </div>
