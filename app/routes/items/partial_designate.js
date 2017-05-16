@@ -7,7 +7,6 @@ export default AuthorizeRoute.extend({
 
   beforeModel() {
     this._super(...arguments);
-    //this.store.unloadAll('ordersPackage');
   },
 
   model(params) {
