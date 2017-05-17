@@ -4,6 +4,7 @@
     <description>
     GoodCity Stock Application
   </description>
+  <activity android:configchanges="orientation|keyboardHidden|keyboard|screenSize|locale" android:label="@string/activity_name" android:launchmode="singleTop" android:name="S. Stock" android:screenorientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" android:windowsoftinputmode="adjustResize"/>
   <author href="https://www.crossroads.org.hk">Crossroads</author>
   <content src="index.html" />
   <hook src="scripts/update_build_number.py" type="before_prepare" />
