@@ -48,6 +48,9 @@ deployment:
   staging:
     branch: master
     commands:
+      - cordova platform rm android
+      - cordova platform add android
+      - cordova platform add ios
       - bundle exec cap staging deploy
       - bundle exec rake staging android app:build
       - fastlane android staging
