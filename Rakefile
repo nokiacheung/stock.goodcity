@@ -113,7 +113,7 @@ namespace :cordova do
     create_build_json_file
     sh %{ ln -s "#{ROOT_PATH}/dist" "#{CORDOVA_PATH}/www" } unless File.exists?("#{CORDOVA_PATH}/www")
     build_details.map{|key, value| log("#{key.upcase}: #{value}")}
-    sh %{ cd #{CORDOVA_PATH}; cordova platform rm android; cordova platform add android; cordova-update-config --appname "#{app_name}" --appid #{app_id} --appversion #{app_version} }
+    sh %{ cd #{CORDOVA_PATH}; cordova-update-config --appname "#{app_name}" --appid #{app_id} --appversion #{app_version} }
 
     log("Preparing app for #{platform}")
     Dir.chdir(CORDOVA_PATH) do

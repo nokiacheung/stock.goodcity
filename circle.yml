@@ -25,7 +25,7 @@ dependencies:
     - yarn install
   post:
     - yarn add --force node-sass
-    - yarn add bower ember-cli@2.12.2 phantomjs-prebuilt cordova
+    - yarn add bower ember-cli@2.12.2 phantomjs-prebuilt cordova@6.5.0
     - bundle install
     - gem update fastlane
     - bower install
@@ -48,6 +48,8 @@ deployment:
   staging:
     branch: master
     commands:
+      - cordova platform rm android
+      - cordova platform add android
       - cordova platform add ios
       - bundle exec cap staging deploy
       - bundle exec rake staging android app:build
