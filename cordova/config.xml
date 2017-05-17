@@ -4,13 +4,13 @@
     <description>
     GoodCity Stock Application
   </description>
+  <activity android:configchanges="orientation|keyboardHidden|keyboard|screenSize|locale" android:label="@string/activity_name" android:launchmode="singleTop" android:name="S. Stock" android:screenorientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar" android:windowsoftinputmode="adjustResize"/>
   <author href="https://www.crossroads.org.hk">Crossroads</author>
   <content src="index.html" />
   <hook src="scripts/update_build_number.py" type="before_prepare" />
   <access origin="*" />
   <preference name="DisallowOverscroll" value="true" />
   <platform name="android">
-    <name>S. Stock</name>
     <preference name="LoadUrlTimeoutValue" value="120000" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="5000" />
@@ -31,7 +31,6 @@
     <splash src="res/android/drawable-xxxhdpi/screen.png" density="port-xxxhdpi"/>
   </platform>
   <platform name="ios">
-    <name>S. Stock</name>
     <icon src="res/ios/Icon-App-60x60@3x.png" width="180" height="180"/>
     <icon src="res/ios/Icon-App-60x60@1x.png" width="60" height="60"/>
     <icon src="res/ios/Icon-App-60x60@2x.png" width="120" height="120"/>
