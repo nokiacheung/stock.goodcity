@@ -87,40 +87,34 @@
       <div class="row">
         <div class="order-block">
           {{#link-to "orders.detail" ordersPackage.designation.id tagName='span' href=false}}
-            <div class="columns small-9 medium-9 large-9 package-list light-theme">
+            <div class="columns small-9 medium-9 large-9 package-list light-theme" style="cursor: pointer;">
               {{#link-to "orders.detail" ordersPackage.designation.id tagName='span' href=false}}
                 <div class="columns small-7 orders-package-detail">
                   {{ordersPackage.designation.code}} - {{ordersPackage.designation.status}}
                 </div>
-              {{/link-to}}
-              {{#link-to "orders.detail" ordersPackage.designation.id tagName='span' href=false}}
                 <div class="columns small-2 orders-package-quantity">
-                    Qty:
+                  Qty:
                 </div>
-              {{/link-to}}
-              {{#link-to "orders.detail" ordersPackage.designation.id tagName='span' href=false}}
                 <div class="columns small-3 orders-package-quantity">
-                    {{ordersPackage.quantity}}
+                  {{ordersPackage.quantity}}
                 </div>
-              {{/link-to}}
-              <br/>
-              {{#link-to "orders.detail" ordersPackage.designation.id tagName='span' href=false}}
+                <br/>
                 <div class="columns small-8 medium-8 large-8 ellipsis name two-line-ellipsis organisation-name">
-                    {{ordersPackage.designation.organisation.name}}
+                  {{ordersPackage.designation.organisation.name}}
                 </div>
               {{/link-to}}
             </div>
           {{/link-to}}
-          {{#link-to "items.modify_designation" model.id (query-params ordersPackageId=ordersPackage.id) tagName='span' href=false}}
-            <div class="columns small-1 medium-1 large-1 modify-packages allign-modify-package">
-              {{#link-to "items.modify_designation" model.id (query-params ordersPackageId=ordersPackage.id) tagName='span' href=false}}
-                <i class="fa fa-pencil-square" aria-hidden="true"></i>
-                <br>
-                <span class="modify-text">Modify</span>
-              {{/link-to}}
-            </div>
-          {{/link-to}}
-          <div class="columns small-1 medium-1 large-1 dispatch-packages" {{action 'dispatch' model ordersPackage}}>
+          <div class="columns small-1 medium-1 large-1 modify-packages allign-modify-package" style="cursor: pointer;">
+            {{#link-to "items.modify_designation" model.id (query-params ordersPackageId=ordersPackage.id) tagName='span' href=false}}
+              <i class="fa fa-pencil-square" aria-hidden="true"></i>
+            {{/link-to}}
+              <br>
+            {{#link-to "items.modify_designation" model.id (query-params ordersPackageId=ordersPackage.id) tagName='span' href=false}}
+              <span class="modify-text">Modify</span>
+            {{/link-to}}
+          </div>
+          <div class="columns small-1 medium-1 large-1 dispatch-packages" {{action 'dispatch' model ordersPackage}} style="cursor: pointer;">
             <i class="fa fa-ship" aria-hidden="true"></i>
             <br>
             <span class="dispatch-text">Dispatch</span>
@@ -158,25 +152,27 @@
       <div class="row">
         <div class="order-block">
           {{#link-to "orders.detail" ordersPackage.designation.id tagName='span' href=false}}
-            <div class="columns small-9 medium-9 large-9 package-list dark-theme">
-              <div class="columns small-7 orders-package-detail">
-                {{ordersPackage.designation.code}} - {{ordersPackage.designation.status}}
-              </div>
-              <div class="columns small-2  orders-package-quantity">
-                Qty:
-              </div>
-              <div class="columns small-3 orders-package-quantity">
-                {{ordersPackage.quantity}}
-              </div>
-              <br/>
-              <div class="columns small-8 medium-8 large-8 ellipsis name two-line-ellipsis organisation-name">
-                {{ordersPackage.designation.organisation.name}}
-              </div>
+            <div class="columns small-9 medium-9 large-9 package-list dark-theme" style="cursor: pointer;">
+              {{#link-to "orders.detail" ordersPackage.designation.id tagName='span' href=false}}
+                <div class="columns small-7 orders-package-detail">
+                  {{ordersPackage.designation.code}} - {{ordersPackage.designation.status}}
+                </div>
+                <div class="columns small-2  orders-package-quantity">
+                  Qty:
+                </div>
+                <div class="columns small-3 orders-package-quantity">
+                  {{ordersPackage.quantity}}
+                </div>
+                <br/>
+                <div class="columns small-8 medium-8 large-8 ellipsis name two-line-ellipsis organisation-name">
+                  {{ordersPackage.designation.organisation.name}}
+                </div>
+              {{/link-to}}
             </div>
           {{/link-to}}
           <div class="columns small-1 medium-1 large-1 modify-packages">
           </div>
-          <div class="columns small-1 medium-1 large-1 undispatch-packages">
+          <div class="columns small-1 medium-1 large-1 undispatch-packages" style="cursor: pointer;">
             {{undispatch-item item=ordersPackage.item package=ordersPackage closeList=closeList isUndispatchFromPartialUndesignate=true}}
           </div>
         </div>
