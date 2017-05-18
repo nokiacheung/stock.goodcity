@@ -7,7 +7,9 @@
             <i class="fa fa-file-text" aria-hidden="true"></i> Details
           {{/link-to}}
 
-          <li><i class="fa fa-clock-o" aria-hidden="true"></i>History</li>
+          {{#link-to 'items.history' model tagName='li' href=false}}
+            <li><i class="fa fa-clock-o" aria-hidden="true"></i>History</li>
+          {{/link-to}}
           <li><i class="fa fa-comments-o" aria-hidden="true"></i>Staff</li>
         </ul>
       </div>

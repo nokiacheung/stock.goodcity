@@ -4,6 +4,7 @@ I18nTranslationsEn =
   "loading": "Loading..."
   "back": "Back"
   "search": "Search"
+  "QuotaExceededError": "Site may not work in Safari's <b>private mode.</b> Please try</br><ul><li><a href='https://itunes.apple.com/in/app/goodcitystock.hk/id1144806764?mt=8' style='color: black!important; background-color: #dee4eb !important;'>Downloading the iOS App</a></li><li>Using regular (not private) mode in Safari</li><li>Using Chrome's private browsing mode</li></ul>"
   "search_min": "Search (min 3 characters)"
   "no_search_results": "No Search Results."
   "cancel": "Cancel"
@@ -49,25 +50,40 @@ I18nTranslationsEn =
   "item":
     "edit": "edit"
     "designate": "designate"
+    "designate_partial": "Designate"
+    "partial_designate": "partial designate"
     "dispatch": "dispatch"
     "undispatch": "undispatch"
     "undesignate": "un-designate"
+    "partial_undesignate": "Un-designate"
+    "partial_undispatch": "Undispatch"
     "separate": "separate"
     "move": "Move"
+    "partial_move": "Partial Move"
     "show_set_items": "Show other parts from the same set next"
+    "multiple_designation": "designated"
+    "all_dispatched": "Out of stock"
+    "max_undesignate": "From: {{code}}<br/>Quantity: {{qty}}"
+    "already_dispatched": "All designated Items are already dispatched"
+    "multiple": "Multiple"
 
   "designate":
+    "modify_designation": "Cancels the designation to order {{code}}"
     "form_title": "Designating this item to order {{code}}"
     "designate": "Designate"
     "overrides_existing": "Overrides an existing designation."
     "quantity" : "Designates quantity of {{quantity}}."
     "already_designated": "This item is alreday designated to order {{code}}."
+    "already_partially_designated": "Already {{qty}} items are designated to {{code}}, do you still want to designate {{partial_qty}} more?"
+    "partial_designate_title": "Designates {{partial_qty}} quantity to order {{code}}"
+    "cannot_designate": "There are partial items already designated to order {{code}} or order {{code}} is in cancelled state. Use Partial Designate feature to designate more."
 
   "undesignate":
     "form_title": "Remove this item from order {{code}}"
     "undesignate": "Undesignate"
     "quantity": "Undesignates quantity of {{quantity}}."
     "set_part": "Undesignates only part of set."
+    "partial_undesignate": "Undesignates {{qty}} from order {{code}}."
 
   "dispatch":
     "dispatch": "Dispatch"

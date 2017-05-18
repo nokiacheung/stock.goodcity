@@ -1,0 +1,48 @@
+.history {
+  .history-back-link {
+    padding: 0.7rem 2rem 0rem 0.7rem;
+    color: white;
+  }
+
+  .history-title {
+    font-size: 1rem;
+    text-align: center;
+    color: white;
+    padding-top: 0.5rem;
+    margin-left: -7%;
+    padding-right: 11%;
+  }
+
+  .history-block {
+    margin-bottom: 7rem;
+    color: white;
+    .history-header {
+      font-size: 0.8rem;
+      margin-bottom: 0.5rem;
+      padding: 0.2rem;
+      width: 90%;
+    }
+    .history-unavailable {
+      font-size: 0.85rem;
+      text-align: center;
+    }
+    .designated {
+      margin-bottom: 0.5rem;
+      padding: 0.2rem;
+      width: 90%;
+      background-color: #334f75;
+    }
+    .qty {
+      text-align: center;
+    }
+    .inventory-number {
+      text-align: right;
+    }
+    .dispatched {
+      margin-bottom: 0.5rem;
+      padding: 0.2rem;
+      width: 90%;
+      background-color: #001C42;
+    }
+  }
+}

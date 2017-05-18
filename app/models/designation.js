@@ -17,7 +17,9 @@ export default Model.extend({
   contact:      belongsTo('contact', { async: false }),
   organisation: belongsTo('organisation', { async: false }),
   localOrder:   belongsTo('local_order', { async: false }),
-  items:        hasMany('item', { async: false }),
+  items:        hasMany('item', { async: true }),
+  ordersPackages:    hasMany('ordersPackages', { async: false }),
+
 
   isLocalOrder: Ember.computed.equal('detailType', 'LocalOrder'),
 
@@ -30,6 +32,14 @@ export default Model.extend({
     return items.length > 0 && items.filterBy('isDispatched', false).length === 0;
   }),
 
+  designatedOrdersPackages: Ember.computed('ordersPackages.@each.state', function() {
+    return this.get("ordersPackages").filterBy('state', "designated");
+  }),
+
+  dispatchedOrdersPackages: Ember.computed('ordersPackages.@each.state', function() {
+    return this.get("ordersPackages").filterBy('state', "dispatched");
+  }),
+
   designatedItems: Ember.computed('items.@each.sentOn', function() {
     return this.get("items").filterBy('sentOn', null);
   }),
@@ -37,5 +47,5 @@ export default Model.extend({
   isInactive: Ember.computed('status', function(){
     return ["Sent", "Cancelled", "Closed"].indexOf(this.get("status")) >= 0;
   }),
-  
+
 });

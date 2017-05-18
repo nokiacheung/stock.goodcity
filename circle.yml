@@ -4,64 +4,61 @@ machine:
     XCODE_SCHEME: stock.goodcity
     XCODE_WORKSPACE: stock.goodcity
     GYM_CODE_SIGNING_IDENTITY: "iPhone Distribution: Crossroads Foundation Limited"
+    FL_TESTFAIRY_AUTO_UPDATE: "on"
+    PILOT_SKIP_SUBMISSION: true
+    PILOT_WAIT_PROCESSING_INTERVAL: 60
+    ANDROID_HOME: "${HOME}/android-sdk"
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:$HOME/.yarn/bin:${ANDROID_HOME}/tools"
 
 dependencies:
+  cache_directories:
+    - ~/.yarn
+    - ~/android-sdk
   pre:
     - brew update
-    - brew unlink node
     - brew install homebrew/versions/node4-lts
     - brew install watchman
-    - brew install android-sdk
-    - echo 'export ANDROID_HOME=/usr/local/opt/android-sdk' >> ~/.circlerc
-    - ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --all --filter platform-tools,build-tools-23.0.3,android-23,extra-android-m2repository,extra-google-m2repository
-    - echo 'export PATH=$ANDROID_HOME/build-tools/23.0.3:$PATH' >> ~/.circlerc
-    - npm install bower ember-cli phantomjs-prebuilt cordova
-    - gem update fastlane
+    - mkdir -p ${ANDROID_HOME}
+    - if ! $(grep -q "Revision=23.0.1" $ANDROID_HOME/tools/source.properties); then (curl -o ~/android-sdk.zip https://dl.google.com/android/repository/tools_r23.0.1-macosx.zip && unzip -d ${ANDROID_HOME} ~/android-sdk.zip) && (( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --all --filter platform-tools,build-tools-23.0.1,android-23,extra-android-m2repository,extra-google-m2repository); fi
+    - if ! (which yarn); then curl -o- -L https://yarnpkg.com/install.sh | bash; fi
+  override:
+    - yarn install
   post:
+    - yarn add --force node-sass
+    - yarn add bower ember-cli@2.12.2 phantomjs-prebuilt cordova
+    - bundle install
+    - gem update fastlane
     - bower install
-    - |
-      if [ "${CIRCLE_BRANCH}" = 'live' ] ; then
-        echo 'export PROVISIONING_FILE=stock.goodcity.hk.mobileprovision' >> ~/.circlerc
-      else
-        echo 'export PROVISIONING_FILE=stock-staging.goodcity.hk.mobileprovision' >> ~/.circlerc
-      fi
+    - PATH=$(npm bin):$PATH; azure-filestore download -f goodcity.keystore:
+        pwd: cordova
+    - PATH=$(npm bin):$PATH; azure-filestore download -d google-play -f $GOOGLE_PLAY_KEY_FILE:
+        pwd: fastlane
 
 test:
   pre:
-    - ./node_modules/ember-cli/bin/ember server --port 4203:
+    - ember server --port 4203:
         background: true
     - sleep 5
   override:
-    - ./node_modules/ember-cli/bin/ember test
+    - ember test
+  post:
+    - echo "Killing ember server to free memory for app build" && killall ember
 
 deployment:
   staging:
     branch: master
     commands:
-      - PATH=$(npm bin):$PATH; azure-filestore download -f stock-staging.goodcity.hk.mobileprovision:
-          pwd: scripts
-      - ./install-provisioning-file.sh:
-          pwd: scripts
       - bundle exec cap staging deploy
-      - PATH=$(npm bin):$PATH; azure-filestore download -f goodcity.keystore:
-          pwd: cordova
-      - bundle exec rake staging android app:release
-      - bundle exec rake staging ios app:release
-
+      - bundle exec rake staging android app:build
+      - fastlane android staging
+      - bundle exec rake staging ios app:build
+      - fastlane ios staging
   production:
     branch: live
     commands:
-      - PATH=$(npm bin):$PATH; azure-filestore download -f stock.goodcity.hk.mobileprovision:
-          pwd: scripts
-      - ./install-provisioning-file.sh:
-          pwd: scripts
-      - PATH=$(npm bin):$PATH; azure-filestore download -f goodcity.keystore:
-          pwd: cordova
-      - PATH=$(npm bin):$PATH; azure-filestore download -d google-play -f $GOOGLE_PLAY_KEY_FILE:
-          pwd: fastlane
       - bundle exec cap production deploy
-      - bundle exec rake production android app:release
-      - bundle exec rake production ios app:release
+      - bundle exec rake production android app:build
+      - bundle exec rake production ios app:build
       - fastlane android beta
-      - fastlane ios upload
       - fastlane ios beta
+

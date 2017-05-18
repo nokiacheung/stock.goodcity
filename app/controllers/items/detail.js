@@ -10,6 +10,8 @@ export default Ember.Controller.extend({
   autoDisplayOverlay: false,
   messageBox: Ember.inject.service(),
   displayScanner: false,
+  designateFullSet: Ember.computed.localStorage(),
+  callOrderObserver: false,
 
   grades: Ember.computed(function(){
     return [
@@ -57,6 +59,11 @@ export default Ember.Controller.extend({
   }),
 
   actions: {
+    partialDesignateForSet() {
+      this.set('designateFullSet', true);
+      this.set('callOrderObserver', true);
+    },
+
     moveItemSet() {
       if(this.get("item.isSet")) {
         if(this.get("item.setItem.canBeMoved")) {
@@ -65,7 +72,7 @@ export default Ember.Controller.extend({
           this.get("messageBox").alert("One or more items from this set are part of box or pallet. You can only move it using Stockit.");
         }
       } else {
-        this.transitionToRoute('items.search_location', this.get("item.id"), { queryParams: { isSet: false }});
+        this.transitionToRoute('items.search_location', this.get("item.id"), { queryParams: { isSet: false, isPartialMove: false}});
       }
     },
   }

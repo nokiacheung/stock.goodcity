@@ -1,37 +1,36 @@
 <section class="main-section item_details_screen">
   <div class="search">
     <div class="row profile_container">
-      {{#if (is-equal backLinkPath 'orders.detail')}}
-        {{#link-to 'orders.detail' model.designation tagName='span' href=false class="no-avatar back_link"}}
-          <i class="fa fa-angle-left" aria-hidden="true"></i>
-        {{/link-to}}
-      {{else}}
-        {{#link-to backLinkPath tagName='span' href=false class="no-avatar back_link"}}
-          <i class="fa fa-angle-left" aria-hidden="true"></i>
-        {{/link-to}}
-      {{/if}}
+      {{#link-to "items.index" tagName='span' href=false class="no-avatar back_link"}}
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+      {{/link-to}}
       <div id="itemImage">
         {{image-zoom item=model}}
       </div>
       <div class="image-action-list">
-
-        {{#unless allDispatched}}
-          <span {{action 'moveItemSet'}}>
-            <span class="no-avatar">
-              <i class="fa fa-map-marker" aria-hidden="true"></i>
-            </span>
-          </span>
-
-          {{#link-to 'items.search_order' model.id (query-params isSet=model.isSet) tagName='span' href=false}}
-            <span class="no-avatar">
-              <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-            </span>
-          {{/link-to}}
+        {{#unless (is-or model.hasAllPackagesDispatched model.hasAllPackagesDesignated)}}
+          {{#if model.quantity}}
+            {{#if (is-not model.isSet)}}
+              {{#link-to 'items.partial_designate' model.id (query-params isSet=model.isSet) tagName='span' href=false}}
+                <span class="no-avatar" {{action 'partialDesignateForSet'}}>
+                  <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                </span>
+              {{/link-to}}
+            {{/if}}
+          {{/if}}
         {{/unless}}
 
-        {{#if hasDesignation}}
-          {{dispatch-set item=model order=model.designation autoDisplayOverlay=autoDisplayOverlay}}
-        {{/if}}
+        {{#unless model.isSet}}
+          {{#if (is-and item.hasOneDesignatedPackage (is-not model.hasAllPackagesDispatched))}}
+            <div class="{{unless item.hasOneDesignatedPackage 'disabled'}}">
+              {{#link-to 'items.partial_dispatch' item.id (query-params orderPackageId=model.firstDesignatedOrdersPackage.id) tagName='div' href=false}}
+                <span class="no-avatar">
+                  <i class="fa fa-ship" aria-hidden="true"></i>
+                </span>
+              {{/link-to}}
+            </div>
+          {{/if}}
+        {{/unless}}
 
         {{#if item.allowLabelPrint}}
           {{#print-label item=item closeList=""}}
@@ -53,7 +52,7 @@
     {{/if}}
 
     {{#if model.isSet}}
-      {{#each model.setItem.items as |item|}}
+      {{#each model.setItem.sortedItems as |item|}}
         {{partial 'items/item_detail_block'}}
       {{/each}}
     {{else}}
@@ -64,3 +63,4 @@
 
   {{partial "items/sticky_footer"}}
 </section>
+

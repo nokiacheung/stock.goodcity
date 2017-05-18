@@ -1,9 +1,9 @@
 <div class="row fixed_search_header search-box ui items-search">
-  <div class="small-3 large-2 columns ">
+  <div class="small-4 large-3 columns ">
     {{partial 'items/item_back_link'}}
   </div>
 
-  <div class="{{if isMobileApp 'small-7 large-8' 'small-9'}} columns">
+  <div class="{{if isMobileApp 'small-6 large-7' 'small-8'}} columns">
     {{focus-textfield
       name="searchText"
       id="searchText"
@@ -127,4 +127,21 @@
     </div>
   {{/message-box}}
 
+  {{#message-box btn1Text=(t "item.move") btn1Callback=(action "movePartialQty") btn2Text=(t "cancel") isVisible=movePartialQty classNames="popupOverlay designate-form"}}
+    <p>Moving {{totalQty}} of {{item.availableQtyForMove}} to Bldg {{selectedLocation.building}} Area {{selectedLocation.area}} </p>
+
+    {{partial 'orders/item_block'}}
+
+  {{/message-box}}
+
+  {{#message-box btn1Text="OK" isVisible=cantMoveToSameLocationForSingleLocation classNames="popupOverlay designate-form"}}
+    <p> You are trying to move quantity to same location. Full quantity is located at Bldg {{selectedLocation.building}} Area {{selectedLocation.area}} </p>
+  {{/message-box}}
+
+  {{#message-box btn1Text=(t "item.move") btn1Callback=(action "undispatchFullQuantity") btn2Text=(t "cancel") isVisible=isUndispatchFullQuantity classNames="popupOverlay designate-form"}}
+    <p>Undispatching this item to Bldg {{selectedLocation.building}} Area {{selectedLocation.area}} </p>
+
+    {{partial 'orders/item_block'}}
+
+  {{/message-box}}
 {{/if}}

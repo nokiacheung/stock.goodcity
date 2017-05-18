@@ -35,12 +35,15 @@
       padding: 0;
 
       input {
-        width: 75%;
+        width: 80%;
         display: inline-block;
         padding-left: 1.5rem !important;
       }
 
       span {
+        .fa {
+          margin-left: 0.5rem;
+        }
         margin-left: 0.1rem;
       }
 
@@ -58,7 +61,10 @@
     }
 
     .value.height input {
-      width: 93%
+      width: 97%;
+      @media #{$small-only} {
+      width: 93%;
+    }
     }
   }
 
@@ -124,13 +130,14 @@
 
     height: 4.1rem;
 
-    right: 18.7%;
+    right: 17.5%;
     width: 8%;
     font-size: 0.8rem;
     z-index: 100;
 
     @media #{$medium-only} {
       width: 12%;
+      right: 18.7%;
       right: 0;
     }
 

@@ -3,11 +3,12 @@ import searchModule from "../search_module";
 
 export default searchModule.extend({
 
-  queryParams: ['isSet', 'showDispatchOverlay'],
+  queryParams: ['isSet', 'showDispatchOverlay', 'partial_qty'],
   isSet: false,
   showDispatchOverlay: false,
   toDesignateItem: true,
-
+  partial_qty: 0,
+  notPartialRoute: false,
   item: Ember.computed.alias("model.item"),
   searchModelName: "designation",
   minSearchTextLength: 2,

@@ -26,6 +26,7 @@ module.exports = function(environment) {
       NAME: 'stock.goodcity',
       SHA: process.env.APP_SHA || "00000000",
       VERSION: process.env.VERSION || "1.0.0",
+      environment: environment,
 
       CLOUD_NAME: 'ddoadcjjl',
       CLOUD_API_KEY: 926849638736153,

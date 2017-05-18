@@ -47,6 +47,10 @@
   }
 }
 
+.makeScrollable{
+  position: absolute;
+}
+
 .popupOverlay {
   .ui {
     padding: 0;
@@ -66,7 +70,6 @@
 
   #messageBox {
     top: 20% !important;
-
     @media #{$small-only} {
       padding: 1rem;
     }

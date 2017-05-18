@@ -6,6 +6,12 @@ export default Ember.Route.extend({
   i18n: Ember.inject.service(),
 
   beforeModel(transition = []) {
+    try {
+      localStorage.test = "isSafariPrivateBrowser";
+    } catch (e) {
+      this.get("messageBox").alert(this.get("i18n").t("QuotaExceededError"));
+    }
+    localStorage.removeItem('test');
     if (transition.queryParams.ln) {
       var language = transition.queryParams.ln === "zh-tw" ? "zh-tw" : "en";
       this.set('session.language', language);
@@ -29,9 +35,15 @@ export default Ember.Route.extend({
       try { status = parseInt(reason.errors[0].status); }
       catch (err) { status = reason.status; }
 
-      if (status === 401) {
+      if(reason.name === "QuotaExceededError") {
+        this.get("logger").error(reason);
+        this.get("messageBox").alert(this.get("i18n").t("QuotaExceededError"));
+      } else if (reason.name === "NotFoundError" && reason.code === 8) {
+        this.get("logger").error(reason);
+        return false;
+      } else if (status === 401) {
         if (this.session.get('isLoggedIn')) {
-          this.get('messageBox').alert(this.get("i18n").t('must_login'), () => 
+          this.get('messageBox').alert(this.get("i18n").t('must_login'), () =>
             this.session.clear(),
             this.store.unloadAll(),
             this.transitionTo('login')
