@@ -9,18 +9,18 @@ import FactoryGuy from 'ember-data-factory-guy';
 import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
 import { mockFindAll } from 'ember-data-factory-guy';
 
-var App, pkg, lctn, designation, code;
+var App, , location1, designation, code;
 
 module('Acceptance: Select PackageType code', {
   beforeEach: function() {
     App = startApp({}, 2);
     TestHelper.setup();
     visit("/");
-    lctn = FactoryGuy.make("location");
+    location1 = FactoryGuy.make("location");
     designation = FactoryGuy.make("designation", { state: "closed" });
     mockFindAll('designation').returns({json: {designations: [designation.toJSON({includeId: true})]}});
-    mockFindAll('location').returns({json: {locations: [lctn.toJSON({includeId: true})]}});
-    code = FactoryGuy.make("code", {location: lctn});
+    mockFindAll('location').returns({json: {locations: [location1.toJSON({includeId: true})]}});
+    code = FactoryGuy.make("code", {location: location1});
   },
   afterEach: function() {
     Ember.run(function() { TestHelper.teardown(); });
