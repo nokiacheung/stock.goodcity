@@ -6,16 +6,19 @@ FactoryGuy.define('code',{
       return num + 100;
     },
     name: function(num) {
-      return 'Category' + num;
-    },
-    code: function(num) {
-      return num;
+      return "Baby Crib";// + num;
     }
   },
   default: {
-    id:   FactoryGuy.generate('id'),
-    name: FactoryGuy.generate("name"),
-    code: "ABC",
+    id                      : FactoryGuy.generate('id'),
+    name                    : FactoryGuy.generate('name'),
+    code                    : "BBS",
+    otherChildPackages    : "FXX",
+    defaultChildPackages  : "BBS",
+    otherTerms             : "Cot",
+    visibleInSelects      : true,
+    location                : FactoryGuy.belongsTo('location')
   }
 });
-export default {};
+export default { };
+
