@@ -9,7 +9,7 @@ import FactoryGuy from 'ember-data-factory-guy';
 import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
 import { mockFindAll } from 'ember-data-factory-guy';
 
-var App, , location1, designation, code;
+var App, location1, designation, code;
 
 module('Acceptance: Select PackageType code', {
   beforeEach: function() {
