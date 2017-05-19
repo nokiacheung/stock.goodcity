@@ -6,17 +6,17 @@ FactoryGuy.define('code',{
       return Math.floor(Math.random() * 100);
     },
     name: function() {
-      return "Baby Crib";// + num;
+      return "Baby Crib"+ Math.floor(Math.random() * 100);
     }
   },
   default: {
     id                      : FactoryGuy.generate('id'),
     name                    : FactoryGuy.generate('name'),
     code                    : "BBS",
-    otherChildPackages    : "FXX",
-    defaultChildPackages  : "BBS",
-    otherTerms             : "Cot",
-    visibleInSelects      : true,
+    otherChildPackages      : "FXX",
+    defaultChildPackages    : "BBS",
+    otherTerms              : "Cot",
+    visibleInSelects        : true,
     location                : FactoryGuy.belongsTo('location')
   }
 });
