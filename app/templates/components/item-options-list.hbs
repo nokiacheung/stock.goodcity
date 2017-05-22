@@ -17,7 +17,7 @@
         {{t "item.designate"}}
       {{/link-to}}
     {{else}}
-      {{#link-to 'items.partial_designate' item.id (query-params isSet=item.isSet) tagName='span' href=false}}
+      {{#link-to 'items.partial_designate' item.id tagName='div' href=false}}
         <i class="fa item-menu fa fa-shopping-basket" {{action 'partialDesignateForSet'}}></i>
         {{t "item.designate"}}
       {{/link-to}}
