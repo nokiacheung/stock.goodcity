@@ -12,7 +12,7 @@
 
   <div class="{{unless item.isSingletonItem 'disabled'}} {{unless item.quantity 'disabled'}}">
     {{#if item.isSingletonItem}}
-      {{#link-to 'items.search_order' item.id tagName='span' href=false}}
+      {{#link-to 'items.search_order' item.id tagName='div' href=false}}
         <i class="fa item-menu fa fa-shopping-basket"></i>
         {{t "item.designate"}}
       {{/link-to}}
