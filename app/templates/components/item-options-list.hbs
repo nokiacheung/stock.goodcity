@@ -11,7 +11,18 @@
   </div>
 
   <div class="{{unless item.isSingletonItem 'disabled'}} {{unless item.quantity 'disabled'}}">
-    {{#link-to 'items.partial_designate' item.id tagName='div' href=false}}
+    {{#if item.isSingletonItem}}
+      {{#link-to 'items.search_order' item.id (query-params partial_qty=1) tagName='span' href=false}}
+        <i class="fa item-menu fa fa-shopping-basket"></i>
+        {{t "item.designate"}}
+      {{/link-to}}
+    {{else}}
+      {{#link-to 'items.partial_designate' item.id (query-params isSet=item.isSet) tagName='span' href=false}}
+        <i class="fa item-menu fa fa-shopping-basket" {{action 'partialDesignateForSet'}}></i>
+        {{t "item.designate"}}
+      {{/link-to}}
+    {{/if}}
+    {{#link-to (if item.isSingletonItem 'items.search_order' 'items.partial_designate') (if item.isSingletonItem query-params partial_qty=1) item.id tagName='div' href=false}}
       <i class="fa item-menu fa fa-shopping-basket" {{action 'partialDesignateForSet'}}></i>
       {{t "item.designate"}}
     {{/link-to}}
