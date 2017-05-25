@@ -44,6 +44,11 @@ export default cloudinaryUrl.extend({
     return this.get('ordersPackages').isAny('state', 'dispatched');
   }),
 
+  isPartialMoveForSignleton: Ember.computed('packagesLocations.[]', function(){
+    return !this.get("ordersPackages").filterBy('state', "designated").length && this.get("receivedQuantity") === 1;
+  }),
+
+
   firstDesignatedOrdersPackage: Ember.computed('designatedOrdersPackages', function(){
     return this.get('designatedOrdersPackages').get('firstObject');
   }),
