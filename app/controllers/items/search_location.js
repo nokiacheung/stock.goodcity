@@ -6,7 +6,7 @@ const { getOwner } = Ember;
 
 export default searchModule.extend({
 
-  queryParams: ['searchInput', 'isSet', 'isUndispatch', 'isPartialMove', 'ordersPackageId'],
+  queryParams: ['searchInput', 'isSet', 'isUndispatch', 'isPartialMove', 'ordersPackageId', 'pkgsLocationId', 'skipScreenForSingletonItem'],
   isSet: false,
   orderIdForOrderDetail: null,
   ordersPackageId: null,
@@ -14,12 +14,14 @@ export default searchModule.extend({
   searchInput: "",
   moveItemPath: "",
   packages_location_id: "",
-  packagesLocationQty: "",
+  packagesLocationQty: Ember.computed.localStorage(),
   movePartialQty: false,
   cantMoveToSameLocationForSingleLocation: false,
   isUndispatch: "",
   isUndispatchFullQuantity: false,
   isPartialMove: false,
+  skipScreenForSingletonItem: false,
+  pkgsLocationId: null,
 
   item: Ember.computed.alias("model.item"),
   searchModelName: "location",
@@ -33,8 +35,8 @@ export default searchModule.extend({
   selectedLocation: null,
   hideDetailsLink: true,
 
-  sameSingleLocation: Ember.computed("selectedLocation", function() {
-    if (this.get('item.packagesLocations').length === 1){
+  sameSingleLocation: Ember.computed("selectedLocation", 'displayUserPrompt',  'isPartialMove', function() {
+    if (this.get('item.packagesLocations.length') === 1){
      return this.get('item.packagesLocations.firstObject.locationId') === parseInt(this.get('selectedLocation.id'));
     }
   }),
@@ -105,16 +107,33 @@ export default searchModule.extend({
     movePartialQty(){
       var location = this.get("selectedLocation");
       var item = this.get("item");
-      var packagesLocationQty = localStorage['packagesLocationQty'];
-      var totalQty = localStorage["totalQty"];
+      var packagesLocationQty = [];
+      var totalQty = '';
+      if(this.get('skipScreenForSingletonItem')) {
+        var record = {};
+        var packages_location = this.get('store').peekRecord('packages_location', this.get('pkgsLocationId'));
+        record["packages_location_id"] = this.get('pkgsLocationId');
+        record["location_id"] = packages_location.get('locationId');
+        record["package_id"] = packages_location.get('packageId');
+        record["new_qty"] = "1";
+        packagesLocationQty.push(record);
+        this.set("packagesLocationQty", packagesLocationQty);
+        record = {};
+        totalQty = "1";
+      } else {
+        totalQty = localStorage["totalQty"];
+      }
+
+      packagesLocationQty = localStorage['packagesLocationQty'];
 
       var loadingView = getOwner(this).lookup('component:loading').append();
 
       var url = `/items/${item.id}/move_partial_quantity`;
+      var path = item.isSingletonItem ? "items.detail" : "items.partial_move";
 
       new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id"), package: packagesLocationQty, total_qty: totalQty}).then(data => {
         this.get("store").pushPayload(data);
-        this.transitionToRoute("items.partial_move", item);
+        this.transitionToRoute(path, item);
       }).finally(() => {
         loadingView.destroy();
       });
@@ -150,7 +169,21 @@ export default searchModule.extend({
     moveItem() {
       var location = this.get("selectedLocation");
       var item = this.get("item");
-      var packagesLocationQty = localStorage['packagesLocationQty'];
+      var packagesLocationQty = [];
+      if(this.get('skipScreenForSingletonItem')) {
+        var record = {};
+        var packages_location = this.get('store').peekRecord('packages_location', this.get('pkgsLocationId'));
+        record["packages_location_id"] = this.get('pkgsLocationId');
+        record["location_id"] = packages_location.get('locationId');
+        record["package_id"] = packages_location.get('packageId');
+        record["new_qty"] = "1";
+        packagesLocationQty.push(record);
+        this.set("packagesLocationQty", packagesLocationQty);
+        record = {};
+      }
+
+      packagesLocationQty = localStorage['packagesLocationQty'];
+
 
       var showAllSetItems = this.get("showAllSetItems");
       this.set("showAllSetItems", false);
