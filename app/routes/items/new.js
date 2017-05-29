@@ -5,6 +5,7 @@ export default AuthorizeRoute.extend({
 
   inventoryNumber: "",
   newItemRequest: "",
+  isSearchCodePreviousRoute: Ember.computed.localStorage(),
 
   queryParams: {
     codeId: "",
@@ -16,8 +17,9 @@ export default AuthorizeRoute.extend({
     this._super(...arguments);
     var previousRoutes = this.router.router.currentHandlerInfos;
     var previousRoute = previousRoutes && previousRoutes.pop();
-    if(previousRoute) {
-      var newItemRequest = previousRoute.name === "search_code" ? true : false;
+    var searchCodePreviousRoute = this.get("isSearchCodePreviousRoute");
+    if(searchCodePreviousRoute) {
+      var newItemRequest = searchCodePreviousRoute ? true : false;
       this.set("newItemRequest", newItemRequest);
     } else {
       this.transitionTo("search_code");

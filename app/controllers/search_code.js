@@ -11,6 +11,7 @@ export default Ember.Controller.extend({
   fetchMoreResult: true,
   searchPlaceholder: t("search.placeholder"),
   i18n: Ember.inject.service(),
+  isSearchCodePreviousRoute: Ember.computed.localStorage(),
 
   allPackageTypes: Ember.computed("fetchMoreResult", function(){
     return this.store.peekAll('code').filterBy('visibleInSelects', true);
@@ -93,6 +94,7 @@ export default Ember.Controller.extend({
     },
 
     assignItemLabel(type){
+      this.set("isSearchCodePreviousRoute", true);
       this.transitionToRoute("items.new", { queryParams: { codeId: type.id }});
     }
   },
