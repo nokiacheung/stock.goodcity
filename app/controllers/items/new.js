@@ -333,7 +333,7 @@ export default Ember.Controller.extend({
             this.set("inventoryNumber", "");
             this.send("deleteUnusedImage");
             loadingView.destroy();
-            _this.transitionToRoute("items.detail", data.item.id);
+            _this.transitionToRoute("items.index");
           })
           .catch(response => {
             loadingView.destroy();
