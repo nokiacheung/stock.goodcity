@@ -1,5 +1,6 @@
 import AuthorizeRoute from './../authorize';
 import AjaxPromise from 'stock/utils/ajax-promise';
+import Ember from 'ember';
 
 export default AuthorizeRoute.extend({
 
@@ -15,8 +16,6 @@ export default AuthorizeRoute.extend({
 
   beforeModel() {
     this._super(...arguments);
-    var previousRoutes = this.router.router.currentHandlerInfos;
-    var previousRoute = previousRoutes && previousRoutes.pop();
     var searchCodePreviousRoute = this.get("isSearchCodePreviousRoute");
     if(searchCodePreviousRoute) {
       var newItemRequest = searchCodePreviousRoute ? true : false;
