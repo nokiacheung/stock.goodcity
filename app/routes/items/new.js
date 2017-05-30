@@ -58,18 +58,7 @@ export default AuthorizeRoute.extend({
       controller.set('height', null);
       controller.set('selectedGrade', { name: "B", id: "B" });
       controller.set('selectedCondition', { name: "Used", id: "U" });
-
-      var imageKey = controller.get("imageKeys");
-      if(imageKey && imageKey.length) {
-        var image = this.get("store").peekAll("image").filterBy("cloudinaryId", imageKey).get("firstObject");
-        image = image || this.get("store").createRecord("image", {
-            cloudinaryId: imageKey,
-            favourite: true
-          });
-        controller.set("newUploadedImage", image);
-      } else {
-        controller.set("newUploadedImage", null);
-      }
+      controller.set("newUploadedImage", null);
     }
   }
 
