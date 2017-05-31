@@ -124,7 +124,7 @@ export default Ember.Component.extend({
       return this.get("alreadyPartiallyDesignated");
     } else {
       this.get('store').peekAll("orders_package").filterBy("itemId", parseInt(item.id)).forEach(record => {
-        if(record.get('itemId') === parseInt(item.id) && record.get('designationId') === parseInt(order.id)) {
+        if(record.get("quantity") && record.get('itemId') === parseInt(item.id) && record.get('designationId') === parseInt(order.id)) {
             total += record.get('quantity');
             this.set("designatedRecord", record);
             this.set('alreadyPartiallyDesignated', true);
