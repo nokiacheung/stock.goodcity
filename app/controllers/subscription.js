@@ -96,7 +96,7 @@ export default Ember.Controller.extend({
     var type = Object.keys(data.item)[0];
     var item = Ember.$.extend({}, data.item[type]);
     //Don't update data store for Offer/Item/schedule/delivery updates
-    this.get("modelDataTypes").each(modelDataType => {
+    this.get("modelDataTypes").forEach(modelDataType => {
       if(modelDataType === type) {
         return false;
       }
