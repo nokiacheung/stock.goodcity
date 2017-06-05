@@ -100,7 +100,7 @@ export default Ember.Controller.extend({
       if(modelDataType === type) {
         return false;
       }
-    })
+    });
     if(type === "package" || type === "Package") {
       //Changing type as we've Item model instead of Package
       type = "item";
