@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
   lastOnline: Date.now(),
   deviceTtl: 0,
   deviceId: Math.random().toString().substring(2),
-  modelDataTypes: ["offer", "Offer", "item", "Item", "Schedule", "schedule", "delivery", "Delivery", "message", "Message", "gogovan_order", "address", "contact", "GogovanOrder", "Address", "Contact"],
+  modelDataTypes: ["offer", "Offer", "item", "Item", "Schedule", "schedule", "delivery", "Delivery", "message", "Message", "gogovan_order", "GogovanOrder"],
   // logger: Ember.inject.service(),
   status: {
     online: false
