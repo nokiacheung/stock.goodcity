@@ -12,6 +12,7 @@ export default Ember.Controller.extend({
   lastOnline: Date.now(),
   deviceTtl: 0,
   deviceId: Math.random().toString().substring(2),
+  modelDataTypes: ["offer", "Offer", "item", "Item", "Schedule", "schedule", "delivery", "Delivery"],
   // logger: Ember.inject.service(),
   status: {
     online: false
@@ -95,9 +96,10 @@ export default Ember.Controller.extend({
     var type = Object.keys(data.item)[0];
     var item = Ember.$.extend({}, data.item[type]);
     //Don't update data store for Offer/Item/schedule/delivery updates
-    if(type === "Offer" || type === "offer" || type === "Item" || type === "item" || type === "Schedule" || type === "schedule" || type === "Delivery" type === "delivery") {
+    if(this.get("modelDataTypes").includes(type)) {
       return false;
-    } else if(type === "package" || type === "Package") {
+    }
+    if(type === "package" || type === "Package") {
       //Changing type as we've Item model instead of Package
       type = "item";
       delete item.offer_id;
