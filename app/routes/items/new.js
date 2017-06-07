@@ -60,7 +60,7 @@ export default AuthorizeRoute.extend({
       controller.set('selectedGrade', { name: "B", id: "B" });
       controller.set('selectedCondition', { name: "Used", id: "U" });
       var imageKey = controller.get("imageKeys");
-      if(imageKey && imageKey.length && this.get('isSelectLocationPreviousRoute')) {
+      if(imageKey && imageKey.length && window.localStorage.isSelectLocationPreviousRoute) {
         var image = this.get("store").peekAll("image").filterBy("cloudinaryId", imageKey).get("firstObject");
         image = image || this.get("store").createRecord("image", {
             cloudinaryId: imageKey,
