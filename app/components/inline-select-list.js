@@ -13,8 +13,8 @@ export default SelectList.extend({
   }),
 
   itemCondition: Ember.computed('item.donorCondition', function() {
-    var item = this.get("store").peekRecord("item", this.get("item.id"));
-    var itemCondition = item ? item.get('donorCondition.name') : (this.get('item.donorCondition.name') || 'U');
+    var pkg = this.get("store").peekRecord("item", this.get("item.id"));
+    var itemCondition = pkg ? pkg.get('donorCondition.name') : (this.get('item.donorCondition.name') || 'U');
     return { id: `${itemCondition.charAt(0)}` };
   }),
 
