@@ -7,6 +7,7 @@ export default AuthorizeRoute.extend({
   inventoryNumber: "",
   newItemRequest: "",
   isSearchCodePreviousRoute: Ember.computed.localStorage(),
+  isSelectLocationPreviousRoute: Ember.computed.localStorage(),
 
   queryParams: {
     codeId: "",
@@ -58,7 +59,17 @@ export default AuthorizeRoute.extend({
       controller.set('height', null);
       controller.set('selectedGrade', { name: "B", id: "B" });
       controller.set('selectedCondition', { name: "Used", id: "U" });
-      controller.set("newUploadedImage", null);
+      var imageKey = controller.get("imageKeys");
+      if(imageKey && imageKey.length && this.get('isSelectLocationPreviousRoute')) {
+        var image = this.get("store").peekAll("image").filterBy("cloudinaryId", imageKey).get("firstObject");
+        image = image || this.get("store").createRecord("image", {
+            cloudinaryId: imageKey,
+            favourite: true
+          });
+        controller.set("newUploadedImage", image);
+      } else {
+        controller.set("newUploadedImage", null);
+      }
     }
   }
 

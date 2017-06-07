@@ -15,6 +15,7 @@ export default Ember.Controller.extend({
   locationName: Ember.computed.alias('location.displayName'),
   caseNumber: "",
   isSearchCodePreviousRoute: Ember.computed.localStorage(),
+  isSelectLocationPreviousRoute: Ember.computed.localStorage(),
 
   quantity: 1,
   length: null,
@@ -283,6 +284,7 @@ export default Ember.Controller.extend({
     },
 
     saveItem() {
+      this.set("isSelectLocationPreviousRoute", false);
       this.set("isSearchCodePreviousRoute", false);
       var _this = this, loadingView;
       if(
