@@ -13,7 +13,7 @@ export default Ember.Controller.extend({
   designateFullSet: Ember.computed.localStorage(),
   callOrderObserver: false,
 
-  grades: Ember.computed(function(){
+  grades: Ember.computed('item.grade', function(){
     return [
       { name: "A", id: "A" },
       { name: "B", id: "B" },
@@ -22,7 +22,7 @@ export default Ember.Controller.extend({
     ];
   }),
 
-  conditions: Ember.computed(function(){
+  conditions: Ember.computed('item.donorCondition', function(){
     return [
       { name: "New", id: "N" },
       { name: "Mixed", id: "M" },
