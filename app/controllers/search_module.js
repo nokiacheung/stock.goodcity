@@ -3,6 +3,9 @@ import InfinityRoute from "ember-infinity/mixins/route";
 
 export default Ember.Controller.extend(InfinityRoute, {
 
+  queryParams: ["showQuantityItems"],
+  showQuantityItems: false,
+
   sanitizeString(str){
     str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");
     return str.trim();
@@ -51,7 +54,7 @@ export default Ember.Controller.extend(InfinityRoute, {
 
       this.infinityModel(this.get("searchModelName"),
         { perPage: 25, startingPage: 1, modelPath: 'filteredResults',stockRequest: true },
-        { searchText: "searchText", itemId: "itemSetId", toDesignateItem: "toDesignateItem"})
+        { searchText: "searchText", itemId: "itemSetId", toDesignateItem: "toDesignateItem", showQuantityItems: "showQuantityItems" })
         .then(data => {
           data.forEach(record => {
             if(record.constructor.toString() === "stock@model:designation:") {

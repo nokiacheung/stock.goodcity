@@ -66,7 +66,7 @@ test("Item status bar shows designation code if full qty is designated to one or
 
   andThen(function() {
     assert.equal(currentPath(), "items.index");
-    assert.equal($('.item_block div.dispatch_details div:first').text().trim(), "L24404");
+    assert.equal($('.item_block div.dispatch_details div:first').text().trim(), "designated");
     //Test for available/designated/dispatched item count
     assert.equal($('.available-designate-dispatch-count:first').text().trim(), "0/10/0");
   });
@@ -83,7 +83,7 @@ test("Item status bar shows In-stock if item(qty > 0) is partially designated", 
     assert.equal(currentPath(), "items.index");
     assert.equal($('.item_block div.dispatch_details div.stock_status').text().trim(), "In Stock");
     //Test for available/designated/dispatched item count
-    assert.equal($('.available-designate-dispatch-count:first').text().trim(), "5/5/0");
+    assert.equal($('.available-designate-dispatch-count:first').text().trim(), "5/10/0");
   });
 });
 
