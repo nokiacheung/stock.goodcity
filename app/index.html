@@ -18,9 +18,12 @@
     {{content-for "body"}}
 
     <script src="assets/vendor.js"></script>
-    <script src="http://builds.emberjs.com/tags/v2.3.1/ember.prod.js"></script>
-    <script src="https://cdn.ravenjs.com/3.15.0/ember/raven.min.js" crossorigin="anonymous"></script>
-    <script>Raven.config('https://3ae3b371c4a949bcbe07e67a08c51618@sentry.io/177904').install();</script>
+    <script>
+      Raven
+      .config('https://21fe90a0fc944c13b38d8090bc97f5d6@sentry.io/176461')
+      .addPlugin(Raven.Plugins.Ember)
+      .install();
+    </script>
     <script src="assets/stock.js"></script>
 
     {{content-for "body-footer"}}

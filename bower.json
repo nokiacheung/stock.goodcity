@@ -1,6 +1,7 @@
 {
   "name": "stock",
   "dependencies": {
+    "raven-js": "3.15.0",
     "ember": "~2.11.0",
     "ember-cli-shims": "0.1.1",
     "ember-qunit-notifications": "0.1.0",
