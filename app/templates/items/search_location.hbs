@@ -104,7 +104,7 @@
 
     <p>Moving this item to Bldg {{selectedLocation.building}} Area {{selectedLocation.area}}</p>
 
-    {{partial 'orders/item_block'}}
+    {{partial 'orders/item_block_without_link'}}
 
     <div class="warnings">
 
@@ -130,7 +130,7 @@
   {{#message-box btn1Text=(t "item.move") btn1Callback=(action "movePartialQty") btn2Text=(t "cancel") isVisible=movePartialQty classNames="popupOverlay designate-form"}}
     <p>Moving {{totalQty}} of {{item.availableQtyForMove}} to Bldg {{selectedLocation.building}} Area {{selectedLocation.area}} </p>
 
-    {{partial 'orders/item_block'}}
+    {{partial 'orders/item_block_without_link'}}
 
   {{/message-box}}
 
@@ -141,7 +141,7 @@
   {{#message-box btn1Text=(t "item.move") btn1Callback=(action "undispatchFullQuantity") btn2Text=(t "cancel") isVisible=isUndispatchFullQuantity classNames="popupOverlay designate-form"}}
     <p>Undispatching this item to Bldg {{selectedLocation.building}} Area {{selectedLocation.area}} </p>
 
-    {{partial 'orders/item_block'}}
+    {{partial 'orders/item_block_without_link'}}
 
   {{/message-box}}
 {{/if}}
