@@ -16,7 +16,7 @@ module('Acceptance: Item inline edit', {
     App = startApp({}, 2);
     TestHelper.setup();
     var location = FactoryGuy.make("location");
-    pkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 10, height: 10, width: 15, length: 20, notes: "Inline edit test" });
+    pkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 1, height: 10, width: 15, length: 20, notes: "Inline edit test" });
     mockFindAll('location').returns({json: {locations: [location.toJSON({includeId: true})]}});
     $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
         items: [pkg.toJSON({includeId: true})]
@@ -41,7 +41,7 @@ test("Filling same description doesn't fire request for update", function(assert
 });
 
 test("Filling different description fires request for update", function(assert) {
-  var updatedPkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 10, height: 10, width: 15, length: 20, notes: "Item description changed" });
+  var updatedPkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 1, height: 10, width: 15, length: 20, notes: "Item description changed" });
   //mocking is used as request is fired
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
       items: [updatedPkg.toJSON({includeId: true})]
@@ -68,7 +68,7 @@ test("Filling same length doesn't fire request for update", function(assert) {
 });
 
 test("Filling different length fires request for update", function(assert) {
-  var updatedPkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 10, height: 10, width: 15, length: 50, notes: "Item description changed" });
+  var updatedPkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 1, height: 10, width: 15, length: 50, notes: "Item description changed" });
   //mocking is used as request is fired
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
       items: [updatedPkg.toJSON({includeId: true})]
@@ -95,7 +95,7 @@ test("Filling same width doesn't fire request for update", function(assert) {
 });
 
 test("Filling different width fires request for update", function(assert) {
-  var updatedPkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 10, height: 10, width: 30, length: 50, notes: "Item description changed" });
+  var updatedPkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 1, height: 10, width: 30, length: 50, notes: "Item description changed" });
   //mocking is used as request is fired
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
       items: [updatedPkg.toJSON({includeId: true})]
@@ -122,7 +122,7 @@ test("Filling same height doesn't fire request for update", function(assert) {
 });
 
 test("Filling different height fires request for update", function(assert) {
-  var updatedPkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 10, height: 20, width: 30, length: 50, notes: "Item description changed" });
+  var updatedPkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 1, height: 20, width: 30, length: 50, notes: "Item description changed" });
   //mocking is used as request is fired
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
       items: [updatedPkg.toJSON({includeId: true})]
@@ -139,7 +139,7 @@ test("Filling different height fires request for update", function(assert) {
 });
 
 test("Selecting different grade fires request for update", function(assert) {
-  var updatedPkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 10, height: 20, width: 30, length: 50, notes: "Item description changed" });
+  var updatedPkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 1, height: 20, width: 30, length: 50, notes: "Item description changed" });
   //mocking is used as request is fired
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
       items: [updatedPkg.toJSON({includeId: true})]
@@ -158,7 +158,7 @@ test("Selecting different grade fires request for update", function(assert) {
 });
 
 test("Selecting different condition fires request for update", function(assert) {
-  var updatedPkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 10, height: 20, width: 30, length: 50, notes: "Item description changed" });
+  var updatedPkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 1, height: 20, width: 30, length: 50, notes: "Item description changed" });
   //mocking is used as request is fired
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
       items: [updatedPkg.toJSON({includeId: true})]
@@ -188,7 +188,7 @@ test("Filling same donation(CAS) doesn't fires request for update", function(ass
 });
 
 test("Filling different condition fires request for update", function(assert) {
-  var updatedPkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 10, height: 20, width: 30, length: 50, notes: "Item description changed" });
+  var updatedPkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 1, height: 20, width: 30, length: 50, notes: "Item description changed" });
   //mocking is used as request is fired
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
       items: [updatedPkg.toJSON({includeId: true})]
