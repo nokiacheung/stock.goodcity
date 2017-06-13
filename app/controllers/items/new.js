@@ -138,7 +138,7 @@ export default Ember.Controller.extend({
 
     //file upload
     triggerUpload() {
-      this.send('deleteUnusedImage');
+
       // For Cordova application
       if (config.cordova.enabled) {
         var onSuccess = ((function() {
@@ -162,6 +162,7 @@ export default Ember.Controller.extend({
     },
 
     uploadStart(e, data) {
+      this.send('deleteUnusedImage');
       this.set("uploadedFileDate", data);
       Ember.$(".loading-image-indicator").show();
       this.set("loadingPercentage", "Image Uploading ");
