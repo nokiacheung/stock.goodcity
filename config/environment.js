@@ -18,7 +18,7 @@ module.exports = function(environment) {
       "style-src": "'self' 'unsafe-inline' https://maxcdn.bootstrapcdn.com",
       "font-src": "'self' data: https://maxcdn.bootstrapcdn.com",
       "object-src": "'self'",
-      "script-src": "'self' 'unsafe-eval'"
+      "script-src": "'self' 'unsafe-eval' 'unsafe-inline'"
     },
 
     APP: {
