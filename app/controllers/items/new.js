@@ -153,7 +153,17 @@ export default Ember.Controller.extend({
 
         this.initActionSheet(onSuccess);
       } else {
+          // For web application
+        if(navigator.userAgent.match(/iemobile/i))
+        {
+          //don't know why but on windows phone need to click twice in quick succession
+          //for dialog to appear
+          Ember.$("input[type='file']").click().click();
+        }
+        else
+        {
           Ember.$("input[type='file']").trigger("click");
+        }
       }
     },
 
