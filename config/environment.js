@@ -98,7 +98,8 @@ module.exports = function(environment) {
       'https://errbit.crossroads.org.hk',
       'https://socket.goodcity.hk:81',
       'ws://socket.goodcity.hk:81',
-      'wss://socket.goodcity.hk:81'
+      'wss://socket.goodcity.hk:81',
+      'https://sentry.io'
     ].join(' ');
   }
 
@@ -110,6 +111,7 @@ module.exports = function(environment) {
     ENV.contentSecurityPolicy["connect-src"] = [
       'https://api-staging.goodcity.hk',
       'https://errbit.crossroads.org.hk',
+      'https://sentry.io',
       'https://socket-staging.goodcity.hk:81',
       'ws://socket-staging.goodcity.hk:81',
       'wss://socket-staging.goodcity.hk:81'
