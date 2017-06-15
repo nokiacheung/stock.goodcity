@@ -20,8 +20,6 @@ FactoryGuy.define('item', {
     quantity:         1
     itemId:           FactoryGuy.generate('itemId'),
     state:            'submitted',
-    createdAt:        '2017-05-19T11:50:42.179786',
-    updatedAt:        '2017-05-19T11:50:42.179786',
     notes:             "Example",
     length:            10,
     width:             10,
