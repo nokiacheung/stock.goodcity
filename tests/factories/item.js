@@ -18,7 +18,6 @@ FactoryGuy.define('item', {
     id:               FactoryGuy.generate('id'),
     inventoryNumber:  "C4234",
     quantity:         1
-    itemId:           FactoryGuy.generate('itemId'),
     state:            'submitted',
     notes:             "Example",
     length:            10,
