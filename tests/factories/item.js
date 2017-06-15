@@ -17,7 +17,7 @@ FactoryGuy.define('item', {
   default: {
     id:               FactoryGuy.generate('id'),
     inventoryNumber:  "C4234",
-    quantity:         1
+    quantity:         1,
     state:            'submitted',
     notes:             "Example",
     length:            10,
