@@ -21,6 +21,7 @@ module('Acceptance: Add item to inventory', {
     mockFindAll('designation').returns({json: {designations: [designation.toJSON({includeId: true})]}});
     mockFindAll('location').returns({json: {locations: [location1.toJSON({includeId: true})]}});
     code = FactoryGuy.make("code", {id: 9, location: location1});
+    item = FactoryGuy.make("item", {id: 971, code: code, packages_location_ids:[764]});
   },
   afterEach: function() {
     Ember.run(function() { TestHelper.teardown(); });
@@ -59,7 +60,7 @@ test("Redirect to /search_code after clicking Add item to inventory", function(a
     });
     andThen(function() {
         click($('.button.expand').last());
-        item = FactoryGuy.make("item", {id: 971, code: code, packages_location_ids:[764]})
+
         $.mockjax({url:"/api/v1/package*", type: 'POST', status: 200,responseText:{
           "item" :  item,
           "code": code,
