@@ -18,10 +18,17 @@ module('Acceptance: Add item to inventory', {
     visit("/");
     location1 = FactoryGuy.make("location", {id: 7});
     designation = FactoryGuy.make("designation", { state: "closed" });
+    packages_location = FactoryGuy.make("packages_location", {"id": 764,"package_id": 971,location: location1, item: 971});
+    code = FactoryGuy.make("code", {id: 9, location: location1});
+    item = FactoryGuy.make("item", {id: 971, code: code, packages_location: [packages_location]});
+
+    mockFindAll('packages_location').returns({json: {packages_locations: [packages_location.toJSON({includeId: true})]}});
+    mockFindAll('code').returns({json: {codes: [code.toJSON({includeId: true})]}});
+    mockFindAll('item').returns({json: {items: [item.toJSON({includeId: true})]}});
     mockFindAll('designation').returns({json: {designations: [designation.toJSON({includeId: true})]}});
     mockFindAll('location').returns({json: {locations: [location1.toJSON({includeId: true})]}});
-    code = FactoryGuy.make("code", {id: 9, location: location1});
-    item = FactoryGuy.make("item", {id: 971, code: code, packages_location_ids:[764]});
+
+
   },
   afterEach: function() {
     Ember.run(function() { TestHelper.teardown(); });
