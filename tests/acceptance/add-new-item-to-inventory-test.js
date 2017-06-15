@@ -17,6 +17,9 @@ module('Acceptance: Add item to inventory', {
     TestHelper.setup();
     visit("/");
     location1 = FactoryGuy.make("location");
+    packages_location =  FactoryGuy.make("packages_location", package_id: 971, location: location1);
+    item = FactoryGuy.make("item", { "id": 971,"notes":"Baby Crib, Set (frame, mattress)", "inventory_number":"000317", donor_condition: {id: 3, name: "Heavily Used"}, {packages_locations: [packages_location.toJSON({includeId: true})]} }, "image_ids":[],"orders_package_ids":[]);
+
     designation = FactoryGuy.make("designation", { state: "closed" });
     mockFindAll('designation').returns({json: {designations: [designation.toJSON({includeId: true})]}});
     mockFindAll('location').returns({json: {locations: [location1.toJSON({includeId: true})]}});
@@ -61,19 +64,27 @@ test("Redirect to /search_code after clicking Add item to inventory", function(a
         click($('.button.expand').last());
 
         $.mockjax({url:"/api/v1/package*", type: 'POST', status: 200,responseText:{
-          "item" :  {"id":971,"quantity":1,"length":null,"width":null,"height":null,"notes":"Baby Crib, Set (frame, mattress)","inventory_number":"000317","created_at":"2017-05-19T11:50:42.179786","updated_at":"2017-05-19T11:50:42.179786","item_id":null,"is_set":false,"grade":"B","designation_name":null,"sent_on":null,"code_id":9,"image_id":null,"donor_condition_id":3,"set_item_id":null,"has_box_pallet":false,"case_number":"","allow_web_publish":null,"received_quantity":1,"package_type_id":9,"packages_location_ids":[764],"orders_package_ids":[]},
-          "code":[{"id":9,"name":"Baby Crib, Set (frame, mattress)","code":"BBS","other_child_packages":"FXX","default_child_packages":"BBS,BBM,BBC","other_terms":"Cot","visible_in_selects":true,"location_id":262}],
-          "locations":[{"id":7,"building":"24","area":"D","stockit_id":7},
- {"id":262,"building":"LOCALS","area":"Shed","stockit_id":264}],
-          " packages_locations":[{"id":764,"package_id":971,"location_id":7,"quantity":1,"item_id":971}],
-          "donor_conditions":[  {"id":3,"name":"Heavily Used"}],
+              item: item,
+              code: code,
+              locations:[location1],
+ //          "item" :  {"id":971,"quantity":1,"length":null,"width":null,"height":null,"notes":"Baby Crib, Set (frame, mattress)","inventory_number":"000317","created_at":"2017-05-19T11:50:42.179786","updated_at":"2017-05-19T11:50:42.179786","item_id":null,"is_set":false,"grade":"B","designation_name":null,"sent_on":null,"code_id":9,"image_id":null,"donor_condition_id":3,"set_item_id":null,"has_box_pallet":false,"case_number":"","allow_web_publish":null,"received_quantity":1,"package_type_id":9,"packages_location_ids":[764],"orders_package_ids":[]},
+ //          "code":[{"id":9,"name":"Baby Crib, Set (frame, mattress)","code":"BBS","other_child_packages":"FXX","default_child_packages":"BBS,BBM,BBC","other_terms":"Cot","visible_in_selects":true,"location_id":262}],
+ //          "locations":[{"id":7,"building":"24","area":"D","stockit_id":7},
+ // {"id":262,"building":"LOCALS","area":"Shed","stockit_id":264}],
+ //          " packages_locations":[{"id":764,"package_id":971,"location_id":7,"quantity":1,"item_id":971}],
+ //          "donor_conditions":[  {"id":3,"name":"Heavily Used"}],
           "set_items":[],"items":[],
           "package_images":[],
           "orders_packages":[]}});
 
         //api/v1/stockit_items/971
-        $.mockjax({url:"api/v1/stockit_items/*", type: 'GET', status: 200,responseText:{"item":{"id":971,"quantity":1,"length":null,"width":null,"height":null,"notes":"Baby Crib, Set (frame, mattress)","inventory_number":"000317","created_at":"2017-05-19T11:50:42.179786","updated_at":"2017-05-19T11:50:42.179786","item_id":null,"is_set":false,"grade":"B","designation_name":null,"designation_id":null,"sent_on":null,"code_id":9,"image_id":null,"donor_condition_id":3,"set_item_id":null,"has_box_pallet":false,"case_number":"","allow_web_publish":null,"received_quantity":1,"package_type_id":9,"order_id":null,"packages_location_ids":[764],"image_ids":[],"orders_package_ids":[]},"code":[{"id":9,"name":"Baby Crib, Set (frame, mattress)","code":"BBS","other_child_packages":"FXX","default_child_packages":"BBS,BBM,BBC","other_terms":"Cot","visible_in_selects":true,"location_id":262}],"locations":[{"id":7,"building":"24","area":"D","stockit_id":7},
- {"id":262,"building":"LOCALS","area":"Shed","stockit_id":264}],"packages_locations":[{"id":764,"package_id":971,"location_id":7,"quantity":1,"item_id":971}],"donor_conditions":[{"id":3,"name":"Used"}],"designation":[],"user":[],"addresses":[],"images":[],"permissions":[],"contact":[],"organisation":[],"local_order":[],"order_transports":[],"gogovan_orders":[],"orders_packages":[]}});
+        $.mockjax({url:"api/v1/stockit_items/*", type: 'GET', status: 200,responseText:{
+              item: item,
+              code: code,
+              locations:[location1],
+ //          "item":{"id":971,"quantity":1,"length":null,"width":null,"height":null,"notes":"Baby Crib, Set (frame, mattress)","inventory_number":"000317","created_at":"2017-05-19T11:50:42.179786","updated_at":"2017-05-19T11:50:42.179786","item_id":null,"is_set":false,"grade":"B","designation_name":null,"designation_id":null,"sent_on":null,"code_id":9,"image_id":null,"donor_condition_id":3,"set_item_id":null,"has_box_pallet":false,"case_number":"","allow_web_publish":null,"received_quantity":1,"package_type_id":9,"order_id":null,"packages_location_ids":[764],"image_ids":[],"orders_package_ids":[]},"code":[{"id":9,"name":"Baby Crib, Set (frame, mattress)","code":"BBS","other_child_packages":"FXX","default_child_packages":"BBS,BBM,BBC","other_terms":"Cot","visible_in_selects":true,"location_id":262}],"locations":[{"id":7,"building":"24","area":"D","stockit_id":7},
+ // {"id":262,"building":"LOCALS","area":"Shed","stockit_id":264}],"packages_locations":[{"id":764,"package_id":971,"location_id":7,"quantity":1,"item_id":971}],"donor_conditions":[{"id":3,"name":"Used"}],
+          "designation":[],"user":[],"addresses":[],"images":[],"permissions":[],"contact":[],"organisation":[],"local_order":[],"order_transports":[],"gogovan_orders":[],"orders_packages":[]}});
         andThen(function() {
           // $('.right.button').last().click(function (event) {
           //   event.preventDefault();
