@@ -9,26 +9,18 @@ import FactoryGuy from 'ember-data-factory-guy';
 import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
 import { mockFindAll } from 'ember-data-factory-guy';
 
-var App, location1, designation, code, packages_location, item;
+var App, location1, designation, code;
 
 module('Acceptance: Add item to inventory', {
   beforeEach: function() {
     App = startApp({}, 2);
     TestHelper.setup();
     visit("/");
-    location1 = FactoryGuy.make("location", {id: 7});
+    location1 = FactoryGuy.make("location");
     designation = FactoryGuy.make("designation", { state: "closed" });
-    packages_location = FactoryGuy.make("packages_location", {id: 764, package_id: 971,location: location1, item_id: 971});
-    code = FactoryGuy.make("code", {id: 9, location: location1});
-    item = FactoryGuy.make("item", {id: 971, code: code, packages_location: [packages_location]});
-
-    mockFindAll('packages_location').returns({json: {packages_locations: [packages_location.toJSON({includeId: true})]}});
-    mockFindAll('code').returns({json: {codes: [code.toJSON({includeId: true})]}});
-    mockFindAll('item').returns({json: {items: [item.toJSON({includeId: true})]}});
     mockFindAll('designation').returns({json: {designations: [designation.toJSON({includeId: true})]}});
     mockFindAll('location').returns({json: {locations: [location1.toJSON({includeId: true})]}});
-
-
+    code = FactoryGuy.make("code", {location: location1});
   },
   afterEach: function() {
     Ember.run(function() { TestHelper.teardown(); });
@@ -68,13 +60,12 @@ test("Redirect to /search_code after clicking Add item to inventory", function(a
     andThen(function() {
         click($('.button.expand').last());
 
-          $.mockjax({url:"/api/v1/package*", type: 'POST', status: 200,responseText:{
+        $.mockjax({url:"/api/v1/package*", type: 'POST', status: 200,responseText:{
           "item" :  {"id":971,"quantity":1,"length":null,"width":null,"height":null,"notes":"Baby Crib, Set (frame, mattress)","inventory_number":"000317","created_at":"2017-05-19T11:50:42.179786","updated_at":"2017-05-19T11:50:42.179786","code_id":9,"received_quantity":1,"package_type_id":9,"packages_location_ids":[764]},
           "code":[{"id":9,"name":"Baby Crib, Set (frame, mattress)","code":"BBS","other_child_packages":"FXX","default_child_packages":"BBS,BBM,BBC","other_terms":"Cot","visible_in_selects":true,"location_id":262}],
           "locations":[{"id":7,"building":"24","area":"D","stockit_id":7}],
           " packages_locations":[{"id":764,"package_id":971,"location_id":7,"quantity":1,"item_id":971}]
           }});
-
 
         //api/v1/stockit_items/971
         $.mockjax({url:"api/v1/stockit_items/*", type: 'GET', status: 200,responseText:{"item":{"id":971,"quantity":1,"length":null,"width":null,"height":null,"notes":"Baby Crib, Set (frame, mattress)","inventory_number":"000317","created_at":"2017-05-19T11:50:42.179786","updated_at":"2017-05-19T11:50:42.179786","item_id":null,"is_set":false,"grade":"B","code_id":9,"received_quantity":1,"package_type_id":9,"order_id":null,"packages_location_ids":[764],"image_ids":[],"orders_package_ids":[]},
