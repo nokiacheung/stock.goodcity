@@ -9,7 +9,7 @@ import FactoryGuy from 'ember-data-factory-guy';
 import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
 import { mockFindAll } from 'ember-data-factory-guy';
 
-var App, location1, designation, code;
+var App, location1, designation, code, packages_location, item;
 
 module('Acceptance: Add item to inventory', {
   beforeEach: function() {
@@ -18,7 +18,7 @@ module('Acceptance: Add item to inventory', {
     visit("/");
     location1 = FactoryGuy.make("location", {id: 7});
     designation = FactoryGuy.make("designation", { state: "closed" });
-    packages_location = FactoryGuy.make("packages_location", {"id": 764,"package_id": 971,location: location1, item: 971});
+    packages_location = FactoryGuy.make("packages_location", {id: 764, package_id: 971,location: location1, item_id: 971});
     code = FactoryGuy.make("code", {id: 9, location: location1});
     item = FactoryGuy.make("item", {id: 971, code: code, packages_location: [packages_location]});
 
