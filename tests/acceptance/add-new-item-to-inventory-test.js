@@ -68,12 +68,13 @@ test("Redirect to /search_code after clicking Add item to inventory", function(a
     andThen(function() {
         click($('.button.expand').last());
 
-        $.mockjax({url:"/api/v1/package*", type: 'POST', status: 200,responseText:{
-          "item" :  item,
-          "code": code,
-          "locations":[location1],
-          " packages_locations":[{"id":764,"package_id":971,location: location1,item_id:971}]
+          $.mockjax({url:"/api/v1/package*", type: 'POST', status: 200,responseText:{
+          "item" :  {"id":971,"quantity":1,"length":null,"width":null,"height":null,"notes":"Baby Crib, Set (frame, mattress)","inventory_number":"000317","created_at":"2017-05-19T11:50:42.179786","updated_at":"2017-05-19T11:50:42.179786","code_id":9,"received_quantity":1,"package_type_id":9,"packages_location_ids":[764]},
+          "code":[{"id":9,"name":"Baby Crib, Set (frame, mattress)","code":"BBS","other_child_packages":"FXX","default_child_packages":"BBS,BBM,BBC","other_terms":"Cot","visible_in_selects":true,"location_id":262}],
+          "locations":[{"id":7,"building":"24","area":"D","stockit_id":7}],
+          " packages_locations":[{"id":764,"package_id":971,"location_id":7,"quantity":1,"item_id":971}]
           }});
+
 
         //api/v1/stockit_items/971
         $.mockjax({url:"api/v1/stockit_items/*", type: 'GET', status: 200,responseText:{"item":{"id":971,"quantity":1,"length":null,"width":null,"height":null,"notes":"Baby Crib, Set (frame, mattress)","inventory_number":"000317","created_at":"2017-05-19T11:50:42.179786","updated_at":"2017-05-19T11:50:42.179786","item_id":null,"is_set":false,"grade":"B","code_id":9,"received_quantity":1,"package_type_id":9,"order_id":null,"packages_location_ids":[764],"image_ids":[],"orders_package_ids":[]},
@@ -83,12 +84,7 @@ test("Redirect to /search_code after clicking Add item to inventory", function(a
           "packages_locations":[{"id":764,"package_id":971,"location_id":7,"quantity":1,"item_id":971}],
         }});
         andThen(function() {
-          // $('.right.button').last().click(function (event) {
-          //   event.preventDefault();
-          // });
-          // andThen(function() {
-             assert.equal(currentPath(), "items.detail");
-          // });
+          assert.equal(currentPath(), "items.detail");
         });
       });
 
