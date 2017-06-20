@@ -37,6 +37,9 @@ export default Ember.Component.extend({
     if(this.get("env") === "test") {
       return false;
     }
+    if(window.localStorage.getItem('designateFullSet') === null) {
+      window.localStorage.setItem('designateFullSet', false);
+    }
     return !window.localStorage.getItem('designateFullSet').includes(false);
   }),
 
