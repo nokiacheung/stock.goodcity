@@ -28,8 +28,8 @@ export default AuthorizeRoute.extend({
   setupController(controller, model){
     this._super(controller, model);
     controller.set('item', model);
-    var isDesignateFullSet = window.localStorage.getItem('designateFullSet');
-    if(isDesignateFullSet !== null) {
+    var isDesignateFullSet = window.localStorage.getItem('designateFullSet')
+    if(typeof(isDesignateFullSet) !== "undefined" || isDesignateFullSet !== null) {
       controller.set('returnsDesignateFullSet', !window.localStorage.getItem('designateFullSet').includes(false));
     } else {
       this.set('designateFullSet', false);
