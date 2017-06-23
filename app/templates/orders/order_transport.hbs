@@ -1,0 +1,53 @@
+<nav class="tab-bar order_fixed_header">
+  <section class="left-small">
+    {{#link-to 'orders.detail' model.id classNames="back"}}
+      <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
+      <div>{{t "back"}}</div>
+    {{/link-to}}
+  </section>
+
+  <section class="middle tab-bar-section">
+    <h1 class="title">Transport Details</h1>
+  </section>
+
+</nav>
+
+{{!-- <section class="main-section order_page">
+
+  <div class="row ">
+    <div class="small-12 columns main_details">
+      <div class="row">
+        <div class="small-5 columns">
+          Name:
+        </div>
+        <div class="small-7 columns">
+          {{contact.fullName}}
+        </div>
+      </div>
+
+      {{#if contact.phoneNumber}}
+        <div class="row">
+          <div class="small-5 columns">
+            Phone Number:
+          </div>
+          <div class="small-7 columns">
+            {{contact.phoneNumber}}
+          </div>
+        </div>
+      {{/if}}
+
+      {{#if contact.mobilePhoneNumber}}
+        <div class="row">
+          <div class="small-5 columns">
+            Mobile Number:
+          </div>
+          <div class="small-7 columns">
+            {{contact.mobilePhoneNumber}}
+          </div>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+
+</section>
+ --}}

@@ -68,6 +68,19 @@
           </div>
         {{/link-to}}
       </div>
+      <div class="row">
+        {{#link-to "orders.order_transport" model}}
+          <div class="small-4 columns">
+            Transport:
+          </div>
+          <div class="small-7 columns">
+            {{model.orderTransport}}
+          </div>
+          <div class="small-1 columns icons">
+            <i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i>
+          </div>
+        {{/link-to}}
+      </div>
 
       {{#if model.isLocalOrder}}
         <div class="row">
