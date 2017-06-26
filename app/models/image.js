@@ -20,4 +20,6 @@ export default cloudinaryUrl.extend({
   thumbImageUrl: Ember.computed('cloudinaryId', 'angle', function(){
     return this.generateUrl(120, 120, true);
   }),
+
+  item: belongsTo('item', { async: false })
 });

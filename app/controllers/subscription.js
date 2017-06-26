@@ -106,7 +106,10 @@ export default Ember.Controller.extend({
       //Removing null for empty packages_location_id arrays
       item.packages_location_ids = item.packages_location_ids.compact();
       item.image_ids = item.image_ids.compact();
-
+      // this.store.peekRecord(type, item.id).get('images').forEach(function(x){
+      //   x.set('favourite', false);
+      // });
+      // this.store.peekAll("item", item.item_id).filterBy("favourite", true)
       //Don't update Data-store if Item has 0 qty and no designation
       if(!item.designation_id && !item.quantity) {
         return false;
@@ -122,6 +125,19 @@ export default Ember.Controller.extend({
       }
       if(!item.item_id) {
         delete item.item_id;
+      }
+    }
+    if(type === "Image"){
+      if(item.package_id){
+        item.item_id = item.package_id;
+      }
+      if(item.favourite === true) {
+        this.store.peekAll(type).filterBy("itemId", item.item_id).forEach(function(x){
+          if(x.id !==item.id) {
+            x.set('favourite', false);
+          }
+        });
+        this.store.peekRecord(type, item.id).set("favourite", true);
       }
     }
 
