@@ -19,7 +19,7 @@ export default Model.extend({
   localOrder:   belongsTo('local_order', { async: false }),
   items:        hasMany('item', { async: true }),
   ordersPackages:    hasMany('ordersPackages', { async: false }),
-  transport:         hasMany('order_transport', { async: false }),
+  orderTransport:         hasMany('order_transport', { async: false }),
 
 
   isLocalOrder: Ember.computed.equal('detailType', 'LocalOrder'),

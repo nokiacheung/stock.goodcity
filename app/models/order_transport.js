@@ -1,14 +1,13 @@
-import Ember from 'ember';
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
-import { belongsTo, hasMany } from 'ember-data/relationships';
+import { belongsTo } from 'ember-data/relationships';
 
 export default Model.extend({
 
-  contact_id:           attr('number'),
 
-  gogovan_order_id:     attr('number'),
-  gogovan_transport_id: attr('number'),
+  // contactId:           attr('number'),
+  gogovanOrderId:     attr('number'),
+  gogovanTransportId: attr('number'),
   // id:                   attr('number'),
 
 
@@ -20,7 +19,6 @@ export default Model.extend({
   contact:              belongsTo('contact', { async: false }),
   // order: attr('number'),
 
-  transportType:        attr('string'),
 
   needEnglish:          attr("boolean"),
   needCart:             attr("boolean"),

@@ -1,7 +1,9 @@
-import Ember from 'ember'
+import getOrderRoute from './get_order';
 
-export default Ember.Route.extend({
-  model(params) {
-    return this.store.peekAll("order_transport").get('firstObject');
-  },
+export default getOrderRoute.extend({
+  // model: function(){
+  //   // GET /items
+  //   // Retrieves all items.
+  //   return this.modelFor('designation').get('orderTransports');
+  // }
 });
