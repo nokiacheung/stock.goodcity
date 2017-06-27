@@ -153,8 +153,7 @@ export default Ember.Controller.extend({
 
         this.initActionSheet(onSuccess);
       } else {
-
-        // For web application
+          // For web application
         if(navigator.userAgent.match(/iemobile/i))
         {
           //don't know why but on windows phone need to click twice in quick succession
@@ -173,6 +172,7 @@ export default Ember.Controller.extend({
     },
 
     uploadStart(e, data) {
+      this.send('deleteUnusedImage');
       this.set("uploadedFileDate", data);
       Ember.$(".loading-image-indicator").show();
       this.set("loadingPercentage", "Image Uploading ");
