@@ -28,7 +28,11 @@ export default searchModule.extend({
   messageBox: Ember.inject.service(),
 
   sortProperties: ["createdAt:desc"],
-  recentlyUsedLocations: Ember.computed.sort("model.locations", "sortProperties"),
+  sortedRecentlyUsedLocations: Ember.computed.sort("recentlyUsedLocations", "sortProperties"),
+
+  recentlyUsedLocations: Ember.computed('model.locations', function(){
+    return this.get('model.locations').rejectBy('building', 'Dispatched');
+  }),
 
   displayUserPrompt: false,
   showAllSetItems: false,
