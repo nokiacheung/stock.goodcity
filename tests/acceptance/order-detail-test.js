@@ -97,3 +97,9 @@ test("Item description shows quantity of OrdersPackage not Item", function(asser
     assert.equal($('.one-line-ellipsis:last').text().substr(0,2).trim(), "4");
   });
 });
+
+test('clicking on contact redirects to contact details page', function(assert){
+  assert.expect(1);
+  click($('.main_details div:contains("Contact:") a'));
+  assert.equal(currentPath(), "orders.contact");
+});
