@@ -52,12 +52,11 @@
 
         {{else if hasNoResults}}
           <div class='no_result'>{{t "no_search_results"}}</div>
-        {{else if recentlyUsedLocations}}
-
+        {{else if sortedRecentlyUsedLocations}}
           <div class="recent_locations">Recently used locations</div>
 
           <ul class="list list-activity list-offer-items">
-            {{#each recentlyUsedLocations as |location|}}
+            {{#each sortedRecentlyUsedLocations as |location|}}
               <li {{action 'displayMoveOverlay' location}}>
                 <div class="row">
                   <div class="small-6 columns building_name">
