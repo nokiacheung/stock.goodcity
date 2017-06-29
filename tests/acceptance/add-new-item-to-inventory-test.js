@@ -28,7 +28,46 @@ module('Acceptance: Add item to inventory', {
   }
 });
 
-test("Redirect to /search_code after clicking Add item to inventory", function(assert) {
+test("Check validation for 'Add item to inventory ' page''", function(assert) {
+  assert.expect(5);
+
+  $.mockjax({url: '/api/v1/package_type*', type: 'GET', status: 200,responseText: {
+      codes: [code.toJSON({includeId: true})]
+    }
+  });
+  click($('.center-text a'));
+  andThen(function() {
+    assert.equal(currentPath(), "search_code");
+    fillIn("#searchText", code.get('name'));
+    click($('.list li:first')[0]);
+    $.mockjax({url:"/api/v1/inventory*", type: 'POST', status: 200,responseText:{"inventory_number":"000311"}});
+    $.mockjax({url:"/api/v1/images/generate_sign*", type: 'GET', status: 200,responseText:{"api_key":123456789876543,"signature":"3ec17bf700bc23446d61932385d","timestamp":1234567891,"tags":"staging"}});
+    andThen(function() {
+      assert.equal(currentPath(), "items.new");
+      //fillIn("#searchText", "Baby Crib");
+      fillIn('#qty', '');
+      $('.remove-text').click();
+      assert.equal($('#description').val(), '');
+      click($('.button.expand').last());
+      andThen(function() {
+        assert.equal($('#qty').siblings('.input-error').is(":visible"), true);
+        assert.equal($('#description').siblings('.input-error').is(":visible"), true);
+        // click($('.button.secondary.expand'));
+        // andThen(function() {
+        //   click($('#btn1'));
+        // });
+        //
+        // andThen(function() {
+        //   assert.equal(currentPath(), "/");
+        // });
+      });
+    });
+  });
+});
+
+
+
+test("Redirect to /search_code after clicking Add item to inventory and save redirects to items details page", function(assert) {
   assert.expect(14);
 
   $.mockjax({url: '/api/v1/package_type*', type: 'GET', status: 200,responseText: {
@@ -59,7 +98,7 @@ test("Redirect to /search_code after clicking Add item to inventory", function(a
     });
     andThen(function() {
         click($('.button.expand').last());
-        // var pkgType = FactoryGuy.make("package_type", { id: 9 });
+
         var loc = FactoryGuy.make("location", { id: 7 });
         var pkgLocation = FactoryGuy.make("packages_location", {id: 764, location: loc});
         var pkg = FactoryGuy.make("item", { id: 971, quantity: 1,  notes: "Baby Crib, Set (frame, mattress)", inventoryNumber:"000317", "package_type_id":9, packageLocations: [ pkgLocation ]  });
@@ -72,14 +111,6 @@ test("Redirect to /search_code after clicking Add item to inventory", function(a
           packages_locations:[pkgLocation.toJSON({includeId: true})]
           }});
 
-        // $.mockjax({url:"/api/v1/package*", type: 'POST', status: 200,responseText:{
-        //   "item" :  {"id":971,"quantity":1,"length":null,"width":null,"height":null,"notes":"Baby Crib, Set (frame, mattress)","inventory_number":"000317","created_at":"2017-05-19T11:50:42.179786","updated_at":"2017-05-19T11:50:42.179786","code_id":9,"received_quantity":1,"package_type_id":9,"packages_location_ids":[764]},
-        //   "code":[{"id":9,"name":"Baby Crib, Set (frame, mattress)","code":"BBS","other_child_packages":"FXX","default_child_packages":"BBS,BBM,BBC","other_terms":"Cot","visible_in_selects":true,"location_id":262}],
-        //   "locations":[{"id":7,"building":"24","area":"D","stockit_id":7}],
-        //   " packages_locations":[{"id":764,"package_id":971,"location_id":7,"quantity":1,"item_id":971}]
-        //   }});
-
-        //api/v1/stockit_items/971
         $.mockjax({url:"api/v1/stockit_items/*", type: 'GET', status: 200,responseText:{
           item : pkg.toJSON({includeId: true}),
           code : [ code1.toJSON({includeId: true}) ],
@@ -87,13 +118,6 @@ test("Redirect to /search_code after clicking Add item to inventory", function(a
           packages_locations:[pkgLocation.toJSON({includeId: true})]
         }});
 
-        // $.mockjax({url:"api/v1/stockit_items/*", type: 'GET', status: 200,responseText:{
-        //   "item":{"id":971,"quantity":1,"length":null,"width":null,"height":null,"notes":"Baby Crib, Set (frame, mattress)","inventory_number":"000317","created_at":"2017-05-19T11:50:42.179786","updated_at":"2017-05-19T11:50:42.179786","item_id":null,"is_set":false,"grade":"B","code_id":9,"received_quantity":1,"package_type_id":9,"order_id":null,"packages_location_ids":[764],"image_ids":[],"orders_package_ids":[]},
-        //
-        //   "code":[{"id":9,"name":"Baby Crib, Set (frame, mattress)","code":"BBS","other_child_packages":"FXX","default_child_packages":"BBS,BBM,BBC","other_terms":"Cot","visible_in_selects":true,"location_id":262}],
-        //   "locations":[{"id":7,"building":"24","area":"D","stockit_id":7}],
-        //   "packages_locations":[{"id":764,"package_id":971,"location_id":7,"quantity":1,"item_id":971}],
-        // }});
         andThen(function() {
           assert.equal(currentPath(), "items.detail");
         });
