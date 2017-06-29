@@ -59,10 +59,10 @@ test("Redirect to /search_code after clicking Add item to inventory", function(a
     });
     andThen(function() {
         click($('.button.expand').last());
-        var pkgType = FactoryGuy.make("package_type", { id: 9 });
+        // var pkgType = FactoryGuy.make("package_type", { id: 9 });
         var loc = FactoryGuy.make("location", { id: 7 });
         var pkgLocation = FactoryGuy.make("packages_location", {id: 764, location: loc});
-        var pkg = FactoryGuy.make("item", { id: 971, quantity: 1,  notes: "Baby Crib, Set (frame, mattress)", inventoryNumber:"000317", packageType: pkgType, packageLocations: [ pkgLocation ]  });
+        var pkg = FactoryGuy.make("item", { id: 971, quantity: 1,  notes: "Baby Crib, Set (frame, mattress)", inventoryNumber:"000317", "package_type_id":9, packageLocations: [ pkgLocation ]  });
         var code1 = FactoryGuy.make("code", { id: 9, name: "Baby Crib, Set (frame, mattress)", code: "BBS", location: loc  });
 
         $.mockjax({url:"/api/v1/package*", type: 'POST', status: 200,responseText:{
@@ -86,6 +86,14 @@ test("Redirect to /search_code after clicking Add item to inventory", function(a
           locations: [ loc.toJSON({includeId: true}) ],
           packages_locations:[pkgLocation.toJSON({includeId: true})]
         }});
+
+        // $.mockjax({url:"api/v1/stockit_items/*", type: 'GET', status: 200,responseText:{
+        //   "item":{"id":971,"quantity":1,"length":null,"width":null,"height":null,"notes":"Baby Crib, Set (frame, mattress)","inventory_number":"000317","created_at":"2017-05-19T11:50:42.179786","updated_at":"2017-05-19T11:50:42.179786","item_id":null,"is_set":false,"grade":"B","code_id":9,"received_quantity":1,"package_type_id":9,"order_id":null,"packages_location_ids":[764],"image_ids":[],"orders_package_ids":[]},
+        //
+        //   "code":[{"id":9,"name":"Baby Crib, Set (frame, mattress)","code":"BBS","other_child_packages":"FXX","default_child_packages":"BBS,BBM,BBC","other_terms":"Cot","visible_in_selects":true,"location_id":262}],
+        //   "locations":[{"id":7,"building":"24","area":"D","stockit_id":7}],
+        //   "packages_locations":[{"id":764,"package_id":971,"location_id":7,"quantity":1,"item_id":971}],
+        // }});
         andThen(function() {
           assert.equal(currentPath(), "items.detail");
         });
