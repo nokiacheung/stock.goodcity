@@ -52,6 +52,7 @@ test("Check validation for 'Add item to inventory ' page''", function(assert) {
       andThen(function() {
         assert.equal($('#qty').siblings('.input-error').is(":visible"), true);
         assert.equal($('#description').siblings('.input-error').is(":visible"), true);
+        //unable to click opo up message box buttons
         // click($('.button.secondary.expand'));
         // andThen(function() {
         //   click($('#btn1'));
