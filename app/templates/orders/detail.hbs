@@ -74,10 +74,7 @@
             Transport:
           </div>
           <div class="small-7 columns">
-
-            {{#each model.designation.orderTransports as |orderTransport|}}
-              <li>{{orderTransport.timeslot}}</li>
-            {{/each}}
+            {{model.orderTransport.type}}
           </div>
           <div class="small-1 columns icons">
             <i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i>
