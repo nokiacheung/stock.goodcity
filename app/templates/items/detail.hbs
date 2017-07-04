@@ -11,11 +11,19 @@
         {{#unless (is-or model.hasAllPackagesDispatched model.hasAllPackagesDesignated)}}
           {{#if model.quantity}}
             {{#if (is-not model.isSet)}}
-              {{#link-to 'items.partial_designate' model.id (query-params isSet=model.isSet) tagName='span' href=false}}
-                <span class="no-avatar" {{action 'partialDesignateForSet'}}>
-                  <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                </span>
-              {{/link-to}}
+              {{#if model.isSingletonItem}}
+                {{#link-to 'items.search_order' model.id (query-params isSet=model.isSet partial_qty=1) tagName='span' href=false}}
+                  <span class="no-avatar">
+                    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                  </span>
+                {{/link-to}}
+              {{else}}
+                {{#link-to 'items.partial_designate' model.id (query-params isSet=model.isSet) tagName='span' href=false}}
+                  <span class="no-avatar" {{action 'partialDesignateForSet'}}>
+                    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                  </span>
+                {{/link-to}}
+              {{/if}}
             {{/if}}
           {{/if}}
         {{/unless}}

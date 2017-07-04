@@ -17,7 +17,7 @@ export default SelectList.extend({
     return { id: `${itemCondition.charAt(0)}` };
   }),
 
-  selectedValue: Ember.computed('name', function() {
+  selectedValue: Ember.computed('name', 'item.grade', 'item.donorCondition', function() {
     var name = this.get('name');
     if(name === "grade") {
       return this.get('itemGrade') || {};

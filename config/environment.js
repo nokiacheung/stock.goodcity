@@ -18,7 +18,7 @@ module.exports = function(environment) {
       "style-src": "'self' 'unsafe-inline' https://maxcdn.bootstrapcdn.com",
       "font-src": "'self' data: https://maxcdn.bootstrapcdn.com",
       "object-src": "'self'",
-      "script-src": "'self' 'unsafe-eval'"
+      "script-src": "'self' 'unsafe-eval' 'unsafe-inline'"
     },
 
     APP: {
@@ -55,11 +55,15 @@ module.exports = function(environment) {
 
   if (environment === 'development') {
     ENV.APP.API_HOST_URL = 'http://localhost:3000';
+    ENV.APP.SOCKETIO_WEBSERVICE_URL = 'http://localhost:1337/goodcity';
 
     ENV.contentSecurityPolicy["connect-src"] = [
       'http://localhost:3000',
       'https://api.cloudinary.com',
-      'http://localhost:4203'
+      'http://localhost:4203',
+      'http://localhost:1337',
+      'ws://localhost:1337',
+      'wss://localhost:1337'
     ].join(' ');
 
     ENV.contentSecurityPolicy["img-src"] = [
@@ -87,20 +91,30 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     ENV.APP.API_HOST_URL = 'https://api.goodcity.hk';
+    ENV.APP.SOCKETIO_WEBSERVICE_URL = 'https://socket.goodcity.hk:81/goodcity';
 
     ENV.contentSecurityPolicy["connect-src"] = [
       'https://api.goodcity.hk',
-      'https://errbit.crossroads.org.hk'
+      'https://errbit.crossroads.org.hk',
+      'https://socket.goodcity.hk:81',
+      'ws://socket.goodcity.hk:81',
+      'wss://socket.goodcity.hk:81',
+      'https://sentry.io'
     ].join(' ');
   }
 
   if ((process.env.staging || process.env.STAGING) === 'true') {
     ENV.staging = true;
     ENV.APP.API_HOST_URL = 'https://api-staging.goodcity.hk';
+    ENV.APP.SOCKETIO_WEBSERVICE_URL = 'https://socket-staging.goodcity.hk:81/goodcity';
 
     ENV.contentSecurityPolicy["connect-src"] = [
       'https://api-staging.goodcity.hk',
-      'https://errbit.crossroads.org.hk'
+      'https://errbit.crossroads.org.hk',
+      'https://sentry.io',
+      'https://socket-staging.goodcity.hk:81',
+      'ws://socket-staging.goodcity.hk:81',
+      'wss://socket-staging.goodcity.hk:81'
     ].join(' ');
   } else {
     ENV.staging = false;

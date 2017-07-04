@@ -29,7 +29,7 @@
         </div>
     {{/if}}
   </div>
-  <div class="small-6 columns location-name">
+  <div class="small-5 columns location-name">
     {{#unless item.hasAllPackagesDispatched}}
       <i class="fa fa-map-marker"> </i>
       {{#if item.hasSingleLocation}}
@@ -39,7 +39,7 @@
       {{/if}}
     {{/unless}}
   </div>
-  <div class="small-3 columns">
+  <div class="small-4 columns">
     <i class="fa {{if item.isSet 'fa-tags' 'fa-tag'}}"></i> {{item.inventoryNumber}}
   </div>
 </div>

@@ -4,7 +4,8 @@
     "window",
     "-Promise",
     "airbrakeJs",
-    "moment"
+    "moment",
+    "io"
   ],
   "browser": true,
   "boss": true,

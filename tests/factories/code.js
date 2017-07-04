@@ -2,12 +2,23 @@ import FactoryGuy from 'ember-data-factory-guy';
 
 FactoryGuy.define('code',{
   sequences: {
-    name: function(num) {
-      return 'Daniel' + num;
+    id: function() {
+      return Math.floor(Math.random() * 100);
+    },
+    name: function() {
+      return "Baby Crib"+ Math.floor(Math.random() * 100);
     }
   },
   default: {
-    name:   FactoryGuy.generate('name'),
+    id                      : FactoryGuy.generate('id'),
+    name                    : FactoryGuy.generate('name'),
+    code                    : "BBS",
+    otherChildPackages      : "FXX",
+    defaultChildPackages    : "BBS",
+    otherTerms              : "Cot",
+    visibleInSelects        : true,
+    location                : FactoryGuy.belongsTo('location')
   }
 });
-export default {};
+export default { };
+

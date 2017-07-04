@@ -14,6 +14,8 @@ export default Ember.Controller.extend({
   inputInventory: false,
   locationName: Ember.computed.alias('location.displayName'),
   caseNumber: "",
+  isSearchCodePreviousRoute: Ember.computed.localStorage(),
+  isSelectLocationPreviousRoute: Ember.computed.localStorage(),
 
   quantity: 1,
   length: null,
@@ -151,8 +153,7 @@ export default Ember.Controller.extend({
 
         this.initActionSheet(onSuccess);
       } else {
-
-        // For web application
+          // For web application
         if(navigator.userAgent.match(/iemobile/i))
         {
           //don't know why but on windows phone need to click twice in quick succession
@@ -171,6 +172,7 @@ export default Ember.Controller.extend({
     },
 
     uploadStart(e, data) {
+      this.send('deleteUnusedImage');
       this.set("uploadedFileDate", data);
       Ember.$(".loading-image-indicator").show();
       this.set("loadingPercentage", "Image Uploading ");
@@ -282,6 +284,8 @@ export default Ember.Controller.extend({
     },
 
     saveItem() {
+      this.set("isSelectLocationPreviousRoute", false);
+      this.set("isSearchCodePreviousRoute", false);
       var _this = this, loadingView;
       if(
         _this.get("quantity").toString().trim().length === 0 ||
@@ -329,7 +333,6 @@ export default Ember.Controller.extend({
             }
             this.set("locationId", "");
             this.set("inventoryNumber", "");
-            this.send("deleteUnusedImage");
             loadingView.destroy();
             _this.transitionToRoute("items.detail", data.item.id);
           })

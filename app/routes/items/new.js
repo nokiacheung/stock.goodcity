@@ -1,10 +1,13 @@
 import AuthorizeRoute from './../authorize';
 import AjaxPromise from 'stock/utils/ajax-promise';
+import Ember from 'ember';
 
 export default AuthorizeRoute.extend({
 
   inventoryNumber: "",
   newItemRequest: "",
+  isSearchCodePreviousRoute: Ember.computed.localStorage(),
+  isSelectLocationPreviousRoute: Ember.computed.localStorage(),
 
   queryParams: {
     codeId: "",
@@ -14,10 +17,9 @@ export default AuthorizeRoute.extend({
 
   beforeModel() {
     this._super(...arguments);
-    var previousRoutes = this.router.router.currentHandlerInfos;
-    var previousRoute = previousRoutes && previousRoutes.pop();
-    if(previousRoute) {
-      var newItemRequest = previousRoute.name === "search_code" ? true : false;
+    var searchCodePreviousRoute = this.get("isSearchCodePreviousRoute");
+    if(searchCodePreviousRoute) {
+      var newItemRequest = searchCodePreviousRoute ? true : false;
       this.set("newItemRequest", newItemRequest);
     } else {
       this.transitionTo("search_code");
@@ -57,9 +59,8 @@ export default AuthorizeRoute.extend({
       controller.set('height', null);
       controller.set('selectedGrade', { name: "B", id: "B" });
       controller.set('selectedCondition', { name: "Used", id: "U" });
-
       var imageKey = controller.get("imageKeys");
-      if(imageKey && imageKey.length) {
+      if(imageKey && imageKey.length && window.localStorage.isSelectLocationPreviousRoute === "true") {
         var image = this.get("store").peekAll("image").filterBy("cloudinaryId", imageKey).get("firstObject");
         image = image || this.get("store").createRecord("image", {
             cloudinaryId: imageKey,
