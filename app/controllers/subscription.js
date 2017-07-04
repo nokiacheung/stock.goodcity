@@ -136,7 +136,10 @@ export default Ember.Controller.extend({
             x.set('favourite', false);
           }
         });
-        this.store.peekRecord(type, item.id).set("favourite", true);
+        var itemImage = this.store.peekRecord(type, item.id);
+        if(itemImage){
+          itemImage.set("favourite", true);
+        }
       }
 
     }
