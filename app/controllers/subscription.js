@@ -99,7 +99,7 @@ export default Ember.Controller.extend({
     if(this.get("modelDataTypes").includes(type)) {
       return false;
     }
-    if(type === "package" || type === "Package") {
+    if(type.toLowerCase() === "package") {
       //Changing type as we've Item model instead of Package
       type = "item";
       delete item.offer_id;
@@ -123,6 +123,22 @@ export default Ember.Controller.extend({
       if(!item.item_id) {
         delete item.item_id;
       }
+    }
+    if(type.toLowerCase() === "image" && data.operation !== "delete"){
+      //we do not get item.id from api so assign package.id to item.id
+      if(!item.item_id && item.package_id){
+        item.item_id = item.package_id;
+      }
+      if(item.favourite === true) {
+        //if favourite changed than make other item.favourite false
+        this.store.peekAll(type).filterBy("itemId", item.item_id).forEach(function(x){
+          if(x.id !==item.id) {
+            x.set('favourite', false);
+          }
+        });
+        this.store.peekRecord(type, item.id).set("favourite", true);
+      }
+
     }
 
     this.store.normalize(type, item);
