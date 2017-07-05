@@ -104,9 +104,12 @@ export default Ember.Controller.extend({
       type = "item";
       delete item.offer_id;
       //Removing null for empty packages_location_id arrays
-      item.packages_location_ids = item.packages_location_ids.compact();
-      item.image_ids = item.image_ids.compact();
-
+      if(item.packages_location_ids){
+        item.packages_location_ids = item.packages_location_ids.compact();
+      }
+      if(item.image_ids){
+        item.image_ids = item.image_ids.compact();
+      }
       //Don't update Data-store if Item has 0 qty and no designation
       if(!item.designation_id && !item.quantity) {
         return false;
