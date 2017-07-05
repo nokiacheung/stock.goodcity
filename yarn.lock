@@ -1468,7 +1468,7 @@ copy-dereference@^1.0.0:
 
 "cordova-lib@https://github.com/crossroads/goodcity-lib.git":
   version "0.0.0"
-  resolved "https://github.com/crossroads/goodcity-lib.git#a576b8c9b35ff70966ae60e4fec6426ea4e43cb8"
+  resolved "https://github.com/crossroads/goodcity-lib.git"
   dependencies:
     ember-cli-babel "^5.1.6"
 
