@@ -9,7 +9,7 @@ import FactoryGuy from 'ember-data-factory-guy';
 import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
 import { mockFindAll } from 'ember-data-factory-guy';
 
-var App, pkg1, order1, orders_pkg1, orders_pkg2;
+var App, pkg1, pkg2, order1, orders_pkg1, orders_pkg2;
 
 module('Acceptance: Partial undesignate/modify', {
   beforeEach: function() {
@@ -19,8 +19,9 @@ module('Acceptance: Partial undesignate/modify', {
     mockFindAll('location').returns({json: {locations: [location.toJSON({includeId: true})]}});
     order1 = FactoryGuy.make("designation", { id: 100, state: "submitted" });
     pkg1 = FactoryGuy.make("item", { id: 51, state: "submitted" , designation: order1, quantity: 0});
-    orders_pkg1 = FactoryGuy.make("orders_package", { id: 500, state: "designated", quantity: 1, item: pkg1, designationId: order1.id });
-    orders_pkg2 = FactoryGuy.make("orders_package", { id: 501, state: "dispatched", quantity: 1, item: pkg1, designationId: order1.id, sent_on: Date.now() });
+    pkg2 = FactoryGuy.make("item", { id: 52, state: "submitted", quantity: 1, receivedQuantity: 1 });
+    orders_pkg1 = FactoryGuy.make("orders_package", { id: 500, state: "designated", quantity: 1, item: pkg1, designationId: order1.id, designation: order1 });
+    orders_pkg2 = FactoryGuy.make("orders_package", { id: 501, state: "dispatched", quantity: 1, item: pkg1, designationId: order1.id, designation: order1, sent_on: Date.now() });
   },
   afterEach: function() {
     Ember.run(function() { TestHelper.teardown(); });
@@ -31,12 +32,12 @@ module('Acceptance: Partial undesignate/modify', {
 test("BackLink redirects to Item's detail if previous route was Item's detail", function(assert) {
   assert.expect(1);
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
-      items: [pkg1.toJSON({includeId: true})],
-      orders_packages: [orders_pkg1.toJSON({includeId: true})]
+      items: [pkg2.toJSON({includeId: true})]
     }
   });
+  mockFindAll('designation').returns({json: {designations: [order1.toJSON({includeId: true})], orders_packages: [orders_pkg1.toJSON({includeId: true})], items: [pkg2.toJSON({includeId: true})]}});
   //visiting Item's detail
-  visit("/items/" + pkg1.id);
+  visit("/items/" + pkg2.id);
 
   //clicking on status bar
   andThen(function() {
@@ -45,7 +46,7 @@ test("BackLink redirects to Item's detail if previous route was Item's detail", 
 
   //clicking on back link icon
   andThen(function() {
-    click(find('.back-text'));
+    click(find('.back_text'));
   });
 
   andThen(function() {
@@ -59,7 +60,8 @@ test("BackLink redirects to Item's index(search) if previous route was Item's in
   mockFindAll('designation').returns({json: {designations: [order1.toJSON({includeId: true})], orders_packages: [orders_pkg1.toJSON({includeId: true})], items: [pkg1.toJSON({includeId: true})]}});
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
       items: [pkg1.toJSON({includeId: true})],
-      orders_packages: [orders_pkg1.toJSON({includeId: true})]
+      orders_packages: [orders_pkg1.toJSON({includeId: true})],
+      designations: [order1.toJSON({includeId: true})]
     }
   });
 
