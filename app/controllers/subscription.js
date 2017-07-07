@@ -116,7 +116,7 @@ export default Ember.Controller.extend({
       }
       if(this.get("status.online")) {
         this.store.findRecord('item', item.id);
-        this.store.query("orders_package", { all_orders_packages: item.id });
+        this.store.query("orders_package", { search_by_package_id: item.id });
       }
       //Deleting ids in case of null
       if(!item.orders_package_ids.length) {
