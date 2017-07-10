@@ -150,6 +150,11 @@ test("Clicking on cancel designation of Item cancels designation", function(asse
     }
   });
 
+  $.mockjax({url: '/api/v1/orders_packages*', type: 'GET', status: 200,responseText: {
+      orders_packages: [orders_pkg1.toJSON({includeId: true})]
+    }
+  });
+
   $.mockjax({url: '/api/v1/item*', type: 'PUT', status: 200,responseText: {
       items: [pkg1.toJSON({includeId: true})],
       orders_packages: [orders_pkg1.toJSON({includeId: true})]
@@ -184,6 +189,11 @@ test("Cancel designation of OrdersPackage by modifying quantity", function(asser
   assert.expect(1);
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
       items: [pkg1.toJSON({includeId: true})],
+      orders_packages: [orders_pkg1.toJSON({includeId: true})]
+    }
+  });
+
+  $.mockjax({url: '/api/v1/orders_packages*', type: 'GET', status: 200,responseText: {
       orders_packages: [orders_pkg1.toJSON({includeId: true})]
     }
   });
@@ -238,12 +248,11 @@ test("Dispatching designated OrdersPackage", function(assert) {
 
   //Clicking on dispatch on dispatch page
   andThen(function() {
-    click('#partial_dispatch');
+    click(find('#partial_dispatch')[0]);
   });
 
-  //Redirected back to Item's detail
   andThen(function() {
-    assert.equal(currentPath(), "items.detail");
+    assert.equal(currentPath(), "items.partial_dispatch");
   });
 });
 
