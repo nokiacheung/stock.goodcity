@@ -10,7 +10,7 @@ namespace :deploy do
     run_locally do
       env = {
         "EMBER_CLI_CORDOVA" => "0",
-        "sentry" : {
+        "sentry" => {
           publicUrl: 'https://api-staging.goodcity.hk',
           sentryUrl: 'https://21fe90a0fc944c13b38d8090bc97f5d6:32224c98abc64ab393b2cbdc2acf344e@sentry.io/176461',
           sentryOrganizationSlug: 'crossroads-foundation-limited',
