@@ -251,8 +251,9 @@ test("Dispatching designated OrdersPackage", function(assert) {
     click(find('#partial_dispatch')[0]);
   });
 
+  //Redirects back to item's detail page
   andThen(function() {
-    assert.equal(currentPath(), "items.partial_dispatch");
+    assert.equal(currentPath(), "items.detail");
   });
 });
 
