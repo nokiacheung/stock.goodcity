@@ -9,13 +9,13 @@ namespace :deploy do
   task :build do
     run_locally do
       env = {"EMBER_CLI_CORDOVA" => "0"}
-      env["sentry"] = {
-        'publicUrl' => 'https://api-staging.goodcity.hk',
-        'sentryUrl' => 'https://21fe90a0fc944c13b38d8090bc97f5d6:32224c98abc64ab393b2cbdc2acf344e@sentry.io/176461',
-        'sentryOrganizationSlug' => 'crossroads-foundation-limited',
-        'sentryProjectSlug' => 'stock-app',
-        'sentryApiKey' => 'e9cd183c4ceb11e78614002590f546fa'
-      }
+      # env["sentry"] = {
+      #   'publicUrl' => 'https://api-staging.goodcity.hk',
+      #   'sentryUrl' => 'https://21fe90a0fc944c13b38d8090bc97f5d6:32224c98abc64ab393b2cbdc2acf344e@sentry.io/176461',
+      #   'sentryOrganizationSlug' => 'crossroads-foundation-limited',
+      #   'sentryProjectSlug' => 'stock-app',
+      #   'sentryApiKey' => 'e9cd183c4ceb11e78614002590f546fa'
+      # }
       env["APP_SHA"] = `git rev-parse --short #{fetch(:branch)}`.strip
       env["staging"] = "true" if fetch(:stage) == :staging
       system(env, "ember build --environment=production")
