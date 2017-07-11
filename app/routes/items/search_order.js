@@ -61,7 +61,6 @@ export default AuthorizeRoute.extend({
   setupController(controller, model){
     this._super(controller, model);
     if(!this.get('partialDesignatePath') && !parseInt(window.localStorage.getItem('partial_qnty'))) {
-      controller.set('partial_qty', 0);
       controller.set('notPartialRoute', true);
     } else {
       controller.set('notPartialRoute', false);
