@@ -2,18 +2,10 @@ engines:
   eslint:
     enabled: true
     checks:
-      transformEmberDataModelLookups:
-        enabled: false
-      transformEmberDataAsyncFalseRelationships:
-        enabled: false
-      transformPrototypeExtensions:
-        enabled: false
-      transformQUnitTest:
-        enabled: false
       max_line_length:
         enabled: false
 languages:
-   JavaScript: true
+  JavaScript: true
 
 exclude_paths:
 - bower_components/
