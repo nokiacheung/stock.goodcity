@@ -1,15 +1,3 @@
-engines:
-  watson:
-    enabled: false
-    checks:
-      transformEmberDataModelLookups:
-        enabled: false
-      transformEmberDataAsyncFalseRelationships:
-        enabled: false
-      transformPrototypeExtensions:
-        enabled: false
-      transformQUnitTest:
-        enabled: false
 languages:
    JavaScript: true
 
