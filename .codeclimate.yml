@@ -1,6 +1,9 @@
 engines:
-  watson:
+  eslint:
     enabled: true
+    checks:
+      max_line_length:
+        enabled: false
 languages:
   JavaScript: true
 
