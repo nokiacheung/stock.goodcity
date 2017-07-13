@@ -86,8 +86,8 @@ export default Ember.Component.extend({
     this.set('hasCancelledState', false);
     var item = this.get('item');
     var order = this.get('order');
-    this.get('store').peekAll("orders_package").filterBy("itemId", parseInt(item.id)).forEach(record => {
-      if(record.get('itemId') === parseInt(item.id) && record.get('designationId') === parseInt(order.id)) {
+    this.get('store').peekAll("orders_package").filterBy("itemId", parseInt(item.id, 10)).forEach(record => {
+      if(record.get('itemId') === parseInt(item.id, 10) && record.get('designationId') === parseInt(order.id, 10)) {
           if (record.get('state') === "cancelled")
           {
             this.set('hasCancelledState', true);
@@ -111,7 +111,7 @@ export default Ember.Component.extend({
     if(item.get("isSet")) {
       item.get("setItem.items").forEach(pkg => {
       pkg.get("ordersPackages").forEach(record => {
-        if(record.get("state") !== "cancelled" && record.get('itemId') === parseInt(item.id) && record.get('designationId') === parseInt(order.id)) {
+        if(record.get("state") !== "cancelled" && record.get('itemId') === parseInt(item.id, 10) && record.get('designationId') === parseInt(order.id, 10)) {
             alreadyPartiallyDesignated =  true;
             this.set('orderPackageId', record.get('id'));
             designatedSetOrdersPackages.push(record);
@@ -125,8 +125,8 @@ export default Ember.Component.extend({
       this.set("designatedSetOrdersPackages", designatedSetOrdersPackages);
       return alreadyPartiallyDesignated;
     } else {
-      this.get('store').peekAll("orders_package").filterBy("itemId", parseInt(item.id)).forEach(record => {
-        if(record.get("quantity") && record.get('itemId') === parseInt(item.id) && record.get('designationId') === parseInt(order.id)) {
+      this.get('store').peekAll("orders_package").filterBy("itemId", parseInt(item.id, 10)).forEach(record => {
+        if(record.get("quantity") && record.get('itemId') === parseInt(item.id, 10) && record.get('designationId') === parseInt(order.id, 10)) {
             total += record.get('quantity');
             this.set("designatedRecord", record);
             alreadyPartiallyDesignated = true;
@@ -179,7 +179,7 @@ export default Ember.Component.extend({
       var  properties = {
         order_id: order.get("id"),
         package_id: item.get('id'),
-        quantity: item.get('quantity'),
+        quantity: item.get('quantity')
       };
 
       new AjaxPromise(url, "PUT", this.get('session.authToken'), { package: properties })
@@ -206,7 +206,7 @@ export default Ember.Component.extend({
       var  properties = {
         order_id: order.get("id"),
         package_id: item.get('id'),
-        quantity: this.get('partial_quantity'),
+        quantity: this.get('partial_quantity')
       };
 
       if(item.get('isSet') && this.get('designateFullSet')) {

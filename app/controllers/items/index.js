@@ -19,5 +19,5 @@ export default searchModule.extend({
     if (this.get("itemSetId")) {
       Ember.run.debounce(this, this.applyFilter, 0);
     }
-  }),
+  })
 });

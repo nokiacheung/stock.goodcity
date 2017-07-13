@@ -73,5 +73,5 @@ export default Ember.TextField.extend({
   click() {
     this.addCssStyle();
     this.set('previousValue', this.get('value') || '');
-  },
+  }
 });

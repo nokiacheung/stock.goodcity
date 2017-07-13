@@ -8,6 +8,6 @@ export default Addressable.extend({
   mobile:      attr('string'),
   createdAt:   attr('date'),
 
-  permission:  belongsTo('permission', { async: false }),
+  permission:  belongsTo('permission', { async: false })
   // image:       belongsTo('image', { async: false }),
 });

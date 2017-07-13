@@ -89,7 +89,7 @@ export default cloudinaryUrl.extend({
   }),
 
   favouriteImage: Ember.computed('images.@each.favourite', function(){
-    return this.get("images").filterBy("favourite", true).get("firstObject") || this.store.peekAll("image").filterBy("itemId", parseInt(this.id)).filterBy("favourite", true).get("firstObject");
+    return this.get("images").filterBy("favourite", true).get("firstObject") || this.store.peekAll("image").filterBy("itemId", parseInt(this.id, 10)).filterBy("favourite", true).get("firstObject");
   }),
 
   desinatedAndDisaptchedItemPackages: Ember.computed("ordersPackages.[]", function() {
@@ -115,7 +115,7 @@ export default cloudinaryUrl.extend({
     var totalDispatchedQty = 0;
     var dispatchedOrdersPackages = this.get("ordersPackages").filterBy("state", "dispatched");
     dispatchedOrdersPackages.forEach(record => {
-      totalDispatchedQty += parseInt(record.get("quantity"));
+      totalDispatchedQty += parseInt(record.get("quantity"), 10);
     });
     return totalDispatchedQty;
   }),
@@ -124,7 +124,7 @@ export default cloudinaryUrl.extend({
     var totalDesignatedQty = 0;
     var designatedOrdersPackages = this.get("ordersPackages").filterBy("state", "designated");
     designatedOrdersPackages.forEach(record => {
-      totalDesignatedQty += parseInt(record.get("quantity"));
+      totalDesignatedQty += parseInt(record.get("quantity"), 10);
     });
     return totalDesignatedQty;
   }),
@@ -139,7 +139,7 @@ export default cloudinaryUrl.extend({
     var totalDispatchedQty = 0;
     var dispatchedOrdersPackages = this.get("ordersPackages").filterBy("state", "dispatched");
     dispatchedOrdersPackages.forEach(record => {
-      totalDispatchedQty += parseInt(record.get("quantity"));
+      totalDispatchedQty += parseInt(record.get("quantity"), 10);
     });
     return (totalDispatchedQty === received_quantity) ? true : false;
   }),
@@ -149,7 +149,7 @@ export default cloudinaryUrl.extend({
     var totalDesignatedQty = 0;
     var designatedOrdersPackages = this.get("ordersPackages").filterBy("state", "designated");
     designatedOrdersPackages.forEach(record => {
-      totalDesignatedQty += parseInt(record.get("quantity"));
+      totalDesignatedQty += parseInt(record.get("quantity"), 10);
     });
     return (totalDesignatedQty === received_quantity) ? true : false;
   }),
@@ -233,7 +233,7 @@ export default cloudinaryUrl.extend({
 
   imageUrlList: Ember.computed('images', 'setItem.@each.items.images.[]', 'setItem.@each.items.@each.imageUrl', 'setItem.@each.items.@each.thumbImageUrl', function() {
     var imageList = [];
-    this.store.peekAll("image").filterBy("itemId", parseInt(this.id)).forEach((image) => imageList.pushObject(image.get("imageUrl")));
+    this.store.peekAll("image").filterBy("itemId", parseInt(this.id, 10)).forEach((image) => imageList.pushObject(image.get("imageUrl")));
     return imageList.uniq();
   }),
 
@@ -247,5 +247,5 @@ export default cloudinaryUrl.extend({
 
   allowLabelPrint: Ember.computed("ordersPackages.[]", function() {
     return !(this.get('isDispatchedForQuantity')) && !this.get("isSet");
-  }),
+  })
 });

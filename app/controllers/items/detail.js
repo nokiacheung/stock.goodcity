@@ -74,7 +74,6 @@ export default Ember.Controller.extend({
       } else {
         this.transitionToRoute('items.search_location', this.get("item.id"), { queryParams: { isSet: false, isPartialMove: false}});
       }
-    },
+    }
   }
-
 });

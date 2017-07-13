@@ -6,6 +6,5 @@ export default Model.extend({
   clientName: attr('string'),
   hkidNumber: attr('string'),
   referenceNumber: attr('string'),
-  purposeOfGoods: attr('string'),
-
+  purposeOfGoods: attr('string')
 });

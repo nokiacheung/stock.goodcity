@@ -29,5 +29,5 @@ export default Model.extend({
 
   isSingleQuantity: Ember.computed('quantity', function(){
     return this.get('quantity') === 1;
-  }),
+  })
 });

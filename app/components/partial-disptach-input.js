@@ -24,7 +24,7 @@ export default Ember.TextField.extend({
       return false;
     }
     Ember.$(this.element).addClass('change-color');
-    var total = parseInt(Ember.$('.total-move').text()) + 1;
+    var total = parseInt(Ember.$('.total-move').text(), 10) + 1;
     var newQty = this.get('item.quantity') - 1;
     var packagesLocationQtyId = '#packages-qty-location-' + this.get('item.id');
     Ember.$(packagesLocationQtyId).text(newQty);
@@ -73,11 +73,11 @@ export default Ember.TextField.extend({
     }
     Ember.$('.location_block input').map(function(){
       if(regex.test(this.value) && (!(isValGreater))){
-        total += parseInt(this.value);
+        total += parseInt(this.value, 10);
       }
     });
 
     this.set('total', total);
     Ember.$('.total-move').text(total);
-  }),
+  })
 });

@@ -293,9 +293,9 @@ export default Ember.Controller.extend({
         !_this.get("location") ||
         _this.get("inventoryNumber").trim().length === 0 ||
         !_this.get('code') ||
-        parseInt(_this.get("length")) === 0 ||
-        parseInt(_this.get("width")) === 0 ||
-        parseInt(_this.get("height")) === 0
+        parseInt(_this.get("length"), 10) === 0 ||
+        parseInt(_this.get("width"), 10) === 0 ||
+        parseInt(_this.get("height"), 10) === 0
       ) {
         if(!_this.get("location")) { this.set("invalidLocation", true); }
         return false;

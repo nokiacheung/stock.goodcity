@@ -17,7 +17,7 @@ export default Ember.Controller.extend({
       var item = ordersPackage.get("item");
       var data = [];
       var record = {};
-      var inputValue = parseInt(Ember.$(`#${ordersPackage.id}`)[0].value);
+      var inputValue = parseInt(Ember.$(`#${ordersPackage.id}`)[0].value, 10);
       record["orders_package_id"] = ordersPackage.get('id');
       record["package_id"] = ordersPackage.get('packageId');
       if(this.get("modifyDesignatedQty")) {
@@ -34,7 +34,7 @@ export default Ember.Controller.extend({
         .then(data => {
           this.get("store").pushPayload(data);
           data.orders_packages.forEach(pkg => {
-            if(pkg.quantity === 0 && pkg.id === parseInt(this.get("ordersPackageId"))) {
+            if(pkg.quantity === 0 && pkg.id === parseInt(this.get("ordersPackageId"), 10)) {
               this.set("modifyDesignatedQty", true);
             }
           });
@@ -44,7 +44,7 @@ export default Ember.Controller.extend({
           this.set("modifyDesignatedQty", false);
           this.transitionToRoute("items.partial_undesignate", item.get("id"));
         });
-    },
+    }
   }
 
 });

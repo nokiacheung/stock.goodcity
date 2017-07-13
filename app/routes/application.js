@@ -32,7 +32,7 @@ export default Ember.Route.extend({
     try
     {
       var status;
-      try { status = parseInt(reason.errors[0].status); }
+      try { status = parseInt(reason.errors[0].status, 10); }
       catch (err) { status = reason.status; }
 
       if(reason.name === "QuotaExceededError") {
@@ -54,7 +54,9 @@ export default Ember.Route.extend({
         this.get("messageBox").alert(this.get("i18n").t("unexpected_error"));
       }
 
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   },
 
   actions: {
@@ -67,13 +69,15 @@ export default Ember.Route.extend({
     error(reason) {
       try {
         this.handleError(reason);
-      } catch (err) {}
+      } catch (err) {
+        console.log(err);
+      }
     },
 
     logMeOut() {
       this.session.clear();
       this.store.unloadAll();
       this.transitionTo('login');
-    },
+    }
   }
 });

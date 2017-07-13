@@ -53,7 +53,7 @@ export default Ember.TextField.extend({
     }
     var regex = /^\d+$/;
     var input_value = this.get('value');
-    if(input_value < 0 || parseInt(input_value) < 0 || parseInt(input_value) > (this.get('designationPackage.quantity') + this.get('designationPackage.item.quantity')) || !(regex.test(input_value))) {
+    if(input_value < 0 || parseInt(input_value, 10) < 0 || parseInt(input_value, 10) > (this.get('designationPackage.quantity') + this.get('designationPackage.item.quantity')) || !(regex.test(input_value))) {
       Ember.$(this.element).css("border", "1px solid #fddbdc");
       Ember.$('#undesignateButton')[0].disabled = true;
       this.$().focus();
@@ -67,7 +67,7 @@ export default Ember.TextField.extend({
     }
     var regex = /^\d+$/;
     var input_value = this.get('value');
-    if(input_value < 0 || parseInt(input_value) < 0 || parseInt(input_value) > (this.get('designationPackage.quantity') + this.get('designationPackage.item.quantity'))|| !(regex.test(input_value))) {
+    if(input_value < 0 || parseInt(input_value, 10) < 0 || parseInt(input_value, 10) > (this.get('designationPackage.quantity') + this.get('designationPackage.item.quantity'))|| !(regex.test(input_value))) {
       Ember.$(this.element).css("border", "1px solid #fddbdc");
       Ember.$('#undesignateButton')[0].disabled = true;
       this.$().focus();
@@ -77,5 +77,5 @@ export default Ember.TextField.extend({
       Ember.$('#undesignateButton')[0].disabled = false;
       return true;
     }
-  }),
+  })
 });

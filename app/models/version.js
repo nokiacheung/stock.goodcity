@@ -9,5 +9,5 @@ export default DS.Model.extend({
   whodunnit:      attr('string'),
   whodunnitName:  attr('string'),
   state:          attr('string'),
-  createdAt:      attr('date'),
+  createdAt:      attr('date')
 });
