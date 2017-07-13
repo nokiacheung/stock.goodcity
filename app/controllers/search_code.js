@@ -97,6 +97,5 @@ export default Ember.Controller.extend({
       this.set("isSearchCodePreviousRoute", true);
       this.transitionToRoute("items.new", { queryParams: { codeId: type.id }});
     }
-  },
-
+  }
 });

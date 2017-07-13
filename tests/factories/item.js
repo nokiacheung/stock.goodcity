@@ -26,7 +26,7 @@ FactoryGuy.define('item', {
     width:             10,
     height:            10,
     allow_web_publish: false,
-    received_quantity: 1,
+    receivedQuantity: 1,
     itemId:            FactoryGuy.generate('itemId'),
     package_type:      FactoryGuy.belongsTo('package_type'),
     orders_packages:   FactoryGuy.hasMany('orders_package'),

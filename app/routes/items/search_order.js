@@ -5,9 +5,7 @@ const { getOwner } = Ember;
 export default AuthorizeRoute.extend({
 
   queryParams: {
-    isSet: false,
-    showDispatchOverlay: false,
-    partial_qty: 0
+    showDispatchOverlay: false
   },
 
   partial_qnty: Ember.computed.localStorage(),
@@ -36,7 +34,7 @@ export default AuthorizeRoute.extend({
       }
     }
 
-    if(parseInt(window.localStorage.getItem('partial_qnty'))) {
+    if(parseInt(window.localStorage.getItem('partial_qnty')), 10) {
       this.set('partialDesignatePath', true);
     } else {
       this.set('partialDesignatePath', false);
@@ -62,8 +60,7 @@ export default AuthorizeRoute.extend({
 
   setupController(controller, model){
     this._super(controller, model);
-    if(!this.get('partialDesignatePath') && !parseInt(window.localStorage.getItem('partial_qnty'))) {
-      controller.set('partial_qty', 0);
+    if(!this.get('partialDesignatePath') && !parseInt(window.localStorage.getItem('partial_qnty')), 10) {
       controller.set('notPartialRoute', true);
     } else {
       controller.set('notPartialRoute', false);

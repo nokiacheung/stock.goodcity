@@ -25,7 +25,7 @@ export default Ember.Controller.extend({
       var oneRecord = {};
       var codeQty = {};
       elementIds.forEach(record => {
-        var value = parseInt(Ember.$(`#${record}`)[0].value);
+        var value = parseInt(Ember.$(`#${record}`)[0].value, 10);
         var orderPackage = this.get('store').peekRecord('orders_package', record);
         oneRecord["orders_package_id"] = record;
         oneRecord["package_id"] = orderPackage.get('packageId');

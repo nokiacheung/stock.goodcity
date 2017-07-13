@@ -41,14 +41,14 @@ export default searchModule.extend({
 
   sameSingleLocation: Ember.computed("selectedLocation", 'displayUserPrompt',  'isPartialMove', function() {
     if (this.get('item.packagesLocations.length') === 1){
-     return this.get('item.packagesLocations.firstObject.locationId') === parseInt(this.get('selectedLocation.id'));
+     return this.get('item.packagesLocations.firstObject.locationId') === parseInt(this.get('selectedLocation.id'), 10);
     }
   }),
 
   totalQty: Ember.computed('selectedLocation', function(){
     var packagesLocationQty = localStorage['packagesLocationQty'];
     if(packagesLocationQty){
-      var existingPackagesLocation = JSON.parse(packagesLocationQty).findBy('location_id', parseInt(this.get('selectedLocation.id')));
+      var existingPackagesLocation = JSON.parse(packagesLocationQty).findBy('location_id', parseInt(this.get('selectedLocation.id'), 10));
       if(existingPackagesLocation){
         return localStorage['totalQty'] - existingPackagesLocation['new_qty'];
       } else {
@@ -223,5 +223,5 @@ export default searchModule.extend({
           loadingView.destroy();
         });
     }
-  },
+  }
 });

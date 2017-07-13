@@ -27,7 +27,7 @@ export default Ember.Component.extend({
 
       window.cordova.plugins.barcodeScanner.scan(onSuccess, onError, options);
 
-    },
+    }
   }
 
 });

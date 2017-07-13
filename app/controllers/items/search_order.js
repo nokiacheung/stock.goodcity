@@ -4,7 +4,7 @@ import searchModule from "../search_module";
 export default searchModule.extend({
 
   queryParams: ['isSet', 'showDispatchOverlay', 'partial_qty'],
-  isSet: false,
+  isSet: null,
   showDispatchOverlay: false,
   toDesignateItem: true,
   partial_qty: 0,
@@ -32,6 +32,5 @@ export default searchModule.extend({
       this.set("displayUserPrompt", true);
       this.set("selectedDesignation", designation);
     }
-  },
-
+  }
 });

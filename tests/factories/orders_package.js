@@ -11,6 +11,7 @@ FactoryGuy.define('orders_package',{
     quantity:        1,
     sentOn:          '',
     state:           '',
+    designationId:   '',
     item:            FactoryGuy.belongsTo('item'),
     designation:     FactoryGuy.belongsTo('designation'),
   }

@@ -40,5 +40,5 @@ export default SelectList.extend({
       .finally(() => {
         loadingView.destroy();
       });
-  },
+  }
 });

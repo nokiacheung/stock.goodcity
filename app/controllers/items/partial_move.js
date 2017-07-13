@@ -17,7 +17,7 @@ export default Ember.Controller.extend({
       var record = {};
       elementIds.forEach(packages_location_id => {
         if(Ember.$(`#${packages_location_id}`).length){
-          var value = parseInt(Ember.$(`#${packages_location_id}`)[0].value);
+          var value = parseInt(Ember.$(`#${packages_location_id}`)[0].value, 10);
           var packages_location = this.get('store').peekRecord('packages_location', packages_location_id);
           record["packages_location_id"] = packages_location_id;
           record["location_id"] = packages_location.get('locationId');

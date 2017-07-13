@@ -11,6 +11,6 @@ export default Ember.Service.extend({
   isIOS: function(){
     if (!config.cordova.enabled || !window.device) { return; }
     return window.device.platform === "iOS";
-  },
+  }
 
 });

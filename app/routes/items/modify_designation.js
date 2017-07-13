@@ -4,7 +4,7 @@ import Ember from 'ember';
 export default AuthorizeRoute.extend({
 
   queryParams: {
-    ordersPackageId: false,
+    ordersPackageId: false
   },
   ordersPackageId: null,
 
@@ -20,8 +20,11 @@ export default AuthorizeRoute.extend({
 
   afterModel(model) {
     var ordersPkg = model.ordersPackage;
-    var designation =  this.store.peekRecord("designation", ordersPkg.get('designationId')) || this.store.findRecord("designation", ordersPkg.get('designationId'));
-    return designation;
+    var designationId = ordersPkg.get('designationId');
+    if(designationId) {
+      var designation =  this.store.peekRecord("designation", designationId) || this.store.findRecord("designation", designationId);
+      return designation;
+    }
   },
 
   setupController(controller, model){
