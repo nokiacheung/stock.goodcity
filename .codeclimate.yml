@@ -9,3 +9,5 @@ engines:
 ratings:
   paths:
   - "**.js"
+languages:
+  JavaScript: true
