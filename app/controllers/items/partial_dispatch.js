@@ -8,6 +8,7 @@ export default Ember.Controller.extend({
   queryParams: ["orderPackageId"],
   orderPackageId: null,
   partialDispatchBackLinkpath: Ember.computed.localStorage(),
+  messageBox: Ember.inject.service(),
 
   orderPackage: Ember.computed('orderPackageId', function(){
     return this.get('store').peekRecord('OrdersPackage', this.get('orderPackageId'));
@@ -43,8 +44,9 @@ export default Ember.Controller.extend({
         .then(data => {
           this.get("store").pushPayload(data);
           this.transitionToRoute("items.detail", item);
-        })
-        .finally(() => {
+        }).catch(error => {
+          this.get("messageBox").alert(error.responseJSON.errors);
+        }).finally(() => {
           loadingView.destroy();
         });
     }
