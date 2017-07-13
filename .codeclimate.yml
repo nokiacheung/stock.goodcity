@@ -1,7 +1,5 @@
 ---
 engines:
-  duplication:
-    enabled: true
   eslint:
     enabled: true
   fixme:
@@ -9,5 +7,3 @@ engines:
 ratings:
   paths:
   - "**.js"
-languages:
-  JavaScript: true
