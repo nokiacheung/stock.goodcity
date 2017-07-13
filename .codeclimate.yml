@@ -1,17 +1,11 @@
+---
 engines:
+  duplication:
+    enabled: false
   eslint:
     enabled: true
-    checks:
-      max_line_length:
-        enabled: false
-
-languages:
-  JavaScript: true
-
-exclude_paths:
-- bower_components/
-- config/
-- public/
-- script/
-- tests/
-- tmp/
+  fixme:
+    enabled: true
+ratings:
+  paths:
+  - "**.js"
