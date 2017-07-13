@@ -1,18 +1,3 @@
----
-engines:
-  csslint:
-    enabled: true
-  coffeelint:
-    enabled: false
-  duplication:
-    enabled: true
-    config:
-      languages:
-      - ruby
-  eslint:
-    enabled: true
-  fixme:
-    enabled: true
 languages:
   JavaScript: true
 
