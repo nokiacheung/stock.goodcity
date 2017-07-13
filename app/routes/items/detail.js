@@ -4,7 +4,7 @@ import Ember from 'ember';
 export default AuthorizeRoute.extend({
 
   queryParams: {
-    showDispatchOverlay: false,
+    showDispatchOverlay: false
   },
 
   model(params) {

@@ -32,7 +32,7 @@ export default Ember.Component.extend({
       this.toggleProperty("toggleOverlay");
       var properties = {
         set_item_id: this.get("item.setItem.id"),
-        order_id: order.get("id"),
+        order_id: order.get("id")
       };
 
       var url = `/items/${this.get('item.setItem.id')}/update_designation_of_set`;
@@ -54,7 +54,7 @@ export default Ember.Component.extend({
       var loadingView = getOwner(this).lookup('component:loading').append();
       var  properties = {
         order_id: order,
-        package_id: item.get('id'),
+        package_id: item.get('id')
       };
 
       new AjaxPromise(url, "PUT", this.get('session.authToken'), { package: properties })
@@ -64,7 +64,6 @@ export default Ember.Component.extend({
         .finally(() => {
           loadingView.destroy();
         });
-    },
+    }
   }
-
 });

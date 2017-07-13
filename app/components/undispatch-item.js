@@ -24,6 +24,6 @@ export default Ember.Component.extend({
           loadingView.destroy();
           this.sendAction("closeList");
         });
-    },
+    }
   }
 });

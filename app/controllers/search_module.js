@@ -81,6 +81,6 @@ export default Ember.Controller.extend(InfinityRoute, {
   actions: {
     clearSearch() {
       this.set("searchText", "");
-    },
+    }
   }
 });

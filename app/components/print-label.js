@@ -15,7 +15,9 @@ export default Ember.Component.extend({
           if (xhr.status !== 200) {
             var errors = xhr.responseText;
             try { errors = Ember.$.parseJSON(xhr.responseText).errors; }
-            catch(err) {}
+            catch(err) {
+              console.log(err);
+            }
             this.get("messageBox").alert(errors);
           } else {
             throw xhr;

@@ -40,5 +40,5 @@ export default SearchCode.extend({
         });
       this.transitionToRoute("items.detail", item);
     }
-  },
+  }
 });

@@ -32,6 +32,5 @@ export default searchModule.extend({
       this.set("displayUserPrompt", true);
       this.set("selectedDesignation", designation);
     }
-  },
-
+  }
 });

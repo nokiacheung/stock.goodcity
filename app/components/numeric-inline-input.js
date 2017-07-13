@@ -53,7 +53,7 @@ export default Ember.TextField.extend({
     var packageParams = {};
     packageParams[key] = this.get('value') || '';
 
-    if(parseInt(packageParams[key]) === 0)
+    if(parseInt(packageParams[key], 10) === 0)
     {
       Ember.$(this.element).removeClass('numeric-inline-input');
       this.set('value','');
@@ -84,5 +84,5 @@ export default Ember.TextField.extend({
 
   click() {
     this.addCssStyle();
-  },
+  }
 });

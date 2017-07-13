@@ -4,7 +4,7 @@ import Ember from 'ember';
 export default AuthorizeRoute.extend({
 
   queryParams: {
-    ordersPackageId: false,
+    ordersPackageId: false
   },
   ordersPackageId: null,
 

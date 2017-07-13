@@ -36,7 +36,7 @@ export default Ember.Component.extend({
       var  properties = {
         order_id: order.get("id"),
         package_id: item.get('id'),
-        order_package_id: pkg.get('id'),
+        order_package_id: pkg.get('id')
       };
 
       var url = `/items/${item.get('id')}/dispatch_stockit_item`;

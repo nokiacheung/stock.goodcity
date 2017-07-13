@@ -12,6 +12,6 @@ export default AuthorizeRoute.extend({
         this.store.findRecord("item", item.get("id"), { reload: true });
       });
     }
-  },
+  }
 
 });

@@ -31,7 +31,7 @@ export default Ember.Controller.extend({
 
   actions: {
     designate_partial_qty(item) {
-      var partial_qty = parseInt(Ember.$(`#${item.id}`)[0].value);
+      var partial_qty = parseInt(Ember.$(`#${item.id}`)[0].value, 10);
       this.set('partial_qnty', partial_qty);
       this.transitionToRoute('items.search_order', item.id, {queryParams: {partial_qty: partial_qty, partial_qnty: this.get('partial_qnty')}});
     }

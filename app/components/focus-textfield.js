@@ -63,6 +63,5 @@ export default Ember.TextField.extend({
     if(this.get("hasFixedInputHeader")) {
       this.element.addEventListener('touchstart', this.scrollToStart);
     }
-  },
-
+  }
 });

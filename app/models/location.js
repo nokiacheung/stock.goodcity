@@ -22,5 +22,5 @@ export default Model.extend({
     var area = this.get("area");
     var building = this.get("building");
     return area ? `${building}${area}` : building;
-  }),
+  })
 });
