@@ -1,0 +1,8 @@
+engines:
+  watson:
+    enabled: true
+languages:
+   JavaScript: true
+
+exclude_paths:
+ - "tests/*"
