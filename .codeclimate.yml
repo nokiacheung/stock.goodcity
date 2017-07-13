@@ -8,6 +8,8 @@ engines:
         enabled: false
       transformPrototypeExtensions:
         enabled: false
+      transformQUnitTest:
+        enabled: false
 languages:
    JavaScript: true
 
