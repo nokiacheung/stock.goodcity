@@ -1,8 +1,20 @@
 engines:
   watson:
     enabled: true
+    checks:
+      transformEmberDataModelLookups:
+        enabled: false
+      transformEmberDataAsyncFalseRelationships:
+        enabled: false
+      transformPrototypeExtensions:
+        enabled: false
 languages:
    JavaScript: true
 
 exclude_paths:
- - "tests/*"
+- bower_components/
+- config/
+- public/
+- script/
+- tests/
+- tmp/
