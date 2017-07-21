@@ -50,8 +50,14 @@ export default Ember.Route.extend({
           );
         }
       } else {
-        this.get("logger").error(reason);
-        this.get("messageBox").alert(this.get("i18n").t("unexpected_error"));
+        if(reason.message.includes('stockit_item') && status === 404) {
+          this.get("messageBox").alert('This item is not available.', () => {
+            this.transitionTo('items.index');
+          });
+        } else {
+          this.get("logger").error(reason);
+          this.get("messageBox").alert(this.get("i18n").t("unexpected_error"));
+        }
       }
 
     } catch (err) {
