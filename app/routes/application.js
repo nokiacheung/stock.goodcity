@@ -50,7 +50,7 @@ export default Ember.Route.extend({
           );
         }
       } else {
-        if(reason.message.includes('stockit_item') && status === 404) {
+        if(reason.message.includes('stockit_item') && reason.message.includes('404')) {
           this.get("messageBox").alert('This item is not available.', () => {
             this.transitionTo('items.index');
           });
