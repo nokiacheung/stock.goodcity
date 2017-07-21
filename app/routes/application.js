@@ -4,6 +4,7 @@ const { getOwner } = Ember;
 export default Ember.Route.extend({
 
   i18n: Ember.inject.service(),
+  isErrPopUpAlreadyShown: false,
 
   beforeModel(transition = []) {
     try {
@@ -56,7 +57,12 @@ export default Ember.Route.extend({
           });
         } else {
           this.get("logger").error(reason);
-          this.get("messageBox").alert(this.get("i18n").t("unexpected_error"));
+          if(!this.get('isErrPopUpAlreadyShown')) {
+            this.set('isErrPopUpAlreadyShown', true);
+            this.get("messageBox").alert(this.get("i18n").t("unexpected_error"), () => {
+              this.set('isErrPopUpAlreadyShown', false);
+            });
+          }
         }
       }
 
