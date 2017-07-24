@@ -56,6 +56,10 @@ export default cloudinaryUrl.extend({
     return this.get("favouriteImage.thumbImageUrl") || this.generateUrl(120, 120, true);
   }),
 
+  validPackagesLocations: Ember.computed('packagesLocations.@each.quantity', function() {
+    return this.get("packagesLocations").filterBy('quantity');
+  }),
+
   orderPackagesMoreThenZeroQty: Ember.computed("ordersPackages.@each.quantity", function() {
     return this.get("ordersPackages").filterBy('quantity').filterBy("state", "designated");
   }),
