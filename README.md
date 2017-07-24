@@ -1,4 +1,10 @@
-# Stock
+# Goodcity Stock App
+
+[![Circle CI](https://circleci.com/gh/crossroads/stock.goodcity.svg?style=svg)](https://circleci.com/gh/crossroads/stock.goodcity)
+[![Code Climate](https://codeclimate.com/github/crossroads/stock.goodcity/badges/gpa.svg)](https://codeclimate.com/github/crossroads/stock.goodcity)
+[![Issue Count](https://codeclimate.com/github/crossroads/stock.goodcity/badges/issue_count.svg)](https://codeclimate.com/github/crossroads/stock.goodcity)
+[![Test Coverage](https://codeclimate.com/github/crossroads/stock.goodcity/badges/coverage.svg)](https://codeclimate.com/github/crossroads/stock.goodcity)
+
 
 This README outlines the details of collaborating on this Ember application.
 A short introduction of this app could easily go here.
