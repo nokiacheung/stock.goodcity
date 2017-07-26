@@ -5,6 +5,7 @@ export default Ember.Route.extend({
 
   i18n: Ember.inject.service(),
   isErrPopUpAlreadyShown: false,
+  isItemUnavailable: false,
 
   beforeModel(transition = []) {
     try {
@@ -51,8 +52,10 @@ export default Ember.Route.extend({
           );
         }
       } else {
-        if(reason.message.includes('stockit_item') && reason.message.includes('404')) {
+        if(reason.message.includes('stockit_item') && reason.message.includes('404') && !this.get('isItemUnavailable')) {
+          this.set('isItemUnavailable', true);
           this.get("messageBox").alert('This item is not available.', () => {
+            this.set('isItemUnavailable', false);
             this.transitionTo('items.index');
           });
         } else {
