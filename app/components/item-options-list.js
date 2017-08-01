@@ -13,6 +13,6 @@ export default Ember.Component.extend({
     partialDesignateForSet() {
       this.set('designateFullSet', false);
       getOwner(this).lookup('controller:items.detail').set('callOrderObserver', true);
-    },
+    }
   }
 });
