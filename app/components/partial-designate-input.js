@@ -70,5 +70,5 @@ export default Ember.TextField.extend({
       Ember.$('#partial_designate')[0].disabled = false;
       return true;
     }
-  }),
+  })
 });
