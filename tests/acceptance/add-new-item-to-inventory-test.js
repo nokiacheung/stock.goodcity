@@ -29,7 +29,7 @@ module('Acceptance: Add item to inventory', {
 });
 
 test("Check validation for 'Add item to inventory ' page''", function(assert) {
-  assert.expect(5);
+  assert.expect(4);
 
   $.mockjax({url: '/api/v1/package_type*', type: 'GET', status: 200,responseText: {
       codes: [code.toJSON({includeId: true})]
