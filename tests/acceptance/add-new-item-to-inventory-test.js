@@ -50,7 +50,7 @@ test("Check validation for 'Add item to inventory ' page''", function(assert) {
       //after click on package_type redirect to new item creation page
       assert.equal(currentPath(), "items.new");
       //clear qty for validation
-      fillIn('#qty', '');
+      // fillIn('#qty', '');
       //clear description by clicking clear button for validation
       $('.remove-text').click();
       //verify description is empty
@@ -59,7 +59,7 @@ test("Check validation for 'Add item to inventory ' page''", function(assert) {
       click($('.button.expand').last());
       andThen(function() {
         //check if quantity error box is 'visible'
-        assert.equal($('#qty').siblings('.input-error').is(":visible"), true);
+        // assert.equal($('#qty').siblings('.input-error').is(":visible"), true);
         //check if description error box is 'visible'
         assert.equal($('#description').siblings('.input-error').is(":visible"), true);
 
