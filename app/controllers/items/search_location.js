@@ -100,7 +100,7 @@ export default searchModule.extend({
       this.set("selectedLocation", location);
       if(item.get("hasBoxPallet")) {
         this.get("messageBox").alert("This item is in box or pallet. You can only move it using Stockit.", () => {
-          this.transitionToRoute('items.detail', item.get("id");
+          this.transitionToRoute('items.detail', item.get("id"));
         });
       } else if(this.get('sameSingleLocation')){
         this.set('cantMoveToSameLocationForSingleLocation', true);
