@@ -8,23 +8,6 @@ export default AuthorizeRoute.extend({
     showDispatchOverlay: false
   },
 
-  setPath(previousRoute, routeName, path) {
-    if(previousRoute) {
-      var newPath = path;
-      if(routeName === "items.new"){
-        newPath = path;
-      } else if(routeName.indexOf("items") === 0) {
-        newPath = this.get("itemBackLinkPath") || path;
-      } else if(routeName === path) {
-        newPath = path;
-      }
-      else if(routeName.indexOf("items") > -1 || routeName === "orders.detail"){
-        newPath = routeName;
-      }
-    }
-    return newPath;
-  },
-
   model(params) {
     return this.store.findRecord("item", params.item_id, { reload: true });
   },
@@ -44,8 +27,21 @@ export default AuthorizeRoute.extend({
     var previousRoutes = this.router.router.currentHandlerInfos;
     var previousRoute = previousRoutes && previousRoutes.pop();
     var path = "items.index";
-    var routeName = previousRoute.name;
-    path = this.setPath(previousRoute, routeName, path);
+
+    if(previousRoute) {
+      var routeName = previousRoute.name;
+      if(routeName === "items.new"){
+        path = path;
+      } else if(routeName.indexOf("items") === 0) {
+        path = this.get("itemBackLinkPath") || path;
+      } else if(routeName === path) {
+        path = path;
+      }
+      else if(routeName.indexOf("items") > -1 || routeName === "orders.detail"){
+        path = routeName;
+      }
+    }
+
     this.set("itemBackLinkPath", path);
   },
 
