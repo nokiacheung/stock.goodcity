@@ -33,8 +33,7 @@ export default AuthorizeRoute.extend({
         this.set('partialDesignatePath', false);
       }
     }
-
-    if(parseInt(window.localStorage.getItem('partial_qnty')), 10) {
+    if(parseInt(window.localStorage.getItem('partial_qnty'), 10)) {
       this.set('partialDesignatePath', true);
     } else {
       this.set('partialDesignatePath', false);
@@ -60,7 +59,7 @@ export default AuthorizeRoute.extend({
 
   setupController(controller, model){
     this._super(controller, model);
-    if(!this.get('partialDesignatePath') && !parseInt(window.localStorage.getItem('partial_qnty')), 10) {
+    if(!this.get('partialDesignatePath') && !parseInt(window.localStorage.getItem('partial_qnty'), 10)) {
       controller.set('notPartialRoute', true);
     } else {
       controller.set('notPartialRoute', false);

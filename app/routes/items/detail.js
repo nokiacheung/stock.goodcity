@@ -2,6 +2,7 @@ import AuthorizeRoute from './../authorize';
 import Ember from 'ember';
 
 export default AuthorizeRoute.extend({
+  itemBackLinkPath: Ember.computed.localStorage(),
 
   queryParams: {
     showDispatchOverlay: false
@@ -21,28 +22,19 @@ export default AuthorizeRoute.extend({
     }
   },
 
-  itemBackLinkPath: Ember.computed.localStorage(),
-
   beforeModel() {
     this._super(...arguments);
     var previousRoutes = this.router.router.currentHandlerInfos;
     var previousRoute = previousRoutes && previousRoutes.pop();
     var path = "items.index";
-
     if(previousRoute) {
       var routeName = previousRoute.name;
-      if(routeName === "items.new"){
-        path = path;
-      } else if(routeName.indexOf("items") === 0) {
+      if(routeName.indexOf("items") === 0) {
         path = this.get("itemBackLinkPath") || path;
-      } else if(routeName === path) {
-        path = path;
-      }
-      else if(routeName.indexOf("items") > -1 || routeName === "orders.detail"){
+      } else if(routeName.indexOf("items") > -1 || routeName === "orders.detail"){
         path = routeName;
       }
     }
-
     this.set("itemBackLinkPath", path);
   },
 
@@ -51,5 +43,4 @@ export default AuthorizeRoute.extend({
     controller.set('callOrderObserver', false);
     controller.set('backLinkPath', this.get('itemBackLinkPath'));
   }
-
 });
