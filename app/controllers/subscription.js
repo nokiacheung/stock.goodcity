@@ -115,7 +115,6 @@ export default Ember.Controller.extend({
 
   // each action below is an event in a channel
   update_store: function(data, success) {
-
     var type = Object.keys(data.item)[0];
     var item = Ember.$.extend({}, data.item[type]);
     //Don't update data store for Offer/Item/schedule/delivery updates

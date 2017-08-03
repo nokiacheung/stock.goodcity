@@ -345,7 +345,7 @@ export default Ember.Controller.extend({
 
         new AjaxPromise("/packages", "POST", this.get('session.authToken'), { package: properties })
           .then(data => {
-            this.updateStoreAndSaveImage(data,loadingView, _this);
+            this.updateStoreAndSaveImage(data, loadingView, _this);
           })
           .catch(response => {
             loadingView.destroy();
