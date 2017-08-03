@@ -199,7 +199,7 @@ def app_file
     build = is_staging ? "debug" : "release"
     "#{CORDOVA_PATH}/platforms/android/build/outputs/apk/android-#{build}.apk"
   when /windows/
-    raise(BuildError, "TODO: Need to get Windows app path")
+    raise(BuildError, "Need to get Windows app path")
   end
 end
 

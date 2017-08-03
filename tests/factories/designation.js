@@ -18,7 +18,7 @@ FactoryGuy.define('designation', {
     status:           'Active',
     createdAt:        '12/07/2016',
     updatedAt:        '12/07/2016',
-    orders_packages:   FactoryGuy.hasMany('orders_package'),
+    orders_packages:   FactoryGuy.hasMany('orders_package')
   },
   designation_with_item: {
     item: FactoryGuy.hasMany('item')

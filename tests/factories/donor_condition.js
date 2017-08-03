@@ -2,7 +2,7 @@ import FactoryGuy from 'ember-data-factory-guy';
 
 FactoryGuy.define('donor_condition',{
   default: {
-    name:   "New",
+    name:   "New"
   }
 });
 export default {};

@@ -13,7 +13,7 @@ FactoryGuy.define('orders_package',{
     state:           '',
     designationId:   '',
     item:            FactoryGuy.belongsTo('item'),
-    designation:     FactoryGuy.belongsTo('designation'),
+    designation:     FactoryGuy.belongsTo('designation')
   }
 });
 export default {};
