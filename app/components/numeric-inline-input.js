@@ -24,15 +24,8 @@ export default Ember.TextField.extend({
   },
 
   whichKey(e, key) {
-    return ((e.ctrlKey && key === 86) ||
-      key === 13 ||
-      key === 8 ||
-      key === 9 ||
-      key === 46 ||
-      key === 39 ||
-      (key >= 35 && key <= 37) ||
-      (key >= 48 && key <= 57) ||
-      (key >= 96 && key <= 105));
+    var keyList = [13, 8, 9, 39, 46];
+    return ((e.ctrlKey && key === 86) || keyList.includes(key) || (key >= 35 && key <= 37) || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
   },
 
   keyDown: function(e) {
