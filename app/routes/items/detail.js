@@ -2,9 +2,27 @@ import AuthorizeRoute from './../authorize';
 import Ember from 'ember';
 
 export default AuthorizeRoute.extend({
+  itemBackLinkPath: Ember.computed.localStorage(),
 
   queryParams: {
     showDispatchOverlay: false
+  },
+
+  setPath(previousRoute, routeName, path) {
+    if(previousRoute) {
+      var newPath = path;
+      if(routeName === "items.new"){
+        newPath = path;
+      } else if(routeName.indexOf("items") === 0) {
+        newPath = this.get("itemBackLinkPath") || path;
+      } else if(routeName === path) {
+        newPath = path;
+      }
+      else if(routeName.indexOf("items") > -1 || routeName === "orders.detail"){
+        newPath = routeName;
+      }
+    }
+    return newPath;
   },
 
   model(params) {
@@ -21,28 +39,13 @@ export default AuthorizeRoute.extend({
     }
   },
 
-  itemBackLinkPath: Ember.computed.localStorage(),
-
   beforeModel() {
     this._super(...arguments);
     var previousRoutes = this.router.router.currentHandlerInfos;
     var previousRoute = previousRoutes && previousRoutes.pop();
     var path = "items.index";
-
-    if(previousRoute) {
-      var routeName = previousRoute.name;
-      if(routeName === "items.new"){
-        path = path;
-      } else if(routeName.indexOf("items") === 0) {
-        path = this.get("itemBackLinkPath") || path;
-      } else if(routeName === path) {
-        path = path;
-      }
-      else if(routeName.indexOf("items") > -1 || routeName === "orders.detail"){
-        path = routeName;
-      }
-    }
-
+    var routeName = previousRoute.name;
+    path = this.setPath(previousRoute, routeName, path);
     this.set("itemBackLinkPath", path);
   },
 
