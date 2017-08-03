@@ -16,7 +16,7 @@ FactoryGuy.define('package', {
     height:   10,
     item:     FactoryGuy.belongsTo('item'),
     packageType:  FactoryGuy.belongsTo('code'),
-    notes:    "example",
+    notes:    "example"
   }
 });
 

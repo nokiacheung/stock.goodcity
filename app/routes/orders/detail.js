@@ -19,8 +19,6 @@ export default getOrderRoute.extend({
         case "items.detail": path = path; break;
         default: path = routeName;
       }
-    } else if(routeName === "orders" || routeName === path) {
-      path = path;
     } else if(routeName.indexOf("orders") === 0) {
       path = this.get("orderBackLinkPath") || path;
     }
