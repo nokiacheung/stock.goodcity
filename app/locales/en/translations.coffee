@@ -1,4 +1,5 @@
 I18nTranslationsEn =
+  "offline": "You are offline"
   "unexpected_error": "Something went wrong"
   "okay": "Okay"
   "loading": "Loading..."

@@ -1,4 +1,5 @@
 I18nTranslationsEn =
+  "offline": "You are offline"
   "unexpected_error": "出錯了"
   "okay": "確定"
   "loading": "正在加載..."
