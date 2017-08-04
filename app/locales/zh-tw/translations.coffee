@@ -1,4 +1,5 @@
 I18nTranslationsEn =
+  "offline_error": "無法加載，請檢查網絡連線"
   "unexpected_error": "出錯了"
   "okay": "確定"
   "loading": "正在加載..."
