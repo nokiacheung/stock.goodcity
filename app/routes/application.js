@@ -67,7 +67,7 @@ export default Ember.Route.extend({
       try { status = parseInt(reason.errors[0].status, 10); }
       catch (err) { status = reason.status; }
       if(reason.isAdapterError && !window.navigator.onLine){
-        this.get("messageBox").alert(this.get("i18n").t("offline"));
+        this.get("messageBox").alert(this.get("i18n").t("offline_error"));
       } else if(reason.name === "QuotaExceededError") {
         this.get("logger").error(reason);
         this.get("messageBox").alert(this.get("i18n").t("QuotaExceededError"));

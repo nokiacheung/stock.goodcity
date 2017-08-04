@@ -1,5 +1,5 @@
 I18nTranslationsEn =
-  "offline": "You are offline"
+  "offline_error": "Unable to complete action, please check your internet connection."
   "unexpected_error": "Something went wrong"
   "okay": "Okay"
   "loading": "Loading..."
