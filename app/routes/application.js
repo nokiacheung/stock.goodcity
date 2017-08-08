@@ -64,7 +64,7 @@ export default Ember.Route.extend({
     try
     {
       var status;
-      let hasPopup = Ember.$('.reveal-modal:visible').length > 0;
+      // let hasPopup = Ember.$('.reveal-modal:visible').length > 0;
       try { status = parseInt(reason.errors[0].status, 10); }
       catch (err) { status = reason.status; }
 
