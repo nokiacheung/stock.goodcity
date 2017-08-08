@@ -73,24 +73,22 @@ export default Ember.Route.extend({
         if(!reason.isAdapterError){
           this.get("logger").error(reason);
         }
-      }
-      if(!hasPopup){
-        if(reason.name === "QuotaExceededError") {
-          this.get("logger").error(reason);
-          this.get("messageBox").alert(this.get("i18n").t("QuotaExceededError"));
-        } else if (reason.name === "NotFoundError" && reason.code === 8) {
-          this.get("logger").error(reason);
-          return false;
-        } else if (status === 401) {
-          this.showMustLogin();
+      } else if(reason.name === "QuotaExceededError") {
+        this.get("logger").error(reason);
+        this.get("messageBox").alert(this.get("i18n").t("QuotaExceededError"));
+      } else if (reason.name === "NotFoundError" && reason.code === 8) {
+        this.get("logger").error(reason);
+        return false;
+      } else if (status === 401) {
+        this.showMustLogin();
+      } else {
+        if(reason.message.includes('stockit_item') && reason.message.includes('404') && !this.get('isItemUnavailable')) {
+          this.showItemIsNotAvailable();
         } else {
-          if(reason.message.includes('stockit_item') && reason.message.includes('404') && !this.get('isItemUnavailable')) {
-            this.showItemIsNotAvailable();
-          } else {
-            this.showSomethingWentWrong(reason);
-          }
+          this.showSomethingWentWrong(reason);
         }
       }
+
     } catch (err) {
       console.log(err);
     }
