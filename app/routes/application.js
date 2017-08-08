@@ -67,10 +67,15 @@ export default Ember.Route.extend({
       let hasPopup = Ember.$('.reveal-modal:visible').length > 0;
       try { status = parseInt(reason.errors[0].status, 10); }
       catch (err) { status = reason.status; }
+
+      if(!window.navigator.onLine){
+        this.get("messageBox").alert(this.get("i18n").t("offline_error"));
+        if(!reason.isAdapterError){
+          this.get("logger").error(reason);
+        }
+      }
       if(!hasPopup){
-        if(reason.isAdapterError && !window.navigator.onLine){
-          this.get("messageBox").alert(this.get("i18n").t("offline_error"));
-        } else if(reason.name === "QuotaExceededError") {
+        if(reason.name === "QuotaExceededError") {
           this.get("logger").error(reason);
           this.get("messageBox").alert(this.get("i18n").t("QuotaExceededError"));
         } else if (reason.name === "NotFoundError" && reason.code === 8) {
