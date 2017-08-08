@@ -64,28 +64,31 @@ export default Ember.Route.extend({
     try
     {
       var status;
-      let hasPopup = Ember.$('.reveal-modal:visible').length > 0;
+      // let hasPopup = Ember.$('.reveal-modal:visible').length > 0;
       try { status = parseInt(reason.errors[0].status, 10); }
       catch (err) { status = reason.status; }
-      if(!hasPopup){
-        if(reason.isAdapterError && !window.navigator.onLine){
-          this.get("messageBox").alert(this.get("i18n").t("offline_error"));
-        } else if(reason.name === "QuotaExceededError") {
+
+      if(!window.navigator.onLine){
+        this.get("messageBox").alert(this.get("i18n").t("offline_error"));
+        if(!reason.isAdapterError){
           this.get("logger").error(reason);
-          this.get("messageBox").alert(this.get("i18n").t("QuotaExceededError"));
-        } else if (reason.name === "NotFoundError" && reason.code === 8) {
-          this.get("logger").error(reason);
-          return false;
-        } else if (status === 401) {
-          this.showMustLogin();
+        }
+      } else if(reason.name === "QuotaExceededError") {
+        this.get("logger").error(reason);
+        this.get("messageBox").alert(this.get("i18n").t("QuotaExceededError"));
+      } else if (reason.name === "NotFoundError" && reason.code === 8) {
+        this.get("logger").error(reason);
+        return false;
+      } else if (status === 401) {
+        this.showMustLogin();
+      } else {
+        if(reason.message.includes('stockit_item') && reason.message.includes('404') && !this.get('isItemUnavailable')) {
+          this.showItemIsNotAvailable();
         } else {
-          if(reason.message.includes('stockit_item') && reason.message.includes('404') && !this.get('isItemUnavailable')) {
-            this.showItemIsNotAvailable();
-          } else {
-            this.showSomethingWentWrong(reason);
-          }
+          this.showSomethingWentWrong(reason);
         }
       }
+
     } catch (err) {
       console.log(err);
     }
