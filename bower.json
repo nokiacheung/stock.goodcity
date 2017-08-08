@@ -15,6 +15,7 @@
     "photoswipe": "4.1.0",
     "slick-carousel": "1.5.8",
     "cloudinary": "~1.0.12",
-    "socket.io-client": "~1.4.5"
+    "socket.io-client": "~1.4.5",
+    "offline": "^0.7.19"
   }
 }
