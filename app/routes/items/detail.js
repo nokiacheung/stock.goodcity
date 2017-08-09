@@ -3,6 +3,8 @@ import Ember from 'ember';
 
 export default AuthorizeRoute.extend({
   itemBackLinkPath: Ember.computed.localStorage(),
+  transition: null,
+  messageBox: Ember.inject.service(),
 
   queryParams: {
     showDispatchOverlay: false
@@ -13,6 +15,12 @@ export default AuthorizeRoute.extend({
   },
 
   afterModel(model) {
+    if(!model.get('inventoryNumber')) {
+      this.get('transition').abort();
+      this.get("messageBox").alert("This item has been marked as missing.", () => {
+        this.transitionTo("items.index");
+      });
+    }
     if(model.get('isSet')) {
       return Ember.RSVP.hash({
         items: model.get('setItem.items').forEach(item => {
@@ -22,8 +30,9 @@ export default AuthorizeRoute.extend({
     }
   },
 
-  beforeModel() {
+  beforeModel(transition) {
     this._super(...arguments);
+    this.set("transition", transition);
     var previousRoutes = this.router.router.currentHandlerInfos;
     var previousRoute = previousRoutes && previousRoutes.pop();
     var path = "items.index";
