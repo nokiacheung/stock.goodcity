@@ -17,7 +17,7 @@ export default AuthorizeRoute.extend({
   afterModel(model) {
     if(!model.get('inventoryNumber')) {
       this.get('transition').abort();
-      this.get("messageBox").alert("This item is not available or has been marked as missing.", () => {
+      this.get("messageBox").alert("This item is not inventoried yet or has been marked as missing.", () => {
         this.transitionTo("items.index");
       });
     }
