@@ -31,7 +31,7 @@ export default searchModule.extend({
   sortedRecentlyUsedLocations: Ember.computed.sort("recentlyUsedLocations", "sortProperties"),
 
   recentlyUsedLocations: Ember.computed('model.locations', function(){
-    return this.get('model.locations').rejectBy('building', 'Dispatched');
+    return this.get('model.locations');
   }),
 
   displayUserPrompt: false,
