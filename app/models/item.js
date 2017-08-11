@@ -56,6 +56,16 @@ export default cloudinaryUrl.extend({
     return this.get("favouriteImage.thumbImageUrl") || this.generateUrl(120, 120, true);
   }),
 
+  validUndispatchedLocations: Ember.computed('packagesLocations.@each.quantity', function() {
+    var dispatchedLocation = this.store.peekAll('location').filterBy('building', "Dispatched");
+    var pkgsLocations = this.get("packagesLocations").filterBy('quantity');
+    if(dispatchedLocation.length) {
+      return pkgsLocations.rejectBy('locationId', parseInt(dispatchedLocation.get('firstObject.id'), 10));
+    } else {
+      return pkgsLocations;
+    }
+  }),
+
   validPackagesLocations: Ember.computed('packagesLocations.@each.quantity', function() {
     return this.get("packagesLocations").filterBy('quantity');
   }),
