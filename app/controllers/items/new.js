@@ -329,6 +329,10 @@ export default Ember.Controller.extend({
     },
 
     saveItem() {
+      if(!window.navigator.onLine){
+        this.get("messageBox").alert(this.get("i18n").t("offline_error"));
+        return false;
+      }
       this.set("isSelectLocationPreviousRoute", false);
       this.set("isSearchCodePreviousRoute", false);
       var _this = this, loadingView;
