@@ -134,6 +134,16 @@ export default Ember.Controller.extend({
     });
   },
 
+  changeDonorCondition(conditionId) {
+    var donorCondition = {
+      "N": 1,
+      "M": 2,
+      "U": 3,
+      "B": 4
+    };
+    return donorCondition[conditionId];
+  },
+
   getItemProperties(quantity, locationId, _this) {
     return {
       quantity: quantity,
@@ -144,7 +154,7 @@ export default Ember.Controller.extend({
       case_number: _this.get("caseNumber"),
       notes: _this.get("description"),
       grade: _this.get("selectedGrade.id"),
-      donor_condition_id: _this.get("selectedCondition.id"),
+      donor_condition_id: _this.changeDonorCondition(_this.get("selectedCondition.id")),
       location_id: locationId,
       package_type_id: _this.get("code.id"),
       state_event: 'mark_received',
