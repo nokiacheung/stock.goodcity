@@ -42,7 +42,7 @@ export default SelectList.extend({
     var key = this.get('name');
     var packageParams = {};
     var selectedId = this.get('selectedValue').id;
-    if(key = "donor_condition_id") {
+    if(key === "donor_condition_id") {
       packageParams[key] = this.changeDonorCondition(selectedId);
     } else {
       packageParams[key] = selectedId;
