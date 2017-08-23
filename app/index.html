@@ -17,7 +17,9 @@
       document.addEventListener("deviceready", onDeviceReady, false);
 
       function onDeviceReady(){
-        StatusBar.hide();
+          StatusBar.overlaysWebView(false);
+          StatusBar.backgroundColorByName("black");
+          StatusBar.styleLightContent();
       }
     </script>
   </head>
