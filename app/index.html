@@ -17,9 +17,28 @@
       document.addEventListener("deviceready", onDeviceReady, false);
 
       function onDeviceReady(){
-          StatusBar.overlaysWebView(false);
-          StatusBar.backgroundColorByName("black");
-          StatusBar.styleLightContent();
+        StatusBar.overlaysWebView(false);
+        StatusBar.backgroundColorByName("black");
+        StatusBar.styleLightContent();
+        document.addEventListener("backbutton", function(e){
+          if (window.location.pathname === "/") {
+            if(navigator.notification) {
+              navigator.notification.confirm(
+                    'Press back again to exit'
+                  , function(button) {
+                      if (button == 2 || button == 0) {
+                          navigator.app.exitApp();
+                      }
+                    }
+                  , 'Exit App?'
+                  , ['No way', 'Exit']
+              );
+            }
+            return false;
+          } else {
+              history.back();
+          }
+       }, false);
       }
     </script>
   </head>
