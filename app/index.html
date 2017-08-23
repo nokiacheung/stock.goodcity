@@ -22,24 +22,16 @@
         StatusBar.styleLightContent();
         var homeText = $('ul.small-block-grid-5.list li:first').text();
         document.addEventListener("backbutton", function(e){
+          navigator.notification.confirm('Press back again to exit');
           if (homeText && homeText.trim() === "Home") {
-            if(navigator.notification) {
-              navigator.notification.confirm(
-                    'Press back again to exit'
-                  , function(button) {
-                      if (button == 2 || button == 0) {
-                          navigator.app.exitApp();
-                      }
-                    }
-                  , 'Exit App?'
-                  , ['No way', 'Exit']
-              );
-            }
-            return false;
-          } else {
-              history.back();
+             e.preventDefault();
+             navigator.app.exitApp();
+           }
+           else {
+             navigator.app.backHistory()
+           }
           }
-       }, false);
+        }, false);
       }
     </script>
   </head>
