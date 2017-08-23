@@ -20,8 +20,9 @@
         StatusBar.overlaysWebView(false);
         StatusBar.backgroundColorByName("black");
         StatusBar.styleLightContent();
+        var homeText = $('ul.small-block-grid-5.list li:first').text();
         document.addEventListener("backbutton", function(e){
-          if (window.location.pathname === "/") {
+          if (homeText && homeText.trim() === "Home") {
             if(navigator.notification) {
               navigator.notification.confirm(
                     'Press back again to exit'
