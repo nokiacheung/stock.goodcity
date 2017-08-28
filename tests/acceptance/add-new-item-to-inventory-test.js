@@ -112,7 +112,7 @@ test("Redirect to /search_code after clicking Add item to inventory and save red
       //select grade
       assert.equal($('label select').val(), "B");
       //select condition
-      assert.equal($('#condition-select').val(), "1");
+      assert.equal($('#condition-select').val(), "U");
       //check  #Donation input box
       assert.equal($('.small-9.columns input').first().val(), "");
       //check location input box

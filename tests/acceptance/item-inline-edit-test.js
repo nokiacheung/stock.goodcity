@@ -172,7 +172,7 @@ test("Selecting different condition fires request for update", function(assert) 
     click($('.select-condition select option:eq(2)')[0]);
   });
   andThen(function() {
-    assert.equal($("select option:selected").text().trim().substr(1).trim(), "New");
+    assert.equal($("select option:selected").text().trim().substr(1).trim(), "Used");
   });
 });
 
