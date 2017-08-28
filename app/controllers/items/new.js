@@ -61,10 +61,10 @@ export default Ember.Controller.extend({
 
   conditions: Ember.computed(function(){
     return [
-      { name: "New", id: "N" },
-      { name: "Mixed", id: "M" },
-      { name: "Used", id: "U" },
-      { name: "Broken", id: "B" }
+      { name: "New", id: 1 },
+      { name: "Mixed", id: 2 },
+      { name: "Used", id: 3 },
+      { name: "Broken", id: 4 }
     ];
   }),
 
