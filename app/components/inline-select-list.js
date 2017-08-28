@@ -17,16 +17,6 @@ export default SelectList.extend({
     return { id: `${itemCondition.charAt(0)}` };
   }),
 
-  changeDonorCondition(conditionId) {
-    var donorCondition = {
-      "N": 1,
-      "M": 2,
-      "U": 3,
-      "B": 4
-    };
-    return donorCondition[conditionId];
-  },
-
   selectedValue: Ember.computed('name', 'item.grade', 'item.donorCondition', function() {
     var name = this.get('name');
     if(name === "grade") {
@@ -41,12 +31,7 @@ export default SelectList.extend({
     var url = `/packages/${item.get('id')}`;
     var key = this.get('name');
     var packageParams = {};
-    var selectedId = this.get('selectedValue').id;
-    if(key === "donor_condition_id") {
-      packageParams[key] = this.changeDonorCondition(selectedId);
-    } else {
-      packageParams[key] = selectedId;
-    }
+    packageParams[key] = this.get('selectedValue').id;
     var loadingView = getOwner(this).lookup('component:loading').append();
     new AjaxPromise(url, "PUT", this.get('session.authToken'), {package: packageParams })
       .then(data => {
