@@ -27,7 +27,6 @@ module("Accessing un-invetorised items through URL shows 'This item is not inven
 });
 
 test("Check 'This item is not inventorized yet or has been mark as missing.' message for un-invetorised items", function(assert) {
-  assert.expect(1);
   var loc = FactoryGuy.make("location", { id: 7 });
   var pkgLocation = FactoryGuy.make("packages_location", {id: 764, location: loc});
   var pkg = FactoryGuy.make("item", { id: 971, quantity: 1,  notes: "Baby Crib, Set (frame, mattress)", inventoryNumber: null, "package_type_id":9, packageLocations: [ pkgLocation ]  });
@@ -45,16 +44,17 @@ test("Check 'This item is not inventorized yet or has been mark as missing.' mes
 });
 
 test("Deleting AuthToken from LocalStorage shows 'You must login!' pop-up and redirects to login", function(assert) {
-  assert.expect(1);
-  var pkg = FactoryGuy.make("item", { id: 971, quantity: 1,  notes: "Baby Crib, Set (frame, mattress)", inventoryNumber: null, "package_type_id":9 });
+  var pkg = FactoryGuy.make("item", { id: 971, quantity: 1,  notes: "Baby Crib, Set (frame, mattress)", "package_type_id":9 });
 
   $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
     items: [pkg.toJSON({includeId: true})]
     }
   });
 
+  visit("items/"+pkg.id);
+
   window.localStorage.authToken = null;
   andThen(function() {
-    assert.equal($('#messageBoxText').text(), "You must login!");
+    assert.equal($('#messageBoxText').text().trim(), "You must login!");
   });
 });
