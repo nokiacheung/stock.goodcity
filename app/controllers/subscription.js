@@ -42,6 +42,27 @@ export default Ember.Controller.extend({
     window.addEventListener("offline", updateStatus);
   }),
 
+  setFavImage(item, data, type) {
+    if(type.toLowerCase() === "image" && data.operation !== "delete"){
+      //we do not get item.id from api so assign package.id to item.id
+      if(!item.item_id && item.package_id){
+        item.item_id = item.package_id;
+      }
+      if(item.favourite === true) {
+        //if favourite changed than make other item.favourite false
+        this.store.peekAll(type).filterBy("itemId", item.item_id).forEach(function(x){
+          if(x.id !==item.id) {
+            x.set('favourite', false);
+          }
+        });
+        var itemImage = this.store.peekRecord(type, item.id);
+        if(itemImage){
+          itemImage.set("favourite", true);
+        }
+      }
+    }
+  },
+
   actions: {
     wire() {
       var updateStatus = Ember.run.bind(this, this.updateStatus);
@@ -80,7 +101,9 @@ export default Ember.Controller.extend({
   batch: function(events, success) {
     events.forEach(function(args) {
       var event = args[0];
-      this[event].apply(this, args.slice(1));
+      if(this[event]) {
+        this[event].apply(this, args.slice(1));
+      }
     }, this);
 
     run(success);
@@ -92,7 +115,6 @@ export default Ember.Controller.extend({
 
   // each action below is an event in a channel
   update_store: function(data, success) {
-
     var type = Object.keys(data.item)[0];
     var item = Ember.$.extend({}, data.item[type]);
     //Don't update data store for Offer/Item/schedule/delivery updates
@@ -129,25 +151,8 @@ export default Ember.Controller.extend({
         delete item.item_id;
       }
     }
-    if(type.toLowerCase() === "image" && data.operation !== "delete"){
-      //we do not get item.id from api so assign package.id to item.id
-      if(!item.item_id && item.package_id){
-        item.item_id = item.package_id;
-      }
-      if(item.favourite === true) {
-        //if favourite changed than make other item.favourite false
-        this.store.peekAll(type).filterBy("itemId", item.item_id).forEach(function(x){
-          if(x.id !==item.id) {
-            x.set('favourite', false);
-          }
-        });
-        var itemImage = this.store.peekRecord(type, item.id);
-        if(itemImage){
-          itemImage.set("favourite", true);
-        }
-      }
 
-    }
+    this.setFavImage(item, data, type);
 
     this.store.normalize(type, item);
 

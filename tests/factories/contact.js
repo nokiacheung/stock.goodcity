@@ -9,7 +9,7 @@ FactoryGuy.define('contact',{
   },
   default: {
     name:   FactoryGuy.generate('name'),
-    mobile: FactoryGuy.generate(mobile.nonHongKong),
+    mobile: FactoryGuy.generate(mobile.nonHongKong)
   }
 });
 export default {};

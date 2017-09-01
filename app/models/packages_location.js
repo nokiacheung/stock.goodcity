@@ -18,5 +18,5 @@ export default Model.extend({
 
   siblingPackagesLocations: Ember.computed('itemId', function(){
     return this.get('item.packagesLocations');
-  }),
+  })
 });

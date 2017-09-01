@@ -31,7 +31,7 @@ export default searchModule.extend({
   sortedRecentlyUsedLocations: Ember.computed.sort("recentlyUsedLocations", "sortProperties"),
 
   recentlyUsedLocations: Ember.computed('model.locations', function(){
-    return this.get('model.locations').rejectBy('building', 'Dispatched');
+    return this.get('model.locations');
   }),
 
   displayUserPrompt: false,
@@ -96,8 +96,13 @@ export default searchModule.extend({
 
   actions: {
     displayMoveOverlay(location) {
+      var item = this.get("item");
       this.set("selectedLocation", location);
-      if(this.get('sameSingleLocation')){
+      if(item.get("hasBoxPallet")) {
+        this.get("messageBox").alert("This item is in box or pallet. You can only move it using Stockit.", () => {
+          this.transitionToRoute('items.detail', item.get("id"));
+        });
+      } else if(this.get('sameSingleLocation')){
         this.set('cantMoveToSameLocationForSingleLocation', true);
       } else if(this.get('isUndispatch')){
         this.set('isUndispatchFullQuantity', true);

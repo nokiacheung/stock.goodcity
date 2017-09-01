@@ -2,6 +2,9 @@ import AuthorizeRoute from './../authorize';
 import Ember from 'ember';
 
 export default AuthorizeRoute.extend({
+  itemBackLinkPath: Ember.computed.localStorage(),
+  transition: null,
+  messageBox: Ember.inject.service(),
 
   queryParams: {
     showDispatchOverlay: false
@@ -12,6 +15,12 @@ export default AuthorizeRoute.extend({
   },
 
   afterModel(model) {
+    if(!model.get('inventoryNumber')) {
+      this.get('transition').abort();
+      this.get("messageBox").alert("This item is not inventoried yet or has been marked as missing.", () => {
+        this.transitionTo("items.index");
+      });
+    }
     if(model.get('isSet')) {
       return Ember.RSVP.hash({
         items: model.get('setItem.items').forEach(item => {
@@ -21,28 +30,20 @@ export default AuthorizeRoute.extend({
     }
   },
 
-  itemBackLinkPath: Ember.computed.localStorage(),
-
-  beforeModel() {
+  beforeModel(transition) {
     this._super(...arguments);
+    this.set("transition", transition);
     var previousRoutes = this.router.router.currentHandlerInfos;
     var previousRoute = previousRoutes && previousRoutes.pop();
     var path = "items.index";
-
     if(previousRoute) {
       var routeName = previousRoute.name;
-      if(routeName === "items.new"){
-        path = path;
-      } else if(routeName.indexOf("items") === 0) {
+      if(routeName.indexOf("items") === 0) {
         path = this.get("itemBackLinkPath") || path;
-      } else if(routeName === path) {
-        path = path;
-      }
-      else if(routeName.indexOf("items") > -1 || routeName === "orders.detail"){
+      } else if(routeName.indexOf("items") > -1 || routeName === "orders.detail"){
         path = routeName;
       }
     }
-
     this.set("itemBackLinkPath", path);
   },
 
@@ -51,5 +52,4 @@ export default AuthorizeRoute.extend({
     controller.set('callOrderObserver', false);
     controller.set('backLinkPath', this.get('itemBackLinkPath'));
   }
-
 });

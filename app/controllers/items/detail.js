@@ -31,6 +31,14 @@ export default Ember.Controller.extend({
     ];
   }),
 
+  itemMarkedMissing: Ember.observer('item.inventoryNumber', function() {
+    if(!this.get('item.inventoryNumber') && this.get("target").currentPath === "items.detail") {
+      this.get('messageBox').alert("This item is not inventoried yet or has been marked as missing.", () => {
+        this.transitionToRoute("items.index");
+      });
+    }
+  }),
+
   performDispatch: Ember.observer("showDispatchOverlay", function() {
     Ember.run.debounce(this, this.updateAutoDisplayOverlay, 100);
   }),

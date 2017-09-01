@@ -13,6 +13,15 @@
     <link rel="stylesheet" href="assets/stock.css">
 
     {{content-for "head-footer"}}
+    <script type="text/javascript">
+      document.addEventListener("deviceready", onDeviceReady, false);
+
+      function onDeviceReady(){
+        StatusBar.overlaysWebView(false);
+        StatusBar.backgroundColorByName("black");
+        StatusBar.styleLightContent();
+      }
+    </script>
   </head>
   <body>
     {{content-for "body"}}

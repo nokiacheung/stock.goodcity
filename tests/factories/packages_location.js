@@ -10,7 +10,7 @@ FactoryGuy.define('packages_location',{
     id:              FactoryGuy.generate('id'),
     quantity:        1,
     item:            FactoryGuy.belongsTo('item'),
-    location:        FactoryGuy.belongsTo('location'),
+    location:        FactoryGuy.belongsTo('location')
   }
 });
 export default {};

@@ -15,7 +15,7 @@ FactoryGuy.define('user', {
   },
   default: {
     firstName: FactoryGuy.generate('collectionFirstName'),
-    lastName: FactoryGuy.generate('collectionLastName'),
+    lastName: FactoryGuy.generate('collectionLastName')
   },
   with_non_hk_mobile: {
     mobile: FactoryGuy.generate(mobile.nonHongKong),

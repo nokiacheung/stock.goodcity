@@ -19,7 +19,7 @@
     <div class="packages-location-header">
       <div class="columns small-12 medium-12 large-12 designated-list">
         <div class="columns small-3 medium-3 large-4">
-          Locations: {{model.packagesLocationsList.length}}
+          Locations: {{model.validPackagesLocations.length}}
         </div>
         <div class="columns small-4 medium-3 large-4 text-align-right">
           Total on Hand:
@@ -32,7 +32,7 @@
       </div>
     </div>
   </div>
-  {{#each model.packagesLocations as |packagesLocation|}}
+  {{#each model.validPackagesLocations as |packagesLocation|}}
     <div class="row">
       <div class="packages-location-block">
         <div class="columns small-12 medium-12 large-12 designated-list">

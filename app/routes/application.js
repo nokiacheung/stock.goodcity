@@ -4,6 +4,56 @@ const { getOwner } = Ember;
 export default Ember.Route.extend({
 
   i18n: Ember.inject.service(),
+  isErrPopUpAlreadyShown: false,
+  isItemUnavailable: false,
+  isLoginPopUpAlreadyShown: false,
+  logger: Ember.inject.service(),
+  messageBox: Ember.inject.service(),
+
+
+  init() {
+    var _this = this;
+    var storageHandler = function (object) {
+      if(!window.localStorage.getItem('authToken')) {
+        object.get('messageBox').alert(object.get("i18n").t('must_login'), () => {
+          object.transitionTo('login');
+        });
+      }
+    };
+    window.addEventListener("storage", function() {
+      storageHandler(_this);
+    }, false);
+  },
+
+  showSomethingWentWrong(reason) {
+    this.get("logger").error(reason);
+    if(!this.get('isErrPopUpAlreadyShown')) {
+      this.set('isErrPopUpAlreadyShown', true);
+      this.get("messageBox").alert(this.get("i18n").t("unexpected_error"), () => {
+        this.set('isErrPopUpAlreadyShown', false);
+      });
+    }
+  },
+
+  showItemIsNotAvailable() {
+    this.set('isItemUnavailable', true);
+    this.get("messageBox").alert('This item is not available.', () => {
+      this.set('isItemUnavailable', false);
+      this.transitionTo('items.index');
+    });
+  },
+
+  showMustLogin() {
+    if (this.session.get('isLoggedIn') && !this.get('isLoginPopUpAlreadyShown')) {
+      this.set('isLoginPopUpAlreadyShown', true);
+      this.get('messageBox').alert(this.get("i18n").t('must_login'), () =>
+        this.set('isLoginPopUpAlreadyShown', false),
+        this.session.clear(),
+        this.store.unloadAll(),
+        this.transitionTo('login')
+      );
+    }
+  },
 
   beforeModel(transition = []) {
     try {
@@ -25,33 +75,32 @@ export default Ember.Route.extend({
     };
   },
 
-  logger: Ember.inject.service(),
-  messageBox: Ember.inject.service(),
-
   handleError: function(reason) {
     try
     {
       var status;
+      // let hasPopup = Ember.$('.reveal-modal:visible').length > 0;
       try { status = parseInt(reason.errors[0].status, 10); }
       catch (err) { status = reason.status; }
 
-      if(reason.name === "QuotaExceededError") {
+      if(!window.navigator.onLine){
+        this.get("messageBox").alert(this.get("i18n").t("offline_error"));
+        if(!reason.isAdapterError){
+          this.get("logger").error(reason);
+        }
+      } else if(reason.name === "QuotaExceededError") {
         this.get("logger").error(reason);
         this.get("messageBox").alert(this.get("i18n").t("QuotaExceededError"));
       } else if (reason.name === "NotFoundError" && reason.code === 8) {
-        this.get("logger").error(reason);
         return false;
       } else if (status === 401) {
-        if (this.session.get('isLoggedIn')) {
-          this.get('messageBox').alert(this.get("i18n").t('must_login'), () =>
-            this.session.clear(),
-            this.store.unloadAll(),
-            this.transitionTo('login')
-          );
-        }
+        this.showMustLogin();
       } else {
-        this.get("logger").error(reason);
-        this.get("messageBox").alert(this.get("i18n").t("unexpected_error"));
+        if(reason.message.includes('stockit_item') && reason.message.includes('404') && !this.get('isItemUnavailable')) {
+          this.showItemIsNotAvailable();
+        } else {
+          this.showSomethingWentWrong(reason);
+        }
       }
 
     } catch (err) {

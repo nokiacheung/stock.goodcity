@@ -134,6 +134,61 @@ export default Ember.Controller.extend({
     });
   },
 
+  changeDonorCondition(conditionId) {
+    var donorCondition = {
+      "N": 1,
+      "M": 2,
+      "U": 3,
+      "B": 4
+    };
+    return donorCondition[conditionId];
+  },
+
+  getItemProperties(quantity, locationId, _this) {
+    return {
+      quantity: quantity,
+      length: _this.get("length"),
+      width: _this.get("width"),
+      height: _this.get("height"),
+      inventory_number: _this.get("inventoryNumber"),
+      case_number: _this.get("caseNumber"),
+      notes: _this.get("description"),
+      grade: _this.get("selectedGrade.id"),
+      donor_condition_id: _this.changeDonorCondition(_this.get("selectedCondition.id")),
+      location_id: locationId,
+      package_type_id: _this.get("code.id"),
+      state_event: 'mark_received',
+      packages_locations_attributes: {0: { location_id: locationId, quantity: quantity }}
+    };
+  },
+
+  updateStoreAndSaveImage(data,loadingView, _this) {
+    this.get("store").pushPayload(data);
+    var image = this.get("newUploadedImage");
+    if (image) {
+      image.setProperties({
+        imageableId: data.item.id,
+        imageableType: "Package"
+      });
+      image.save();
+    }
+    this.set("locationId", "");
+    this.set("inventoryNumber", "");
+    loadingView.destroy();
+    _this.transitionToRoute("items.detail", data.item.id);
+  },
+
+  getItemConditions(_this) {
+    return (_this.get("quantity").toString().trim().length === 0 ||
+        _this.get("description").trim().length === 0 ||
+        !_this.get("location") ||
+        _this.get("inventoryNumber").trim().length === 0 ||
+        !_this.get('code') ||
+        parseInt(_this.get("length"), 10) === 0 ||
+        parseInt(_this.get("width"), 10) === 0 ||
+        parseInt(_this.get("height"), 10) === 0);
+  },
+
   actions: {
 
     //file upload
@@ -284,19 +339,15 @@ export default Ember.Controller.extend({
     },
 
     saveItem() {
+      if(!window.navigator.onLine){
+        this.get("messageBox").alert(this.get("i18n").t("offline_error"));
+        return false;
+      }
       this.set("isSelectLocationPreviousRoute", false);
       this.set("isSearchCodePreviousRoute", false);
       var _this = this, loadingView;
-      if(
-        _this.get("quantity").toString().trim().length === 0 ||
-        _this.get("description").trim().length === 0 ||
-        !_this.get("location") ||
-        _this.get("inventoryNumber").trim().length === 0 ||
-        !_this.get('code') ||
-        parseInt(_this.get("length"), 10) === 0 ||
-        parseInt(_this.get("width"), 10) === 0 ||
-        parseInt(_this.get("height"), 10) === 0
-      ) {
+      var itemConditions = this.getItemConditions(_this);
+      if(itemConditions) {
         if(!_this.get("location")) { this.set("invalidLocation", true); }
         return false;
       } else {
@@ -304,37 +355,11 @@ export default Ember.Controller.extend({
         loadingView = getOwner(this).lookup('component:loading').append();
         var locationId = this.get("location.id");
         var quantity = this.get("quantity");
-        var properties = {
-          quantity: quantity,
-          length: _this.get("length"),
-          width: _this.get("width"),
-          height: _this.get("height"),
-          inventory_number: _this.get("inventoryNumber"),
-          case_number: _this.get("caseNumber"),
-          notes: _this.get("description"),
-          grade: _this.get("selectedGrade.id"),
-          donor_condition_id: _this.get("selectedCondition.id"),
-          location_id: locationId,
-          package_type_id: _this.get("code.id"),
-          state_event: 'mark_received',
-          packages_locations_attributes: {0: { location_id: locationId, quantity: quantity }}
-        };
+        var properties = this.getItemProperties(quantity, locationId, _this);
 
         new AjaxPromise("/packages", "POST", this.get('session.authToken'), { package: properties })
           .then(data => {
-            this.get("store").pushPayload(data);
-            var image = this.get("newUploadedImage");
-            if (image) {
-              image.setProperties({
-                imageableId: data.item.id,
-                imageableType: "Package"
-              });
-              image.save();
-            }
-            this.set("locationId", "");
-            this.set("inventoryNumber", "");
-            loadingView.destroy();
-            _this.transitionToRoute("items.detail", data.item.id);
+            this.updateStoreAndSaveImage(data, loadingView, _this);
           })
           .catch(response => {
             loadingView.destroy();
@@ -342,7 +367,5 @@ export default Ember.Controller.extend({
           });
       }
     }
-
   }
-
 });

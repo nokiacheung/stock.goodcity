@@ -17,7 +17,7 @@ FactoryGuy.define('package_type', {
     name: FactoryGuy.generate("name"),
     code: "ABC",
     defaultChildPackages: "ABC",
-    otherChildPackages: "ABC",
+    otherChildPackages: "ABC"
   }
 });
 
