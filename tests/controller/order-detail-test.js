@@ -16,7 +16,7 @@ moduleFor('controller:orders.detail', 'orders.detail controller', {
   }
 });
 
-test('checking default set properties', function(assert) {
+test('calling displayAllItems action displays all item', function(assert) {
   assert.expect(2);
 
   // get the controller instance
