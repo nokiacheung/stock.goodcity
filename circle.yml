@@ -26,6 +26,7 @@ dependencies:
   post:
     - yarn add --force node-sass
     - yarn add bower ember-cli@2.12.2 phantomjs-prebuilt cordova
+    - yarn add codeclimate-test-reporter
     - bundle install
     - gem update fastlane
     - bower install
@@ -40,8 +41,9 @@ test:
         background: true
     - sleep 5
   override:
-    - ember test
+    - COVERAGE=true ember test
   post:
+    - codeclimate-test-reporter < 'coverage/lcov.info'
     - echo "Killing ember server to free memory for app build" && killall ember
 
 deployment:
@@ -50,15 +52,15 @@ deployment:
     commands:
       - bundle exec cap staging deploy
       - bundle exec rake staging ios app:build
-      - fastlane ios staging
+      - bundle exec fastlane ios staging
       - bundle exec rake staging android app:build
-      - fastlane android staging
+      - bundle exec fastlane android staging
   production:
     branch: live
     commands:
       - bundle exec cap production deploy
       - bundle exec rake production android app:build
       - bundle exec rake production ios app:build
-      - fastlane android beta
-      - fastlane ios beta
+      - bundle exec fastlane android beta
+      - bundle exec fastlane ios beta
 
