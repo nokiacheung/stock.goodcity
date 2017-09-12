@@ -39,7 +39,7 @@ module.exports = function(environment) {
 
       AIRBRAKE_HOST: "https://errbit.crossroads.org.hk",
       AIRBRAKE_PROJECT_ID: "",
-      AIRBRAKE_PROJECT_KEY: "30d9f525c221cd7b00637cdc4eb0d7ae",
+      AIRBRAKE_PROJECT_KEY: "30d9f525c221cd7b00637cdc4eb0d7ae"
 
     },
 
