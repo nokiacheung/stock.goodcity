@@ -5,6 +5,26 @@ moduleForModel('orders_package', 'OrdersPackage Model', {
   needs: ['model:item', 'model:image', 'model:donor_condition', 'model:user', 'model:designation', 'model:code']
 });
 
+test('check attributes', function(assert){
+  assert.expect(7);
+  var model = this.subject();
+  var packageId = Object.keys(model.toJSON()).indexOf('packageId') > -1;
+  var orderId = Object.keys(model.toJSON()).indexOf('orderId') > -1;
+  var itemId = Object.keys(model.toJSON()).indexOf('itemId') > -1;
+  var designationId = Object.keys(model.toJSON()).indexOf('designationId') > -1;
+  var quantity = Object.keys(model.toJSON()).indexOf('quantity') > -1;
+  var sentOn = Object.keys(model.toJSON()).indexOf('sentOn') > -1;
+  var state = Object.keys(model.toJSON()).indexOf('state') > -1;
+
+  assert.ok(packageId);
+  assert.ok(orderId);
+  assert.ok(itemId);
+  assert.ok(designationId);
+  assert.ok(quantity);
+  assert.ok(sentOn);
+  assert.ok(state);
+});
+
 test('Relationships with other models', function(assert) {
   assert.expect(4);
   var OrdersPackage = this.store().modelFor('orders_package');
