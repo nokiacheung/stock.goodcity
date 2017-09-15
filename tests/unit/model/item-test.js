@@ -5,6 +5,40 @@ moduleForModel('item', 'Item Model', {
   needs: ['model:item', 'model:designation', 'model:location', 'model:code', 'model:donor_condition', 'model:set_item', 'model:packages_location', 'model:orders_package', 'model:image']
 });
 
+test('check attributes', function(assert){
+  assert.expect(14);
+  var model = this.subject();
+  var notes = Object.keys(model.toJSON()).indexOf('notes') > -1;
+  var grade = Object.keys(model.toJSON()).indexOf('grade') > -1;
+  var inventoryNumber = Object.keys(model.toJSON()).indexOf('inventoryNumber') > -1;
+  var caseNumber = Object.keys(model.toJSON()).indexOf('caseNumber') > -1;
+  var quantity = Object.keys(model.toJSON()).indexOf('quantity') > -1;
+  var receivedQuantity = Object.keys(model.toJSON()).indexOf('receivedQuantity') > -1;
+  var length = Object.keys(model.toJSON()).indexOf('length') > -1;
+  var width = Object.keys(model.toJSON()).indexOf('width') > -1;
+  var height = Object.keys(model.toJSON()).indexOf('height') > -1;
+  var sentOn = Object.keys(model.toJSON()).indexOf('sentOn') > -1;
+  var isSet = Object.keys(model.toJSON()).indexOf('isSet') > -1;
+  var hasBoxPallet = Object.keys(model.toJSON()).indexOf('hasBoxPallet') > -1;
+  var itemId = Object.keys(model.toJSON()).indexOf('itemId') > -1;
+  var allowWebPublish = Object.keys(model.toJSON()).indexOf('allowWebPublish') > -1;
+
+  assert.ok(notes);
+  assert.ok(grade);
+  assert.ok(inventoryNumber);
+  assert.ok(caseNumber);
+  assert.ok(quantity);
+  assert.ok(receivedQuantity);
+  assert.ok(length);
+  assert.ok(width);
+  assert.ok(height);
+  assert.ok(sentOn);
+  assert.ok(isSet);
+  assert.ok(hasBoxPallet);
+  assert.ok(itemId);
+  assert.ok(allowWebPublish);
+});
+
 test('Relationships with other models', function(assert) {
   assert.expect(16);
   var Item = this.store().modelFor('item');
