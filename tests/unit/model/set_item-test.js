@@ -1,5 +1,5 @@
 import { test, moduleForModel } from 'ember-qunit';
-// import Ember from 'ember';
+import Ember from 'ember';
 
 moduleForModel('set_item', 'SetItem model',{
   needs: ['model:code','model:item']
@@ -13,14 +13,14 @@ test('check attributes', function(assert){
   assert.ok(description);
 });
 
-// test('Relationships with other models', function(assert){
-//   assert.expect(4);
-//   var set_item = this.store().modelFor('SetItem');
-//   var relationshipWithCode = Ember.get(set_item, 'relationshipsByName').get('code');
-//   var relationshipWithItem = Ember.get(set_item, 'relationshipsByName').get('item');
+test('Relationships with other models', function(assert) {
+  assert.expect(4);
+  var SetItem = this.store().modelFor('set_item');
+  var relationshipWithCode = Ember.get(SetItem, 'relationshipsByName').get('code');
+  var relationshipWithItem = Ember.get(SetItem, 'relationshipsByName').get('items');
 
-//   assert.equal(relationshipWithCode.key, 'code');
-//   assert.equal(relationshipWithCode.kind, 'belongsTo');
-//   assert.equal(relationshipWithItem.key, 'item');
-//   assert.equal(relationshipWithItem.kind, 'hasMany');
-// });
+  assert.equal(relationshipWithCode.key, 'code');
+  assert.equal(relationshipWithCode.kind, 'belongsTo');
+  assert.equal(relationshipWithItem.key, 'items');
+  assert.equal(relationshipWithItem.kind, 'hasMany');
+});
