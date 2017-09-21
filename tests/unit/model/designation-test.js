@@ -89,3 +89,79 @@ test('check dispatchedItems returns items with sentOn not null', function(assert
   assert.equal(despatchedItems[2], null); //item3 won't come in cause sentOn for item3 is null
   assert.equal(despatchedItems.get('length'), 2);
 });
+
+// test('check allItemsDispatched returns true if all Items are dispatched otherwise returns false', function(assert){
+//   // assert.expect(3);
+//   // const model = this.subject();
+//   var store = this.store();
+//   var item1 = null;
+//   var item2 = null;
+//   var item3 = null;
+//   var designation = null;
+
+//   Ember.run(function(){
+
+//     store.createRecord('designation', {
+//       id:               1,
+//       detailType:       'StockitLocalOrder',
+//       status:           'Active',
+//       createdAt:        '12/07/2016',
+//       updatedAt:        '12/07/2016'
+//     });
+
+//     store.createRecord('item', { id: 1, isDispatched: true });
+//     store.createRecord('item', { id: 2, isDispatched: true });
+//     store.createRecord('item', { id: 3, isDispatched: false });
+
+//     designation = store.peekRecord('designation', 1);
+
+//     item1 = store.peekRecord('item', 1);
+//     item2 = store.peekRecord('item', 2);
+//     item3 = store.peekRecord('item', 3);
+
+//     designation.get('items').pushObject(item1);
+//     designation.get('items').pushObject(item2);
+//     designation.get('items').pushObject(item3);
+
+//   });
+//   assert.equal(designation.get('allItemsDispatched'), false);
+// });
+
+test('check designatedOrdersPackages returns only designated orders_packages', function(assert){
+  assert.expect(3);
+  const model = this.subject();
+  var store = this.store();
+  var orders_package1 = null;
+  var orders_package2 = null;
+  var orders_package3 = null;
+  var designatedOrdersPackages = null;
+
+  Ember.run(function(){
+    store.createRecord('orders_package', {id: 1, state: 'designated'});
+    store.createRecord('orders_package', {id: 2, state: 'designated'});
+    store.createRecord('orders_package', {id: 3, state: 'dispatched'});
+
+    orders_package1 = store.peekRecord('orders_package',1);
+    orders_package2 = store.peekRecord('orders_package',2);
+    orders_package3 = store.peekRecord('orders_package',3);
+
+    model.get('ordersPackages').pushObject(orders_package1);
+    model.get('ordersPackages').pushObject(orders_package2);
+    model.get('ordersPackages').pushObject(orders_package3);
+  });
+
+  designatedOrdersPackages = model.get('designatedOrdersPackages').getEach('id');
+
+  assert.equal(designatedOrdersPackages.get('length'),2);
+  assert.equal(designatedOrdersPackages[0], orders_package1.get('id'));
+  assert.equal(designatedOrdersPackages[1], orders_package2.get('id'));
+});
+
+// test('check isInactive', function(assert){
+//   const model = this.subject();
+//   Ember.run(function(){
+//     model.set('status', 'Sent');
+//   });
+//   debugger;
+//   assert.equal(model.get('isInactive'), 'Sent');
+// });
