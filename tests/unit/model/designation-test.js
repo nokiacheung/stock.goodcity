@@ -212,11 +212,20 @@ test('check dispatchedOrdersPackages returns only dispatched orders_packages', f
 //   assert.equal(designation.get('allItemsDispatched'), false);
 // });
 
-// test('check isInactive', function(assert){
-//   const model = this.subject();
-//   Ember.run(function(){
-//     model.set('status', 'Sent');
-//   });
-//   debugger;
-//   assert.equal(model.get('isInactive'), 'Sent');
-// });
+test('check isInactive', function(assert){
+  var store = this.store();
+  var designation = null;
+
+  Ember.run(function(){
+    store.createRecord('designation', {
+      id:               4,
+      detailType:       'StockitLocalOrder',
+      status:           'Sent',
+      createdAt:        '12/07/2016',
+      updatedAt:        '12/07/2016'
+    });
+
+    designation = store.peekRecord('designation', 4);
+  });
+  assert.equal(designation.get('isInactive'), true);
+});
