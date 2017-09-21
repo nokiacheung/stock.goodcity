@@ -73,8 +73,8 @@ test('check dispatchedItems returns items with sentOn not null', function(assert
   var despatchedItems = null;
 
   Ember.run(function(){
-    store.createRecord('item', { id: 1, sentOn: "not null" });
-    store.createRecord('item', { id: 2, sentOn: "not null" });
+    store.createRecord('item', { id: 1, sentOn: "12/07/2016" });
+    store.createRecord('item', { id: 2, sentOn: "12/07/2016" });
     store.createRecord('item', { id: 3, sentOn: null });
     item1 = store.peekRecord('item', 1);
     item2 = store.peekRecord('item', 2);
