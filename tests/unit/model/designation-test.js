@@ -1,6 +1,5 @@
 import { test, moduleForModel } from 'ember-qunit';
 import Ember from 'ember';
-// import FactoryGuy from 'ember-data-factory-guy';
 
 moduleForModel('designation', 'Designation model',{
   needs: ['model:contact', 'model:organisation', 'model:local_order', 'model:item', 'model:orders_package', 'model:location', 'model:code', 'model:donor-condition', 'model:set-item', 'model:packages-location', 'model:image']
@@ -56,7 +55,6 @@ test('Relationships with other models', function(assert){
   assert.equal(relationshipOrdersPackage.kind, 'hasMany');
 });
 
-
 test('check isLocalOrder', function(assert){
   const model = this.subject();
   Ember.run(function(){
@@ -66,7 +64,7 @@ test('check isLocalOrder', function(assert){
 });
 
 test('check dispatchedItems returns items with sentOn not null', function(assert){
-  assert.expect(3);
+  assert.expect(4);
   const model = this.subject();
   var store = this.store();
   var item1 = null;
@@ -85,17 +83,9 @@ test('check dispatchedItems returns items with sentOn not null', function(assert
     model.get('items').pushObject(item2);
     model.get('items').pushObject(item3);
   });
-  despatchedItems = model.get('dispatchedItems');
-  assert.equal(despatchedItems[0].get('id'), item1.get('id'));
-  assert.equal(despatchedItems[1].get('id'), item2.get('id'));
-  assert.equal(despatchedItems[2], null);
+  despatchedItems = model.get('dispatchedItems').getEach('id');
+  assert.equal(despatchedItems[0], item1.get('id'));
+  assert.equal(despatchedItems[1], item2.get('id'));
+  assert.equal(despatchedItems[2], null); //item3 won't come in cause sentOn for item3 is null
+  assert.equal(despatchedItems.get('length'), 2);
 });
-
-// test('check isInactive', function(assert){
-//   const model = this.subject();
-//   Ember.run(function(){
-//     model.set('status', 'Sent');
-//   });
-//   debugger;
-//   assert.equal(model.get('isInactive'), 'Sent');
-// });
