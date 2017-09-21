@@ -64,7 +64,7 @@ test('check isLocalOrder', function(assert){
 });
 
 test('check dispatchedItems returns items with sentOn not null', function(assert){
-  assert.expect(4);
+  assert.expect(3);
   const model = this.subject();
   var store = this.store();
   var item1 = null;
@@ -84,10 +84,95 @@ test('check dispatchedItems returns items with sentOn not null', function(assert
     model.get('items').pushObject(item3);
   });
   despatchedItems = model.get('dispatchedItems').getEach('id');
+  assert.equal(despatchedItems.get('length'), 2);
   assert.equal(despatchedItems[0], item1.get('id'));
   assert.equal(despatchedItems[1], item2.get('id'));
-  assert.equal(despatchedItems[2], null); //item3 won't come in cause sentOn for item3 is null
-  assert.equal(despatchedItems.get('length'), 2);
+});
+
+test('check designatedItems returns items with sentOn null', function(assert){
+  assert.expect(3);
+  const model = this.subject();
+  var store = this.store();
+  var item1 = null;
+  var item2 = null;
+  var item3 = null;
+  var designatedItems = null;
+
+  Ember.run(function(){
+    store.createRecord('item', { id: 1, sentOn: null });
+    store.createRecord('item', { id: 2, sentOn: null });
+    store.createRecord('item', { id: 3, sentOn: "12/07/2016" });
+    item1 = store.peekRecord('item', 1);
+    item2 = store.peekRecord('item', 2);
+    item3 = store.peekRecord('item', 3);
+    model.get('items').pushObject(item1);
+    model.get('items').pushObject(item2);
+    model.get('items').pushObject(item3);
+  });
+  designatedItems = model.get('designatedItems').getEach('id');
+  assert.equal(designatedItems.get('length'), 2);
+  assert.equal(designatedItems[0], item1.get('id'));
+  assert.equal(designatedItems[1], item2.get('id'));
+});
+
+test('check designatedOrdersPackages returns only designated orders_packages', function(assert){
+  assert.expect(3);
+  const model = this.subject();
+  var store = this.store();
+  var orders_package1 = null;
+  var orders_package2 = null;
+  var orders_package3 = null;
+  var designatedOrdersPackages = null;
+
+  Ember.run(function(){
+    store.createRecord('orders_package', {id: 1, state: 'designated'});
+    store.createRecord('orders_package', {id: 2, state: 'designated'});
+    store.createRecord('orders_package', {id: 3, state: 'dispatched'});
+
+    orders_package1 = store.peekRecord('orders_package',1);
+    orders_package2 = store.peekRecord('orders_package',2);
+    orders_package3 = store.peekRecord('orders_package',3);
+
+    model.get('ordersPackages').pushObject(orders_package1);
+    model.get('ordersPackages').pushObject(orders_package2);
+    model.get('ordersPackages').pushObject(orders_package3);
+  });
+
+  designatedOrdersPackages = model.get('designatedOrdersPackages').getEach('id');
+
+  assert.equal(designatedOrdersPackages.get('length'),2);
+  assert.equal(designatedOrdersPackages[0], orders_package1.get('id'));
+  assert.equal(designatedOrdersPackages[1], orders_package2.get('id'));
+});
+
+test('check dispatchedOrdersPackages returns only dispatched orders_packages', function(assert){
+  assert.expect(3);
+  const model = this.subject();
+  var store = this.store();
+  var orders_package1 = null;
+  var orders_package2 = null;
+  var orders_package3 = null;
+  var dispatchedOrdersPackages = null;
+
+  Ember.run(function(){
+    store.createRecord('orders_package', {id: 1, state: 'dispatched'});
+    store.createRecord('orders_package', {id: 2, state: 'dispatched'});
+    store.createRecord('orders_package', {id: 3, state: 'designated'});
+
+    orders_package1 = store.peekRecord('orders_package',1);
+    orders_package2 = store.peekRecord('orders_package',2);
+    orders_package3 = store.peekRecord('orders_package',3);
+
+    model.get('ordersPackages').pushObject(orders_package1);
+    model.get('ordersPackages').pushObject(orders_package2);
+    model.get('ordersPackages').pushObject(orders_package3);
+  });
+
+  dispatchedOrdersPackages = model.get('dispatchedOrdersPackages').getEach('id');
+
+  assert.equal(dispatchedOrdersPackages.get('length'),2);
+  assert.equal(dispatchedOrdersPackages[0], orders_package1.get('id'));
+  assert.equal(dispatchedOrdersPackages[1], orders_package2.get('id'));
 });
 
 // test('check allItemsDispatched returns true if all Items are dispatched otherwise returns false', function(assert){
@@ -126,36 +211,6 @@ test('check dispatchedItems returns items with sentOn not null', function(assert
 //   });
 //   assert.equal(designation.get('allItemsDispatched'), false);
 // });
-
-test('check designatedOrdersPackages returns only designated orders_packages', function(assert){
-  assert.expect(3);
-  const model = this.subject();
-  var store = this.store();
-  var orders_package1 = null;
-  var orders_package2 = null;
-  var orders_package3 = null;
-  var designatedOrdersPackages = null;
-
-  Ember.run(function(){
-    store.createRecord('orders_package', {id: 1, state: 'designated'});
-    store.createRecord('orders_package', {id: 2, state: 'designated'});
-    store.createRecord('orders_package', {id: 3, state: 'dispatched'});
-
-    orders_package1 = store.peekRecord('orders_package',1);
-    orders_package2 = store.peekRecord('orders_package',2);
-    orders_package3 = store.peekRecord('orders_package',3);
-
-    model.get('ordersPackages').pushObject(orders_package1);
-    model.get('ordersPackages').pushObject(orders_package2);
-    model.get('ordersPackages').pushObject(orders_package3);
-  });
-
-  designatedOrdersPackages = model.get('designatedOrdersPackages').getEach('id');
-
-  assert.equal(designatedOrdersPackages.get('length'),2);
-  assert.equal(designatedOrdersPackages[0], orders_package1.get('id'));
-  assert.equal(designatedOrdersPackages[1], orders_package2.get('id'));
-});
 
 // test('check isInactive', function(assert){
 //   const model = this.subject();
