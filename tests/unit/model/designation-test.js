@@ -175,42 +175,58 @@ test('check dispatchedOrdersPackages returns only dispatched orders_packages', f
   assert.equal(dispatchedOrdersPackages[1], orders_package2.get('id'));
 });
 
-// test('check allItemsDispatched returns true if all Items are dispatched otherwise returns false', function(assert){
-//   // assert.expect(3);
-//   // const model = this.subject();
-//   var store = this.store();
-//   var item1 = null;
-//   var item2 = null;
-//   var item3 = null;
-//   var designation = null;
+test('check allItemsDispatched returns true if all Items are dispatched otherwise returns false', function(assert){
+  assert.expect(2);
+  var store = this.store();
+  var item1 = null;
+  var item2 = null;
+  var item3 = null;
+  var unDispatcheditem = null;
+  var designation1 = null;
+  var designation2 = null;
 
-//   Ember.run(function(){
+  Ember.run(function(){
 
-//     store.createRecord('designation', {
-//       id:               1,
-//       detailType:       'StockitLocalOrder',
-//       status:           'Active',
-//       createdAt:        '12/07/2016',
-//       updatedAt:        '12/07/2016'
-//     });
+    store.createRecord('designation', {
+      id:               5,
+      detailType:       'StockitLocalOrder',
+      status:           'Active',
+      createdAt:        '12/07/2016',
+      updatedAt:        '12/07/2016'
+    });
 
-//     store.createRecord('item', { id: 1, isDispatched: true });
-//     store.createRecord('item', { id: 2, isDispatched: true });
-//     store.createRecord('item', { id: 3, isDispatched: false });
+    store.createRecord('designation', {
+      id:               6,
+      detailType:       'StockitLocalOrder',
+      status:           'Active',
+      createdAt:        '12/07/2016',
+      updatedAt:        '12/07/2016'
+    });
 
-//     designation = store.peekRecord('designation', 1);
+    store.createRecord('item', { id: 1, isDispatched: true });
+    store.createRecord('item', { id: 2, isDispatched: true });
+    store.createRecord('item', { id: 3, isDispatched: true });
+    store.createRecord('item', { id: 4, isDispatched: false });
 
-//     item1 = store.peekRecord('item', 1);
-//     item2 = store.peekRecord('item', 2);
-//     item3 = store.peekRecord('item', 3);
+    designation1 = store.peekRecord('designation', 5);
+    designation2 = store.peekRecord('designation', 6);
 
-//     designation.get('items').pushObject(item1);
-//     designation.get('items').pushObject(item2);
-//     designation.get('items').pushObject(item3);
+    item1 = store.peekRecord('item', 1);
+    item2 = store.peekRecord('item', 2);
+    item3 = store.peekRecord('item', 3);
+    unDispatcheditem = store.peekRecord('item', 4);
 
-//   });
-//   assert.equal(designation.get('allItemsDispatched'), false);
-// });
+
+    designation1.get('items').pushObject(item1);
+    designation1.get('items').pushObject(item2);
+
+    designation2.get('items').pushObject(item3);
+    designation2.get('items').pushObject(unDispatcheditem);
+
+  });
+  assert.equal(designation1.get('allItemsDispatched'), true);
+  assert.equal(designation2.get('allItemsDispatched'), false);
+});
 
 test('check isInactive', function(assert){
   var store = this.store();
