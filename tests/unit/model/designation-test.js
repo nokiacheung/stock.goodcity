@@ -56,10 +56,7 @@ test('Relationships with other models', function(assert){
 });
 
 test('check isLocalOrder', function(assert){
-  const model = this.subject();
-  Ember.run(function(){
-    model.set('detailType', 'LocalOrder');
-  });
+  const model = this.subject({detailType: 'LocalOrder'});
   assert.equal(model.get('isLocalOrder'), true);
 });
 
