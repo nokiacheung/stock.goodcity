@@ -67,7 +67,7 @@ test('check dispatchedItems returns items with sentOn not null', function(assert
   var item1 = null;
   var item2 = null;
   var item3 = null;
-  var despatchedItems = null;
+  var despatchedItemsIds = null;
 
   Ember.run(function(){
     store.createRecord('item', { id: 1, sentOn: "12/07/2016" });
@@ -80,10 +80,10 @@ test('check dispatchedItems returns items with sentOn not null', function(assert
     model.get('items').pushObject(item2);
     model.get('items').pushObject(item3);
   });
-  despatchedItems = model.get('dispatchedItems').getEach('id');
-  assert.equal(despatchedItems.get('length'), 2);
-  assert.equal(despatchedItems[0], item1.get('id'));
-  assert.equal(despatchedItems[1], item2.get('id'));
+  despatchedItemsIds = model.get('dispatchedItems').getEach('id');
+  assert.equal(despatchedItemsIds.get('length'), 2);
+  assert.equal(despatchedItemsIds[0], item1.get('id'));
+  assert.equal(despatchedItemsIds[1], item2.get('id'));
 });
 
 test('check designatedItems returns items with sentOn null', function(assert){
@@ -93,7 +93,7 @@ test('check designatedItems returns items with sentOn null', function(assert){
   var item1 = null;
   var item2 = null;
   var item3 = null;
-  var designatedItems = null;
+  var designatedItemsIds = null;
 
   Ember.run(function(){
     store.createRecord('item', { id: 1, sentOn: null });
@@ -106,10 +106,10 @@ test('check designatedItems returns items with sentOn null', function(assert){
     model.get('items').pushObject(item2);
     model.get('items').pushObject(item3);
   });
-  designatedItems = model.get('designatedItems').getEach('id');
-  assert.equal(designatedItems.get('length'), 2);
-  assert.equal(designatedItems[0], item1.get('id'));
-  assert.equal(designatedItems[1], item2.get('id'));
+  designatedItemsIds = model.get('designatedItems').getEach('id');
+  assert.equal(designatedItemsIds.get('length'), 2);
+  assert.equal(designatedItemsIds[0], item1.get('id'));
+  assert.equal(designatedItemsIds[1], item2.get('id'));
 });
 
 test('check designatedOrdersPackages returns only designated orders_packages', function(assert){
@@ -119,7 +119,7 @@ test('check designatedOrdersPackages returns only designated orders_packages', f
   var orders_package1 = null;
   var orders_package2 = null;
   var orders_package3 = null;
-  var designatedOrdersPackages = null;
+  var designatedOrdersPackagesIds = null;
 
   Ember.run(function(){
     store.createRecord('orders_package', {id: 1, state: 'designated'});
@@ -135,11 +135,11 @@ test('check designatedOrdersPackages returns only designated orders_packages', f
     model.get('ordersPackages').pushObject(orders_package3);
   });
 
-  designatedOrdersPackages = model.get('designatedOrdersPackages').getEach('id');
+  designatedOrdersPackagesIds = model.get('designatedOrdersPackages').getEach('id');
 
-  assert.equal(designatedOrdersPackages.get('length'),2);
-  assert.equal(designatedOrdersPackages[0], orders_package1.get('id'));
-  assert.equal(designatedOrdersPackages[1], orders_package2.get('id'));
+  assert.equal(designatedOrdersPackagesIds.get('length'),2);
+  assert.equal(designatedOrdersPackagesIds[0], orders_package1.get('id'));
+  assert.equal(designatedOrdersPackagesIds[1], orders_package2.get('id'));
 });
 
 test('check dispatchedOrdersPackages returns only dispatched orders_packages', function(assert){
@@ -149,7 +149,7 @@ test('check dispatchedOrdersPackages returns only dispatched orders_packages', f
   var orders_package1 = null;
   var orders_package2 = null;
   var orders_package3 = null;
-  var dispatchedOrdersPackages = null;
+  var dispatchedOrdersPackagesIds = null;
 
   Ember.run(function(){
     store.createRecord('orders_package', {id: 1, state: 'dispatched'});
@@ -165,11 +165,11 @@ test('check dispatchedOrdersPackages returns only dispatched orders_packages', f
     model.get('ordersPackages').pushObject(orders_package3);
   });
 
-  dispatchedOrdersPackages = model.get('dispatchedOrdersPackages').getEach('id');
+  dispatchedOrdersPackagesIds = model.get('dispatchedOrdersPackages').getEach('id');
 
-  assert.equal(dispatchedOrdersPackages.get('length'),2);
-  assert.equal(dispatchedOrdersPackages[0], orders_package1.get('id'));
-  assert.equal(dispatchedOrdersPackages[1], orders_package2.get('id'));
+  assert.equal(dispatchedOrdersPackagesIds.get('length'),2);
+  assert.equal(dispatchedOrdersPackagesIds[0], orders_package1.get('id'));
+  assert.equal(dispatchedOrdersPackagesIds[1], orders_package2.get('id'));
 });
 
 test('check allItemsDispatched returns true if all Items are dispatched otherwise returns false', function(assert){
