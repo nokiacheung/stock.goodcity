@@ -75,3 +75,32 @@ test('Relationships with other models', function(assert) {
   assert.equal(relationshipWithImage.key, 'images');
   assert.equal(relationshipWithImage.kind, 'hasMany');
 });
+
+test("check available_qty computed property", function(assert){
+  var model = this.subject();
+
+  Ember.run(function(){
+    model.set('available_qty', 2);
+  });
+
+  assert.equal(model.get("available_qty"), 2);
+});
+
+test("check validUndispatchedLocations computed property", function(assert){
+  assert.expect(2);
+  var model, store, location1, location2, packageLocation1, packageLocation2, validUndispatchedLocationsIds;
+  model = this.subject();
+  store = this.store();
+
+  Ember.run(function(){
+    location1 = store.createRecord('location',{id: 1, building: "11", area: "A"});
+    location2 = store.createRecord('location',{id: 2, building: "Dispatched", area: "B"});
+    packageLocation1 = store.createRecord('packagesLocation', {id: 1, quantity: 1, locationId: 1});
+    packageLocation2 = store.createRecord('packagesLocation', {id: 2, quantity: 2, locationId: 2});
+    model.get('packagesLocations').pushObjects([packageLocation1, packageLocation2]);
+  });
+
+  validUndispatchedLocationsIds = model.get('validUndispatchedLocations').getEach('id');
+  assert.equal(validUndispatchedLocationsIds.get('length'), 1);
+  assert.equal(Ember.compare(validUndispatchedLocationsIds, [packageLocation1.get("id")]), 0);
+});
