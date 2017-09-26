@@ -311,3 +311,31 @@ test('check availableQtyForMove computed property', function(assert){
 
   assert.equal(model.get('availableQtyForMove'), 2);
 });
+
+test('check imageUrlList computed property', function(assert){
+  var model, store, image1, image2, item;
+  model = this.subject();
+  store = this.store();
+
+  Ember.run(function(){
+    item = store.createRecord('item', {
+      id:               1,
+      inventoryNumber:  "C4234",
+      quantity:         2,
+      createdAt:        '12/01/2016',
+      updatedAt:        '12/01/2016',
+      state:            'submitted',
+      notes:             "Example",
+      length:            10,
+      width:             10,
+      height:            10,
+      allow_web_publish: false,
+      receivedQuantity: 1
+    });
+    image1 = store.createRecord('image', {id: 1,  cloudinary_id: "1416902230/mmguhm3zdkonc2nynjue.jpg", favourite: false, itemId: 1});
+    image2 = store.createRecord('image', {id: 2,  cloudinary_id: "1416902232/mmguhm3zdkonc2nynjue2.jpg", favourite: false});
+  });
+
+  assert.equal(Ember.compare(item.get('imageUrlList'),
+    ["https://res.cloudinary.com/ddoadcjjl/image/upload/c_fit,fl_progressive/v1438323573/default/test_image.jpg"]), 0);
+});
