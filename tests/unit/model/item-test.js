@@ -104,3 +104,134 @@ test("check validUndispatchedLocations computed property", function(assert){
   assert.equal(validUndispatchedLocationsIds.get('length'), 1);
   assert.equal(Ember.compare(validUndispatchedLocationsIds, [packageLocation1.get("id")]), 0);
 });
+
+test("check validPackagesLocations computed property", function(assert){
+  var model, store, location1, location2, location3, packageLocation1, packageLocation2, packageLocation3, validPackagesLocationsIds;
+  model = this.subject();
+  store = this.store();
+
+  Ember.run(function(){
+    location1 = store.createRecord('location',{id: 1, building: "11", area: "A"});
+    location2 = store.createRecord('location',{id: 2, building: "Dispatched", area: "B"});
+    location3 = store.createRecord('location',{id: 3, building: "33", area: "C"});
+    packageLocation1 = store.createRecord('packagesLocation', {id: 1, quantity: 1, locationId: 1});
+    packageLocation2 = store.createRecord('packagesLocation', {id: 2, quantity: 2, locationId: 2});
+    packageLocation3 = store.createRecord('packagesLocation', {id: 3, locationId: 3});
+    model.get('packagesLocations').pushObjects([packageLocation1, packageLocation2, packageLocation3]);
+  });
+
+  validPackagesLocationsIds = model.get('validPackagesLocations').getEach('id');
+  assert.equal(validPackagesLocationsIds.get('length'), 2);
+});
+
+test("check orderPackagesMoreThenZeroQty computed property", function(assert){
+  var model, store, ordersPackage1, ordersPackage2, ordersPackage3, orderPackagesMoreThenZeroQtyIds;
+  model = this.subject();
+  store = this.store();
+
+  Ember.run(function(){
+    ordersPackage1 = store.createRecord('ordersPackage', {id: 1, state: "designated", quantity: 1});
+    ordersPackage2 = store.createRecord('ordersPackage', {id: 2, state: "designated", quantity: 2});
+    ordersPackage3 = store.createRecord('ordersPackage', {id: 3, state: "designated", quantity: 0});
+    model.get('ordersPackages').pushObjects([ordersPackage1, ordersPackage2, ordersPackage3]);
+  });
+
+  orderPackagesMoreThenZeroQtyIds = model.get('orderPackagesMoreThenZeroQty').getEach('id');
+  assert.equal(orderPackagesMoreThenZeroQtyIds.get('length'), 2);
+});
+
+
+test('check dispatchedItemCount computed property', function(assert){
+var model, store, ordersPackage1, ordersPackage2, ordersPackage3;
+  model = this.subject();
+  store = this.store();
+
+  Ember.run(function(){
+    ordersPackage1 = store.createRecord('ordersPackage', {id: 1, state: "dispatched", quantity: 1});
+    ordersPackage2 = store.createRecord('ordersPackage', {id: 2, state: "dispatched", quantity: 2});
+    ordersPackage3 = store.createRecord('ordersPackage', {id: 3, state: "designated", quantity: 3});
+    model.get('ordersPackages').pushObjects([ordersPackage1, ordersPackage2, ordersPackage3]);
+  });
+
+  assert.equal(model.get('dispatchedItemCount'), 2);
+});
+
+test('check cancelledItemCount computed property',function(assert){
+var model, store, ordersPackage1, ordersPackage2, ordersPackage3;
+  model = this.subject();
+  store = this.store();
+
+  Ember.run(function(){
+    ordersPackage1 = store.createRecord('ordersPackage', {id: 1, state: "cancelled", quantity: 1});
+    ordersPackage2 = store.createRecord('ordersPackage', {id: 2, state: "cancelled", quantity: 2});
+    ordersPackage3 = store.createRecord('ordersPackage', {id: 3, state: "designated", quantity: 3});
+    model.get('ordersPackages').pushObjects([ordersPackage1, ordersPackage2, ordersPackage3]);
+  });
+
+  assert.equal(model.get('cancelledItemCount'), 2);
+});
+
+test('check desinatedAndDisaptchedItemPackages computed property',function(assert){
+var model, store, ordersPackage1, ordersPackage2, ordersPackage3;
+  model = this.subject();
+  store = this.store();
+
+  Ember.run(function(){
+    ordersPackage1 = store.createRecord('ordersPackage', {id: 1, state: "designated", quantity: 1});
+    ordersPackage2 = store.createRecord('ordersPackage', {id: 2, state: "dispatched", quantity: 2});
+    ordersPackage3 = store.createRecord('ordersPackage', {id: 3, state: "cancelled", quantity: 3});
+    model.get('ordersPackages').pushObjects([ordersPackage1, ordersPackage2, ordersPackage3]);
+  });
+
+  assert.equal(model.get('desinatedAndDisaptchedItemPackages'), 2);
+});
+
+test('check hasSingleDesignation computed property',function(assert){
+var model, store, ordersPackage1, ordersPackage2, ordersPackage3;
+  model = this.subject();
+  store = this.store();
+
+  Ember.run(function(){
+    ordersPackage1 = store.createRecord('ordersPackage', {id: 1, state: "designated", quantity: 1});
+    ordersPackage2 = store.createRecord('ordersPackage', {id: 2, state: "dispatched", quantity: 2});
+    ordersPackage3 = store.createRecord('ordersPackage', {id: 3, state: "cancelled", quantity: 3});
+    model.get('ordersPackages').pushObjects([ordersPackage1, ordersPackage2, ordersPackage3]);
+  });
+
+  assert.equal(model.get('hasSingleDesignation'), true);
+});
+
+test('check hasOneDispatchedPackage computed property',function(assert){
+var model, store, ordersPackage1, ordersPackage2, ordersPackage3;
+  model = this.subject();
+  store = this.store();
+
+  Ember.run(function(){
+    ordersPackage1 = store.createRecord('ordersPackage', {id: 1, state: "designated", quantity: 1});
+    ordersPackage2 = store.createRecord('ordersPackage', {id: 2, state: "dispatched", quantity: 2});
+    ordersPackage3 = store.createRecord('ordersPackage', {id: 3, state: "cancelled", quantity: 3});
+    model.get('ordersPackages').pushObjects([ordersPackage1, ordersPackage2, ordersPackage3]);
+  });
+
+  assert.equal(model.get('hasOneDispatchedPackage'), ordersPackage2);
+});
+
+test('check ordersPackagesWithStateDesignatedAndDispatched computed property',function(assert){
+var model, store, ordersPackage1, ordersPackage2, ordersPackage3;
+  model = this.subject();
+  store = this.store();
+
+  Ember.run(function(){
+    ordersPackage1 = store.createRecord('ordersPackage', {id: 1, state: "designated", quantity: 1});
+    ordersPackage2 = store.createRecord('ordersPackage', {id: 2, state: "dispatched", quantity: 2});
+    ordersPackage3 = store.createRecord('ordersPackage', {id: 3, state: "cancelled", quantity: 3});
+    model.get('ordersPackages').pushObjects([ordersPackage1, ordersPackage2, ordersPackage3]);
+  });
+
+  assert.equal(Ember.compare(model.get('ordersPackagesWithStateDesignatedAndDispatched'), [ordersPackage1, ordersPackage2]), 0);
+});
+
+test('check availableQty computed property', function(assert){
+  var model = this.subject({quantity: 3});
+  assert.equal(model.get('availableQty'), 3);
+});
