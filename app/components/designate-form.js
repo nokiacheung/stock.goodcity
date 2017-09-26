@@ -234,7 +234,7 @@ export default Ember.Component.extend({
             this.sendAction("displaySetItems");
           } else {
             loadingView.destroy();
-            this.get('router').transitionTo("items.index");
+            this.get('router').transitionTo("items.detail", item.get('id'));
           }
         })
         .finally(() => {
