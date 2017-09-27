@@ -2,7 +2,7 @@ import { test, moduleForModel } from 'ember-qunit';
 import Ember from 'ember';
 
 moduleForModel('orders_package', 'OrdersPackage Model', {
-  needs: ['model:item', 'model:image', 'model:donor_condition', 'model:user', 'model:designation', 'model:code']
+  needs: ['model:item', 'model:image', 'model:donor_condition', 'model:user', 'model:designation', 'model:code', 'model:location', 'model:contact', 'model:organisation', 'model:local-order']
 });
 
 test('check attributes', function(assert){
@@ -56,4 +56,35 @@ test('OrdersPackage is a valid ember-data Model', function(assert) {
   });
 
   assert.equal(record.get('state'), 'designated');
+});
+
+test('check orderCode computed property', function(assert){
+  var model, store, designation, code;
+  model = this.subject();
+  store = this.store();
+
+  Ember.run(function(){
+    code = store.createRecord('code', {
+      id                      : 1,
+      name                    : 'codename',
+      code                    : "BBS",
+      otherChildPackages      : "FXX",
+      defaultChildPackages    : "BBS",
+      otherTerms              : "Cot",
+      visibleInSelects        : true
+    });
+
+    designation = store.createRecord('designation',{
+      id                :1,
+      code              :code,
+      detailType        :'StockitLocalOrder',
+      status            :'Active',
+      createdAt         :'12/07/2016',
+      updatedAt         :'12/07/2016'
+    });
+
+    model.set('designation', designation);
+  });
+
+  assert.equal(model.get('orderCode'), code);
 });
