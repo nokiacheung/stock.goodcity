@@ -29,7 +29,6 @@ export default Model.extend({
     } else {
       return "";
     }
-
   }),
 
 });
