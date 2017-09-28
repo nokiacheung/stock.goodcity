@@ -96,3 +96,16 @@ test('check allDispatched computed property', function(assert){
 
   assert.equal(model.get('allDispatched'), true);
 });
+
+test('check hasZeroQty pomputed property', function(assert){
+  var model, store, item;
+  model = this.subject();
+  store = this.store();
+
+  Ember.run(function(){
+    item = store.createRecord('item', { id: 1, quantity: 0 });
+    model.get('items').pushObject(item);
+  });
+
+  assert.equal(model.get('hasZeroQty'), false);
+});
