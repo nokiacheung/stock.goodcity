@@ -2,7 +2,7 @@ import { test, moduleForModel } from 'ember-qunit';
 import Ember from 'ember';
 
 moduleForModel('packages_location', 'PackagesLocation Model', {
-  needs: ['model:item', 'model:image', 'model:donor_condition', 'model:user', 'model:designation', 'model:code', 'model:location']
+  needs: ['model:item', 'model:image', 'model:donor_condition', 'model:user', 'model:designation', 'model:code', 'model:location', 'model:set_item', 'model:packages_location', 'model:orders_package']
 });
 
 
@@ -50,4 +50,32 @@ test('PackagesLocation is a valid ember-data Model', function (assert) {
   });
 
   assert.equal(record.get('quantity'), 5);
+});
+
+test('check siblingPackagesLocations computed property', function(assert){
+  var model, store, item, packagesLocation1, packagesLocation2;
+  model = this.subject({id: 3, quantity: 1});
+  store = this.store();
+
+  Ember.run(function(){
+    item = store.createRecord('item', {
+      id:               1,
+      inventoryNumber:  "C4234",
+      quantity:         2,
+      createdAt:        '12/01/2016',
+      updatedAt:        '12/01/2016',
+      state:            'submitted',
+      notes:             "Example",
+      length:            10,
+      width:             10,
+      height:            10,
+      allow_web_publish: false,
+      receivedQuantity: 1
+    });
+
+    packagesLocation1 = store.createRecord('packagesLocation', {id: 1, quantity: 1});
+    packagesLocation2 = store.createRecord('packagesLocation', {id: 2, quantity: 2});
+    item.get('packagesLocations').pushObjects([packagesLocation1, packagesLocation2, model]);
+  });
+  assert.equal(Ember.compare(model.get('siblingPackagesLocations').getEach('id'), ["1", "2", "3"]), 0);
 });
