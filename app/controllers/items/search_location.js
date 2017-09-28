@@ -146,7 +146,7 @@ export default searchModule.extend({
       }).finally(() => {
         loadingView.destroy();
         var recentlyUsedLocations = this.get('store').query('location', { recently_used: true });
-        this.get('store').pushPayload(recentlyUsedDesignations);
+        this.get('store').pushPayload(recentlyUsedLocations);
       });
     },
 
