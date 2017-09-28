@@ -27,7 +27,7 @@ export default searchModule.extend({
   searchModelName: "location",
   messageBox: Ember.inject.service(),
 
-  sortProperties: ["createdAt:desc"],
+  sortProperties: ["recentlyUsedAt:desc"],
   sortedRecentlyUsedLocations: Ember.computed.sort("recentlyUsedLocations", "sortProperties"),
 
   recentlyUsedLocations: Ember.computed('model.locations', function(){
