@@ -42,7 +42,8 @@ test('check multiQuantitySet computed property', function(assert){
   assert.equal(model.get('multiQuantitySet'), true);
 });
 
-test('check allDesignated copmuted property', function(assert){
+test('check allDesignated, designatedItems copmuted properties', function(assert){
+  assert.expect(2);
   var model, store, item1, item2, item3, designation;
   model = this.subject();
   store = this.store();
@@ -57,12 +58,13 @@ test('check allDesignated copmuted property', function(assert){
               });
     item1 = store.createRecord('item', { id: 1, designation: designation });
     item2 = store.createRecord('item', { id: 2, designation: designation });
-    item3 = store.createRecord('item', { id: 3, designation: null });
+    item3 = store.createRecord('item', { id: 3, designation: designation });
 
     model.get('items').pushObjects([item1, item2, item3]);
   });
 
   assert.equal(model.get('allDesignated'), true);
+  assert.equal(Ember.compare(model.get('designatedItems').getEach('id'),["1", "2", "3"]), 0);
 });
 
 test('check sortedItems computed property', function(assert){
@@ -78,4 +80,19 @@ test('check sortedItems computed property', function(assert){
   });
 
   assert.equal(Ember.compare(model.get('sortedItems').getEach('id'), ["1", "2", "3"]), 0);
+});
+
+test('check allDispatched computed property', function(assert){
+  var model, store, item1, item2, item3;
+  model = this.subject();
+  store = this.store();
+
+  Ember.run(function(){
+    item1 = store.createRecord('item', { id: 1, isDispatched: true });
+    item2 = store.createRecord('item', { id: 2, isDispatched: true });
+    item3 = store.createRecord('item', { id: 3, isDispatched: true });
+    model.get('items').pushObjects([item1, item2, item3]);
+  });
+
+  assert.equal(model.get('allDispatched'), true);
 });
