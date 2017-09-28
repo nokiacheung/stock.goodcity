@@ -154,21 +154,6 @@ test('hasSingleDesignation: Check item has single designation or not', function(
   assert.equal(model.get('hasSingleDesignation'), false);
 });
 
-test('designatedAndDispatchedOrdersPackages: it returns designated and dispatched ordersPackages', function(assert){
-  var item, model, store, ordersPackage;
-
-  store = this.store();
-  model = this.subject();
-
-  Ember.run(function(){
-    item = store.createRecord('item', { id: 1, quantity: 1 });
-    ordersPackage = store.createRecord('ordersPackage', { id: 1, quantity: 1, item: item, state: 'dispatched' });
-    model.get('items').pushObjects([item]);
-  });
-
-  assert.equal(model.get('designatedAndDispatchedOrdersPackages').get('length'), 1);
-});
-
 test('setItemOrdersPackages: it returns designated and dispatched ordersPackages', function(assert){
   var item, model, store, ordersPackage;
 
@@ -182,4 +167,22 @@ test('setItemOrdersPackages: it returns designated and dispatched ordersPackages
   });
 
   assert.equal(model.get('setItemOrdersPackages'), 1);
+});
+
+test('check designatedAndDispatchedOrdersPackages computed property', function(assert){
+  var setItem, store, item, ordersPackage1, ordersPackage2, ordersPackage3;
+  store = this.store();
+
+  Ember.run(function(){
+    setItem = store.createRecord('set_item', {id: 1, description: 'setItem1 description'});
+    item = store.createRecord('item', { id: 1, quantity: 1 });
+    ordersPackage1 = store.createRecord('orders_package', {id: 1, state: 'dispatched'});
+    ordersPackage2 = store.createRecord('orders_package', {id: 2, state: 'designated'});
+    ordersPackage3 = store.createRecord('orders_package', {id: 3, state: 'cancelled'});
+
+    item.get('ordersPackages').pushObjects([ordersPackage1, ordersPackage2, ordersPackage3]);
+    setItem.get('items').pushObject(item);
+  });
+
+  assert.equal(setItem.get('designatedAndDispatchedOrdersPackages').getEach("id"), 0);
 });
