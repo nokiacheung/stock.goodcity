@@ -145,6 +145,8 @@ export default searchModule.extend({
         this.transitionToRoute(path, item);
       }).finally(() => {
         loadingView.destroy();
+        var recentlyUsedLocations = this.get('store').query('location', { recently_used: true });
+        this.get('store').pushPayload(recentlyUsedDesignations);
       });
     },
 
