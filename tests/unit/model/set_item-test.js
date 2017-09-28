@@ -97,7 +97,7 @@ test('check allDispatched computed property', function(assert){
   assert.equal(model.get('allDispatched'), true);
 });
 
-test('check hasZeroQty pomputed property', function(assert){
+test('check hasZeroQty computed property', function(assert){
   var model, store, item;
   model = this.subject();
   store = this.store();
@@ -108,4 +108,19 @@ test('check hasZeroQty pomputed property', function(assert){
   });
 
   assert.equal(model.get('hasZeroQty'), false);
+});
+
+test('check hasSingleDesignation computed propety', function(assert){
+  var model, store, ordersPackage, item;
+  model = this.subject();
+  store = this.store();
+
+  Ember.run(function(){
+    ordersPackage = store.createRecord('orders_package', {id: 1, state: 'designated'});
+    item = store.createRecord('item', { id: 1, quantity: 0 });
+    item.get('ordersPackages').pushObject(ordersPackage);
+    model.get('items').pushObject(item);
+  });
+
+  assert.equal(model.get('hasSingleDesignation'), true);
 });
