@@ -186,3 +186,44 @@ test('check designatedAndDispatchedOrdersPackages computed property', function(a
 
   assert.equal(setItem.get('designatedAndDispatchedOrdersPackages').getEach("id"), 0);
 });
+
+test('check setItemOrdersPackages computed property', function(assert){
+  var model, store, item, ordersPackage1, ordersPackage2, ordersPackage3;
+  model = this.subject();
+  store = this.store();
+
+  Ember.run(function(){
+    item = store.createRecord('item', { id: 1, quantity: 1 });
+    ordersPackage1 = store.createRecord('orders_package', {id: 1, state: 'dispatched', quantity: 2});
+    ordersPackage2 = store.createRecord('orders_package', {id: 2, state: 'designated', quantity: 3});
+    ordersPackage3 = store.createRecord('orders_package', {id: 3, state: 'cancelled', quantity: 2});
+
+    item.get('ordersPackages').pushObjects([ordersPackage1, ordersPackage2, ordersPackage3]);
+    model.get('items').pushObject(item);
+  });
+
+  assert.equal(model.get('setItemOrdersPackages'), 2);
+});
+
+test('check hasSameSingleDesignation computed property', function(assert){
+  var model, store, item1, item2, ordersPackage1, ordersPackage2, ordersPackage3, ordersPackage4, ordersPackage5, ordersPackage6;
+  model = this.subject();
+  store = this.store();
+
+  Ember.run(function(){
+    item1 = store.createRecord('item', { id: 1, quantity: 1 });
+    item2 = store.createRecord('item', { id: 2, quantity: 1 });
+    ordersPackage1 = store.createRecord('orders_package', {id: 1, state: 'dispatched', quantity: 2});
+    ordersPackage2 = store.createRecord('orders_package', {id: 2, state: 'designated', quantity: 3});
+    ordersPackage3 = store.createRecord('orders_package', {id: 3, state: 'cancelled', quantity: 2});
+    ordersPackage4 = store.createRecord('orders_package', {id: 4, state: 'dispatched', quantity: 2});
+    ordersPackage5 = store.createRecord('orders_package', {id: 5, state: 'designated', quantity: 3});
+    ordersPackage6 = store.createRecord('orders_package', {id: 6, state: 'cancelled', quantity: 2});
+
+    item1.get('ordersPackages').pushObjects([ordersPackage1, ordersPackage2, ordersPackage3]);
+    item2.get('ordersPackages').pushObjects([ordersPackage4, ordersPackage5, ordersPackage6]);
+    model.get('items').pushObjects([item1, item2]);
+  });
+
+  assert.equal(model.get('hasSameSingleDesignation'), true);
+});
