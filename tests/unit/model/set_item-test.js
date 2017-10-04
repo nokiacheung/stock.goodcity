@@ -42,7 +42,7 @@ test('check multiQuantitySet computed property', function(assert){
   assert.equal(model.get('multiQuantitySet'), true);
 });
 
-test('check allDesignated, designatedItems copmuted properties', function(assert){
+test('check allDesignated, designatedItems computed properties', function(assert){
   assert.expect(2);
   var model, store, item1, item2, item3, designation;
   model = this.subject();
@@ -110,7 +110,7 @@ test('check hasZeroQty computed property', function(assert){
   assert.equal(model.get('hasZeroQty'), false);
 });
 
-test('check hasSingleDesignation computed propety', function(assert){
+test('check hasSingleDesignation computed property', function(assert){
   var model, store, ordersPackage, item;
   model = this.subject();
   store = this.store();
@@ -123,4 +123,63 @@ test('check hasSingleDesignation computed propety', function(assert){
   });
 
   assert.equal(model.get('hasSingleDesignation'), true);
+});
+
+test('canBeMoved: Checks items are not assigned to box or pallet and can be moved', function(assert){
+  var model, item, store;
+
+  model = this.subject();
+  store = this.store();
+
+  Ember.run(function(){
+    item = store.createRecord('item', { id: 1, quantity: 1 });
+    model.get('items').pushObjects([item]);
+  });
+
+  assert.equal(model.get('canBeMoved'), true);
+});
+
+test('hasSingleDesignation: Check item has single designation or not', function(assert){
+  var item, model, store, ordersPackage;
+
+  store = this.store();
+  model = this.subject();
+
+  Ember.run(function(){
+    item = store.createRecord('item', { id: 1, quantity: 1 });
+    ordersPackage = store.createRecord('ordersPackage', { id: 1, quantity: 1, item: item, state: 'dispatched' });
+    model.get('items').pushObjects([item]);
+  });
+
+  assert.equal(model.get('hasSingleDesignation'), false);
+});
+
+test('designatedAndDispatchedOrdersPackages: it returns designated and dispatched ordersPackages', function(assert){
+  var item, model, store, ordersPackage;
+
+  store = this.store();
+  model = this.subject();
+
+  Ember.run(function(){
+    item = store.createRecord('item', { id: 1, quantity: 1 });
+    ordersPackage = store.createRecord('ordersPackage', { id: 1, quantity: 1, item: item, state: 'dispatched' });
+    model.get('items').pushObjects([item]);
+  });
+
+  assert.equal(model.get('designatedAndDispatchedOrdersPackages').get('length'), 1);
+});
+
+test('setItemOrdersPackages: it returns designated and dispatched ordersPackages', function(assert){
+  var item, model, store, ordersPackage;
+
+  store = this.store();
+  model = this.subject();
+
+  Ember.run(function(){
+    item = store.createRecord('item', { id: 1, quantity: 1 });
+    ordersPackage = store.createRecord('ordersPackage', { id: 1, quantity: 1, item: item, state: 'dispatched' });
+    model.get('items').pushObjects([item]);
+  });
+
+  assert.equal(model.get('setItemOrdersPackages'), 1);
 });
