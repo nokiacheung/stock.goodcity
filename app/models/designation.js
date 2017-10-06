@@ -5,22 +5,20 @@ import { belongsTo, hasMany } from 'ember-data/relationships';
 
 export default Model.extend({
 
-  status:             attr('string'),
-  createdAt:          attr('date'),
-  recentlyUsedAt:     attr('date'),
-  code:               attr('string'),
-  activity:           attr('string'),
-  description:        attr('string'),
-  detailType:         attr('string'),
-  detailId:           attr('number'),
+  status:       attr('string'),
+  createdAt:    attr('date'),
+  recentlyUsedAt: attr('date'),
+  code:         attr('string'),
+  activity:     attr('string'),
+  description:  attr('string'),
+  detailType:   attr('string'),
+  detailId:     attr('number'),
 
-  contact:            belongsTo('contact', { async: false }),
-  organisation:       belongsTo('organisation', { async: false }),
-  localOrder:         belongsTo('local_order', { async: false }),
-  items:              hasMany('item', { async: true }),
-  ordersPackages:     hasMany('ordersPackages', { async: false }),
-  orderTransport:     belongsTo('orderTransport', { async: false }),
-  // purposes:           hasMany('purpose', { async: false }),
+  contact:      belongsTo('contact', { async: false }),
+  organisation: belongsTo('organisation', { async: false }),
+  localOrder:   belongsTo('local_order', { async: false }),
+  items:        hasMany('item', { async: true }),
+  ordersPackages:    hasMany('ordersPackages', { async: false }),
 
 
   isLocalOrder: Ember.computed.equal('detailType', 'LocalOrder'),
