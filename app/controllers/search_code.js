@@ -95,7 +95,9 @@ export default Ember.Controller.extend({
 
     assignItemLabel(type){
       this.set("isSearchCodePreviousRoute", true);
-      this.transitionToRoute("items.new", { queryParams: { codeId: type.id }});
+      if(type) {
+        this.transitionToRoute("items.new", { queryParams: { codeId: type.id }});
+      }
     }
   }
 });

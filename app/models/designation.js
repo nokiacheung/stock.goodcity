@@ -29,7 +29,7 @@ export default Model.extend({
 
   allItemsDispatched: Ember.computed('items.@each.isDispatched', function() {
     var items = this.get("items");
-    return items.length > 0 && items.filterBy('isDispatched', false).length === 0;
+    return items.get('length') > 0 && items.filterBy('isDispatched', false).length === 0;
   }),
 
   designatedOrdersPackages: Ember.computed('ordersPackages.@each.state', function() {

@@ -37,10 +37,12 @@ export default Ember.Route.extend({
 
   showItemIsNotAvailable() {
     this.set('isItemUnavailable', true);
-    this.get("messageBox").alert('This item is not available.', () => {
-      this.set('isItemUnavailable', false);
-      this.transitionTo('items.index');
-    });
+    if(this.get("target").currentPath !== "index") {
+      this.get("messageBox").alert('This item is not available.', () => {
+        this.set('isItemUnavailable', false);
+        this.transitionTo('items.index');
+      });
+    }
   },
 
   showMustLogin() {

@@ -9,7 +9,7 @@ I18nTranslationsEn =
   "QuotaExceededError": "Site may not work in Safari's <b>private mode.</b> Please try</br><ul><li><a href='https://itunes.apple.com/in/app/goodcitystock.hk/id1144806764?mt=8' style='color: black!important; background-color: #dee4eb !important;'>Downloading the iOS App</a></li><li>Using regular (not private) mode in Safari</li><li>Using Chrome's private browsing mode</li></ul>"
   "search_min": "Search (min 3 characters)"
   "cancel": "Cancel"
-  "ok" : "OK"
+  "ok" : "確定"
   "must_login": "You must login!"
   "search_no_results": "Sorry, No results found."
   "version": "Stock v."

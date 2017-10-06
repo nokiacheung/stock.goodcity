@@ -27,7 +27,7 @@ export default searchModule.extend({
   searchModelName: "location",
   messageBox: Ember.inject.service(),
 
-  sortProperties: ["createdAt:desc"],
+  sortProperties: ["recentlyUsedAt:desc"],
   sortedRecentlyUsedLocations: Ember.computed.sort("recentlyUsedLocations", "sortProperties"),
 
   recentlyUsedLocations: Ember.computed('model.locations', function(){
@@ -145,6 +145,8 @@ export default searchModule.extend({
         this.transitionToRoute(path, item);
       }).finally(() => {
         loadingView.destroy();
+        var recentlyUsedLocations = this.get('store').query('location', { recently_used: true });
+        this.get('store').pushPayload(recentlyUsedLocations);
       });
     },
 
