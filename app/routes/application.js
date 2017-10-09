@@ -14,7 +14,8 @@ export default Ember.Route.extend({
   init() {
     var _this = this;
     var storageHandler = function (object) {
-      if(!window.localStorage.getItem('authToken')) {
+      var authToken = window.localStorage.getItem('authToken');
+      if(authToken !== null && authToken.length === 0) {
         object.get('messageBox').alert(object.get("i18n").t('must_login'), () => {
           object.transitionTo('login');
         });
