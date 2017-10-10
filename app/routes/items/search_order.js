@@ -9,13 +9,16 @@ export default AuthorizeRoute.extend({
   },
 
   partial_qnty: Ember.computed.localStorage(),
+  messageBox: Ember.inject.service(),
+  transition: null,
 
   partialDesignatePath: true,
   itemDesignateBackLinkPath: Ember.computed.localStorage(),
 
-  beforeModel() {
+  beforeModel(transition) {
     getOwner(this).lookup('controller:items.detail').set('callOrderObserver', true);
     this._super(...arguments);
+    this.set('transition', transition);
     var previousRoutes = this.router.router.currentHandlerInfos;
     var previousRoute = previousRoutes && previousRoutes.pop();
 
@@ -55,6 +58,15 @@ export default AuthorizeRoute.extend({
       item: item || this.store.findRecord('item', params.item_id),
       designations: recentlyUsedDesignations.get('length') !== 0 ? recentlyUsedDesignations : this.get('store').query('designation', { recently_used: true })
     });
+  },
+
+  afterModel(model) {
+    if(model.get('quantity') === 0) {
+      this.get('transition').abort();
+      this.get("messageBox").alert("This item is already designated", () => {
+        this.transitionTo("items.index");
+      });
+    }
   },
 
   setupController(controller, model){
