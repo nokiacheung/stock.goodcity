@@ -227,3 +227,20 @@ test('check hasSameSingleDesignation computed property', function(assert){
 
   assert.equal(model.get('hasSameSingleDesignation'), true);
 });
+
+test('designations: returns designated ordersPackages', function(assert){
+  var item, model, store, ordersPackage, designation;
+
+  store = this.store();
+  model = this.subject();
+
+  Ember.run(function(){
+    item = store.createRecord('item', { id: 1, quantity: 1 });
+    designation = store.createRecord('designation', { id: 1, code: 'L1'});
+    ordersPackage = store.createRecord('ordersPackage', { id: 1, quantity: 1, item: item, state: 'dispatched',
+      designation: designation });
+    model.get('designatedSetItemOrderPackages').pushObjects([ordersPackage.get('designationId')]);
+  });
+
+  assert.equal(model.get('designations.length'), 1);
+});
