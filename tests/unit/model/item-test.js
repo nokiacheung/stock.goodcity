@@ -339,3 +339,27 @@ test('check imageUrlList computed property', function(assert){
   assert.equal(Ember.compare(item.get('imageUrlList'),
     ["https://res.cloudinary.com/ddoadcjjl/image/upload/c_fit,fl_progressive/v1438323573/default/test_image.jpg"]), 0);
 });
+
+test('available_qty: Returns available qty', function(assert){
+  assert.expect(1);
+  var model = this.subject({ id: 1, quantity: 2 });
+  assert.equal(model.get('available_qty'), 2);
+});
+
+test('setImages: returns associated items imageUrlList', function(assert){
+  var store, item, setItem;
+
+  store = this.store();
+
+  Ember.run(function(){
+    setItem = store.createRecord('setItem', { id: 1, description: 'abc' });
+    item = store.createRecord('item', { id: 1, quantity: 2, imageUrlList:
+      ["https://res.cloudinary.com/ddoadcjjl/image/upload/c_fit,fl_progressive/v1438323573/default/test_image.jpg"],
+      setItem: setItem
+    });
+  });
+
+  assert.equal(item.get('setImages').get('length'), 1);
+  assert.equal(Ember.compare(item.get('setImages'),
+    ["https://res.cloudinary.com/ddoadcjjl/image/upload/c_fit,fl_progressive/v1438323573/default/test_image.jpg"]), 0);
+});

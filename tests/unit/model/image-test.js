@@ -32,3 +32,8 @@ test('Relationships with other models', function(assert) {
   assert.equal(relationshipWithItem.key, 'item');
   assert.equal(relationshipWithItem.kind, 'belongsTo');
 });
+
+test('thumbImageUrl: returns thumb url', function(assert){
+  var image = this.subject({ id: 1 });
+  assert.equal(image.get('thumbImageUrl'), 'https://res.cloudinary.com/ddoadcjjl/image/upload/c_fill,fl_progressive,h_120,w_120/v1438323573/default/test_image.jpg');
+});
