@@ -1,0 +1,87 @@
+<nav class="tab-bar order_fixed_header">
+  <section class="left-small">
+    {{#link-to 'orders.detail' model.id classNames="back"}}
+      <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
+      <div>{{t "back"}}</div>
+    {{/link-to}}
+  </section>
+
+  <section class="middle tab-bar-section">
+    <h1 class="title">Transport Details</h1>
+  </section>
+
+</nav>
+
+<section class="main-section order_page">
+
+  <div class="row ">
+    <div class="small-12 columns main_details">
+      <div class="row">
+        <div class="small-5 large-4 columns">
+          Type:
+        </div>
+        <div class="small-7 large-8 columns">
+          {{model.orderTransport.type}}
+        </div>
+      </div>
+
+      {{#if (is-equal model.orderTransport.type "GGV")}}
+        <div class="row">
+          <div class="small-5 large-4 columns">
+            GGV Transport Id:
+          </div>
+          <div class="small-7 large-8 columns">
+            {{model.orderTransport.gogovanTransportId}}
+          </div>
+        </div>
+      {{/if}}
+
+      <div class="row">
+        <div class="small-5 large-4 columns">
+          Scheduled At:
+        </div>
+        <div class="small-7 large-8 columns">
+          {{model.orderTransport.scheduledDate}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-5 large-4 columns">
+          Timeslot:
+        </div>
+        <div class="small-7 large-8 columns">
+          {{model.orderTransport.timeslot}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-5 large-4 columns">
+          Need Carry:
+        </div>
+        <div class="small-7 large-8 columns">
+          {{if model.orderTransport.needCarry "Yes" "No"}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-5 large-4 columns">
+          Need Cart:
+        </div>
+        <div class="small-7 large-8 columns">
+          {{if model.orderTransport.needCart "Yes" "No"}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-5 large-4 columns">
+          Need English:
+        </div>
+        <div class="small-7 large-8 columns">
+          {{if model.orderTransport.needEnglish "Yes" "No"}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
