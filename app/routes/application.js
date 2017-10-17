@@ -9,12 +9,15 @@ export default Ember.Route.extend({
   isLoginPopUpAlreadyShown: false,
   logger: Ember.inject.service(),
   messageBox: Ember.inject.service(),
+  isMustLoginAlreadyShown: false,
 
 
   init() {
     var _this = this;
     var storageHandler = function (object) {
-      if(!window.localStorage.getItem('authToken')) {
+      var currentPath = window.location.href;
+      if(!window.localStorage.getItem('authToken') && !object.get('isMustLoginAlreadyShown') && !(currentPath.includes("login") || currentPath.includes("authenticate"))) {
+        object.set('isMustLoginAlreadyShown', true);
         object.get('messageBox').alert(object.get("i18n").t('must_login'), () => {
           object.transitionTo('login');
         });
