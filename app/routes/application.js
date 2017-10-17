@@ -16,11 +16,14 @@ export default Ember.Route.extend({
     var _this = this;
     var storageHandler = function (object) {
       var currentPath = window.location.href;
-      if(!window.localStorage.getItem('authToken') && !object.get('isMustLoginAlreadyShown') && !(currentPath.includes("login") || currentPath.includes("authenticate"))) {
+      var authToken = window.localStorage.getItem('authToken');
+      if(!authToken && !object.get('isMustLoginAlreadyShown') && !(currentPath.includes("login") || currentPath.includes("authenticate"))) {
         object.set('isMustLoginAlreadyShown', true);
         object.get('messageBox').alert(object.get("i18n").t('must_login'), () => {
-          object.transitionTo('login');
+          object.transitionTo("login");
         });
+      } else if(authToken && (currentPath.includes("login") || currentPath.includes("authenticate")) {
+        object.transitionTo("/");
       }
     };
     window.addEventListener("storage", function() {
