@@ -22,7 +22,7 @@ export default Ember.Route.extend({
         object.get('messageBox').alert(object.get("i18n").t('must_login'), () => {
           object.transitionTo("login");
         });
-      } else if(authToken && (currentPath.includes("login") || currentPath.includes("authenticate")) {
+      } else if(authToken && (currentPath.includes("login") || currentPath.includes("authenticate"))) {
         object.transitionTo("/");
       }
     };
