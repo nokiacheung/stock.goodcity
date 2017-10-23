@@ -239,8 +239,9 @@ export default Ember.Component.extend({
         }).catch((error) => {
           if(error.status === 422){
             var errors = Ember.$.parseJSON(error.responseText).errors;
-            this.get("messageBox").alert(errors);
-            this.get('router').transitionTo("items.index");
+            this.get("messageBox").alert((errors), () => {
+              this.get('router').transitionTo("items.index");
+            });
           }
         }).finally(() => {
           loadingView.destroy();
