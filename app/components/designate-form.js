@@ -11,7 +11,6 @@ export default Ember.Component.extend({
   hideDetailsLink: true,
   showDispatchOverlay: false,
   partial_quantity: 0,
-  messageBox: Ember.inject.service(),
   partiallyDesignatedPopUp: false,
   designatedSetOrdersPackages: [],
   partialDesignatedConfirmationPopUp: false,
@@ -31,6 +30,7 @@ export default Ember.Component.extend({
   orderPackageId: null,
   alreadyShown: true,
   hasCancelledState: false,
+  messageBox: Ember.inject.service(),
 
   returnsDesignateFullSet: Ember.computed('item.setItem.items', function() {
     if(this.get("env") === "test") {
@@ -236,8 +236,14 @@ export default Ember.Component.extend({
             loadingView.destroy();
             this.get('router').transitionTo("items.index");
           }
-        })
-        .finally(() => {
+        }).catch((error) => {
+          if(error.status === 422){
+            var errors = Ember.$.parseJSON(error.responseText).errors;
+            this.get("messageBox").alert((errors), () => {
+              this.get('router').transitionTo("items.index");
+            });
+          }
+        }).finally(() => {
           loadingView.destroy();
         });
     }
