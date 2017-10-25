@@ -9,8 +9,8 @@ export default AuthorizeRoute.extend({
   },
 
   partial_qnty: Ember.computed.localStorage(),
-  messageBox: Ember.inject.service(),
-  transition: null,
+  // messageBox: Ember.inject.service(),
+  // transition: null,
 
   partialDesignatePath: true,
   itemDesignateBackLinkPath: Ember.computed.localStorage(),
@@ -60,13 +60,14 @@ export default AuthorizeRoute.extend({
     });
   },
 
-  afterModel(model) {
-    if(model.item.get('quantity') === 0) {
-      this.get("messageBox").alert("This item is already designated", () => {
-        this.transitionTo("items.index");
-      });
-    }
-  },
+  // afterModel(model) {
+  //   if(model.item.get('quantity') === 0) {
+  //     this.get('transition').abort();
+  //     this.get("messageBox").alert("This item is already designated", () => {
+  //       this.transitionTo("items.index");
+  //     });
+  //   }
+  // },
 
   setupController(controller, model){
     this._super(controller, model);
