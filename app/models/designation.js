@@ -22,8 +22,8 @@ export default Model.extend({
   orderTransport:     belongsTo('orderTransport', { async: false }),
   // purposes:           hasMany('purpose', { async: false }),
 
-
   isLocalOrder: Ember.computed.equal('detailType', 'LocalOrder'),
+  isGoodCityOrder: Ember.computed.equal('detailType', 'GoodCity'),
 
   dispatchedItems: Ember.computed('items.@each.sentOn', function() {
     return this.get("items").rejectBy('sentOn', null);
