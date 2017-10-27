@@ -51,11 +51,7 @@
           Organisation:
         </div>
         <div class="small-8 columns">
-          {{#if model.isGoodCityOrder}}
-            {{apply-line-break model.organisation.nameEn}}
-          {{else}}
-            {{apply-line-break model.organisation.name}}
-          {{/if}}
+          {{apply-line-break (if model.isGoodCityOrder model.organisation.nameEn model.organisation.name)}}
         </div>
       </div>
 
