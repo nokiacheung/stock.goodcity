@@ -56,12 +56,22 @@ module.exports = function(environment) {
     sentry: {
        dsn: 'https://21fe90a0fc944c13b38d8090bc97f5d6:32224c98abc64ab393b2cbdc2acf344e@sentry.io/176461',
        development: false
+    },
+
+    rollbar: {
+      accessToken: 'cc46e2e6402f4106a8ba71fe9752d69a',
+      enabled: environment !== 'development',
+      captureUncaught: true,
+      payload: {
+        environment: 'development'
+      }
     }
   };
 
   if (environment === 'development') {
     ENV.APP.API_HOST_URL = 'http://localhost:3000';
     ENV.APP.SOCKETIO_WEBSERVICE_URL = 'http://localhost:1337/goodcity';
+    ENV.rollbarVerbose = true,
 
     ENV.contentSecurityPolicy["connect-src"] = [
       'http://localhost:3000',
@@ -69,7 +79,8 @@ module.exports = function(environment) {
       'http://localhost:4203',
       'http://localhost:1337',
       'ws://localhost:1337',
-      'wss://localhost:1337'
+      'wss://localhost:1337',
+      'https://api.rollbar.com'
     ].join(' ');
 
     ENV.contentSecurityPolicy["img-src"] = [
@@ -102,6 +113,7 @@ module.exports = function(environment) {
     ENV.contentSecurityPolicy["connect-src"] = [
       'https://api.goodcity.hk',
       'https://errbit.crossroads.org.hk',
+      'https://api.rollbar.com',
       'https://socket.goodcity.hk:81',
       'ws://socket.goodcity.hk:81',
       'wss://socket.goodcity.hk:81',
@@ -117,6 +129,7 @@ module.exports = function(environment) {
     ENV.contentSecurityPolicy["connect-src"] = [
       'https://api-staging.goodcity.hk',
       'https://errbit.crossroads.org.hk',
+      'https://api.rollbar.com',
       'https://sentry.io',
       'https://socket-staging.goodcity.hk:81',
       'ws://socket-staging.goodcity.hk:81',
