@@ -30,6 +30,9 @@ dependencies:
     - bundle install
     - gem update fastlane
     - bower install
+    - ember build
+    - curl https://api.rollbar.com/api/1/sourcemap/download -F access_token=9b23d6fe528247a6a91c51571a20289c -F version="0" -F minified_url=https://stock-staging.goodcity.hk/assets/stock.js
+
     - PATH=$(npm bin):$PATH; azure-filestore download -f goodcity.keystore:
         pwd: cordova
     - PATH=$(npm bin):$PATH; azure-filestore download -d google-play -f $GOOGLE_PLAY_KEY_FILE:
