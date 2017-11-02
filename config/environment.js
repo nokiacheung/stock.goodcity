@@ -72,7 +72,7 @@ module.exports = function(environment) {
     sentry: {
        dsn: 'https://21fe90a0fc944c13b38d8090bc97f5d6:32224c98abc64ab393b2cbdc2acf344e@sentry.io/176461',
        development: false
-    },
+    }
   };
 
   if (environment === 'development') {
