@@ -26,14 +26,14 @@
   <body>
     {{content-for "body"}}
 
-    <script src="assets/vendor.js"></script>
+    <script src="assets/vendor.js" integrity=""></script>
     <script>
       Raven
       .config('https://21fe90a0fc944c13b38d8090bc97f5d6@sentry.io/176461')
       .addPlugin(Raven.Plugins.Ember)
       .install();
     </script>
-    <script src="assets/stock.js"></script>
+    <script src="assets/stock.js" integrity=""></script>
 
     {{content-for "body-footer"}}
   </body>
