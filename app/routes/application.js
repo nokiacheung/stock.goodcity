@@ -104,7 +104,7 @@ export default Ember.Route.extend({
       } else if (status === 401) {
         this.showMustLogin();
       } else {
-        if(reason.message.includes('stockit_item') && reason.message.includes('404') && !this.get('isItemUnavailable')) {
+        if(reason.message && reason.message.includes('stockit_item') && reason.message.includes('404') && !this.get('isItemUnavailable')) {
           this.showItemIsNotAvailable();
         } else {
           this.showSomethingWentWrong(reason);
