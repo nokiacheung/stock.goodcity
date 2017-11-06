@@ -23,7 +23,7 @@ export default Ember.Service.extend({
     });
     airbrake.setHost(config.APP.AIRBRAKE_HOST);
     airbrake.notify({ error, context: { userId, userName, environment, version } });
-    this.notifyRollBar(userId, username, environment, version);
+    this.notifyRollBar(error ,userId, username);
   },
 
   error: function(reason) {
