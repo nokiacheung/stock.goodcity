@@ -5,7 +5,7 @@ import rollbar from 'rollbar';
 export default Ember.Service.extend({
   session: Ember.inject.service(),
 
-  notifyRollBar(userId, username) {
+  notifyRollBar(userId, userName) {
     rollbar.error(error, { id: userId, username: userName});
   },
 
@@ -23,7 +23,7 @@ export default Ember.Service.extend({
     });
     airbrake.setHost(config.APP.AIRBRAKE_HOST);
     airbrake.notify({ error, context: { userId, userName, environment, version } });
-    this.notifyRollBar(error ,userId, username);
+    this.notifyRollBar(error ,userId, userName);
   },
 
   error: function(reason) {
