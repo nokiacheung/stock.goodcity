@@ -24,7 +24,7 @@
   </section>
 
   <section class="middle tab-bar-section">
-    <h1 class="title">{{t "order_details.order"}} {{model.code}}</h1>
+    <h1 class="title">{{t "order_details.order"}} {{model.order.code}}</h1>
   </section>
 
   <section class="right-small">
@@ -36,10 +36,10 @@
   <div class="row">
     <div class="small-12 columns offer-status">
       <div class="time-details">
-        {{t "order_details.submitted"}} {{display-datetime model.createdAt format="DD MMM 'YY"}}
+        {{t "order_details.submitted"}} {{display-datetime model.order.createdAt format="DD MMM 'YY"}}
       </div>
       <div class="state">
-        {{model.status}}
+        {{model.order.status}}
       </div>
     </div>
   </div>
@@ -56,12 +56,12 @@
       </div>
 
       <div class="row">
-        {{#link-to "orders.contact" model.id}}
+        {{#link-to "orders.contact" model.user.id}}
           <div class="small-4 columns">
             Contact:
           </div>
           <div class="small-7 columns">
-            {{model.contact.fullName}}
+            {{model.user.fullName}}
           </div>
           <div class="small-1 columns icons">
             <i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i>
@@ -70,12 +70,12 @@
       </div>
 
       <div class="row">
-        {{#link-to "orders.order_transport" model}}
+        {{#link-to "orders.order_transport" model.order}}
           <div class="small-4 columns">
             Transport:
           </div>
           <div class="small-7 columns">
-            {{model.orderTransport.type}}
+            {{model.order.orderTransport.type}}
           </div>
           <div class="small-1 columns icons">
             <i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i>
@@ -84,12 +84,12 @@
       </div>
 
       <div class="row">
-        {{#link-to "orders.purposes" model}}
+        {{#link-to "orders.purposes" model.order}}
           <div class="small-4 columns">
             Purposes:
           </div>
           <div class="small-7 columns">
-            {{apply-line-break model.description}}
+            {{apply-line-break model.order.description}}
           </div>
           <div class="small-1 columns icons">
             <i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i>
@@ -97,17 +97,17 @@
         {{/link-to}}
       </div>
 
-      {{#if model.isLocalOrder}}
+      {{#if model.order.isLocalOrder}}
         <div class="row">
-          {{#link-to "orders.client" model.id}}
+          {{#link-to "orders.client" model.order.id}}
             <div class="small-4 columns">
               Client:
             </div>
 
             <div class="small-7 columns">
-              {{model.localOrder.clientName}}
-              {{#if model.localOrder.hkidNumber}}
-                ({{model.localOrder.hkidNumber}})
+              {{model.order.localOrder.clientName}}
+              {{#if model.order.localOrder.hkidNumber}}
+                ({{model.order.localOrder.hkidNumber}})
               {{/if}}
             </div>
             <div class="small-1 columns icons">
@@ -117,13 +117,13 @@
         </div>
 
         <div class="row">
-          {{#link-to "orders.info" model.id}}
+          {{#link-to "orders.info" model.order.id}}
             <div class="small-4 columns">
               Order Info:
             </div>
 
             <div class="small-7 columns ellipsis two-line-ellipsis">
-              {{model.localOrder.purposeOfGoods}}
+              {{model.order.localOrder.purposeOfGoods}}
             </div>
             <div class="small-1 columns icons">
               <i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i>
@@ -138,18 +138,18 @@
   <div class="row">
     <div class="small-12 columns item_count">
       <span>{{t "order_details.items"}}</span>
-      ({{model.designatedOrdersPackages.length}} Designated, {{model.dispatchedOrdersPackages.length}} Dispatched)
+      ({{model.order.designatedOrdersPackages.length}} Designated, {{model.order.dispatchedOrdersPackages.length}} Dispatched)
     </div>
   </div>
 
-  {{#unless model.isInactive}}
+  {{#unless model.order.isInactive}}
     <div class="row add_item_button">
       <div class=" {{if isMobileApp 'small-9' 'small-12'}} columns">
-          {{#link-to "orders.items" model (query-params searchInput="") class="button expand"}}{{t "order_details.add_item_to_order"}}{{/link-to}}
+          {{#link-to "orders.items" model.order (query-params searchInput="") class="button expand"}}{{t "order_details.add_item_to_order"}}{{/link-to}}
       </div>
       {{#if isMobileApp}}
         <div class="small-3 columns">
-          {{scan-barcode-button record=model route="orders.items"}}
+          {{scan-barcode-button record=model.order route="orders.items"}}
         </div>
       {{/if}}
     </div>

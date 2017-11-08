@@ -14,6 +14,7 @@ export default Model.extend({
   detailType:         attr('string'),
   detailId:           attr('number'),
 
+  createdById:        belongsTo('user', { async: false }),
   contact:            belongsTo('contact', { async: false }),
   organisation:       belongsTo('organisation', { async: false }),
   localOrder:         belongsTo('local_order', { async: false }),

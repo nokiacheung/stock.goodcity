@@ -38,24 +38,30 @@ export default getOrderRoute.extend({
   },
 
   model(params) {
-    return this.store.findRecord("designation", params.order_id, { reload: true });
+    var order = this.store.findRecord("designation", params.order_id, { reload: true });
+    var user = this.store.peekAll('user').objectAt(0);
+    return Ember.RSVP.hash({
+      order: order,
+      user: user
+    });
   },
 
   afterModel(model) {
-    if(model) {
-      var ordersPackages = this.store.query("orders_package", {   search_by_order_id: model.get("id") });
+    Ember.set(model, 'user', this.store.peekAll('user').objectAt(0));
+    if(model.order) {
+      var ordersPackages = this.store.query("orders_package", {   search_by_order_id: model.order.get("id") });
       this.store.pushPayload(ordersPackages);
     }
   },
 
   setupController(controller, model){
-    if(model) {
+    if(model.order) {
       var itemId = this.get('itemIdforHistoryRoute');
       if(itemId)
       {
         controller.set('itemIdforHistoryRoute', itemId);
       }
-      this._super(controller, model);
+      this._super(controller, model.order);
       controller.set('backLinkPath', this.get('orderBackLinkPath'));
     }
   }
