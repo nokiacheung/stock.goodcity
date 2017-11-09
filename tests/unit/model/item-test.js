@@ -363,3 +363,16 @@ test('setImages: returns associated items imageUrlList', function(assert){
   assert.equal(Ember.compare(item.get('setImages'),
     ["https://res.cloudinary.com/ddoadcjjl/image/upload/c_fit,fl_progressive/v1438323573/default/test_image.jpg"]), 0);
 });
+
+test('minSetQty: returns minimum quantity of setItem Items', function(assert){
+  var store, item1, item2, setItem;
+  store = this.store();
+
+  Ember.run(function(){
+    setItem = store.createRecord('setItem', {id: 2, description: 'abc'});
+    item1   = store.createRecord('item', { id: 3, quantity: 3, setItem: setItem, isSet: true});
+    item2   = store.createRecord('item', { id: 4, quantity: 1, setItem: setItem, isSet: true});
+  });
+
+  assert.equal(item1.get('minSetQty'), 1);
+});
