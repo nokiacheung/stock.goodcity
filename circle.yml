@@ -45,7 +45,6 @@ test:
   post:
     - codeclimate-test-reporter < 'coverage/lcov.info'
     - ember build
-    - curl https://api.rollbar.com/api/1/sourcemap/download -F access_token=$ROLLBAR_KEY -F version=$APP_VERSION -F minified_url=https://stock-staging.goodcity.hk/assets/stock.js
     - echo "Killing ember server to free memory for app build" && killall ember
 
 deployment:
@@ -57,6 +56,7 @@ deployment:
       - bundle exec fastlane ios staging
       - bundle exec rake staging android app:build
       - bundle exec fastlane android staging
+      - curl https://api.rollbar.com/api/1/sourcemap/download -F access_token=$ROLLBAR_KEY -F version=$APP_VERSION -F minified_url=https://stock-staging.goodcity.hk/assets/stock.js
   production:
     branch: live
     commands:
@@ -65,4 +65,4 @@ deployment:
       - bundle exec rake production ios app:build
       - bundle exec fastlane android beta
       - bundle exec fastlane ios beta
-
+      - curl https://api.rollbar.com/api/1/sourcemap/download -F access_token=$ROLLBAR_KEY -F version=$APP_VERSION -F minified_url=https://stock.goodcity.hk/assets/stock.js
