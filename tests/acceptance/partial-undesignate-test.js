@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import '../factories/orders_package';
@@ -24,8 +24,8 @@ module('Acceptance: Partial undesignate/modify', {
     orders_pkg2 = FactoryGuy.make("orders_package", { id: 501, state: "dispatched", quantity: 1, item: pkg1, designationId: order1.id, designation: order1, sent_on: Date.now() });
   },
   afterEach: function() {
-    Ember.run(function() { TestHelper.teardown(); });
-    Ember.run(App, 'destroy');
+    run(function() { TestHelper.teardown(); });
+    run(App, 'destroy');
   }
 });
 

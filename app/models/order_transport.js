@@ -1,6 +1,6 @@
+import { computed } from '@ember/object';
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
-import Ember from 'ember';
 import { belongsTo } from 'ember-data/relationships';
 
 export default Model.extend({
@@ -16,11 +16,11 @@ export default Model.extend({
   needCart:             attr("boolean"),
   needCarry:            attr("boolean"),
 
-  scheduledDate: Ember.computed('scheduledAt', function() {
+  scheduledDate: computed('scheduledAt', function() {
     return moment(this.get('scheduledAt')).format("D MMMM YYYY");
   }),
 
-  type: Ember.computed('transportType', function(){
+  type: computed('transportType', function(){
     var type = this.get('transportType');
     if(type === "ggv"){
       return type.toUpperCase();

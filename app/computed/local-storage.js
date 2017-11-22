@@ -8,7 +8,7 @@ catch(err) {
 }
 
 var cookiesSupported = false;
-try { Ember.$.cookie('test', 2); Ember.$.removeCookie('test'); cookiesSupported = true; }
+try { $.cookie('test', 2); Ember.$.removeCookie('test'); cookiesSupported = true; }
 catch(err) {
   console.log(err);
 }
@@ -33,7 +33,7 @@ var localStorageProvider = {
 
 var cookieStorageProvider = {
   get(key) {
-    return Ember.$.cookie(key);
+    return $.cookie(key);
   },
   set(key, value) {
     Ember.$.cookie.json = true;

@@ -1,5 +1,6 @@
+import { debounce } from '@ember/runloop';
+import { observer } from '@ember/object';
 import config from '../../config/environment';
-import Ember from "ember";
 import searchModule from "../search_module";
 
 export default searchModule.extend({
@@ -14,10 +15,10 @@ export default searchModule.extend({
   searchModelName: "item",
   minSearchTextLength: 2,
 
-  onItemSetIdChange: Ember.observer("itemSetId", function() {
+  onItemSetIdChange: observer("itemSetId", function() {
     // wait before applying the filter
     if (this.get("itemSetId")) {
-      Ember.run.debounce(this, this.applyFilter, 0);
+      debounce(this, this.applyFilter, 0);
     }
   })
 });

@@ -1,14 +1,16 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
+import { getOwner } from '@ember/application';
 import SearchCode from '../search_code';
 import AjaxPromise from 'stock/utils/ajax-promise';
-const { getOwner } = Ember;
 
 export default SearchCode.extend({
   item: null,
   inlineDescription: true,
-  store: Ember.inject.service(),
+  store: service(),
 
-  allPackageTypes: Ember.computed("fetchMoreResult", 'item.isSet', function(){
+  allPackageTypes: computed("fetchMoreResult", 'item.isSet', function(){
     if(this.get('item.isSet')) {
       return this.get('item.setItem.code').allChildPackagesList();
     } else {
@@ -18,7 +20,7 @@ export default SearchCode.extend({
 
   actions: {
     cancelSearch() {
-      Ember.$("#searchText").blur();
+      $("#searchText").blur();
       this.send("clearSearch", true);
       this.transitionToRoute("items.detail", this.get('item'));
     },

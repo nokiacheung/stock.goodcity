@@ -1,9 +1,9 @@
+import { computed } from '@ember/object';
 import getOrderRoute from './get_order';
-import Ember from 'ember';
 
 export default getOrderRoute.extend({
 
-  orderBackLinkPath: Ember.computed.localStorage(),
+  orderBackLinkPath: computed.localStorage(),
   itemIdforHistoryRoute: null,
 
   setHistoryRoute(routeName, previousRoute) {

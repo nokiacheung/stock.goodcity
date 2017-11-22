@@ -1,4 +1,5 @@
-import Ember from "ember";
+import { hash } from 'rsvp';
+import { computed } from '@ember/object';
 import AuthorizeRoute from './../authorize';
 
 export default AuthorizeRoute.extend({
@@ -8,8 +9,8 @@ export default AuthorizeRoute.extend({
   },
 
   orderId: null,
-  itemMoveBackLinkPath: Ember.computed.localStorage(),
-  itemPreviousRoute: Ember.computed.localStorage(),
+  itemMoveBackLinkPath: computed.localStorage(),
+  itemPreviousRoute: computed.localStorage(),
 
   beforeModel() {
     this._super(...arguments);
@@ -35,7 +36,7 @@ export default AuthorizeRoute.extend({
     var item = this.store.peekRecord("item", params.item_id);
     var recentlyUsedLocations = this.store.peekAll('location').filterBy('recentlyUsedAt');
 
-    return Ember.RSVP.hash({
+    return hash({
       item: item || this.store.findRecord('item', params.item_id),
       locations: recentlyUsedLocations.get('length') !== 0 ? recentlyUsedLocations : this.store.query('location', { recently_used: true })
     });

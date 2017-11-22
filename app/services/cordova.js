@@ -1,7 +1,7 @@
-import Ember from "ember";
+import Service from '@ember/service';
 import config from '../config/environment';
 
-export default Ember.Service.extend({
+export default Service.extend({
 
   isAndroid: function () {
     if (!config.cordova.enabled || !window.device) { return; }

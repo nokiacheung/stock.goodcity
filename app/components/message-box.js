@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import messageBox from '../templates/components/message-box';
 
-export default Ember.Component.extend({
+export default Component.extend({
 
   layout: messageBox,
   message: "",

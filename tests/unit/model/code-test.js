@@ -1,5 +1,5 @@
+import { get } from '@ember/object';
 import { test, moduleForModel } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleForModel('code', 'Code model',{
   needs: ['model:location']
@@ -24,7 +24,7 @@ test('check attributes', function(assert){
 test('Relationship with other models', function(assert){
   assert.expect(2);
   var Code = this.store().modelFor('code');
-  var relationshipWithLocation = Ember.get(Code, 'relationshipsByName').get('location');
+  var relationshipWithLocation = get(Code, 'relationshipsByName').get('location');
 
   assert.equal(relationshipWithLocation.key, 'location');
   assert.equal(relationshipWithLocation.kind, 'belongsTo');

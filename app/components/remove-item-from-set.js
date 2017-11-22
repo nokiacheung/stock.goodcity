@@ -1,10 +1,11 @@
-import Ember from "ember";
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import { getOwner } from '@ember/application';
 import AjaxPromise from 'stock/utils/ajax-promise';
-const { getOwner } = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
   displayUserPrompt: false,
-  store: Ember.inject.service(),
+  store: service(),
   hideDetailsLink: true,
 
   actions: {

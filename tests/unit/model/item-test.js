@@ -1,5 +1,7 @@
+import { compare } from '@ember/utils';
+import { run } from '@ember/runloop';
+import { get } from '@ember/object';
 import { test, moduleForModel } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleForModel('item', 'Item Model', {
   needs: ['model:item', 'model:designation', 'model:location', 'model:code', 'model:donor_condition', 'model:set_item', 'model:packages_location', 'model:orders_package', 'model:image']
@@ -42,14 +44,14 @@ test('check attributes', function(assert){
 test('Relationships with other models', function(assert) {
   assert.expect(16);
   var Item = this.store().modelFor('item');
-  var relationshipWithDesignation = Ember.get(Item, 'relationshipsByName').get('designation');
-  var relationshipWithLocation = Ember.get(Item, 'relationshipsByName').get('location');
-  var relationshipWithCode = Ember.get(Item, 'relationshipsByName').get('code');
-  var relationshipWithDonorCondition = Ember.get(Item, 'relationshipsByName').get('donorCondition');
-  var relationshipWithSetItem = Ember.get(Item, 'relationshipsByName').get('setItem');
-  var relationshipWithPkgsLocation = Ember.get(Item, 'relationshipsByName').get('packagesLocations');
-  var relationshipWithOrdersPkgs = Ember.get(Item, 'relationshipsByName').get('ordersPackages');
-  var relationshipWithImage = Ember.get(Item, 'relationshipsByName').get('images');
+  var relationshipWithDesignation = get(Item, 'relationshipsByName').get('designation');
+  var relationshipWithLocation = get(Item, 'relationshipsByName').get('location');
+  var relationshipWithCode = get(Item, 'relationshipsByName').get('code');
+  var relationshipWithDonorCondition = get(Item, 'relationshipsByName').get('donorCondition');
+  var relationshipWithSetItem = get(Item, 'relationshipsByName').get('setItem');
+  var relationshipWithPkgsLocation = get(Item, 'relationshipsByName').get('packagesLocations');
+  var relationshipWithOrdersPkgs = get(Item, 'relationshipsByName').get('ordersPackages');
+  var relationshipWithImage = get(Item, 'relationshipsByName').get('images');
 
   assert.equal(relationshipWithDesignation.key, 'designation');
   assert.equal(relationshipWithDesignation.kind, 'belongsTo');
@@ -79,7 +81,7 @@ test('Relationships with other models', function(assert) {
 test("check available_qty computed property", function(assert){
   var model = this.subject();
 
-  Ember.run(function(){
+  run(function(){
     model.set('available_qty', 2);
   });
 
@@ -92,7 +94,7 @@ test("check validUndispatchedLocations computed property", function(assert){
   model = this.subject();
   store = this.store();
 
-  Ember.run(function(){
+  run(function(){
     location1 = store.createRecord('location',{id: 1, building: "11", area: "A"});
     location2 = store.createRecord('location',{id: 2, building: "Dispatched", area: "B"});
     packageLocation1 = store.createRecord('packagesLocation', {id: 1, quantity: 1, locationId: 1});
@@ -102,7 +104,7 @@ test("check validUndispatchedLocations computed property", function(assert){
 
   validUndispatchedLocationsIds = model.get('validUndispatchedLocations').getEach('id');
   assert.equal(validUndispatchedLocationsIds.get('length'), 1);
-  assert.equal(Ember.compare(validUndispatchedLocationsIds, [packageLocation1.get("id")]), 0);
+  assert.equal(compare(validUndispatchedLocationsIds, [packageLocation1.get("id")]), 0);
 });
 
 test("check validPackagesLocations computed property", function(assert){
@@ -110,7 +112,7 @@ test("check validPackagesLocations computed property", function(assert){
   model = this.subject();
   store = this.store();
 
-  Ember.run(function(){
+  run(function(){
     location1 = store.createRecord('location',{id: 1, building: "11", area: "A"});
     location2 = store.createRecord('location',{id: 2, building: "Dispatched", area: "B"});
     location3 = store.createRecord('location',{id: 3, building: "33", area: "C"});
@@ -129,7 +131,7 @@ test("check orderPackagesMoreThenZeroQty computed property", function(assert){
   model = this.subject();
   store = this.store();
 
-  Ember.run(function(){
+  run(function(){
     ordersPackage1 = store.createRecord('ordersPackage', {id: 1, state: "designated", quantity: 1});
     ordersPackage2 = store.createRecord('ordersPackage', {id: 2, state: "designated", quantity: 2});
     ordersPackage3 = store.createRecord('ordersPackage', {id: 3, state: "designated", quantity: 0});
@@ -146,7 +148,7 @@ var model, store, ordersPackage1, ordersPackage2, ordersPackage3;
   model = this.subject();
   store = this.store();
 
-  Ember.run(function(){
+  run(function(){
     ordersPackage1 = store.createRecord('ordersPackage', {id: 1, state: "dispatched", quantity: 1});
     ordersPackage2 = store.createRecord('ordersPackage', {id: 2, state: "dispatched", quantity: 2});
     ordersPackage3 = store.createRecord('ordersPackage', {id: 3, state: "designated", quantity: 3});
@@ -161,7 +163,7 @@ var model, store, ordersPackage1, ordersPackage2, ordersPackage3;
   model = this.subject();
   store = this.store();
 
-  Ember.run(function(){
+  run(function(){
     ordersPackage1 = store.createRecord('ordersPackage', {id: 1, state: "cancelled", quantity: 1});
     ordersPackage2 = store.createRecord('ordersPackage', {id: 2, state: "cancelled", quantity: 2});
     ordersPackage3 = store.createRecord('ordersPackage', {id: 3, state: "designated", quantity: 3});
@@ -176,7 +178,7 @@ var model, store, ordersPackage1, ordersPackage2, ordersPackage3;
   model = this.subject();
   store = this.store();
 
-  Ember.run(function(){
+  run(function(){
     ordersPackage1 = store.createRecord('ordersPackage', {id: 1, state: "designated", quantity: 1});
     ordersPackage2 = store.createRecord('ordersPackage', {id: 2, state: "dispatched", quantity: 2});
     ordersPackage3 = store.createRecord('ordersPackage', {id: 3, state: "cancelled", quantity: 3});
@@ -191,7 +193,7 @@ var model, store, ordersPackage1, ordersPackage2, ordersPackage3;
   model = this.subject();
   store = this.store();
 
-  Ember.run(function(){
+  run(function(){
     ordersPackage1 = store.createRecord('ordersPackage', {id: 1, state: "designated", quantity: 1});
     ordersPackage2 = store.createRecord('ordersPackage', {id: 2, state: "dispatched", quantity: 2});
     ordersPackage3 = store.createRecord('ordersPackage', {id: 3, state: "cancelled", quantity: 3});
@@ -206,7 +208,7 @@ var model, store, ordersPackage1, ordersPackage2, ordersPackage3;
   model = this.subject();
   store = this.store();
 
-  Ember.run(function(){
+  run(function(){
     ordersPackage1 = store.createRecord('ordersPackage', {id: 1, state: "designated", quantity: 1});
     ordersPackage2 = store.createRecord('ordersPackage', {id: 2, state: "dispatched", quantity: 2});
     ordersPackage3 = store.createRecord('ordersPackage', {id: 3, state: "cancelled", quantity: 3});
@@ -221,14 +223,14 @@ var model, store, ordersPackage1, ordersPackage2, ordersPackage3;
   model = this.subject();
   store = this.store();
 
-  Ember.run(function(){
+  run(function(){
     ordersPackage1 = store.createRecord('ordersPackage', {id: 1, state: "designated", quantity: 1});
     ordersPackage2 = store.createRecord('ordersPackage', {id: 2, state: "dispatched", quantity: 2});
     ordersPackage3 = store.createRecord('ordersPackage', {id: 3, state: "cancelled", quantity: 3});
     model.get('ordersPackages').pushObjects([ordersPackage1, ordersPackage2, ordersPackage3]);
   });
 
-  assert.equal(Ember.compare(model.get('ordersPackagesWithStateDesignatedAndDispatched'), [ordersPackage1, ordersPackage2]), 0);
+  assert.equal(compare(model.get('ordersPackagesWithStateDesignatedAndDispatched'), [ordersPackage1, ordersPackage2]), 0);
 });
 
 test('check availableQty computed property', function(assert){
@@ -241,7 +243,7 @@ test("check hasSingleAndDispatchLocation computed property", function(assert){
   model = this.subject();
   store = this.store();
 
-  Ember.run(function(){
+  run(function(){
     location1 = store.createRecord('location',{id: 1, building: "11", area: "A"});
     location2 = store.createRecord('location',{id: 2, building: "Dispatched", area: "B"});
     location3 = store.createRecord('location',{id: 3, building: "33", area: "C"});
@@ -260,7 +262,7 @@ test('check firstLocationName computed property', function(assert){
   store = this.store();
 
 
-  Ember.run(function(){
+  run(function(){
     location1 = store.createRecord('location',{id: 1, building: "11", area: "A"});
     location2 = store.createRecord('location',{id: 2, building: "Dispatched", area: "B"});
     location3 = store.createRecord('location',{id: 3, building: "33", area: "C"});
@@ -280,7 +282,7 @@ test('check packagesLocationsList computed property', function(assert){
   store = this.store();
 
 
-  Ember.run(function(){
+  run(function(){
     location1 = store.createRecord('location',{id: 1, building: "11", area: "A"});
     location2 = store.createRecord('location',{id: 2, building: "25", area: "B"});
     location3 = store.createRecord('location',{id: 3, building: "33", area: "C"});
@@ -290,7 +292,7 @@ test('check packagesLocationsList computed property', function(assert){
     model.get('packagesLocations').pushObjects([packageLocation1, packageLocation2, packageLocation3]);
   });
 
-  assert.equal(Ember.compare(model.get('packagesLocationsList'), [packageLocation1, packageLocation2, packageLocation3]), 0);
+  assert.equal(compare(model.get('packagesLocationsList'), [packageLocation1, packageLocation2, packageLocation3]), 0);
 });
 
 test('check availableQtyForMove computed property', function(assert){
@@ -299,7 +301,7 @@ test('check availableQtyForMove computed property', function(assert){
   store = this.store();
 
 
-  Ember.run(function(){
+  run(function(){
     location1 = store.createRecord('location',{id: 1, building: "11", area: "A"});
     location2 = store.createRecord('location',{id: 2, building: "Dispatched", area: "B"});
     location3 = store.createRecord('location',{id: 3, building: "33", area: "C"});
@@ -317,7 +319,7 @@ test('check imageUrlList computed property', function(assert){
   model = this.subject();
   store = this.store();
 
-  Ember.run(function(){
+  run(function(){
     item = store.createRecord('item', {
       id:               1,
       inventoryNumber:  "C4234",
@@ -336,7 +338,7 @@ test('check imageUrlList computed property', function(assert){
     image2 = store.createRecord('image', {id: 2,  cloudinary_id: "1416902232/mmguhm3zdkonc2nynjue2.jpg", favourite: false});
   });
 
-  assert.equal(Ember.compare(item.get('imageUrlList'),
+  assert.equal(compare(item.get('imageUrlList'),
     ["https://res.cloudinary.com/ddoadcjjl/image/upload/c_fit,fl_progressive/v1438323573/default/test_image.jpg"]), 0);
 });
 
@@ -351,7 +353,7 @@ test('setImages: returns associated items imageUrlList', function(assert){
 
   store = this.store();
 
-  Ember.run(function(){
+  run(function(){
     setItem = store.createRecord('setItem', { id: 1, description: 'abc' });
     item = store.createRecord('item', { id: 1, quantity: 2, imageUrlList:
       ["https://res.cloudinary.com/ddoadcjjl/image/upload/c_fit,fl_progressive/v1438323573/default/test_image.jpg"],
@@ -360,6 +362,6 @@ test('setImages: returns associated items imageUrlList', function(assert){
   });
 
   assert.equal(item.get('setImages').get('length'), 1);
-  assert.equal(Ember.compare(item.get('setImages'),
+  assert.equal(compare(item.get('setImages'),
     ["https://res.cloudinary.com/ddoadcjjl/image/upload/c_fit,fl_progressive/v1438323573/default/test_image.jpg"]), 0);
 });

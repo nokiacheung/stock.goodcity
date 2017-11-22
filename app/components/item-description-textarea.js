@@ -1,15 +1,16 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import { inject as service } from '@ember/service';
+import { getOwner } from '@ember/application';
 import AutoResizableTextarea from './auto-resize-textarea';
 import AjaxPromise from 'stock/utils/ajax-promise';
-const { getOwner } = Ember;
 
 export default AutoResizableTextarea.extend({
   previousValue: '',
-  store: Ember.inject.service(),
+  store: service(),
   item: null,
 
   didInsertElement() {
-    Ember.$('.description-error').hide();
+    $('.description-error').hide();
   },
 
   keyDown() {
@@ -42,7 +43,7 @@ export default AutoResizableTextarea.extend({
       this.$().focus();
       return false;
     }
-    Ember.$(this.element).removeClass('item-description-textarea');
+    $(this.element).removeClass('item-description-textarea');
   },
 
   focusIn() {
@@ -50,7 +51,7 @@ export default AutoResizableTextarea.extend({
   },
 
   addCssStyle() {
-    Ember.$(this.element).addClass('item-description-textarea');
+    $(this.element).addClass('item-description-textarea');
     this.set('previousValue', this.get('value') || '');
   },
 

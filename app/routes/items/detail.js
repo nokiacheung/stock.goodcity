@@ -1,10 +1,12 @@
+import { hash } from 'rsvp';
+import { inject as service } from '@ember/service';
+import { computed } from '@ember/object';
 import AuthorizeRoute from './../authorize';
-import Ember from 'ember';
 
 export default AuthorizeRoute.extend({
-  itemBackLinkPath: Ember.computed.localStorage(),
+  itemBackLinkPath: computed.localStorage(),
   transition: null,
-  messageBox: Ember.inject.service(),
+  messageBox: service(),
 
   queryParams: {
     showDispatchOverlay: false
@@ -22,7 +24,7 @@ export default AuthorizeRoute.extend({
       });
     }
     if(model.get('isSet')) {
-      return Ember.RSVP.hash({
+      return hash({
         items: model.get('setItem.items').forEach(item => {
           this.store.findRecord("item", item.get("id"), { reload: true });
         })

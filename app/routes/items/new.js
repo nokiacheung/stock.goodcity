@@ -1,13 +1,13 @@
+import { computed } from '@ember/object';
 import AuthorizeRoute from './../authorize';
 import AjaxPromise from 'stock/utils/ajax-promise';
-import Ember from 'ember';
 
 export default AuthorizeRoute.extend({
 
   inventoryNumber: "",
   newItemRequest: "",
-  isSearchCodePreviousRoute: Ember.computed.localStorage(),
-  isSelectLocationPreviousRoute: Ember.computed.localStorage(),
+  isSearchCodePreviousRoute: computed.localStorage(),
+  isSelectLocationPreviousRoute: computed.localStorage(),
 
   queryParams: {
     codeId: "",

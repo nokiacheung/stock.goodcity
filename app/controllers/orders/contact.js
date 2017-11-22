@@ -1,5 +1,6 @@
-import Ember from "ember";
+import { alias } from '@ember/object/computed';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
-  contact: Ember.computed.alias("model.contact")
+export default Controller.extend({
+  contact: alias("model.contact")
 });

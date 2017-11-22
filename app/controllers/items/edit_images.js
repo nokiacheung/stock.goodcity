@@ -1,20 +1,28 @@
-import Ember from "ember";
+import { debounce } from '@ember/runloop';
+import $ from 'jquery';
+import { htmlSafe } from '@ember/string';
+import { on } from '@ember/object/evented';
+import { A } from '@ember/array';
+import { computed, observer } from '@ember/object';
+import { inject as service } from '@ember/service';
+import { alias, empty } from '@ember/object/computed';
+import Controller from '@ember/controller';
+import { getOwner } from '@ember/application';
 import { translationMacro as t } from "ember-i18n";
 import config from '../../config/environment';
 import AjaxPromise from 'stock/utils/ajax-promise';
-const { getOwner } = Ember;
 
-export default Ember.Controller.extend({
+export default Controller.extend({
 
-  item: Ember.computed.alias("model"),
-  session: Ember.inject.service(),
-  store: Ember.inject.service(),
-  messageBox: Ember.inject.service(),
-  i18n: Ember.inject.service(),
-  cordova: Ember.inject.service(),
+  item: alias("model"),
+  session: service(),
+  store: service(),
+  messageBox: service(),
+  i18n: service(),
+  cordova: service(),
 
   itemId: null,
-  noImage: Ember.computed.empty("item.images"),
+  noImage: empty("item.images"),
   previewImage: null,
   addPhotoLabel: t("edit_images.add_photo"),
   isReady: false,
@@ -48,17 +56,17 @@ export default Ember.Controller.extend({
     });
   },
 
-  previewMatchesFavourite: Ember.computed("previewImage", "favouriteImage", function(){
+  previewMatchesFavourite: computed("previewImage", "favouriteImage", function(){
     return this.get("previewImage") === this.get("favouriteImage");
   }),
 
-  images: Ember.computed("item.images.[]", function(){
+  images: computed("item.images.[]", function(){
     //The reason for sorting is because by default it's ordered by favourite
     //then id order. If another image is made favourite then deleted the first image
     //by id order is made favourite which can be second image in list which seems random.
 
     //Sort by id ascending except place new images id = 0 at end
-    return (this.get("item.images") || Ember.A()).toArray().sort(function(a,b) {
+    return (this.get("item.images") || A()).toArray().sort(function(a,b) {
       a = parseInt(a.get("id"), 10);
       b = parseInt(b.get("id"), 10);
       if (a === 0) { return 1; }
@@ -67,17 +75,17 @@ export default Ember.Controller.extend({
     });
   }),
 
-  favouriteImage: Ember.computed("item.images.@each.favourite", function(){
+  favouriteImage: computed("item.images.@each.favourite", function(){
     return this.get("images").filterBy("favourite").get("firstObject");
   }),
 
-  initPreviewImage: Ember.on('init', Ember.observer("model", "model.images.[]", function () {
+  initPreviewImage: on('init', observer("model", "model.images.[]", function () {
     var image = this.get("item.favouriteImage") || this.get("item.images.firstObject");
     if (image) { this.send("setPreview", image); }
   })),
 
   //css related
-  previewImageBgCss: Ember.computed("previewImage", "isExpanded", "previewImage.angle", {
+  previewImageBgCss: computed("previewImage", "isExpanded", "previewImage.angle", {
 
     get() {
       var css = this.get("instructionBoxCss");
@@ -87,7 +95,7 @@ export default Ember.Controller.extend({
 
       var imgTag = new Image();
       imgTag.onload = () => {
-        var newCSS = new Ember.String.htmlSafe(
+        var newCSS = new htmlSafe(
           css + "background-image:url(" + this.get("previewImage.imageUrl") + ");" +
           "background-size: " + (this.get("isExpanded") ? "contain" : "cover") + ";"
         );
@@ -95,7 +103,7 @@ export default Ember.Controller.extend({
       };
       imgTag.src = this.get("previewImage.imageUrl");
 
-      return new Ember.String.htmlSafe(
+      return new htmlSafe(
           css + "background-image:url('assets/images/image_loading.gif');" +
           "background-size: 'inherit';"
         );
@@ -106,14 +114,14 @@ export default Ember.Controller.extend({
     }
   }),
 
-  instructionBoxCss: Ember.computed("previewImage", "isExpanded", function(){
-    var height = Ember.$(window).height() * 0.6;
-    return new Ember.String.htmlSafe("min-height:" + height + "px;");
+  instructionBoxCss: computed("previewImage", "isExpanded", function(){
+    var height = $(window).height() * 0.6;
+    return new htmlSafe("min-height:" + height + "px;");
   }),
 
-  thumbImageCss: Ember.computed(function(){
-    var imgWidth = Math.min(120, Ember.$(window).width() / 4 - 14);
-    return new Ember.String.htmlSafe("width:" + imgWidth + "px; height:" + imgWidth + "px;");
+  thumbImageCss: computed(function(){
+    var imgWidth = Math.min(120, $(window).width() / 4 - 14);
+    return new htmlSafe("width:" + imgWidth + "px; height:" + imgWidth + "px;");
   }),
 
   locale: function(str){
@@ -212,8 +220,8 @@ export default Ember.Controller.extend({
             console.log(path);
             var dataURL = "data:image/jpg;base64," + path;
 
-            Ember.$("input[type='file']").fileupload('option', 'formData').file = dataURL;
-            Ember.$("input[type='file']").fileupload('add', { files: [ dataURL ] });
+            $("input[type='file']").fileupload('option', 'formData').file = dataURL;
+            $("input[type='file']").fileupload('add', { files: [ dataURL ] });
           };
         })(this));
 
@@ -225,11 +233,11 @@ export default Ember.Controller.extend({
         {
           //don't know why but on windows phone need to click twice in quick succession
           //for dialog to appear
-          Ember.$("#photo-list input[type='file']").click().click();
+          $("#photo-list input[type='file']").click().click();
         }
         else
         {
-          Ember.$("#photo-list input[type='file']").trigger("click");
+          $("#photo-list input[type='file']").trigger("click");
         }
       }
     },
@@ -240,7 +248,7 @@ export default Ember.Controller.extend({
 
     uploadStart(e, data) {
       this.set("uploadedFileDate", data);
-      Ember.$(".loading-image-indicator").show();
+      $(".loading-image-indicator").show();
     },
 
     cancelUpload() {
@@ -257,7 +265,7 @@ export default Ember.Controller.extend({
     uploadComplete(e) {
       e.target.disabled = false; // enable image-selection
       this.set("uploadedFileDate", null);
-      Ember.$(".loading-image-indicator.hide_image_loading").hide();
+      $(".loading-image-indicator.hide_image_loading").hide();
       this.set("addPhotoLabel", this.get("i18n").t("edit_images.add_photo"));
       this.set("loadingPercentage", this.get("i18n").t("edit_images.image_uploading"));
     },
@@ -295,7 +303,7 @@ export default Ember.Controller.extend({
     rotateImage(angle) {
       var image = this.get("previewImage");
       image.set("angle", angle);
-      Ember.run.debounce(this, this.saveImageRotation, image, 400);
+      debounce(this, this.saveImageRotation, image, 400);
     }
   },
 

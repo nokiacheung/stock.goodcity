@@ -1,7 +1,7 @@
+import { computed } from '@ember/object';
 import attr from 'ember-data/attr';
 import { belongsTo, hasMany } from 'ember-data/relationships';
 import Model from 'ember-data/model';
-import Ember from 'ember';
 
 export default Model.extend({
 
@@ -10,27 +10,27 @@ export default Model.extend({
   items:       hasMany('item', { async: false }),
   designatedSetItemOrderPackages: [],
 
-  multiQuantitySet: Ember.computed('items.@each.quantity', function() {
+  multiQuantitySet: computed('items.@each.quantity', function() {
     return this.get("items").rejectBy('quantity', 1).length > 0;
   }),
 
-  allDesignated: Ember.computed('items.@each.designation', function() {
+  allDesignated: computed('items.@each.designation', function() {
     return this.get("items").filterBy('designation', null).length === 0;
   }),
 
-  sortedItems: Ember.computed('items', function() {
+  sortedItems: computed('items', function() {
     return this.get("items").sortBy('id');
   }),
 
-  allDispatched: Ember.computed('items.@each.isDispatched', function() {
+  allDispatched: computed('items.@each.isDispatched', function() {
     return this.get("items").filterBy('isDispatched', false).length === 0;
   }),
 
-  designatedItems: Ember.computed('items.@each.designation', function() {
+  designatedItems: computed('items.@each.designation', function() {
     return this.get("items").rejectBy('designation', null);
   }),
 
-  designations: Ember.computed("items.@each.orderCode", "allDesignated", function() {
+  designations: computed("items.@each.orderCode", "allDesignated", function() {
     var designatedPackages = [];
     this.get("designatedSetItemOrderPackages").forEach(designationId => {
       designatedPackages.push(this.store.peekRecord('designation', designationId));
@@ -38,7 +38,7 @@ export default Model.extend({
     return designatedPackages;
   }),
 
-  shareSingleDesignation: Ember.computed("items.@each.orderCode", "allDesignated", function() {
+  shareSingleDesignation: computed("items.@each.orderCode", "allDesignated", function() {
     if(this.get("allDesignated")) {
       return this.get("items").map(a => a.get('orderCode')).uniq().length === 1;
     } else {
@@ -46,7 +46,7 @@ export default Model.extend({
     }
   }),
 
-  hasZeroQty: Ember.computed("items.@each.ordersPackages", function() {
+  hasZeroQty: computed("items.@each.ordersPackages", function() {
     var zeroQty = true;
     this.get("items").forEach(record => {
       if(record.get("quantity") === 0) {
@@ -56,7 +56,7 @@ export default Model.extend({
     return zeroQty;
   }),
 
-  hasSingleDesignation: Ember.computed("items.@each.ordersPackages", function() {
+  hasSingleDesignation: computed("items.@each.ordersPackages", function() {
     var lessThenOneDesignation = true;
     this.get("items").forEach(record => {
       var designatedOrderPackages = record.get("ordersPackages").filterBy("state", "designated");
@@ -67,7 +67,7 @@ export default Model.extend({
     return lessThenOneDesignation;
   }),
 
-  designatedAndDispatchedOrdersPackages: Ember.computed("items.@each.ordersPackages", function() {
+  designatedAndDispatchedOrdersPackages: computed("items.@each.ordersPackages", function() {
     var designatedAndDispatchedPackages = [];
     this.get("items").forEach(record => {
       var orderPackages = record.get("ordersPackages").filterBy("quantity");
@@ -80,7 +80,7 @@ export default Model.extend({
     return designatedAndDispatchedPackages;
   }),
 
-  setItemOrdersPackages: Ember.computed("items.@each.ordersPackages", function() {
+  setItemOrdersPackages: computed("items.@each.ordersPackages", function() {
     var designatedAndDispatchedPackages = [];
     this.get("items").forEach(record => {
       var orderPackages = record.get("ordersPackages").filterBy("quantity");
@@ -93,7 +93,7 @@ export default Model.extend({
     return designatedAndDispatchedPackages.get("length");
   }),
 
-  hasSameSingleDesignation: Ember.computed("items.@each.ordersPackages", function() {
+  hasSameSingleDesignation: computed("items.@each.ordersPackages", function() {
     var sameSingleDesignation = true;
     var designatedPackages = [];
     this.get("items").forEach(record => {
@@ -111,7 +111,7 @@ export default Model.extend({
     return (designatedPackages.get("length") === this.get("items.length") && sameSingleDesignation) ? true : false;
   }),
 
-  canBeMoved: Ember.computed('items.@each.hasBoxPallet', function() {
+  canBeMoved: computed('items.@each.hasBoxPallet', function() {
     return this.get("items").filterBy('hasBoxPallet', true).length === 0;
   })
 });

@@ -1,9 +1,9 @@
+import { computed } from '@ember/object';
 import AuthorizeRoute from './../authorize';
-import Ember from 'ember';
 
 export default AuthorizeRoute.extend({
 
-  partialDispatchBackLinkpath: Ember.computed.localStorage(),
+  partialDispatchBackLinkpath: computed.localStorage(),
 
   queryParams:{
     orderPackageId: null

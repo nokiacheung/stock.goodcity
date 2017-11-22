@@ -1,7 +1,7 @@
+import { run } from '@ember/runloop';
 import { test, moduleForComponent } from 'ember-qunit';
 import startApp from '../../helpers/start-app';
 import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
-import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 
 var App;
@@ -14,8 +14,8 @@ moduleForComponent('partial-designate-input', 'Integration | Component | partial
     this.render(hbs`{{partial-designate-input id=1 value=1}}`);
   },
   afterEach: function() {
-    Ember.run(function() { TestHelper.teardown(); });
-    Ember.run(App, 'destroy');
+    run(function() { TestHelper.teardown(); });
+    run(App, 'destroy');
   }
 });
 

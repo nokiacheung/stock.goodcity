@@ -1,18 +1,19 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
+import { getOwner } from '@ember/application';
 import SelectList from './select-list';
 import AjaxPromise from 'stock/utils/ajax-promise';
-const { getOwner } = Ember;
 
 export default SelectList.extend({
   layoutName: 'components/select-list',
-  store: Ember.inject.service(),
+  store: service(),
 
-  itemGrade: Ember.computed ('item.grade', function() {
+  itemGrade: computed ('item.grade', function() {
     var itemGrade = this.get("item.grade") || 'B';
     return { id: `${itemGrade}` };
   }),
 
-  itemCondition: Ember.computed('item.donorCondition', function() {
+  itemCondition: computed('item.donorCondition', function() {
     var itemCondition = this.get('item.donorCondition.name') || 'U';
     return { id: `${itemCondition.charAt(0)}` };
   }),
@@ -27,7 +28,7 @@ export default SelectList.extend({
     return donorCondition[conditionId];
   },
 
-  selectedValue: Ember.computed('name', 'item.grade', 'item.donorCondition', function() {
+  selectedValue: computed('name', 'item.grade', 'item.donorCondition', function() {
     var name = this.get('name');
     if(name === "grade") {
       return this.get('itemGrade') || {};

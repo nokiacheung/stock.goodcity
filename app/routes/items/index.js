@@ -1,5 +1,5 @@
+import { computed } from '@ember/object';
 import AuthorizeRoute from './../authorize';
-import Ember from 'ember';
 
 export default AuthorizeRoute.extend({
 
@@ -7,9 +7,9 @@ export default AuthorizeRoute.extend({
     itemSetId: "",
     searchInput: ""
   },
-  designateFullSet: Ember.computed.localStorage(),
+  designateFullSet: computed.localStorage(),
 
-  partial_qnty: Ember.computed.localStorage(),
+  partial_qnty: computed.localStorage(),
 
   afterModel() {
     this.set('partial_qnty', 0);

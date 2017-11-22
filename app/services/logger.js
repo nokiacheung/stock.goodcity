@@ -1,9 +1,9 @@
-import Ember from "ember";
+import Service, { inject as service } from '@ember/service';
 import config from "../config/environment";
 import rollbar from 'rollbar';
 
-export default Ember.Service.extend({
-  session: Ember.inject.service(),
+export default Service.extend({
+  session: service(),
 
   notifyRollBar(err, log_details) {
     rollbar.error(err, log_details);

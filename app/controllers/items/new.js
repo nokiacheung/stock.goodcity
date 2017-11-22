@@ -1,9 +1,14 @@
-import Ember from "ember";
+import { later } from '@ember/runloop';
+import $ from 'jquery';
+import { inject as service } from '@ember/service';
+import { computed, observer } from '@ember/object';
+import { alias } from '@ember/object/computed';
+import Controller from '@ember/controller';
+import { getOwner } from '@ember/application';
 import AjaxPromise from 'stock/utils/ajax-promise';
 import config from '../../config/environment';
-const { getOwner } = Ember;
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   queryParams: ['codeId', 'locationId', 'scanLocationName', 'caseNumber'],
   codeId: "",
   locationId: "",
@@ -12,10 +17,10 @@ export default Ember.Controller.extend({
   displayInventoryOptions: false,
   autoGenerateInventory: true,
   inputInventory: false,
-  locationName: Ember.computed.alias('location.displayName'),
+  locationName: alias('location.displayName'),
   caseNumber: "",
-  isSearchCodePreviousRoute: Ember.computed.localStorage(),
-  isSelectLocationPreviousRoute: Ember.computed.localStorage(),
+  isSearchCodePreviousRoute: computed.localStorage(),
+  isSelectLocationPreviousRoute: computed.localStorage(),
 
   quantity: 1,
   length: null,
@@ -27,15 +32,15 @@ export default Ember.Controller.extend({
   invalidScanResult: false,
   newUploadedImage: null,
 
-  imageKeys: Ember.computed.localStorage(),
+  imageKeys: computed.localStorage(),
 
-  i18n: Ember.inject.service(),
+  i18n: service(),
 
   locale: function(str){
     return this.get("i18n").t(str);
   },
 
-  setLocation: Ember.observer("scanLocationName", function() {
+  setLocation: observer("scanLocationName", function() {
     var scanInput = this.get("scanLocationName");
     if(scanInput) {
       var results = this.get("store").peekAll("location").filterBy("displayName", scanInput);
@@ -50,16 +55,16 @@ export default Ember.Controller.extend({
     }
   }),
 
-  validateLocation: Ember.observer('location', function() {
+  validateLocation: observer('location', function() {
     if(!this.get("location")) {
       this.set("invalidLocation", false);
     }
   }),
 
   isMobileApp: config.cordova.enabled,
-  messageBox: Ember.inject.service(),
+  messageBox: service(),
 
-  conditions: Ember.computed(function(){
+  conditions: computed(function(){
     return [
       { name: "New", id: "N" },
       { name: "Mixed", id: "M" },
@@ -68,7 +73,7 @@ export default Ember.Controller.extend({
     ];
   }),
 
-  grades: Ember.computed(function(){
+  grades: computed(function(){
     return [
       { name: "A", id: "A" },
       { name: "B", id: "B" },
@@ -77,7 +82,7 @@ export default Ember.Controller.extend({
     ];
   }),
 
-  description: Ember.computed("code", {
+  description: computed("code", {
     get() {
       return this.get("code.name");
     },
@@ -86,17 +91,17 @@ export default Ember.Controller.extend({
     }
   }),
 
-  parentCodeName: Ember.computed("codeId", function() {
+  parentCodeName: computed("codeId", function() {
     var selected = this.get("store").peekRecord("code", this.get("codeId"));
     return selected && selected.get("name");
   }),
 
-  code: Ember.computed("codeId", function() {
+  code: computed("codeId", function() {
     var selected = this.get("store").peekRecord("code", this.get("codeId"));
     return selected && selected.defaultChildPackagesList()[0];
   }),
 
-  location: Ember.computed("codeId", "locationId", {
+  location: computed("codeId", "locationId", {
     get() {
       var locationId = this.get("locationId");
       if(locationId) { this.set("scanLocationName", null); }
@@ -201,8 +206,8 @@ export default Ember.Controller.extend({
             console.log(path);
             var dataURL = "data:image/jpg;base64," + path;
 
-            Ember.$("input[type='file']").fileupload('option', 'formData').file = dataURL;
-            Ember.$("input[type='file']").fileupload('add', { files: [ dataURL ] });
+            $("input[type='file']").fileupload('option', 'formData').file = dataURL;
+            $("input[type='file']").fileupload('add', { files: [ dataURL ] });
           };
         })(this));
 
@@ -213,11 +218,11 @@ export default Ember.Controller.extend({
         {
           //don't know why but on windows phone need to click twice in quick succession
           //for dialog to appear
-          Ember.$("input[type='file']").click().click();
+          $("input[type='file']").click().click();
         }
         else
         {
-          Ember.$("input[type='file']").trigger("click");
+          $("input[type='file']").trigger("click");
         }
       }
     },
@@ -229,7 +234,7 @@ export default Ember.Controller.extend({
     uploadStart(e, data) {
       this.send('deleteUnusedImage');
       this.set("uploadedFileDate", data);
-      Ember.$(".loading-image-indicator").show();
+      $(".loading-image-indicator").show();
       this.set("loadingPercentage", "Image Uploading ");
     },
 
@@ -247,7 +252,7 @@ export default Ember.Controller.extend({
     uploadComplete(e) {
       e.target.disabled = false; // enable image-selection
       this.set("uploadedFileDate", null);
-      Ember.$(".loading-image-indicator.hide_image_loading").hide();
+      $(".loading-image-indicator.hide_image_loading").hide();
       this.set("loadingPercentage", "Image Uploading ");
     },
 
@@ -289,7 +294,7 @@ export default Ember.Controller.extend({
           this.send("deleteUnusedImage");
           this.set("locationId", "");
           this.set("codeId", "");
-          Ember.run.later(this, function() {
+          later(this, function() {
             this.transitionToRoute("/");
           },0);
         },

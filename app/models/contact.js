@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { or } from '@ember/object/computed';
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 
@@ -9,9 +10,9 @@ export default Model.extend({
   phoneNumber:       attr('string'),
   mobilePhoneNumber: attr('string'),
 
-  displayNumber: Ember.computed.or("mobilePhoneNumber", "phoneNumber"),
+  displayNumber: or("mobilePhoneNumber", "phoneNumber"),
 
-  fullName: Ember.computed("firstName", "lastName", function() {
+  fullName: computed("firstName", "lastName", function() {
     return `${this.get('firstName')} ${this.get('lastName')}`;
   })
 

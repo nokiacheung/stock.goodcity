@@ -1,19 +1,23 @@
-import Ember from "ember";
+import { debounce } from '@ember/runloop';
+import { computed, observer } from '@ember/object';
+import { inject as service } from '@ember/service';
+import { alias } from '@ember/object/computed';
+import Controller from '@ember/controller';
 import config from '../../config/environment';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   isMobileApp: config.cordova.enabled,
-  item: Ember.computed.alias("model"),
+  item: alias("model"),
   backLinkPath: "",
   queryParams: ['showDispatchOverlay'],
   showDispatchOverlay: false,
   autoDisplayOverlay: false,
-  messageBox: Ember.inject.service(),
+  messageBox: service(),
   displayScanner: false,
-  designateFullSet: Ember.computed.localStorage(),
+  designateFullSet: computed.localStorage(),
   callOrderObserver: false,
 
-  grades: Ember.computed('item.grade', function(){
+  grades: computed('item.grade', function(){
     return [
       { name: "A", id: "A" },
       { name: "B", id: "B" },
@@ -22,7 +26,7 @@ export default Ember.Controller.extend({
     ];
   }),
 
-  conditions: Ember.computed('item.donorCondition', function(){
+  conditions: computed('item.donorCondition', function(){
     return [
       { name: "New", id: "N" },
       { name: "Mixed", id: "M" },
@@ -31,7 +35,7 @@ export default Ember.Controller.extend({
     ];
   }),
 
-  itemMarkedMissing: Ember.observer('item.inventoryNumber', function() {
+  itemMarkedMissing: observer('item.inventoryNumber', function() {
     if(!this.get('item.inventoryNumber') && this.get("target").currentPath === "items.detail") {
       this.get('messageBox').alert("This item is not inventoried yet or has been marked as missing.", () => {
         this.transitionToRoute("items.index");
@@ -39,8 +43,8 @@ export default Ember.Controller.extend({
     }
   }),
 
-  performDispatch: Ember.observer("showDispatchOverlay", function() {
-    Ember.run.debounce(this, this.updateAutoDisplayOverlay, 100);
+  performDispatch: observer("showDispatchOverlay", function() {
+    debounce(this, this.updateAutoDisplayOverlay, 100);
   }),
 
   updateAutoDisplayOverlay() {
@@ -49,7 +53,7 @@ export default Ember.Controller.extend({
     }
   },
 
-  allDispatched: Ember.computed("item.{isDispatched,isSet,setItem.items.@each.isDispatched}", function() {
+  allDispatched: computed("item.{isDispatched,isSet,setItem.items.@each.isDispatched}", function() {
     if(this.get("item.isSet")) {
       return this.get("item.setItem.allDispatched");
     } else {
@@ -57,7 +61,7 @@ export default Ember.Controller.extend({
     }
   }),
 
-  hasDesignation: Ember.computed("item.{isDesignated,isSet,setItem.items.@each.isDesignated}", function() {
+  hasDesignation: computed("item.{isDesignated,isSet,setItem.items.@each.isDesignated}", function() {
     if(this.get("item.isSet")) {
       var allItems = this.get("item.setItem.items");
       return !this.get("item.setItem.allDispatched") && (allItems.filterBy("isDesignated").length > 0);

@@ -1,5 +1,6 @@
-import Ember from "ember";
+import { alias } from '@ember/object/computed';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
-  client: Ember.computed.alias("model.localOrder")
+export default Controller.extend({
+  client: alias("model.localOrder")
 });

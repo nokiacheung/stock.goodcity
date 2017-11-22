@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import { on } from '@ember/object/evented';
+import Controller, { inject as controller } from '@ember/controller';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
 
-  subscription: Ember.inject.controller(),
+  subscription: controller(),
 
-  initSubscription: Ember.on('init', function() {
+  initSubscription: on('init', function() {
     this.get('subscription').send('wire');
   })
 });

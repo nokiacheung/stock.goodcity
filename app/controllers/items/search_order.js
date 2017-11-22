@@ -1,4 +1,4 @@
-import Ember from "ember";
+import { alias, sort } from '@ember/object/computed';
 import searchModule from "../search_module";
 
 export default searchModule.extend({
@@ -9,12 +9,12 @@ export default searchModule.extend({
   toDesignateItem: true,
   partial_qty: 0,
   notPartialRoute: false,
-  item: Ember.computed.alias("model.item"),
+  item: alias("model.item"),
   searchModelName: "designation",
   minSearchTextLength: 2,
 
   sortProperties: ["recentlyUsedAt:desc"],
-  recentlyUsedDesignations: Ember.computed.sort("model.designations", "sortProperties"),
+  recentlyUsedDesignations: sort("model.designations", "sortProperties"),
 
   displayUserPrompt: false,
   showAllSetItems: false,

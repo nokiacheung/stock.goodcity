@@ -1,9 +1,12 @@
-import Ember from "ember";
+import $ from 'jquery';
+import { inject as service } from '@ember/service';
+import { computed, observer } from '@ember/object';
+import Component from '@ember/component';
+import { getOwner } from '@ember/application';
 import AjaxPromise from 'stock/utils/ajax-promise';
-const { getOwner } = Ember;
 import config from '../config/environment';
 
-export default Ember.Component.extend({
+export default Component.extend({
   displayUserPrompt: false,
   displayAlertOverlay: false,
   showAllSetItems: false,
@@ -17,22 +20,22 @@ export default Ember.Component.extend({
   totalPartialDesignatedItems: 0,
   designatedRecord: null,
   cannotDesignateToSameOrder: false,
-  designateFullSet: Ember.computed.localStorage(),
+  designateFullSet: computed.localStorage(),
   env: config.APP.environment,
 
   order: null,
   item: null,
   toggleOverlay: null,
   isSet: null,
-  store: Ember.inject.service(),
-  i18n: Ember.inject.service(),
+  store: service(),
+  i18n: service(),
   designatedOnce: true,
   orderPackageId: null,
   alreadyShown: true,
   hasCancelledState: false,
-  messageBox: Ember.inject.service(),
+  messageBox: service(),
 
-  returnsDesignateFullSet: Ember.computed('item.setItem.items', function() {
+  returnsDesignateFullSet: computed('item.setItem.items', function() {
     if(this.get("env") === "test") {
       return false;
     }
@@ -42,7 +45,7 @@ export default Ember.Component.extend({
     return !window.localStorage.getItem('designateFullSet').includes(false);
   }),
 
-  overridesDesignation: Ember.computed('item.setItem.designationList.[]', 'order', function() {
+  overridesDesignation: computed('item.setItem.designationList.[]', 'order', function() {
 
     if(this.get("item.isSet")) {
       var list = [];
@@ -63,26 +66,26 @@ export default Ember.Component.extend({
     }
   }),
 
-  triggerOrderClick: Ember.observer("order", "toggleOverlay", function() {
+  triggerOrderClick: observer("order", "toggleOverlay", function() {
     this.set('hasCancelledState', false);
     this.set('partial_quantity', getOwner(this).lookup('controller:items.search_order').get('partial_qty'));
     if(this.get("order") && getOwner(this).lookup('controller:items.detail').get('callOrderObserver')) {
       this.send("displayDesignateOverlay");
-      Ember.$('.popupOverlay #messageBox').addClass("makeScrollable");
+      $('.popupOverlay #messageBox').addClass("makeScrollable");
     }
   }),
 
-  isDesignatedToCurrentOrder: Ember.computed('order', 'item', function() {
+  isDesignatedToCurrentOrder: computed('order', 'item', function() {
     return this.get("order.items").findBy("id", this.get("item.id"));
   }),
 
-  triggerItemClick: Ember.observer("autoDisplayOverlay", function() {
+  triggerItemClick: observer("autoDisplayOverlay", function() {
     if(this.get("autoDisplayOverlay")) {
       this.send("displayDesignateOverlay");
     }
   }),
 
-  cancelledState: Ember.computed('order', 'item', function() {
+  cancelledState: computed('order', 'item', function() {
     this.set('hasCancelledState', false);
     var item = this.get('item');
     var order = this.get('order');
@@ -98,7 +101,7 @@ export default Ember.Component.extend({
     return this.get('hasCancelledState');
   }),
 
-  isDesignatedToCurrentPartialOrder: Ember.computed('order', 'item', function() {
+  isDesignatedToCurrentPartialOrder: computed('order', 'item', function() {
     var total = 0;
     var alreadyPartiallyDesignated = false;
     this.set('partiallyDesignatedPopUp', false);
@@ -238,7 +241,7 @@ export default Ember.Component.extend({
           }
         }).catch((error) => {
           if(error.status === 422){
-            var errors = Ember.$.parseJSON(error.responseText).errors;
+            var errors = $.parseJSON(error.responseText).errors;
             this.get("messageBox").alert((errors), () => {
               this.get('router').transitionTo("items.index");
             });

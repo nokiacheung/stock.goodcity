@@ -1,8 +1,10 @@
-import Ember from "ember";
+import $ from 'jquery';
+import { computed } from '@ember/object';
+import Controller from '@ember/controller';
+import { getOwner } from '@ember/application';
 import AjaxPromise from 'stock/utils/ajax-promise';
-const { getOwner } = Ember;
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   promptUserPopUp: false,
   orderPackage: null,
   total: 0,
@@ -10,7 +12,7 @@ export default Ember.Controller.extend({
   orderPackagesAndQuantities: null,
   codeAndQuantities: null,
   codes: null,
-  partialUndesignateBackLinkpath: Ember.computed.localStorage(),
+  partialUndesignateBackLinkpath: computed.localStorage(),
 
   init() {
     this.set('promptUserPopUp', false);
@@ -25,7 +27,7 @@ export default Ember.Controller.extend({
       var oneRecord = {};
       var codeQty = {};
       elementIds.forEach(record => {
-        var value = parseInt(Ember.$(`#${record}`)[0].value, 10);
+        var value = parseInt($(`#${record}`)[0].value, 10);
         var orderPackage = this.get('store').peekRecord('orders_package', record);
         oneRecord["orders_package_id"] = record;
         oneRecord["package_id"] = orderPackage.get('packageId');

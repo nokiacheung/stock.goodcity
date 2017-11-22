@@ -1,10 +1,11 @@
-import Ember from "ember";
-const { getOwner } = Ember;
+import { computed } from '@ember/object';
+import Component from '@ember/component';
+import { getOwner } from '@ember/application';
 
-export default Ember.Component.extend({
+export default Component.extend({
   hidden: true,
   item: null,
-  designateFullSet: Ember.computed.localStorage(),
+  designateFullSet: computed.localStorage(),
 
   actions: {
     toggle(value) {

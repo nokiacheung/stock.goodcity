@@ -1,14 +1,17 @@
+import $ from 'jquery';
+import { inject as service } from '@ember/service';
+import Route from '@ember/routing/route';
+import { getOwner } from '@ember/application';
 import Ember from 'ember';
-const { getOwner } = Ember;
 
-export default Ember.Route.extend({
+export default Route.extend({
 
-  i18n: Ember.inject.service(),
+  i18n: service(),
   isErrPopUpAlreadyShown: false,
   isItemUnavailable: false,
   isLoginPopUpAlreadyShown: false,
-  logger: Ember.inject.service(),
-  messageBox: Ember.inject.service(),
+  logger: service(),
+  messageBox: service(),
   isMustLoginAlreadyShown: false,
 
 
@@ -118,7 +121,7 @@ export default Ember.Route.extend({
 
   actions: {
     loading() {
-      Ember.$(".loading-indicator").remove();
+      $(".loading-indicator").remove();
       var view = getOwner(this).lookup('component:loading').append();
       this.router.one('didTransition', view, 'destroy');
     },

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import '../factories/item';
@@ -23,8 +23,8 @@ module('Acceptance: Add item to inventory', {
     code = FactoryGuy.make("code", {location: location1});
   },
   afterEach: function() {
-    Ember.run(function() { TestHelper.teardown(); });
-    Ember.run(App, 'destroy');
+    run(function() { TestHelper.teardown(); });
+    run(App, 'destroy');
   }
 });
 

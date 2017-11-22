@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { getOwner } from '@ember/application';
 import AuthorizeRoute from './../authorize';
-const { getOwner } = Ember;
 
 export default AuthorizeRoute.extend({
-  designateFullSet: Ember.computed.localStorage(),
+  designateFullSet: computed.localStorage(),
 
   beforeModel() {
     this._super(...arguments);

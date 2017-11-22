@@ -1,6 +1,7 @@
-import Ember from "ember";
+import { hash } from 'rsvp';
+import { computed } from '@ember/object';
+import { getOwner } from '@ember/application';
 import AuthorizeRoute from './../authorize';
-const { getOwner } = Ember;
 
 export default AuthorizeRoute.extend({
 
@@ -8,12 +9,12 @@ export default AuthorizeRoute.extend({
     showDispatchOverlay: false
   },
 
-  partial_qnty: Ember.computed.localStorage(),
+  partial_qnty: computed.localStorage(),
   // messageBox: Ember.inject.service(),
   // transition: null,
 
   partialDesignatePath: true,
-  itemDesignateBackLinkPath: Ember.computed.localStorage(),
+  itemDesignateBackLinkPath: computed.localStorage(),
 
   beforeModel(transition) {
     getOwner(this).lookup('controller:items.detail').set('callOrderObserver', true);
@@ -54,7 +55,7 @@ export default AuthorizeRoute.extend({
         }
       });
 
-    return Ember.RSVP.hash({
+    return hash({
       item: item || this.store.findRecord('item', params.item_id),
       designations: recentlyUsedDesignations.get('length') !== 0 ? recentlyUsedDesignations : this.get('store').query('designation', { recently_used: true })
     });

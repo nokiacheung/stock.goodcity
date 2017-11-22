@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import '../factories/orders_package';
@@ -31,8 +31,8 @@ module('Acceptance: Order Detail', {
     mockFindAll('orders_package').returns({ json: {orders_packages: [orders_package.toJSON({includeId: true}), orders_package1.toJSON({includeId: true})]}});
   },
   afterEach: function() {
-    Ember.run(function() { TestHelper.teardown(); });
-    Ember.run(App, 'destroy');
+    run(function() { TestHelper.teardown(); });
+    run(App, 'destroy');
   }
 });
 

@@ -1,7 +1,7 @@
+import { run } from '@ember/runloop';
 import { test, moduleForComponent } from 'ember-qunit';
 import startApp from '../../helpers/start-app';
 import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
-import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 
 var App;
@@ -14,8 +14,8 @@ moduleForComponent('auto-resize-textarea', 'Integration | Component | auto resiz
     this.render(hbs`{{auto-resize-textarea id="description"}}`);
   },
   afterEach: function() {
-    Ember.run(function() { TestHelper.teardown(); });
-    Ember.run(App, 'destroy');
+    run(function() { TestHelper.teardown(); });
+    run(App, 'destroy');
   }
 });
 

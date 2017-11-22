@@ -1,17 +1,20 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import { inject as service } from '@ember/service';
+import { computed } from '@ember/object';
+import Controller from '@ember/controller';
+import { getOwner } from '@ember/application';
 import AjaxPromise from 'stock/utils/ajax-promise';
-const { getOwner } = Ember;
 
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   item: null,
   queryParams: ["orderPackageId"],
   orderPackageId: null,
-  partialDispatchBackLinkpath: Ember.computed.localStorage(),
-  messageBox: Ember.inject.service(),
-  store: Ember.inject.service(),
+  partialDispatchBackLinkpath: computed.localStorage(),
+  messageBox: service(),
+  store: service(),
 
-  orderPackage: Ember.computed('orderPackageId', function(){
+  orderPackage: computed('orderPackageId', function(){
     return this.get('store').peekRecord('OrdersPackage', this.get('orderPackageId'));
   }),
 
@@ -22,8 +25,8 @@ export default Ember.Controller.extend({
       var record = {};
       var totalQty;
       elementIds.forEach(packages_location_id => {
-        if(Ember.$(`#${packages_location_id}`).length){
-          var value = parseInt(Ember.$(`#${packages_location_id}`)[0].value, 10);
+        if($(`#${packages_location_id}`).length){
+          var value = parseInt($(`#${packages_location_id}`)[0].value, 10);
           record["packages_location_id"] = packages_location_id;
           record["qty_to_deduct"] = value;
           totalQty += value;

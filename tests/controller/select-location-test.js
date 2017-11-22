@@ -1,7 +1,7 @@
+import { run } from '@ember/runloop';
 import { test, moduleFor } from 'ember-qunit';
 import startApp from '../helpers/start-app';
 import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
-import Ember from 'ember';
 import '../factories/location';
 import FactoryGuy from 'ember-data-factory-guy';
 
@@ -14,8 +14,8 @@ moduleFor('controller:select_location', 'search_code controller', {
     lctn = FactoryGuy.make("location");
   },
   afterEach: function() {
-    Ember.run(function() { TestHelper.teardown(); });
-    Ember.run(App, 'destroy');
+    run(function() { TestHelper.teardown(); });
+    run(App, 'destroy');
   }
 });
 

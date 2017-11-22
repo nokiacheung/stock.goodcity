@@ -1,7 +1,9 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import { scheduleOnce } from '@ember/runloop';
+import Component from '@ember/component';
 import config from '../config/environment';
 
-export default Ember.Component.extend({
+export default Component.extend({
 
   lightGallery: null,
   item: null,
@@ -17,8 +19,8 @@ export default Ember.Component.extend({
     if(!this.get("isMobileApp")){
         var _this = this;
         this._super();
-        Ember.run.scheduleOnce('afterRender', this, function(){
-        var lightGallery = Ember.$("#itemImage").lightGallery({
+        scheduleOnce('afterRender', this, function(){
+        var lightGallery = $("#itemImage").lightGallery({
           mode: 'lg-slide',
           zoom: true,
           download: false,
@@ -38,7 +40,7 @@ export default Ember.Component.extend({
 
   willDestroyElement() {
     if(!this.get("isMobileApp")){
-      Ember.$('#itemImage').data('lightGallery').destroy(true);
+      $('#itemImage').data('lightGallery').destroy(true);
     }
   }
 });

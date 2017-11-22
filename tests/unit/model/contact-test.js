@@ -1,5 +1,5 @@
+import { run } from '@ember/runloop';
 import { test, moduleForModel } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleForModel('contact', 'Contact model',{
   need:[]
@@ -20,7 +20,7 @@ test('check attributes', function(assert){
 
 test('check displayNumber computedProperty', function(assert){
   var model = this.subject();
-  Ember.run(function() {
+  run(function() {
     model.set('mobilePhoneNumber', '885588556');
   });
 
@@ -29,7 +29,7 @@ test('check displayNumber computedProperty', function(assert){
 
 test('check fullName computedProperty', function(assert){
   var model = this.subject();
-  Ember.run(function() {
+  run(function() {
     model.set('firstName', 'Jonh');
     model.set('lastName', 'Cena');
   });

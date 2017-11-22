@@ -1,9 +1,11 @@
-import Ember from "ember";
+import $ from 'jquery';
+import { inject as service } from '@ember/service';
+import Controller from '@ember/controller';
+import { getOwner } from '@ember/application';
 import AjaxPromise from 'stock/utils/ajax-promise';
-const { getOwner } = Ember;
 
-export default Ember.Controller.extend({
-  store: Ember.inject.service(),
+export default Controller.extend({
+  store: service(),
   queryParams: ['ordersPackageId'],
   ordersPackageId: null,
   modifyDesignatedQty: false,
@@ -17,7 +19,7 @@ export default Ember.Controller.extend({
       var item = ordersPackage.get("item");
       var data = [];
       var record = {};
-      var inputValue = parseInt(Ember.$(`#${ordersPackage.id}`)[0].value, 10);
+      var inputValue = parseInt($(`#${ordersPackage.id}`)[0].value, 10);
       record["orders_package_id"] = ordersPackage.get('id');
       record["package_id"] = ordersPackage.get('packageId');
       if(this.get("modifyDesignatedQty")) {

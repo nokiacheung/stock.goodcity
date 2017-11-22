@@ -1,10 +1,12 @@
-import Ember from "ember";
+import $ from 'jquery';
+import { computed } from '@ember/object';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   item: null,
   isZeroQuantity: false,
-  packagesLocationQty: Ember.computed.localStorage(),
-  totalQty: Ember.computed.localStorage(),
+  packagesLocationQty: computed.localStorage(),
+  totalQty: computed.localStorage(),
   originalQty: null,
   isEditing: false,
 
@@ -16,8 +18,8 @@ export default Ember.Controller.extend({
       var packagesLocationQty = [];
       var record = {};
       elementIds.forEach(packages_location_id => {
-        if(Ember.$(`#${packages_location_id}`).length){
-          var value = parseInt(Ember.$(`#${packages_location_id}`)[0].value, 10);
+        if($(`#${packages_location_id}`).length){
+          var value = parseInt($(`#${packages_location_id}`)[0].value, 10);
           var packages_location = this.get('store').peekRecord('packages_location', packages_location_id);
           record["packages_location_id"] = packages_location_id;
           record["location_id"] = packages_location.get('locationId');
@@ -44,7 +46,7 @@ export default Ember.Controller.extend({
     notNow(item){
       var editedPackageLocations = item.get('packagesLocations').filterBy('isEditing', true);
       editedPackageLocations.forEach(packageLocation => {
-        Ember.$(`#packages-qty-location-${packageLocation.id}`)[0].innerText = packageLocation.get('quantity');
+        $(`#packages-qty-location-${packageLocation.id}`)[0].innerText = packageLocation.get('quantity');
       });
       editedPackageLocations.setEach('isEditing', false);
       this.set('isEditing', false);

@@ -1,8 +1,8 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
 import AuthorizeRoute from './authorize';
 
 export default AuthorizeRoute.extend({
-  isSelectLocationPreviousRoute: Ember.computed.localStorage(),
+  isSelectLocationPreviousRoute: computed.localStorage(),
 
   model() {
     this.set("isSelectLocationPreviousRoute", true);

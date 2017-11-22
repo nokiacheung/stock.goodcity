@@ -1,4 +1,4 @@
-import Ember from "ember";
+import $ from 'jquery';
 import Model from 'ember-data/model';
 
 export default Model.extend({
@@ -25,6 +25,6 @@ export default Model.extend({
     var filename = id.substring(id.indexOf("/") + 1);
     var options = this.getOptions(version, height, width, crop, id);
     if(angle) { options["angle"] = angle; }
-    return Ember.$.cloudinary.url(filename, options);
+    return $.cloudinary.url(filename, options);
   }
 });

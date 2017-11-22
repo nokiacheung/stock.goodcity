@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 import config from '../config/environment';
 
-export default Ember.Component.extend({
-  messageBox: Ember.inject.service(),
+export default Component.extend({
+  messageBox: service(),
   isMobileApp: config.cordova.enabled,
   paramName: null,
 

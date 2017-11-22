@@ -1,9 +1,11 @@
-import Ember from 'ember';
+import $ from 'jquery';
+import { inject as service } from '@ember/service';
+import TextField from '@ember/component/text-field';
+import { getOwner } from '@ember/application';
 import AjaxPromise from 'stock/utils/ajax-promise';
-const { getOwner } = Ember;
 
-export default Ember.TextField.extend({
-  store: Ember.inject.service(),
+export default TextField.extend({
+  store: service(),
   previousValue: '',
   tagName: "input",
   type: "text",
@@ -52,12 +54,12 @@ export default Ember.TextField.extend({
 
     if(parseInt(packageParams[key], 10) === 0)
     {
-      Ember.$(this.element).removeClass('numeric-inline-input');
+      $(this.element).removeClass('numeric-inline-input');
       this.set('value','');
       return false;
     }
 
-    Ember.$(this.element).removeClass('numeric-inline-input');
+    $(this.element).removeClass('numeric-inline-input');
     if (packageParams[key].toString() !== this.get('previousValue').toString()){
       var loadingView = getOwner(this).lookup('component:loading').append();
       new AjaxPromise(url, "PUT", this.get('session.authToken'), {package: packageParams })
@@ -75,7 +77,7 @@ export default Ember.TextField.extend({
   },
 
   addCssStyle() {
-    Ember.$(this.element).addClass('numeric-inline-input');
+    $(this.element).addClass('numeric-inline-input');
     this.set('previousValue', this.get('value') || '');
   },
 

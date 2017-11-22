@@ -1,8 +1,11 @@
-import Ember from "ember";
+import { debounce } from '@ember/runloop';
+import { inject as service } from '@ember/service';
+import { alias, sort } from '@ember/object/computed';
+import { computed, observer } from '@ember/object';
+import { getOwner } from '@ember/application';
 import config from '../../config/environment';
 import searchModule from "../search_module";
 import AjaxPromise from 'stock/utils/ajax-promise';
-const { getOwner } = Ember;
 
 export default searchModule.extend({
 
@@ -14,7 +17,7 @@ export default searchModule.extend({
   searchInput: "",
   moveItemPath: "",
   packages_location_id: "",
-  packagesLocationQty: Ember.computed.localStorage(),
+  packagesLocationQty: computed.localStorage(),
   movePartialQty: false,
   cantMoveToSameLocationForSingleLocation: false,
   isUndispatch: "",
@@ -23,14 +26,14 @@ export default searchModule.extend({
   skipScreenForSingletonItem: false,
   pkgsLocationId: null,
 
-  item: Ember.computed.alias("model.item"),
+  item: alias("model.item"),
   searchModelName: "location",
-  messageBox: Ember.inject.service(),
+  messageBox: service(),
 
   sortProperties: ["recentlyUsedAt:desc"],
-  sortedRecentlyUsedLocations: Ember.computed.sort("recentlyUsedLocations", "sortProperties"),
+  sortedRecentlyUsedLocations: sort("recentlyUsedLocations", "sortProperties"),
 
-  recentlyUsedLocations: Ember.computed('model.locations', function(){
+  recentlyUsedLocations: computed('model.locations', function(){
     return this.get('model.locations');
   }),
 
@@ -39,13 +42,13 @@ export default searchModule.extend({
   selectedLocation: null,
   hideDetailsLink: true,
 
-  sameSingleLocation: Ember.computed("selectedLocation", 'displayUserPrompt',  'isPartialMove', function() {
+  sameSingleLocation: computed("selectedLocation", 'displayUserPrompt',  'isPartialMove', function() {
     if (this.get('item.packagesLocations.length') === 1){
      return this.get('item.packagesLocations.firstObject.locationId') === parseInt(this.get('selectedLocation.id'), 10);
     }
   }),
 
-  totalQty: Ember.computed('selectedLocation', function(){
+  totalQty: computed('selectedLocation', function(){
     var packagesLocationQty = localStorage['packagesLocationQty'];
     if(packagesLocationQty){
       var existingPackagesLocation = JSON.parse(packagesLocationQty).findBy('location_id', parseInt(this.get('selectedLocation.id'), 10));
@@ -57,10 +60,10 @@ export default searchModule.extend({
     }
   }),
 
-  onSearchInputChange: Ember.observer("searchInput", function() {
+  onSearchInputChange: observer("searchInput", function() {
     // wait before applying the filter
     if (this.get("searchInput")) {
-      Ember.run.debounce(this, this.applyFilter, 0);
+      debounce(this, this.applyFilter, 0);
     }
   }),
 
@@ -82,7 +85,7 @@ export default searchModule.extend({
 
           if(data.get("length") === 1) {
             this.set("selectedLocation", data.get('firstObject'));
-            Ember.run.debounce(this, this.triggerDisplayMoveOverlay, 100);
+            debounce(this, this.triggerDisplayMoveOverlay, 100);
           }
         })
         .finally(() => this.set("isLoading", false));

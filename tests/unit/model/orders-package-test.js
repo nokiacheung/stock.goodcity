@@ -1,5 +1,6 @@
+import { run } from '@ember/runloop';
+import { get } from '@ember/object';
 import { test, moduleForModel } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleForModel('orders_package', 'OrdersPackage Model', {
   needs: ['model:order-transport', 'model:item', 'model:image', 'model:donor_condition', 'model:user', 'model:designation', 'model:code', 'model:location', 'model:contact', 'model:organisation', 'model:local-order']
@@ -28,8 +29,8 @@ test('check attributes', function(assert){
 test('Relationships with other models', function(assert) {
   assert.expect(4);
   var OrdersPackage = this.store().modelFor('orders_package');
-  var relationshipWithItem = Ember.get(OrdersPackage, 'relationshipsByName').get('item');
-  var relationshipWithDesignation = Ember.get(OrdersPackage, 'relationshipsByName').get('designation');
+  var relationshipWithItem = get(OrdersPackage, 'relationshipsByName').get('item');
+  var relationshipWithDesignation = get(OrdersPackage, 'relationshipsByName').get('designation');
 
   assert.equal(relationshipWithItem.key, 'item');
   assert.equal(relationshipWithItem.kind, 'belongsTo');
@@ -50,7 +51,7 @@ test('OrdersPackage is a valid ember-data Model', function(assert) {
   var store  = this.store();
   var record = null;
 
-  Ember.run(function() {
+  run(function() {
     store.createRecord('orders_package', {id: 1, state: 'designated', quantity: 5});
     record = store.peekRecord('orders_package', 1);
   });
@@ -63,7 +64,7 @@ test('check orderCode computed property', function(assert){
   model = this.subject();
   store = this.store();
 
-  Ember.run(function(){
+  run(function(){
     code = store.createRecord('code', {
       id                      : 1,
       name                    : 'codename',

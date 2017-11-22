@@ -1,7 +1,10 @@
-import Ember from "ember";
+import { debounce } from '@ember/runloop';
+import { inject as service } from '@ember/service';
+import { computed, observer } from '@ember/object';
+import Controller from '@ember/controller';
 import InfinityRoute from "ember-infinity/mixins/route";
 
-export default Ember.Controller.extend(InfinityRoute, {
+export default Controller.extend(InfinityRoute, {
 
   queryParams: ["showQuantityItems"],
   showQuantityItems: false,
@@ -11,7 +14,7 @@ export default Ember.Controller.extend(InfinityRoute, {
     return str.trim();
   },
 
-  searchText: Ember.computed('searchInput',{
+  searchText: computed('searchInput',{
     get() {
       return this.get('searchInput') || "";
     },
@@ -21,8 +24,8 @@ export default Ember.Controller.extend(InfinityRoute, {
     }
   }),
 
-  i18n: Ember.inject.service(),
-  store: Ember.inject.service(),
+  i18n: service(),
+  store: service(),
   isLoading: false,
   hasNoResults: false,
   itemSetId: null,
@@ -31,15 +34,15 @@ export default Ember.Controller.extend(InfinityRoute, {
   searchInput: null,
   toDesignateItem: null,
 
-  hasSearchText: Ember.computed("searchText", function() {
+  hasSearchText: computed("searchText", function() {
     return !!this.get("searchText");
   }),
 
-  onSearchTextChange: Ember.observer("searchText", function() {
+  onSearchTextChange: observer("searchText", function() {
     // wait before applying the filter
     if (this.get("searchText").length > this.get("minSearchTextLength")) {
       this.set("itemSetId", null);
-      Ember.run.debounce(this, this.applyFilter, 500);
+      debounce(this, this.applyFilter, 500);
     } else {
       this.set("filteredResults", []);
     }

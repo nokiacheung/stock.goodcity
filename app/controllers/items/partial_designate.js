@@ -1,19 +1,21 @@
-import Ember from "ember";
+import $ from 'jquery';
+import { computed } from '@ember/object';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   item: null,
-  partial_qnty: Ember.computed.localStorage(),
-  designateFullSet: Ember.computed.localStorage(),
+  partial_qnty: computed.localStorage(),
+  designateFullSet: computed.localStorage(),
 
-  totalInHandItems: Ember.computed('item.quantity', function() {
+  totalInHandItems: computed('item.quantity', function() {
     return this.get('item.quantity');
   }),
 
-  returnsDesignateFullSet: Ember.computed('item.setItem.items', function() {
+  returnsDesignateFullSet: computed('item.setItem.items', function() {
     return !window.localStorage.getItem('designateFullSet').includes(false);
   }),
 
-  minSetQty: Ember.computed('item.setItem.items', function() {
+  minSetQty: computed('item.setItem.items', function() {
     if(this.get('item.isSet') && !window.localStorage.getItem('designateFullSet').includes(false)) {
       var setItems = this.get('item.setItem.items');
       var minQty = setItems.canonicalState[0]._data.quantity;
@@ -31,7 +33,7 @@ export default Ember.Controller.extend({
 
   actions: {
     designate_partial_qty(item) {
-      var partial_qty = parseInt(Ember.$(`#${item.id}`)[0].value, 10);
+      var partial_qty = parseInt($(`#${item.id}`)[0].value, 10);
       this.set('partial_qnty', partial_qty);
       this.transitionToRoute('items.search_order', item.id, {queryParams: {partial_qty: partial_qty, partial_qnty: this.get('partial_qnty')}});
     }

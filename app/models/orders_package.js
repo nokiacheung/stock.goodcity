@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 import { belongsTo } from 'ember-data/relationships';
@@ -15,19 +15,19 @@ export default Model.extend({
   item:    belongsTo('item', { async: true }),
   designation:    belongsTo('designation', { async: true }),
 
-  availableQty: Ember.computed("quantity", function() {
+  availableQty: computed("quantity", function() {
     return this.get('quantity');
   }),
 
-  qtyToModify: Ember.computed("quantity", "item.quantity", function() {
+  qtyToModify: computed("quantity", "item.quantity", function() {
     return this.get('quantity') + this.get("item.quantity");
   }),
 
-  orderCode: Ember.computed("designation", function(){
+  orderCode: computed("designation", function(){
     return this.get('designation.code');
   }),
 
-  isSingleQuantity: Ember.computed('quantity', function(){
+  isSingleQuantity: computed('quantity', function(){
     return this.get('quantity') === 1;
   })
 });

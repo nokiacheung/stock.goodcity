@@ -1,5 +1,7 @@
+import { debounce } from '@ember/runloop';
+import { observer } from '@ember/object';
+import { alias } from '@ember/object/computed';
 import config from '../../config/environment';
-import Ember from "ember";
 import searchModule from "../search_module";
 
 export default searchModule.extend({
@@ -9,12 +11,12 @@ export default searchModule.extend({
   hideDetailsLink: true,
   dataOnceRequested: false,
 
-  orderId: Ember.computed.alias("model.id"),
+  orderId: alias("model.id"),
   isMobileApp: config.cordova.enabled,
   autoDisplayOverlay: false,
   minSearchTextLength: 2,
 
-  onSearchTextChange: Ember.observer("searchText", function() {
+  onSearchTextChange: observer("searchText", function() {
     this.set('dataOnceRequested', false);
     this._super(...arguments);
   }),
@@ -44,7 +46,7 @@ export default searchModule.extend({
           }
 
           if(data.get("length") === 1) {
-            Ember.run.debounce(this, this.triggerDisplayDesignateOverlay, 100);
+            debounce(this, this.triggerDisplayDesignateOverlay, 100);
           }
         })
         .finally(() => this.set("isLoading", false));
@@ -59,7 +61,7 @@ export default searchModule.extend({
   actions: {
     displaySetItems(item) {
       this.set("itemSetId", item.get("itemId"));
-      Ember.run.debounce(this, this.applyFilter, 0);
+      debounce(this, this.applyFilter, 0);
     }
   }
 });

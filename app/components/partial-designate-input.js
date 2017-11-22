@@ -1,17 +1,20 @@
-import Ember from "ember";
+import $ from 'jquery';
+import { computed, observer } from '@ember/object';
+import { alias } from '@ember/object/computed';
+import TextField from '@ember/component/text-field';
 import config from '../config/environment';
 
-export default Ember.TextField.extend({
+export default TextField.extend({
   item: null,
   value: "",
   tagName: "input",
   maxlength: "5",
   env: config.APP.environment,
   attributeBindings: [ "name", "id", "value", 'placeholder'],
-  partial_qty_value: Ember.computed.alias('value'),
-  designateFullSet: Ember.computed.localStorage(),
+  partial_qty_value: alias('value'),
+  designateFullSet: computed.localStorage(),
 
-  minSetQty: Ember.computed('item.setItem.items', function() {
+  minSetQty: computed('item.setItem.items', function() {
     if(this.get('item.isSet') && this.get('designateFullSet')) {
       var setItems = this.get('item.setItem.items');
       var minQty = setItems.canonicalState[0]._data.quantity;
@@ -29,7 +32,7 @@ export default Ember.TextField.extend({
     if(this.get("env") === "test") {
       return false;
     }
-    Ember.$(this.element).css("background-color", "#002352");
+    $(this.element).css("background-color", "#002352");
     this.set('value', this.get('minSetQty') || this.get('item.quantity'));
   },
 
@@ -37,7 +40,7 @@ export default Ember.TextField.extend({
     if(this.get("env") === "test") {
       return false;
     }
-    Ember.$(this.element).css("background-color", "#002352");
+    $(this.element).css("background-color", "#002352");
   },
 
   focusOut() {
@@ -47,27 +50,27 @@ export default Ember.TextField.extend({
     var regex = /^\d+$/;
     var input_value = this.get('value');
     if(input_value <= 0 || (this.get('item.isSet') && input_value > this.get('minSetQty')) || input_value > this.get('item.quantity') || !(regex.test(input_value))) {
-      Ember.$(this.element).css("border", "1px solid #fddbdc");
-      Ember.$('#partial_designate')[0].disabled = true;
+      $(this.element).css("border", "1px solid #fddbdc");
+      $('#partial_designate')[0].disabled = true;
       this.$().focus();
       return false;
     }
   },
 
-  focusTrigger: Ember.observer('value', function() {
+  focusTrigger: observer('value', function() {
     if(this.get("env") === "test") {
       return false;
     }
     var regex = /^\d+$/;
     var input_value = this.get('value');
     if(input_value <= 0 || (this.get('item.isSet') && input_value > this.get('minSetQty')) || input_value > this.get('item.quantity') || !(regex.test(input_value))) {
-      Ember.$(this.element).css("border", "1px solid #fddbdc");
-      Ember.$('#partial_designate')[0].disabled = true;
+      $(this.element).css("border", "1px solid #fddbdc");
+      $('#partial_designate')[0].disabled = true;
       this.$().focus();
       return false;
     } else {
-      Ember.$(this.element).css("border", "1px solid #8091a9");
-      Ember.$('#partial_designate')[0].disabled = false;
+      $(this.element).css("border", "1px solid #8091a9");
+      $('#partial_designate')[0].disabled = false;
       return true;
     }
   })

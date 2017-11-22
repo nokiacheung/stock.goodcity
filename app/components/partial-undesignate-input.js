@@ -1,17 +1,21 @@
-import Ember from "ember";
+import $ from 'jquery';
+import { observer } from '@ember/object';
+import { inject as service } from '@ember/service';
+import { alias } from '@ember/object/computed';
+import TextField from '@ember/component/text-field';
 import config from '../config/environment';
 
-export default Ember.TextField.extend({
+export default TextField.extend({
   value: "",
   id: '',
   tagName: "input",
   maxlength: "5",
   attributeBindings: [ "name", "id", "value", 'placeholder'],
-  partial_qty_value: Ember.computed.alias('value'),
+  partial_qty_value: alias('value'),
   designationPackage: null,
   ordersPackageQty: null,
   alreadyRendered: true,
-  store: Ember.inject.service(),
+  store: service(),
   env: config.APP.environment,
 
   didRender() {
@@ -25,7 +29,7 @@ export default Ember.TextField.extend({
     }
   },
 
-  triggerValueChange: Ember.observer('designationPackage.quantity', 'ordersPackageQty', function() {
+  triggerValueChange: observer('designationPackage.quantity', 'ordersPackageQty', function() {
     if(this.get("env") === "test") {
       return false;
     }
@@ -36,7 +40,7 @@ export default Ember.TextField.extend({
     if(this.get("env") === "test") {
       return false;
     }
-    Ember.$(this.element).css("background-color", "#002352");
+    $(this.element).css("background-color", "#002352");
   },
 
   click() {
@@ -44,7 +48,7 @@ export default Ember.TextField.extend({
       return false;
     }
     this.set('designationPackage', this.get('designationPackage'));
-    Ember.$(this.element).css("background-color", "#002352");
+    $(this.element).css("background-color", "#002352");
   },
 
   focusOut() {
@@ -54,27 +58,27 @@ export default Ember.TextField.extend({
     var regex = /^\d+$/;
     var input_value = this.get('value');
     if(input_value < 0 || parseInt(input_value, 10) < 0 || parseInt(input_value, 10) > (this.get('designationPackage.quantity') + this.get('designationPackage.item.quantity')) || !(regex.test(input_value))) {
-      Ember.$(this.element).css("border", "1px solid #fddbdc");
-      Ember.$('#undesignateButton')[0].disabled = true;
+      $(this.element).css("border", "1px solid #fddbdc");
+      $('#undesignateButton')[0].disabled = true;
       this.$().focus();
       return false;
     }
   },
 
-  focusTrigger: Ember.observer('value', 'designationPackage', function() {
+  focusTrigger: observer('value', 'designationPackage', function() {
     if(this.get("env") === "test") {
       return false;
     }
     var regex = /^\d+$/;
     var input_value = this.get('value');
     if(input_value < 0 || parseInt(input_value, 10) < 0 || parseInt(input_value, 10) > (this.get('designationPackage.quantity') + this.get('designationPackage.item.quantity'))|| !(regex.test(input_value))) {
-      Ember.$(this.element).css("border", "1px solid #fddbdc");
-      Ember.$('#undesignateButton')[0].disabled = true;
+      $(this.element).css("border", "1px solid #fddbdc");
+      $('#undesignateButton')[0].disabled = true;
       this.$().focus();
       return false;
     } else {
-      Ember.$(this.element).css("border", "1px solid #8091a9");
-      Ember.$('#undesignateButton')[0].disabled = false;
+      $(this.element).css("border", "1px solid #8091a9");
+      $('#undesignateButton')[0].disabled = false;
       return true;
     }
   })

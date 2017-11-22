@@ -1,4 +1,8 @@
-import Ember from "ember";
+import $ from 'jquery';
+import { bind } from '@ember/runloop';
+import { on } from '@ember/object/evented';
+import { observer } from '@ember/object';
+import Controller from '@ember/controller';
 import config from "../config/environment";
 
 function run(func) {
@@ -7,7 +11,7 @@ function run(func) {
   }
 }
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   socket: null,
   lastOnline: Date.now(),
   deviceTtl: 0,
@@ -18,7 +22,7 @@ export default Ember.Controller.extend({
     online: false
   },
 
-  updateStatus: Ember.observer('socket', function () {
+  updateStatus: observer('socket', function () {
     var socket = this.get("socket");
     var online = navigator.connection ? navigator.connection.type !== "none" : navigator.onLine;
     online = socket && socket.connected && online;
@@ -26,7 +30,7 @@ export default Ember.Controller.extend({
   }),
 
   // resync if offline longer than deviceTtl
-  checkdeviceTtl: Ember.observer('status.online', function () {
+  checkdeviceTtl: observer('status.online', function () {
     var online = this.get("status.online");
     var deviceTtl = this.get("deviceTtl");
     if (online && deviceTtl !== 0 && (Date.now() - this.get("lastOnline")) > deviceTtl * 1000) {
@@ -36,8 +40,8 @@ export default Ember.Controller.extend({
     }
   }),
 
-  initController: Ember.on('init', function() {
-    var updateStatus = Ember.run.bind(this, this.updateStatus);
+  initController: on('init', function() {
+    var updateStatus = bind(this, this.updateStatus);
     window.addEventListener("online", updateStatus);
     window.addEventListener("offline", updateStatus);
   }),
@@ -65,7 +69,7 @@ export default Ember.Controller.extend({
 
   actions: {
     wire() {
-      var updateStatus = Ember.run.bind(this, this.updateStatus);
+      var updateStatus = bind(this, this.updateStatus);
       var connectUrl = config.APP.SOCKETIO_WEBSERVICE_URL +
         "?token=" + encodeURIComponent(this.session.get("authToken")) +
         "&deviceId=" + this.get("deviceId") +
@@ -80,17 +84,17 @@ export default Ember.Controller.extend({
         socket.io.engine.on("upgrade", updateStatus);
       });
       socket.on("disconnect", updateStatus);
-      socket.on("error", Ember.run.bind(this, function(reason) {
+      socket.on("error", bind(this, function(reason) {
         // ignore xhr post error related to no internet connection
         if (typeof reason !== "object" || reason.type !== "TransportError" && reason.message !== "xhr post error") {
           // this.get("logger").error(reason);
         }
       }));
 
-      socket.on("update_store", Ember.run.bind(this, this.update_store));
-      socket.on("_batch", Ember.run.bind(this, this.batch));
-      socket.on("_resync", Ember.run.bind(this, this.resync));
-      socket.on("_settings", Ember.run.bind(this, function(settings) {
+      socket.on("update_store", bind(this, this.update_store));
+      socket.on("_batch", bind(this, this.batch));
+      socket.on("_resync", bind(this, this.resync));
+      socket.on("_settings", bind(this, function(settings) {
         this.set("deviceTtl", settings.device_ttl);
         this.set("lastOnline", Date.now());
       }));
@@ -116,7 +120,7 @@ export default Ember.Controller.extend({
   // each action below is an event in a channel
   update_store: function(data, success) {
     var type = Object.keys(data.item)[0];
-    var item = Ember.$.extend({}, data.item[type]);
+    var item = $.extend({}, data.item[type]);
     //Don't update data store for Offer/Item/schedule/delivery updates
     if(this.get("modelDataTypes").includes(type)) {
       return false;

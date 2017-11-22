@@ -1,9 +1,9 @@
-import Ember from "ember";
+import { helper } from '@ember/component/helper';
 
 // Date Format used in App:
 // "12 Feb '16" => "DD MMM 'YY"
 
-export default Ember.Helper.helper(function(value, params) {
+export default helper(function(value, params) {
   var parseDate = Date.parse(value);
 
   if(parseDate) {

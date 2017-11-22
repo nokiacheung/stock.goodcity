@@ -1,14 +1,16 @@
-import Ember from "ember";
+import { alias } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import { getOwner } from '@ember/application';
 import AjaxPromise from 'stock/utils/ajax-promise';
-const { getOwner } = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
 
   displayUserPrompt: false,
-  store: Ember.inject.service(),
+  store: service(),
 
   item: null,
-  published: Ember.computed.alias("item.allowWebPublish"),
+  published: alias("item.allowWebPublish"),
 
   actions: {
     displayPublishOverlay() {

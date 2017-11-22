@@ -1,15 +1,17 @@
-import Ember from 'ember';
+import { notEmpty } from '@ember/object/computed';
+import { computed } from '@ember/object';
+import Service, { inject as service } from '@ember/service';
 import '../computed/local-storage';
 
-export default Ember.Service.extend({
+export default Service.extend({
 
-  authToken:  Ember.computed.localStorage(),
-  otpAuthKey: Ember.computed.localStorage(),
-  language:   Ember.computed.localStorage(),
-  isLoggedIn: Ember.computed.notEmpty("authToken"),
-  store:      Ember.inject.service(),
+  authToken:  computed.localStorage(),
+  otpAuthKey: computed.localStorage(),
+  language:   computed.localStorage(),
+  isLoggedIn: notEmpty("authToken"),
+  store:      service(),
 
-  currentUser: Ember.computed(function(){
+  currentUser: computed(function(){
     // TO-DO
     // var store = this.get('store');
     // return store.peekAll('user_profile').get('firstObject') || null;

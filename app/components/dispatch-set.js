@@ -1,12 +1,14 @@
-import Ember from "ember";
+import { observer } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import { getOwner } from '@ember/application';
 import AjaxPromise from 'stock/utils/ajax-promise';
-const { getOwner } = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
   displayUserPrompt: false,
-  store: Ember.inject.service(),
-  messageBox: Ember.inject.service(),
-  i18n: Ember.inject.service(),
+  store: service(),
+  messageBox: service(),
+  i18n: service(),
   hideDetailsLink: true,
   selectedOrder: null,
   item: null,
@@ -14,7 +16,7 @@ export default Ember.Component.extend({
   order: null,
   autoDisplayOverlay: false,
 
-  triggerClick: Ember.observer("autoDisplayOverlay", function() {
+  triggerClick: observer("autoDisplayOverlay", function() {
     this.send("displayDispatchOverlay");
   }),
 

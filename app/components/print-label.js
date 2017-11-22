@@ -1,10 +1,13 @@
-import Ember from "ember";
+import { debounce } from '@ember/runloop';
+import $ from 'jquery';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import { getOwner } from '@ember/application';
 import AjaxPromise from 'stock/utils/ajax-promise';
-const { getOwner } = Ember;
 
-export default Ember.Component.extend({
+export default Component.extend({
   item: null,
-  messageBox: Ember.inject.service(),
+  messageBox: service(),
 
   actions: {
 
@@ -14,7 +17,7 @@ export default Ember.Component.extend({
         .catch(xhr => {
           if (xhr.status !== 200) {
             var errors = xhr.responseText;
-            try { errors = Ember.$.parseJSON(xhr.responseText).errors; }
+            try { errors = $.parseJSON(xhr.responseText).errors; }
             catch(err) {
               console.log(err);
             }
@@ -25,23 +28,23 @@ export default Ember.Component.extend({
         })
         .finally(() => {
           loadingView.destroy();
-          var element = Ember.$(`#printer_message_${this.get('item.id')}`).clone();
+          var element = $(`#printer_message_${this.get('item.id')}`).clone();
           element.prependTo(".printer_message_block");
           this.sendAction("closeList");
-          Ember.run.debounce(this, this.hidePrinterMessage, 500);
+          debounce(this, this.hidePrinterMessage, 500);
         });
     }
 
   },
 
   hidePrinterMessage() {
-    Ember.$(".printer_message_block").fadeOut(3000);
-    Ember.run.debounce(this, this.removePrinterMessage, 2500);
+    $(".printer_message_block").fadeOut(3000);
+    debounce(this, this.removePrinterMessage, 2500);
   },
 
   removePrinterMessage() {
-    Ember.$(".printer_message_block").empty();
-    Ember.$(".printer_message_block").addClass("visible");
+    $(".printer_message_block").empty();
+    $(".printer_message_block").addClass("visible");
   }
 
 });

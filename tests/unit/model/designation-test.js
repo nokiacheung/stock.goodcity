@@ -1,5 +1,7 @@
+import { compare } from '@ember/utils';
+import { run } from '@ember/runloop';
+import { get } from '@ember/object';
 import { test, moduleForModel } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleForModel('designation', 'Designation model',{
   needs: ['model:order-transport', 'model:contact', 'model:organisation', 'model:local_order', 'model:item', 'model:orders_package', 'model:location', 'model:code', 'model:donor_condition', 'model:set_item', 'model:packages_location', 'model:image']
@@ -33,11 +35,11 @@ test('check attributes', function(assert){
 test('Relationships with other models', function(assert){
   assert.expect(10);
   var designation = this.store().modelFor('designation');
-  var relationshipWithContact = Ember.get(designation, 'relationshipsByName').get('contact');
-  var relationshipWithOrganisation = Ember.get(designation, 'relationshipsByName').get('organisation');
-  var relationshipWithLocalOrder = Ember.get(designation, 'relationshipsByName').get('localOrder');
-  var relationshipWithItem = Ember.get(designation, 'relationshipsByName').get('items');
-  var relationshipOrdersPackage = Ember.get(designation, 'relationshipsByName').get('ordersPackages');
+  var relationshipWithContact = get(designation, 'relationshipsByName').get('contact');
+  var relationshipWithOrganisation = get(designation, 'relationshipsByName').get('organisation');
+  var relationshipWithLocalOrder = get(designation, 'relationshipsByName').get('localOrder');
+  var relationshipWithItem = get(designation, 'relationshipsByName').get('items');
+  var relationshipOrdersPackage = get(designation, 'relationshipsByName').get('ordersPackages');
 
   assert.equal(relationshipWithContact.key, 'contact');
   assert.equal(relationshipWithContact.kind, 'belongsTo');
@@ -66,7 +68,7 @@ test('check dispatchedItems returns items with sentOn not null', function(assert
   model = this.subject();
   store = this.store();
 
-  Ember.run(function(){
+  run(function(){
     item1 = store.createRecord('item', { id: 1, sentOn: "12/07/2016" });
     item2 = store.createRecord('item', { id: 2, sentOn: "12/07/2016" });
     item3 = store.createRecord('item', { id: 3, sentOn: null });
@@ -75,7 +77,7 @@ test('check dispatchedItems returns items with sentOn not null', function(assert
 
   despatchedItemsIds = model.get('dispatchedItems').getEach('id');
   assert.equal(despatchedItemsIds.get('length'), 2);
-  assert.equal(Ember.compare(despatchedItemsIds, [item1.get("id"), item2.get("id")]), 0);
+  assert.equal(compare(despatchedItemsIds, [item1.get("id"), item2.get("id")]), 0);
 });
 
 test('check designatedItems returns items with sentOn null', function(assert){
@@ -84,7 +86,7 @@ test('check designatedItems returns items with sentOn null', function(assert){
   model = this.subject();
   store = this.store();
 
-  Ember.run(function(){
+  run(function(){
     item1 = store.createRecord('item', { id: 1, sentOn: null });
     item2 = store.createRecord('item', { id: 2, sentOn: null });
     item3 = store.createRecord('item', { id: 3, sentOn: "12/07/2016" });
@@ -93,7 +95,7 @@ test('check designatedItems returns items with sentOn null', function(assert){
 
   designatedItemsIds = model.get('designatedItems').getEach('id');
   assert.equal(designatedItemsIds.get('length'), 2);
-  assert.equal(Ember.compare(designatedItemsIds, [item1.get('id'), item2.get('id')]), 0);
+  assert.equal(compare(designatedItemsIds, [item1.get('id'), item2.get('id')]), 0);
 });
 
 test('check designatedOrdersPackages returns only designated orders_packages', function(assert){
@@ -102,7 +104,7 @@ test('check designatedOrdersPackages returns only designated orders_packages', f
   model = this.subject();
   store = this.store();
 
-  Ember.run(function(){
+  run(function(){
     orders_package1 = store.createRecord('orders_package', {id: 1, state: 'designated'});
     orders_package2 = store.createRecord('orders_package', {id: 2, state: 'designated'});
     orders_package3 = store.createRecord('orders_package', {id: 3, state: 'dispatched'});
@@ -112,7 +114,7 @@ test('check designatedOrdersPackages returns only designated orders_packages', f
   designatedOrdersPackagesIds = model.get('designatedOrdersPackages').getEach('id');
 
   assert.equal(designatedOrdersPackagesIds.get('length'),2);
-  assert.equal(Ember.compare(designatedOrdersPackagesIds, [orders_package1.get('id'), orders_package2.get('id')]), 0);
+  assert.equal(compare(designatedOrdersPackagesIds, [orders_package1.get('id'), orders_package2.get('id')]), 0);
 });
 
 test('check dispatchedOrdersPackages returns only dispatched orders_packages', function(assert){
@@ -121,7 +123,7 @@ test('check dispatchedOrdersPackages returns only dispatched orders_packages', f
   model = this.subject();
   store = this.store();
 
-  Ember.run(function(){
+  run(function(){
     orders_package1 = store.createRecord('orders_package', {id: 1, state: 'dispatched'});
     orders_package2 = store.createRecord('orders_package', {id: 2, state: 'dispatched'});
     orders_package3 = store.createRecord('orders_package', {id: 3, state: 'designated'});
@@ -130,14 +132,14 @@ test('check dispatchedOrdersPackages returns only dispatched orders_packages', f
 
   dispatchedOrdersPackagesIds = model.get('dispatchedOrdersPackages').getEach('id');
   assert.equal(dispatchedOrdersPackagesIds.get('length'),2);
-  assert.equal(Ember.compare(dispatchedOrdersPackagesIds, [orders_package1.get('id'), orders_package2.get('id')]), 0);
+  assert.equal(compare(dispatchedOrdersPackagesIds, [orders_package1.get('id'), orders_package2.get('id')]), 0);
 });
 
 test('check allItemsDispatched returns true if all Items are dispatched otherwise returns false', function(assert){
   assert.expect(2);
   var item1, item2, item3, unDispatcheditem, store, designation1, designation2;
   store = this.store();
-  Ember.run(function(){
+  run(function(){
 
     designation1 = store.createRecord('designation', {
                     id:               5,
@@ -171,7 +173,7 @@ test('check isInactive', function(assert){
   var designation, store;
   store = this.store();
 
-  Ember.run(function(){
+  run(function(){
     designation = store.createRecord('designation', {
       id:               4,
       detailType:       'StockitLocalOrder',

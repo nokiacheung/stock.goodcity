@@ -1,7 +1,7 @@
+import { run } from '@ember/runloop';
 import { test, moduleFor } from 'ember-qunit';
 import startApp from '../helpers/start-app';
 import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
-import Ember from 'ember';
 import FactoryGuy from 'ember-data-factory-guy';
 import '../factories/designation';
 
@@ -14,8 +14,8 @@ moduleFor('controller:items.search_order', 'items.search_order controller', {
     designation = FactoryGuy.make("designation");
   },
   afterEach: function() {
-    Ember.run(function() { TestHelper.teardown(); });
-    Ember.run(App, 'destroy');
+    run(function() { TestHelper.teardown(); });
+    run(App, 'destroy');
   }
 });
 
