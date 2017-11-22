@@ -1,10 +1,4 @@
-# Goodcity Stock App
-
-[![Circle CI](https://circleci.com/gh/crossroads/stock.goodcity.svg?style=svg)](https://circleci.com/gh/crossroads/stock.goodcity)
-[![Code Climate](https://codeclimate.com/github/crossroads/stock.goodcity/badges/gpa.svg)](https://codeclimate.com/github/crossroads/stock.goodcity)
-[![Issue Count](https://codeclimate.com/github/crossroads/stock.goodcity/badges/issue_count.svg)](https://codeclimate.com/github/crossroads/stock.goodcity)
-[![Test Coverage](https://codeclimate.com/github/crossroads/stock.goodcity/badges/coverage.svg)](https://codeclimate.com/github/crossroads/stock.goodcity)
-
+# stock
 
 This README outlines the details of collaborating on this Ember application.
 A short introduction of this app could easily go here.
@@ -13,24 +7,23 @@ A short introduction of this app could easily go here.
 
 You will need the following things properly installed on your computer.
 
-* [Git](http://git-scm.com/)
+* [Git](https://git-scm.com/)
+* [Node.js](https://nodejs.org/)
 * [Yarn](https://yarnpkg.com/)
-* [Bower](http://bower.io/)
-* [Ember CLI](http://ember-cli.com/)
-* [PhantomJS](http://phantomjs.org/)
+* [Ember CLI](https://ember-cli.com/)
+* [Google Chrome](https://google.com/chrome/)
 
 ## Installation
 
 * `git clone <repository-url>` this repository
-* change into the new directory
-* `yarn link cordova-lib`
-* `yarn install` or just 'yarn'
-* `bower install`
+* `cd stock`
+* `yarn install`
 
 ## Running / Development
 
-* `ember server`
+* `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
+* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
 
 ### Code Generators
 
@@ -52,9 +45,8 @@ Specify what it takes to deploy your app.
 
 ## Further Reading / Useful Links
 
-* [ember.js](http://emberjs.com/)
-* [ember-cli](http://ember-cli.com/)
+* [ember.js](https://emberjs.com/)
+* [ember-cli](https://ember-cli.com/)
 * Development Browser Extensions
   * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
   * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
-
