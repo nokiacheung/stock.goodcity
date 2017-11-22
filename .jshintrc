@@ -5,7 +5,8 @@
     "-Promise",
     "airbrakeJs",
     "moment",
-    "io"
+    "io",
+    "$": true
   ],
   "browser": true,
   "boss": true,
