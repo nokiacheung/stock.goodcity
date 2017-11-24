@@ -27,6 +27,12 @@ module.exports = function(defaults) {
     },
     sassOptions: {
       extension: 'scss'
+    },
+    eslint: {
+      testGenerator: 'qunit',
+      group: true,
+      rulesDir: 'eslint-rules',
+      extensions: ['js'],
     }
   });
 
