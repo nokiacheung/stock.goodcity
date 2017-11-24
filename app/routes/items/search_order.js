@@ -62,6 +62,7 @@ export default AuthorizeRoute.extend({
 
   afterModel(model) {
     if(model.item.get('quantity') === 0) {
+      this.get('transition').abort();
       this.get("messageBox").alert("This item is already designated", () => {
         this.transitionTo("items.index");
       });

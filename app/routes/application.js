@@ -9,15 +9,21 @@ export default Ember.Route.extend({
   isLoginPopUpAlreadyShown: false,
   logger: Ember.inject.service(),
   messageBox: Ember.inject.service(),
+  isMustLoginAlreadyShown: false,
 
 
   init() {
     var _this = this;
     var storageHandler = function (object) {
-      if(!window.localStorage.getItem('authToken')) {
+      var currentPath = window.location.href;
+      var authToken = window.localStorage.getItem('authToken');
+      if(!authToken && !object.get('isMustLoginAlreadyShown') && !(currentPath.includes("login") || currentPath.includes("authenticate"))) {
+        object.set('isMustLoginAlreadyShown', true);
         object.get('messageBox').alert(object.get("i18n").t('must_login'), () => {
-          object.transitionTo('login');
+          object.transitionTo("login");
         });
+      } else if(authToken && (currentPath.includes("login") || currentPath.includes("authenticate"))) {
+        object.transitionTo("/");
       }
     };
     window.addEventListener("storage", function() {
@@ -98,7 +104,7 @@ export default Ember.Route.extend({
       } else if (status === 401) {
         this.showMustLogin();
       } else {
-        if(reason.message.includes('stockit_item') && reason.message.includes('404') && !this.get('isItemUnavailable')) {
+        if(reason.message && reason.message.includes('stockit_item') && reason.message.includes('404') && !this.get('isItemUnavailable')) {
           this.showItemIsNotAvailable();
         } else {
           this.showSomethingWentWrong(reason);

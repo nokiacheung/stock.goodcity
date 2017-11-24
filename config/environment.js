@@ -6,6 +6,23 @@ module.exports = function(environment) {
     environment: environment,
     baseURL: '/',
     defaultLocationType: 'auto',
+
+    rollbar: {
+      accessToken: 'cc46e2e6402f4106a8ba71fe9752d69a',
+      payload: {
+        client: {
+          javascript: {
+            source_map_enabled: true, //this is now true by default
+            code_version: require('child_process').execSync('git rev-parse HEAD').toString().trim(),
+            // Optionally have Rollbar guess which frames the error was thrown from
+            // when the browser does not provide line and column numbers.
+            environment: environment,
+            guess_uncaught_frames: true
+          }
+        }
+      }
+    },
+
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -69,7 +86,8 @@ module.exports = function(environment) {
       'http://localhost:4203',
       'http://localhost:1337',
       'ws://localhost:1337',
-      'wss://localhost:1337'
+      'wss://localhost:1337',
+      'https://api.rollbar.com'
     ].join(' ');
 
     ENV.contentSecurityPolicy["img-src"] = [
@@ -102,6 +120,7 @@ module.exports = function(environment) {
     ENV.contentSecurityPolicy["connect-src"] = [
       'https://api.goodcity.hk',
       'https://errbit.crossroads.org.hk',
+      'https://api.rollbar.com',
       'https://socket.goodcity.hk:81',
       'ws://socket.goodcity.hk:81',
       'wss://socket.goodcity.hk:81',
@@ -117,6 +136,7 @@ module.exports = function(environment) {
     ENV.contentSecurityPolicy["connect-src"] = [
       'https://api-staging.goodcity.hk',
       'https://errbit.crossroads.org.hk',
+      'https://api.rollbar.com',
       'https://sentry.io',
       'https://socket-staging.goodcity.hk:81',
       'ws://socket-staging.goodcity.hk:81',

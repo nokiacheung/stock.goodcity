@@ -1,0 +1,40 @@
+<nav class="tab-bar order_fixed_header">
+  <section class="left-small">
+    {{#link-to 'orders.detail' model.id classNames="back"}}
+      <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
+      <div>{{t "back"}}</div>
+    {{/link-to}}
+  </section>
+
+  <section class="middle tab-bar-section">
+    <h1 class="title">Purposes</h1>
+  </section>
+
+</nav>
+
+<section class="main-section order_page">
+
+  <div class="row ">
+    <div class="small-12 columns main_details">
+      <div class="row">
+        <div class="small-5 large-4 columns">
+          Description:
+        </div>
+        <div class="small-7 large-8 columns">
+          {{model.description}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-5 large-4 columns">
+          Purpose:
+        </div>
+        <div class="small-7 large-8 columns">
+          {{model.purpose_description}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>

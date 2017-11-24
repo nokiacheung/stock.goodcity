@@ -51,7 +51,7 @@
           Organisation:
         </div>
         <div class="small-8 columns">
-          {{{apply-line-break model.organisation.name}}}
+          {{apply-line-break (if model.isGoodCityOrder model.organisation.nameEn model.organisation.name)}}
         </div>
       </div>
 
@@ -62,6 +62,34 @@
           </div>
           <div class="small-7 columns">
             {{model.contact.fullName}}
+          </div>
+          <div class="small-1 columns icons">
+            <i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i>
+          </div>
+        {{/link-to}}
+      </div>
+
+      <div class="row">
+        {{#link-to "orders.order_transport" model}}
+          <div class="small-4 columns">
+            Transport:
+          </div>
+          <div class="small-7 columns">
+            {{model.orderTransport.type}}
+          </div>
+          <div class="small-1 columns icons">
+            <i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i>
+          </div>
+        {{/link-to}}
+      </div>
+
+      <div class="row">
+        {{#link-to "orders.purposes" model}}
+          <div class="small-4 columns">
+            Purposes:
+          </div>
+          <div class="small-7 columns">
+            {{apply-line-break model.description}}
           </div>
           <div class="small-1 columns icons">
             <i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i>
