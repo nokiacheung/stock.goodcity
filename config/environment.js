@@ -1,33 +1,38 @@
-/* jshint node: true */
-
+/* eslint-env node */
+'use strict';
 module.exports = function(environment) {
-  var ENV = {
+  let ENV = {
     modulePrefix: 'stock',
     environment: environment,
-    baseURL: '/',
-    defaultLocationType: 'auto',
+    rootURL: '/',
+    locationType: 'auto',
 
-    rollbar: {
-      accessToken: 'cc46e2e6402f4106a8ba71fe9752d69a',
-      payload: {
-        client: {
-          javascript: {
-            source_map_enabled: true, //this is now true by default
-            code_version: require('child_process').execSync('git rev-parse HEAD').toString().trim(),
-            // Optionally have Rollbar guess which frames the error was thrown from
-            // when the browser does not provide line and column numbers.
-            environment: environment,
-            guess_uncaught_frames: true
-          }
-        }
-      }
-    },
+    // rollbar: {
+    //   accessToken: 'cc46e2e6402f4106a8ba71fe9752d69a',
+    //   payload: {
+    //     client: {
+    //       javascript: {
+    //         source_map_enabled: true, //this is now true by default
+    //         code_version: require('child_process').execSync('git rev-parse HEAD').toString().trim(),
+    //         // Optionally have Rollbar guess which frames the error was thrown from
+    //         // when the browser does not provide line and column numbers.
+    //         environment: environment,
+    //         guess_uncaught_frames: true
+    //       }
+    //     }
+    //   }
+    // },
 
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
-      }
+      },
+      EXTEND_PROTOTYPES: {
+        // Prevent Ember Data from overriding Date.parse.
+        Date: false
+       }
+
     },
 
     contentSecurityPolicy: {
@@ -77,11 +82,11 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    ENV.APP.API_HOST_URL = 'http://localhost:3000';
+    ENV.APP.API_HOST_URL = 'http://localhost:4000';
     ENV.APP.SOCKETIO_WEBSERVICE_URL = 'http://localhost:1337/goodcity';
 
     ENV.contentSecurityPolicy["connect-src"] = [
-      'http://localhost:3000',
+      'http://localhost:4000',
       'https://api.cloudinary.com',
       'http://localhost:4203',
       'http://localhost:1337',
@@ -102,7 +107,7 @@ module.exports = function(environment) {
     ENV.cordova.enabled = false;
 
     // Testem prefers this...
-    ENV.baseURL = '/';
+    // ENV.baseURL = '/';
     ENV.locationType = 'none';
 
     // keep test console output quieter
