@@ -1,12 +1,12 @@
 import Ember from "ember";
 import config from "../config/environment";
-import rollbar from 'rollbar';
+import rollbar from '../rollbar';
 
 export default Ember.Service.extend({
   session: Ember.inject.service(),
 
   notifyRollBar(err, log_details) {
-    rollbar.error(err, log_details);
+    Rollbar.error(err, log_details);
   },
 
   notifyAirBrake: function(reason) {
