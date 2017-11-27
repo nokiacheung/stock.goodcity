@@ -7,20 +7,24 @@ module.exports = function(environment) {
     baseURL: '/',
     defaultLocationType: 'auto',
 
-    rollbar: {
+    // rollbar: {
+    //   accessToken: 'cc46e2e6402f4106a8ba71fe9752d69a',
+    //   payload: {
+    //     client: {
+    //       javascript: {
+    //         source_map_enabled: true, //this is now true by default
+    //         code_version: require('child_process').execSync('git rev-parse HEAD').toString().trim(),
+    //         // Optionally have Rollbar guess which frames the error was thrown from
+    //         // when the browser does not provide line and column numbers.
+    //         environment: environment,
+    //         guess_uncaught_frames: true
+    //       }
+    //     }
+    //   }
+    // },
+
+    'emberRollbarClient': {
       accessToken: 'cc46e2e6402f4106a8ba71fe9752d69a',
-      payload: {
-        client: {
-          javascript: {
-            source_map_enabled: true, //this is now true by default
-            code_version: require('child_process').execSync('git rev-parse HEAD').toString().trim(),
-            // Optionally have Rollbar guess which frames the error was thrown from
-            // when the browser does not provide line and column numbers.
-            environment: environment,
-            guess_uncaught_frames: true
-          }
-        }
-      }
     },
 
     EmberENV: {
