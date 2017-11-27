@@ -23,6 +23,10 @@ module.exports = function(environment) {
     //   }
     // },
 
+    'emberRollbarClient': {
+      accessToken: 'cc46e2e6402f4106a8ba71fe9752d69a',
+    },
+
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
