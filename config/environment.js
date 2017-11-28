@@ -13,7 +13,7 @@ module.exports = function(environment) {
         client: {
           javascript: {
             source_map_enabled: true, //this is now true by default
-            code_version: require('child_process').execSync('git rev-parse HEAD').toString().trim(),
+            code_version: process.env.VERSION+process.env.APP_SHA,
             // Optionally have Rollbar guess which frames the error was thrown from
             // when the browser does not provide line and column numbers.
             environment: environment,
