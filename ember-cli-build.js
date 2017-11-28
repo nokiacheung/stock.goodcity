@@ -29,6 +29,7 @@ module.exports = function(defaults) {
   });
 
   app.import('bower_components/foundation/js/foundation/foundation.js');
+  app.import('bower_components/foundation/js/foundation/foundation.offcanvas.js');
   app.import("bower_components/font-awesome/css/font-awesome.css");
   app.import("bower_components/font-awesome/fonts/fontawesome-webfont.eot", { destDir: "fonts" });
   app.import("bower_components/font-awesome/fonts/fontawesome-webfont.svg", { destDir: "fonts" });

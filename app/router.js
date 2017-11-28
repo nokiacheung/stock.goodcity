@@ -13,6 +13,7 @@ Router.map(function() {
   this.route('authenticate');
   this.route('search_code');
   this.route('select_location');
+  this.route('search_organisation');
 
   this.route("items", function() {
     this.route("new");

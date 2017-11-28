@@ -1,0 +1,28 @@
+<div class="row fixed_search_header search-box ui items-search">
+  <div class="small-2 medium-2 columns ">
+    <a {{action "cancelSearch"}} class="back">
+      <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
+      <div class="back_text">
+        Back
+      </div>
+    </a>
+  </div>
+
+  <div class="small-10 medium-10 columns">
+    {{focus-textfield
+      name="searchText"
+      id="searchText"
+      placeholder=(t "search")
+      value=searchText
+      disabled=true}}
+
+    {{#if hasSearchText}}
+      <i class="fa fa-times-circle" {{action "clearSearch"}}></i>
+    {{/if}}
+  </div>
+</div>
+
+<section class="main-section">
+  {{partial "sticky_footer"}}
+</section>
+
