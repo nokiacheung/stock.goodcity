@@ -14,7 +14,7 @@
       id="searchText"
       placeholder=(t "search")
       value=searchText
-      disabled=true}}
+      disabled=false}}
 
     {{#if hasSearchText}}
       <i class="fa fa-times-circle" {{action "clearSearch"}}></i>
@@ -22,7 +22,22 @@
   </div>
 </div>
 
-<section class="main-section">
+<section class="main-section orders_search_result">
+  <div class="row search">
+    <div class="small-12 columns">
+      <ul class="list list-activity list-offer-items">
+        <li>
+          Organisation Name
+          <div class="row">
+            0 <i class="fa fa-shopping-basket"></i>
+            0 <i class="fa fa-ship"></i>
+            0 <i class="fa fa-users"></i>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
   {{partial "sticky_footer"}}
 </section>
 
