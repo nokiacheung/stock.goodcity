@@ -22,6 +22,15 @@ export default AuthorizeRoute.extend({
     this.set('partial_qnty', 0);
     this._super(controller, model);
     controller.set('itemSetId', this.paramsFor('items.index').itemSetId);
+  },
+
+  renderTemplate() {
+    this.render(); // default template
+    this.render('appMenuList', {
+      into: 'items/index',
+      outlet: 'appMenuList',
+      controller: 'items.index'
+    });
   }
 
 });
