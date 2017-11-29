@@ -8,6 +8,10 @@ export default Addressable.extend({
   mobile:      attr('string'),
   createdAt:   attr('date'),
 
-  permission:  belongsTo('permission', { async: false })
+  permission:  belongsTo('permission', { async: false }),
+
+  fullName: Ember.computed('firstName', 'lastName', function(){
+    return (this.get('firstName') + " " + this.get('lastName'));
+  })
   // image:       belongsTo('image', { async: false }),
 });
