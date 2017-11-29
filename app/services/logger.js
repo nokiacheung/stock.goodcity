@@ -3,7 +3,7 @@ import config from "../config/environment";
 
 export default Ember.Service.extend({
   session: Ember.inject.service(),
-  rollbar: Ember.inject.service()
+  rollbar: Ember.inject.service(),
 
   notifyAirBrake: function(reason) {
 
