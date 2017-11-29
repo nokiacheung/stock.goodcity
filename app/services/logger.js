@@ -6,6 +6,7 @@ export default Ember.Service.extend({
   rollbar: Ember.inject.service(),
 
   notifyAirBrake: function(reason) {
+    var data;
     var currentUser = this.get("session.currentUser");
     var userName = currentUser.get("fullName");
     var userId = currentUser.get("id");
