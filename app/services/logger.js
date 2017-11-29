@@ -6,10 +6,9 @@ export default Ember.Service.extend({
   rollbar: Ember.inject.service(),
 
   notifyAirBrake: function(reason) {
-
-    var userName = this.get("session.currentUser.fullName");
     var currentUser = this.get("session.currentUser");
-    var userId = this.get("session.currentUser.id");
+    var userName = currentUser.get("fullName");
+    var userId = currentUser.get("id");
     var error = reason instanceof Error || typeof reason !== "object" ?
         reason : JSON.stringify(reason);
     var environment = config.staging ? "staging" : config.environment;
