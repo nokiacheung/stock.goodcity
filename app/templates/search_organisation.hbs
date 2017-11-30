@@ -25,16 +25,64 @@
 <section class="main-section orders_search_result">
   <div class="row search">
     <div class="small-12 columns">
-      <ul class="list list-activity list-offer-items">
-        <li>
-          Organisation Name
-          <div class="row">
-            0 <i class="fa fa-shopping-basket"></i>
-            0 <i class="fa fa-ship"></i>
-            0 <i class="fa fa-users"></i>
-          </div>
-        </li>
-      </ul>
+      {{#if isLoading}}
+        <div class="loading_screen">
+          {{partial 'loading'}}
+        </div>
+      {{else}}
+        {{#if filteredResults}}
+          <ul class="list list-activity list-offer-items">
+            {{#each filteredResults as |organisation|}}
+              <li>
+                <div class="row">
+                  <div class="small-12 columns">
+                    {{organisation.name_en}}
+                  </div>
+                </div>
+                 <div class="row">
+                  0 <i class="fa fa-shopping-basket"></i>
+                  0 <i class="fa fa-ship"></i>
+                  0 <i class="fa fa-users"></i>
+                </div>
+              </li>
+            {{/each}}
+          </ul>
+
+          {{#infinity-loader}}
+          {{/infinity-loader}}
+
+        {{else if hasNoResults}}
+          <div class='no_result'>{{t "no_search_results"}}</div>
+        {{!-- {{else if sortedRecentlyUsedLocations}}
+          <div class="recent_locations">Recently used locations</div>
+
+          <ul class="list list-activity list-offer-items">
+            {{#each sortedRecentlyUsedLocations as |location|}}
+              <li {{action 'displayMoveOverlay' location}}>
+                <div class="row">
+                  <div class="small-6 columns building_name">
+                    {{location.building}}
+                  </div>
+                  <div class="small-6 columns">
+                    {{location.area}}
+                  </div>
+                </div>
+              </li>
+            {{/each}}
+          </ul> --}}
+
+        {{/if}}
+        {{!-- <ul class="list list-activity list-offer-items">
+          <li>
+            Organisation Name
+            <div class="row">
+              0 <i class="fa fa-shopping-basket"></i>
+              0 <i class="fa fa-ship"></i>
+              0 <i class="fa fa-users"></i>
+            </div>
+          </li>
+        </ul> --}}
+      {{/if}}
     </div>
 
   </div>

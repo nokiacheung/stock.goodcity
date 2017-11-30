@@ -3,5 +3,5 @@ import attr from 'ember-data/attr';
 
 export default Model.extend({
   name: attr('string'),
-  nameEn: attr('string')
+  name_en: attr('string')
 });
