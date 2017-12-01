@@ -2,11 +2,13 @@ import Ember from "ember";
 import searchModule from "./search_module";
 
 export default searchModule.extend({
-  minSearchTextLength: 2,
+  minSearchTextLength: 4,
 
   onSearchTextChange: Ember.observer("searchText", function(){
     if(this.get('searchText')){
       Ember.run.debounce(this, this.applyFilter, 0);
+    } else {
+      this.set("filteredResults", []);
     }
   }),
 
@@ -18,13 +20,13 @@ export default searchModule.extend({
       if(this.get("unloadAll")) { this.get("store").unloadAll(); }
 
       this.infinityModel("organisation",
-        { perPage: 25, startingPage: 1, modelPath: 'filteredResults',stockRequest: true },
-        { searchText: "searchText" })
+        { startingPage: 1, perPage: 25, modelPath: 'filteredResults',stockRequest: true },
+        { searchText: "searchText"})
         .then(data => {
-          // if(this.get("searchText") === data.meta.search) {
+          if(this.get("searchText") === data.meta.search) {
             this.set("filteredResults", data);
-            // this.set("hasNoResults", data.get("length") === 0);
-          // }
+            this.set("hasNoResults", data.get("length") === 0);
+          }
         })
         .finally(() => this.set("isLoading", false));
     }
@@ -32,13 +34,6 @@ export default searchModule.extend({
   },
 
   actions: {
-    clearSearch(isCancelled) {
-      this.set('filter', '');
-      this.set('searchText', '');
-      this.set('fetchMoreResult', true);
-      if(!isCancelled) { Ember.$("#searchText").focus(); }
-    },
-
     cancelSearch() {
       Ember.$("#searchText").blur();
       this.send("clearSearch", true);
