@@ -1,0 +1,39 @@
+<nav class="tab-bar order_fixed_header">
+  <section class="middle tab-bar-section">
+    <h1 class="title"> Organisation </h1>
+  </section>
+</nav>
+
+<section class="main-section order_page">
+  <div class="row">
+    <div class="small-12 columns main_details">
+      <div class="row">
+        <div class="small-4 columns">
+          Name:
+        </div>
+        <div class="small-8 columns">
+          {{apply-line-break model.name_en}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-4 columns">
+          Description:
+        </div>
+        <div class="small-8 columns">
+          {{apply-line-break model.description_en}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-4 columns">
+          Registration:
+        </div>
+        <div class="small-8 columns">
+          {{!-- Add website link here --}}
+          {{apply-line-break model.registration}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -41,6 +41,10 @@ Router.map(function() {
     this.route("info", { path: "/:order_id/info" });
   });
 
+  this.route("organisations", function(){
+    this.route("detail", { path: "/:organisation_id" });
+  });
+
 });
 
 export default Router;

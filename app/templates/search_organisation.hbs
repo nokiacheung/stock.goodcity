@@ -34,6 +34,7 @@
           <ul class="list list-activity list-offer-items">
             {{#each filteredResults as |organisation|}}
               <li>
+              {{#link-to 'organisations.detail' organisation.id tagName='div' href=false}}
                 <div class="row">
                   <div class="small-12 columns">
                     {{organisation.name_en}}
@@ -44,6 +45,7 @@
                   0 <i class="fa fa-ship"></i>
                   0 <i class="fa fa-users"></i>
                 </div>
+              {{/link-to}}
               </li>
             {{/each}}
           </ul>
