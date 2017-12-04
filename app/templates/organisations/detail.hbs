@@ -1,39 +1,44 @@
-<nav class="tab-bar order_fixed_header">
-  <section class="middle tab-bar-section">
-    <h1 class="title"> Organisation </h1>
-  </section>
-</nav>
+{{#init-foundation}}
+  <nav class="tab-bar submitted_page">
+    <section class="middle tab-bar-section">
+      <h1 class="title">
+        Organisation
+      </h1>
+    </section>
+  </nav>
+{{/init-foundation}}
 
-<section class="main-section order_page">
+{{!-- <section class="main-section review_offer">
   <div class="row">
-    <div class="small-12 columns main_details">
-      <div class="row">
-        <div class="small-4 columns">
-          Name:
-        </div>
-        <div class="small-8 columns">
-          {{apply-line-break model.name_en}}
-        </div>
-      </div>
+    <div class="small-12 columns tab_row">
+      <dl class="tabs" data-tab>
 
-      <div class="row">
-        <div class="small-4 columns">
-          Description:
-        </div>
-        <div class="small-8 columns">
-          {{apply-line-break model.description_en}}
-        </div>
-      </div>
+        {{#link-to 'my_list.reviewing' tagName="dd" classNames="small-3 columns text-center"}}
+          {{#link-to 'my_list.reviewing'}}
+            <div>{{t "reviewing"}}({{inProgressCount}})</div>
+          {{/link-to}}
+        {{/link-to}}
 
-      <div class="row">
-        <div class="small-4 columns">
-          Registration:
-        </div>
-        <div class="small-8 columns">
-          {{!-- Add website link here --}}
-          {{apply-line-break model.registration}}
-        </div>
-      </div>
+        {{#link-to 'my_list.reviewed' tagName="dd" classNames="small-3 columns text-center"}}
+          {{#link-to 'my_list.reviewed'}}
+            <div>{{t "reviewed"}}({{reviewedCount}})</div>
+          {{/link-to}}
+        {{/link-to}}
+
+        {{#link-to 'my_list.scheduled' tagName="dd" classNames="small-3 columns text-center"}}
+          {{#link-to 'my_list.scheduled'}}
+            <div>{{t "scheduled.title"}}({{scheduledCount}})</div>
+          {{/link-to}}
+        {{/link-to}}
+
+        {{#link-to 'my_list.finished' tagName="dd" classNames="small-3 columns text-center"}}
+          {{#link-to 'my_list.finished'}}
+            <div>{{t "finished.title"}}</div>
+          {{/link-to}}
+        {{/link-to}}
+      </dl>
     </div>
   </div>
-</section>
+
+  {{outlet}}
+</section> --}}
