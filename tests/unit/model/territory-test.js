@@ -1,7 +1,7 @@
 import { test, moduleForModel } from 'ember-qunit';
 import Ember from 'ember';
 
-moduleForModel('Territory', 'Territory Model', {
+moduleForModel('territory', 'Territory Model', {
   needs: ['model:territory', 'model:district']
 });
 
