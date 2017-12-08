@@ -9,5 +9,6 @@ export default Model.extend({
   registration: attr('string'),
 
   organisations_users: hasMany('organisations_user', { async: false }),
+  orders: hasMany('order', { async: false }),
 
 });

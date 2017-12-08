@@ -15,19 +15,19 @@
 
         {{#link-to 'organisations.detail' model.id tagName="dd" classNames="small-3 columns text-center"}}
           {{#link-to 'organisations.detail' model.id}}
-            <div> Yo </div>
+            <div> Details </div>
           {{/link-to}}
         {{/link-to}}
 
-        {{#link-to 'organisations.orders' tagName="dd" classNames="small-3 columns text-center"}}
-          {{#link-to 'organisations.orders'}}
-            <div> Yo </div>
+        {{#link-to 'organisations.orders' model.id tagName="dd" classNames="small-3 columns text-center"}}
+          {{#link-to 'organisations.orders' model.id}}
+            <div> Orders </div>
           {{/link-to}}
         {{/link-to}}
 
-        {{#link-to 'organisations.users' tagName="dd" classNames="small-3 columns text-center"}}
-          {{#link-to 'organisations.users'}}
-            <div> Yo </div>
+        {{#link-to 'organisations.users' model.id tagName="dd" classNames="small-3 columns text-center"}}
+          {{#link-to 'organisations.users' model.id}}
+            <div> Users </div>
           {{/link-to}}
         {{/link-to}}
       </dl>

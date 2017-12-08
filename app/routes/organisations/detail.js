@@ -1,8 +1,5 @@
 // import AuthorizeRoute from './authorize';
-import AuthorizeRoute from './../authorize';
+import OrganisationRoute from './../organisation';
 
-export default AuthorizeRoute.extend({
-  model(params) {
-    return this.store.findRecord("organisation", params.organisation_id, { reload: true });
-  },
+export default OrganisationRoute.extend({
 });

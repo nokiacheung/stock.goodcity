@@ -43,7 +43,11 @@ Router.map(function() {
 
   this.route("organisations", function(){
     this.route("detail", { path: "/:organisation_id" });
+    this.route("users", {path: "/:organisation_id/users"});
+    this.route("orders", {path: "/:organisation_id/orders"});
   });
+
+  this.route("organisation",  { path: "organisations/:organisation_id" });
 
 });
 
