@@ -43,12 +43,17 @@ Router.map(function() {
 
   this.route("organisations", function(){
     this.route("detail", { path: "/:organisation_id" });
-    this.route("users", {path: "/:organisation_id/users"});
+    this.route("users", { path: "/:organisation_id/users"});
     this.route("orders", {path: "/:organisation_id/orders"});
   });
 
-  this.route("organisation",  { path: "organisations/:organisation_id" });
+  this.route("users", {resetNamespace: true, path: "/organisation/"} ,function(){
+    this.route('new', { path: "/:organisation_id/users/new" });
+  });
 
+
+  // this.route("new", {path: "organisations/organisation_id/users/new"})
+  this.route("organisation",  { path: "organisations/:organisation_id" });
 });
 
 export default Router;

@@ -1,0 +1,40 @@
+<nav class="tab-bar new-item-nav">
+  <section class="tab-bar-section">
+    <h1 class="title">Add - User</h1>
+  </section>
+</nav>
+
+<section class="main-section new-item-section ui">
+
+  {{#validatable-form onSubmit=(action 'saveUser') as |form|}}
+
+    <div class="row">
+      <div class="small-3 columns item-label">
+        Donation#
+      </div>
+      <div class="{{if isMobileApp 'small-7 large-8' 'small-9'}} columns">
+        {{#form-control}}
+          {{input type='text' value=firstName pattern="(CAS\-\d{5})|\d{5}"}}
+          <div class='input-error'>Must be a number or in the form "CAS-12345"</div>
+        {{/form-control}}
+      </div>
+      {{!-- {{#if isMobileApp}}
+        <div class="small-2 large-1 columns scan-icon">
+          {{barcode-scanner route="items.new" paramName="caseNumber"}}
+        </div>
+      {{/if}} --}}
+    </div>
+
+    <div class="row">
+      <div class="small-6 columns">
+        <a {{action 'cancelForm'}} class="button secondary expand">Cancel</a>
+      </div>
+
+      <div class="small-6 columns">
+        <a {{action 'submit' target=form}} class="button expand">Save</a>
+      </div>
+    </div>
+
+  {{/validatable-form}}
+
+</section>

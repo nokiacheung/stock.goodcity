@@ -3,6 +3,17 @@
 <section class="main-section review_offer">
   {{partial 'organisations/organisation_tabs'}}
 
+  <div class="row add_item_button">
+    <div class=" {{if isMobileApp 'small-9' 'small-12'}} columns">
+      {{#link-to "users.new" model.id class="button expand"}}Add User to Organisation {{/link-to}}
+    </div>
+    {{!-- {{#if isMobileApp}}
+      <div class="small-3 columns">
+        {{scan-barcode-button record=model route="orders.items"}}
+      </div>
+    {{/if}} --}}
+  </div>
+
   <div class="row">
     <section class="main-section orders_search_result">
       <div class="row search">
@@ -20,5 +31,3 @@
     </section>
   </div>
 </section>
-
-
