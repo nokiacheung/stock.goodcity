@@ -50,10 +50,6 @@ Router.map(function() {
   this.route("users", {resetNamespace: true, path: "/organisation/"} ,function(){
     this.route('new', { path: "/:organisation_id/users/new" });
   });
-
-
-  // this.route("new", {path: "organisations/organisation_id/users/new"})
-  this.route("organisation",  { path: "organisations/:organisation_id" });
 });
 
 export default Router;

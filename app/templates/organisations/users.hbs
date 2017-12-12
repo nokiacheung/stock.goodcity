@@ -3,30 +3,38 @@
 <section class="main-section review_offer">
   {{partial 'organisations/organisation_tabs'}}
 
-  <div class="row add_item_button">
-    <div class=" {{if isMobileApp 'small-9' 'small-12'}} columns">
-      {{#link-to "users.new" model.id class="button expand"}}Add User to Organisation {{/link-to}}
-    </div>
-    {{!-- {{#if isMobileApp}}
-      <div class="small-3 columns">
-        {{scan-barcode-button record=model route="orders.items"}}
+  <section class="main-section">
+    <div class="row add_item_button">
+      <div class=" {{if isMobileApp 'small-9' 'small-12'}} columns">
+        {{#link-to "users.new" model.id class="button expand"}}Add User to Organisation {{/link-to}}
       </div>
-    {{/if}} --}}
-  </div>
+    </div>
+  </section>
 
   <div class="row">
     <section class="main-section orders_search_result">
       <div class="row search">
-        <div class="small-12 columns">
-          <ul class="list list-activity list-offer-items">
+        <ul class="list list-activity list-offer-items">
           {{#each allOrganisationsUsers as |OrganisationsUser|}}
-            <li> First Name: {{OrganisationsUser.user.firstName}}</li>
-            <li> Last Name: {{OrganisationsUser.user.lastName}}</li>
-            <li> Mobile: {{OrganisationsUser.user.mobile}}</li>
-            <li> Email: </li>
+            <li>
+              <div class="row state_details">
+                <div class="small-12 columns">
+                  First Name: {{OrganisationsUser.user.firstName}}
+                </div>
+              </div>
+              <div class="row state_details">
+                <div class="small-12 columns">
+                  Last Name: {{OrganisationsUser.user.lastName}}
+                </div>
+              </div>
+              <div class="row state_details">
+                <div class="small-12 columns">
+                  Mobile: {{OrganisationsUser.user.mobile}}
+                </div>
+              </div>
+            </li>
           {{/each}}
-          </ul>
-        </div>
+        </ul>
       </div>
     </section>
   </div>
