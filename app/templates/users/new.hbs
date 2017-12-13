@@ -44,6 +44,28 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="small-3 columns item-label">
+        Email
+      </div>
+      <div class="{{if isMobileApp 'small-7 large-8' 'small-9'}} columns">
+        {{#form-control}}
+          {{input value=email name="email" id="email" type="email" placeholder=emailPlaceholder required='true'}}
+          <div class='input-error'>Email should be valid.</div>
+        {{/form-control}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-3 columns item-label">
+        Position
+      </div>
+      <div class="{{if isMobileApp 'small-7 large-8' 'small-9'}} columns">
+        {{#form-control}}
+          {{input type='text' value=position placeholder=positionPlaceholder}}
+        {{/form-control}}
+      </div>
+    </div>
 
     <div class="row">
       <div class="small-6 columns">

@@ -1,7 +1,10 @@
+import attr from 'ember-data/attr';
 import Model from 'ember-data/model';
 import { belongsTo } from 'ember-data/relationships';
 
 export default Model.extend({
+  position: attr('string'),
+
   organisation: belongsTo('organisation', { async: false }),
   user: belongsTo('user', { async: false })
 });

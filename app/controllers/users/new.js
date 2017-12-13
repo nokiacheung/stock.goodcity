@@ -7,10 +7,11 @@ export default Ember.Controller.extend({
   phoneNumberPlaceholder: "Phone Number",
   fNamePlaceholder: "John",
   lNamePlaceholder: "Doe",
+  emailPlaceholder: "Email",
+  positionPlaceholder: "Position within organisation",
 
   organisationId: Ember.computed.alias("model.id"),
   messageBox: Ember.inject.service(),
-
 
   actions: {
     saveUser() {
@@ -19,9 +20,8 @@ export default Ember.Controller.extend({
       var firstName = this.get('firstName');
       var lastName = this.get('lastName');
       var organisationId = this.get('organisationId');
-      var mobilePhone = config.APP.HK_COUNTRY_CODE + this.get('mobilePhone');
       new AjaxPromise("/organisations_users", "POST", this.get('session.authToken'), { oranisations_users: { first_name: firstName,
-        organisation_id: organisationId, mobile: mobilePhone}}).then(data =>{
+        organisation_id: organisationId, mobile: mobilePhone, lastName: lastName}}).then(data =>{
           loadingView.destroy();
           this.get("store").pushPayload(data);
           this.transitionToRoute("organisation.users", organisationId);

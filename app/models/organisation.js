@@ -4,11 +4,11 @@ import { hasMany } from 'ember-data/relationships';
 
 export default Model.extend({
   name: attr('string'),
-  name_en: attr('string'),
+  nameEn: attr('string'),
   website: attr('string'),
   registration: attr('string'),
 
-  organisations_users: hasMany('organisations_user', { async: false }),
+  organisationsUsers: hasMany('organisations_user', { async: false }),
   orders: hasMany('order', { async: false }),
 
 });

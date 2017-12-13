@@ -47,7 +47,7 @@ Router.map(function() {
     this.route("orders", {path: "/:organisation_id/orders"});
   });
 
-  this.route("users", {resetNamespace: true, path: "/organisation/"} ,function(){
+  this.route("users", { resetNamespace: true, path: "/organisation/" } ,function(){
     this.route('new', { path: "/:organisation_id/users/new" });
   });
 });
