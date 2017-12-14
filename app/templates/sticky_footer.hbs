@@ -15,10 +15,13 @@
             <i class="fa fa-cube"></i>{{t "index.items"}}
           {{/link-to}}
 
+          {{#link-to 'app_menu_list' class="menu-icon" }} <span></span>{{/link-to}}
+
+
           <li><i class="fa fa-qrcode"></i>{{t "index.goto"}}</li>
           <li>
             <nav class="tab-bar" style="border-bottom: none!important">
-              <a class="right-off-canvas-toggle menu-icon" href="#"><span></span></a>
+              {{!-- <a href="#"></a> --}}
             </nav>
           </li>
         </ul>
