@@ -1,4 +1,5 @@
 import attr from 'ember-data/attr';
+import Ember from 'ember';
 import { belongsTo } from 'ember-data/relationships';
 import Addressable from './addressable';
 
@@ -8,6 +9,10 @@ export default Addressable.extend({
   mobile:      attr('string'),
   createdAt:   attr('date'),
 
-  permission:  belongsTo('permission', { async: false })
+  permission:  belongsTo('permission', { async: false }),
+
+  fullName: Ember.computed('firstName', 'lastName', function(){
+    return (this.get('firstName') + " " + this.get('lastName'));
+  })
   // image:       belongsTo('image', { async: false }),
 });

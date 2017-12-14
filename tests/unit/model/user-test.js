@@ -28,3 +28,13 @@ test('Relationships with other models', function(assert) {
   assert.equal(relationshipWithPermission.kind, 'belongsTo');
 });
 
+test('check displayNumber computedProperty', function(assert){
+  var model = this.subject();
+  Ember.run(function() {
+    model.set('firstName', 'David');
+    model.set('lastName', 'Dara');
+  });
+
+  assert.equal(model.get('fullName'), 'David Dara');
+});
+

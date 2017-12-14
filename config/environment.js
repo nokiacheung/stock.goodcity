@@ -7,7 +7,8 @@ module.exports = function(environment) {
     baseURL: '/',
     defaultLocationType: 'auto',
 
-    rollbar: {
+    'emberRollbarClient': {
+      enabled: environment !== 'test' && environment !== 'development',
       accessToken: 'cc46e2e6402f4106a8ba71fe9752d69a',
       payload: {
         client: {
@@ -17,7 +18,7 @@ module.exports = function(environment) {
             // Optionally have Rollbar guess which frames the error was thrown from
             // when the browser does not provide line and column numbers.
             environment: environment,
-            guess_uncaught_frames: true
+            guess_uncaught_frames: false
           }
         }
       }
@@ -52,12 +53,7 @@ module.exports = function(environment) {
       IMAGE_PATH: 'http://res.cloudinary.com/ddoadcjjl/image/upload/',
 
       NAMESPACE: 'api/v1',
-      HK_COUNTRY_CODE: '+852',
-
-      AIRBRAKE_HOST: "https://errbit.crossroads.org.hk",
-      AIRBRAKE_PROJECT_ID: "",
-      AIRBRAKE_PROJECT_KEY: "30d9f525c221cd7b00637cdc4eb0d7ae"
-
+      HK_COUNTRY_CODE: '+852'
     },
 
     i18n: {
@@ -68,11 +64,6 @@ module.exports = function(environment) {
       enabled: process.env.EMBER_CLI_CORDOVA !== '0',
       rebuildOnChange: false,
       emulate: false
-    },
-
-    sentry: {
-       dsn: 'https://21fe90a0fc944c13b38d8090bc97f5d6:32224c98abc64ab393b2cbdc2acf344e@sentry.io/176461',
-       development: false
     }
   };
 

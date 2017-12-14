@@ -40,12 +40,12 @@
     "ember-cli-photoswipe": "1.2.0",
     "ember-cli-qunit": "3.1.0",
     "ember-cli-release": "^0.2.9",
-    "ember-cli-rollbar": "v0.3.1 ",
     "ember-cli-sass": "5.5.2",
     "ember-cli-slick-carousel": "0.0.0",
     "ember-cli-sri": "^2.1.1",
     "ember-cli-test-loader": "1.1.0",
     "ember-cli-uglify": "^1.2.0",
+    "ember-rollbar-client": "0.2.2",
     "ember-data": "2.11.0",
     "ember-data-factory-guy": "2.7.0-beta.8",
     "ember-export-application-global": "^1.1.1",
@@ -65,7 +65,6 @@
     "blueimp-file-upload": "^9.17.0",
     "cloudinary-jquery-file-upload": "^2.2.0",
     "cordova-lib": "https://github.com/crossroads/goodcity-lib.git",
-    "jquery": "^3.2.0",
-    "ember-cli-deploy-sentry": "~0.2.0"
+    "jquery": "^3.2.0"
   }
 }

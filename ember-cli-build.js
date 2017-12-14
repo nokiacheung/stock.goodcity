@@ -37,7 +37,6 @@ module.exports = function(defaults) {
   app.import("bower_components/font-awesome/fonts/fontawesome-webfont.woff2", { destDir: "fonts" });
   app.import("bower_components/font-awesome/fonts/FontAwesome.otf", { destDir: "fonts" });
 
-  app.import('bower_components/airbrake-js/dist/client.js');
   app.import('bower_components/moment/moment.js');
 
   app.import('bower_components/slick-carousel/slick/ajax-loader.gif');
@@ -72,10 +71,5 @@ module.exports = function(defaults) {
   app.import('bower_components/blueimp-file-upload/js/jquery.fileupload-validate.js');
   app.import('bower_components/cloudinary/js/jquery.cloudinary.js');
   app.import('bower_components/socket.io-client/socket.io.js');
-
-
-  //sentry
-  app.import('bower_components/raven-js/dist/raven.js');
-  app.import('bower_components/raven-js/dist/plugins/ember.js');
   return app.toTree();
 };
