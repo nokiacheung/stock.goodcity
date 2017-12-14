@@ -71,10 +71,5 @@ module.exports = function(defaults) {
   app.import('bower_components/blueimp-file-upload/js/jquery.fileupload-validate.js');
   app.import('bower_components/cloudinary/js/jquery.cloudinary.js');
   app.import('bower_components/socket.io-client/socket.io.js');
-
-
-  //sentry
-  app.import('bower_components/raven-js/dist/raven.js');
-  app.import('bower_components/raven-js/dist/plugins/ember.js');
   return app.toTree();
 };

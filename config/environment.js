@@ -64,11 +64,6 @@ module.exports = function(environment) {
       enabled: process.env.EMBER_CLI_CORDOVA !== '0',
       rebuildOnChange: false,
       emulate: false
-    },
-
-    sentry: {
-       dsn: 'https://21fe90a0fc944c13b38d8090bc97f5d6:32224c98abc64ab393b2cbdc2acf344e@sentry.io/176461',
-       development: false
     }
   };
 
