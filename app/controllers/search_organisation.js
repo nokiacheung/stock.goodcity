@@ -24,7 +24,6 @@ export default searchModule.extend({
         { searchText: "searchText"})
         .then(data => {
           if(this.get("searchText") === data.meta.search) {
-            debugger
             this.set("filteredResults", data);
             this.set("hasNoResults", data.get("length") === 0);
           }
