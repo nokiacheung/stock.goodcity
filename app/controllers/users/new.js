@@ -20,11 +20,14 @@ export default Ember.Controller.extend({
       var firstName = this.get('firstName');
       var lastName = this.get('lastName');
       var organisationId = this.get('organisationId');
-      new AjaxPromise("/organisations_users", "POST", this.get('session.authToken'), { oranisations_users: { first_name: firstName,
-        organisation_id: organisationId, mobile: mobilePhone, lastName: lastName}}).then(data =>{
+      var position = this.get("position");
+      var email = this.get("email");
+      new AjaxPromise("/organisations_users", "POST", this.get('session.authToken'), { organisations_user: {
+        organisation_id: organisationId, position: position, user_attributes: { first_name: firstName,
+        last_name: lastName, mobile: mobilePhone, email: email }}}).then(data =>{
           loadingView.destroy();
           this.get("store").pushPayload(data);
-          this.transitionToRoute("organisation.users", organisationId);
+          this.transitionToRoute("organisations.users", organisationId);
       });
     },
 
