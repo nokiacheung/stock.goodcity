@@ -10,13 +10,13 @@
 
         {{#link-to 'organisations.orders' model.id tagName="dd" classNames="small-3 columns text-center"}}
           {{#link-to 'organisations.orders' model.id}}
-            <div> Orders </div>
+            <div> Orders ({{model.ordersCount}})</div>
           {{/link-to}}
         {{/link-to}}
 
         {{#link-to 'organisations.users' model.id tagName="dd" classNames="small-3 columns text-center"}}
           {{#link-to 'organisations.users' model.id}}
-            <div> Users </div>
+            <div> Users ({{model.usersCount}})</div>
           {{/link-to}}
         {{/link-to}}
       </dl>

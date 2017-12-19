@@ -11,4 +11,12 @@ export default Model.extend({
   organisationsUsers: hasMany('organisations_user', { async: false }),
   orders: hasMany('order', { async: false }),
 
+  ordersCount: Ember.computed('orders.[]', function(){
+    return this.get('orders.length');
+  }),
+
+  usersCount: Ember.computed('organisationsUsers.[]', function(){
+    return this.get('organisationsUsers.length');
+  }),
+
 });
