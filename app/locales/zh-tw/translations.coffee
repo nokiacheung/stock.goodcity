@@ -13,6 +13,7 @@ I18nTranslationsEn =
   "must_login": "You must login!"
   "search_no_results": "Sorry, No results found."
   "version": "Stock v."
+  "organisation": "Organisation"
 
   "authenticate":
     "input_code" : "Input Code"
