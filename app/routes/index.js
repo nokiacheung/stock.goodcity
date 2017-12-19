@@ -13,13 +13,4 @@ export default SessionRoute.extend({
     this.get('store').pushPayload(recentlyUsedDesignations);
     this.get('store').pushPayload(recentlyUsedLocations);
   },
-
-  renderTemplate() {
-    this.render(); // default template
-    this.render('appMenuList', {
-      into: 'index',
-      outlet: 'appMenuList',
-      controller: 'application'
-    });
-  }
 });

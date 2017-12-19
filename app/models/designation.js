@@ -15,7 +15,7 @@ export default Model.extend({
   detailId:           attr('number'),
 
   contact:            belongsTo('contact', { async: false }),
-  organisation:       belongsTo('organisation', { async: true }),
+  organisation:       belongsTo('organisation', { async: false }),
   localOrder:         belongsTo('local_order', { async: false }),
   items:              hasMany('item', { async: true }),
   ordersPackages:     hasMany('ordersPackages', { async: false }),
