@@ -10,7 +10,7 @@
     "lightgallery": "1.2.20",
     "font-awesome": "~4.6.1",
     "moment": "~2.10.3",
-    "jquery-mockjax": "2.0.1",
+    "jquery-mockjax": "2.2.0",
     "photoswipe": "4.1.0",
     "slick-carousel": "1.5.8",
     "cloudinary": "~1.0.12",

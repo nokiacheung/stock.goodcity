@@ -12,5 +12,5 @@ export default SessionRoute.extend({
       });
     this.get('store').pushPayload(recentlyUsedDesignations);
     this.get('store').pushPayload(recentlyUsedLocations);
-  },
+  }
 });

@@ -18,6 +18,5 @@ export default Model.extend({
 
   usersCount: Ember.computed('organisationsUsers.[]', function(){
     return this.get('organisationsUsers.length');
-  }),
-
+  })
 });
