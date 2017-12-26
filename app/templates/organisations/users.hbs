@@ -1,10 +1,10 @@
 {{partial 'organisations/nav_bar'}}
 
-<section class="main-section review_offer">
+<section class="main-section">
   {{partial 'organisations/organisation_tabs'}}
 
   <section class="main-section">
-    <div class="row add_item_button">
+    <div class="row add_user_button">
       <div class=" {{if isMobileApp 'small-9' 'small-12'}} columns">
         {{#link-to "users.new" model.id class="button expand"}}Add User to Organisation {{/link-to}}
       </div>
@@ -12,9 +12,9 @@
   </section>
 
   <div class="row">
-    <section class="main-section orders_search_result">
+    <section class="main-section">
       <div class="row search">
-        <ul class="list list-activity list-offer-items">
+        <ul class="list list-activity">
           {{#each allOrganisationsUsers as |OrganisationsUser|}}
             <li>
               <div class="row state_details">

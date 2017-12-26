@@ -9,6 +9,7 @@
 @import "checkbox_styles";
 @import "radio_button";
 @import "placeholder";
+@import "search";
 
 @import "templates/index";
 @import "templates/items/detail";
@@ -29,3 +30,5 @@
 @import "templates/components/item_options";
 @import "templates/components/item_options_list";
 @import "templates/organisations/organisation_tabs";
+@import "templates/organisations/search_organisations";
+@import "templates/users/new";
