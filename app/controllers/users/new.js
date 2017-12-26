@@ -2,13 +2,15 @@ import config from '../../config/environment';
 import Ember from "ember";
 const { getOwner } = Ember;
 import AjaxPromise from 'stock/utils/ajax-promise';
+import { translationMacro as t } from "ember-i18n";
 
 export default Ember.Controller.extend({
-  phoneNumberPlaceholder: "Phone Number",
-  fNamePlaceholder: "John",
-  lNamePlaceholder: "Doe",
-  emailPlaceholder: "Email",
-  positionPlaceholder: "Position within organisation",
+  i18n: Ember.inject.service(),
+  phoneNumberPlaceholder: t("organisation.user.phone_number"),
+  fNamePlaceholder: t("organisation.user.john"),
+  lNamePlaceholder: t("organisation.user.doe"),
+  emailPlaceholder: t("organisation.user.email"),
+  positionPlaceholder: t("organisation.user.position_in_organisation"),
 
   organisationId: Ember.computed.alias("model.id"),
   messageBox: Ember.inject.service(),

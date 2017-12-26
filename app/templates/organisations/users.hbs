@@ -6,7 +6,7 @@
   <section class="main-section">
     <div class="row add_user_button">
       <div class=" {{if isMobileApp 'small-9' 'small-12'}} columns">
-        {{#link-to "users.new" model.id class="button expand"}}Add User to Organisation {{/link-to}}
+        {{#link-to "users.new" model.id class="button expand"}} {{t 'organisation.add_user_button'}} {{/link-to}}
       </div>
     </div>
   </section>
@@ -19,17 +19,22 @@
             <li>
               <div class="row state_details">
                 <div class="small-12 columns">
-                  First Name: {{OrganisationsUser.user.firstName}}
+                  {{t 'organisation.user.first_name'}}: {{OrganisationsUser.user.firstName}}
                 </div>
               </div>
               <div class="row state_details">
                 <div class="small-12 columns">
-                  Last Name: {{OrganisationsUser.user.lastName}}
+                  {{t 'organisation.user.last_name'}}: {{OrganisationsUser.user.lastName}}
                 </div>
               </div>
               <div class="row state_details">
                 <div class="small-12 columns">
-                  Mobile: {{OrganisationsUser.user.mobile}}
+                  {{t 'organisation.user.mobile'}}: {{OrganisationsUser.user.mobile}}
+                </div>
+              </div>
+              <div class="row state_details">
+                <div class="small-12 columns">
+                  {{t 'organisation.user.email'}}: {{OrganisationsUser.user.email}}
                 </div>
               </div>
             </li>
