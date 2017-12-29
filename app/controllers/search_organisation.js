@@ -19,7 +19,7 @@ export default searchModule.extend({
       this.set("hasNoResults", false);
       if(this.get("unloadAll")) { this.get("store").unloadAll(); }
 
-      this.infinityModel("gc_organisation",
+      this.infinityModel("gcOrganisation",
         { startingPage: 1, perPage: 25, modelPath: 'filteredResults',stockRequest: true },
         { searchText: "searchText"}).then(data => {
           if(this.get("searchText") === data.meta.search) {
