@@ -20,6 +20,7 @@ I18nTranslationsEn =
   "details": "Details"
   "orders": "Orders"
   "users": "Users"
+  "menu": "Menu"
 
   "authenticate":
     "input_code" : "Input Code"
