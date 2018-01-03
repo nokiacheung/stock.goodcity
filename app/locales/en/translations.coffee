@@ -14,13 +14,13 @@ I18nTranslationsEn =
   "must_login": "You must login!"
   "search_no_results": "Sorry, No results found."
   "version": "Stock v."
-  "organisation_title": "Organisation"
-  "cancel": "Cancel"
-  "save": "Save"
-  "details": "Details"
-  "orders": "Orders"
-  "users": "Users"
-  "menu": "Menu"
+  # "organisation_title": "Organisation"
+  # "cancel": "Cancel"
+  # "save": "Save"
+  # "details": "Details"
+  # "orders": "Orders"
+  # "users": "Users"
+  # "menu": "Menu"
 
   "authenticate":
     "input_code" : "Input Code"
@@ -126,19 +126,5 @@ I18nTranslationsEn =
     "name": "Name"
     "description": "Description"
     "registration": "Registration"
-
-    "user":
-      "first_name": "First Name"
-      "last_name": "Family Name"
-      "mobile": "Mobile"
-      "email": "Email"
-      "position": "Position"
-      "phone_number": "Phone Number"
-      "john": "John"
-      "doe": "Doe"
-      "position_in_organisation": "Position within organisation"
-      "validation_error":
-        "email": "Email should be valid."
-        "mobile": "Mobile Number should be 8 digits."
 
 `export default I18nTranslationsEn`
