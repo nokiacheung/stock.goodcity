@@ -5,10 +5,13 @@ export default getOrderRoute.extend({
 
   orderBackLinkPath: Ember.computed.localStorage(),
   itemIdforHistoryRoute: null,
+  organisationIdforHistoryRoute: null,
 
   setHistoryRoute(routeName, previousRoute) {
     if(routeName === "items.history" || routeName === "items.partial_undesignate") {
       this.set("itemIdforHistoryRoute", previousRoute.params.item_id);
+    } else if(routeName === "organisations.orders"){
+      this.set("organisationIdforHistoryRoute", previousRoute.params.organisation_id);
     }
   },
 
@@ -51,9 +54,12 @@ export default getOrderRoute.extend({
   setupController(controller, model){
     if(model) {
       var itemId = this.get('itemIdforHistoryRoute');
+      var organisation_id = this.get('organisationIdforHistoryRoute');
       if(itemId)
       {
         controller.set('itemIdforHistoryRoute', itemId);
+      } else if(organisation_id){
+        controller.set('organisationIdforHistoryRoute', organisation_id);
       }
       this._super(controller, model);
       controller.set('backLinkPath', this.get('orderBackLinkPath'));
