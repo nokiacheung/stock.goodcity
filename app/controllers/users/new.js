@@ -39,7 +39,7 @@ export default Ember.Controller.extend({
         "Yes",
         () => {
           Ember.run.later(this, function() {
-            this.transitionToRoute("/");
+            this.transitionToRoute("organisations.users", this.get('organisationId'));
           },0);
         },
         "No");
