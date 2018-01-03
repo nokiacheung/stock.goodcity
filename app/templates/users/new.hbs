@@ -13,7 +13,8 @@
       </div>
       <div class="{{if isMobileApp 'small-7 large-8' 'small-9'}} columns">
         {{#form-control}}
-          {{input type='text' value=firstName placeholder=lNamePlaceholder}}
+          {{input type='text' value=firstName placeholder=fNamePlaceholder required='true'}}
+          <div class='input-error'>First Name cannot be blank.</div>
         {{/form-control}}
       </div>
     </div>
@@ -24,7 +25,8 @@
       </div>
       <div class="{{if isMobileApp 'small-7 large-8' 'small-9'}} columns">
         {{#form-control}}
-          {{input type='text' value=lastName placeholder=fNamePlaceholder}}
+          {{input type='text' value=lastName placeholder=lNamePlaceholder required='true'}}
+          <div class='input-error'>Family Name cannot be blank.</div>
         {{/form-control}}
       </div>
     </div>
@@ -38,7 +40,7 @@
       </div>
       <div class="{{if isMobileApp 'small-7 large-8' 'small-9'}} columns">
         {{#form-control}}
-          {{numeric-input value=mobilePhone name="mobilePhone" id="mobile" maxlength="8" placeholder=phoneNumberPlaceholder required='true' pattern=".{8,}" }}
+          {{numeric-input value=mobilePhone name="mobilePhone" id="mobile" maxlength="8" placeholder=phoneNumberPlaceholder required='true' pattern=".{8,}" required='true'}}
           <div class='input-error'>{{t 'organisation.user.validation_error.mobile'}}</div>
         {{/form-control}}
       </div>
@@ -62,7 +64,8 @@
       </div>
       <div class="{{if isMobileApp 'small-7 large-8' 'small-9'}} columns">
         {{#form-control}}
-          {{input type='text' value=position placeholder=positionPlaceholder}}
+          {{input type='text' value=position placeholder=positionPlaceholder required='true'}}
+          <div class='input-error'>Position cannot be blank.</div>
         {{/form-control}}
       </div>
     </div>
