@@ -22,7 +22,7 @@ export default getOrderRoute.extend({
         case "items.detail": path = path; break;
         default: path = routeName;
       }
-    } else if(routeName.indexOf("orders") === 0) {
+    } else if(routeName.indexOf("orders") === 0 && routeName !== "organisations.orders") {
       path = this.get("orderBackLinkPath") || path;
     }
     return path;
