@@ -194,4 +194,9 @@
       color: $tabbar-menu-icon-color !important;
     }
   }
+  .mobile .dialing-code label{
+    @media #{$small-only} {
+      font-size: 0.59rem;
+    }
+  }
 }
