@@ -1,18 +1,22 @@
 <div class="row item_block">
-  {{partial "items/item_status_bar"}}
+  {{#toggle-item-options-list}}
+    {{partial "items/item_status_bar"}}
+  {{/toggle-item-options-list}}
 
   <div class="row other_details item_details">
-    <div class="small-3 large-2 columns image">
-      <img src={{item.thumbImageUrl}} class="thumb"/>
-    </div>
+    {{#toggle-item-options-list}}
+      <div class="small-3 large-2 columns image">
+        <img src={{item.thumbImageUrl}} class="thumb"/>
+      </div>
 
-    {{#if hideDetailsLink}}
-        {{partial 'items/item_description'}}
-    {{else}}
-      {{#link-to 'items.detail' item.id }}
-        {{partial 'items/item_description'}}
-      {{/link-to}}
-    {{/if}}
+      {{#if hideDetailsLink}}
+          {{partial 'items/item_description'}}
+      {{else}}
+        {{#link-to 'items.detail' item.id }}
+          {{partial 'items/item_description'}}
+        {{/link-to}}
+      {{/if}}
+    {{/toggle-item-options-list}}
 
     {{#if displayItemOptions}}
       <div class="small-3 large-2 columns">
@@ -28,3 +32,4 @@
 
   </div>
 </div>
+
