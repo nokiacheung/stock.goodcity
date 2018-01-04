@@ -1,0 +1,8 @@
+import AuthorizeRoute from './authorize';
+
+export default AuthorizeRoute.extend({
+  model(params) {
+    return this.store.peekRecord("gc_organisation", params.organisation_id) || this.store.findRecord(
+      "gc_organisation", params.organisation_id, { reload: true });
+  }
+});

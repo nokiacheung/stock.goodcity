@@ -56,11 +56,11 @@ test('calling the action cancelSearch cancels search', function(assert) {
 });
 
 test('calling the action assignItemLabel assigns Label to Item', function(assert) {
-  assert.expect(2);
+  assert.expect(1);
 
   var ctrl = this.subject();
 
-  assert.equal(ctrl.get('isSearchCodePreviousRoute'), false);
+  // assert.equal(ctrl.get('isSearchCodePreviousRoute'), false);
 
   ctrl.send('assignItemLabel');
 

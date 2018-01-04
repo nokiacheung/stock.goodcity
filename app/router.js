@@ -13,6 +13,8 @@ Router.map(function() {
   this.route('authenticate');
   this.route('search_code');
   this.route('select_location');
+  this.route('search_organisation');
+  this.route('app_menu_list');
 
   this.route("items", function() {
     this.route("new");
@@ -40,6 +42,15 @@ Router.map(function() {
     this.route("info", { path: "/:order_id/info" });
   });
 
+  this.route("organisations", function(){
+    this.route("detail", { path: "/:organisation_id" });
+    this.route("users", { path: "/:organisation_id/users"});
+    this.route("orders", {path: "/:organisation_id/orders"});
+  });
+
+  this.route("users", { resetNamespace: true, path: "/organisation/" } ,function(){
+    this.route('new', { path: "/:organisation_id/users/new" });
+  });
 });
 
 export default Router;

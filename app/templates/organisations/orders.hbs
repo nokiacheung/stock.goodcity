@@ -1,0 +1,15 @@
+{{partial 'organisations/nav_bar'}}
+
+<section class="main-section">
+  {{partial 'organisations/organisation_tabs'}}
+
+  <div class="row search">
+    <ul class="list list-activity">
+      {{#each filteredResults as |order|}}
+        {{#link-to 'orders.detail' order.id href=false}}
+          {{partial 'orders/order_block'}}
+        {{/link-to}}
+      {{/each}}
+    </ul>
+  </div>
+</section>

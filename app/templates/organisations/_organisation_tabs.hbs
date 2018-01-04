@@ -1,0 +1,25 @@
+<section class="main-section organisation_tabs">
+  <div class="row">
+    <div class="small-12 columns tab_row">
+      <dl class="tabs" data-tab>
+        {{#link-to 'organisations.detail' model.id tagName="dd" classNames="small-4 columns text-center"}}
+          {{#link-to 'organisations.detail' model.id}}
+            <div> {{t 'details'}} </div>
+          {{/link-to}}
+        {{/link-to}}
+
+        {{#link-to 'organisations.orders' model.id tagName="dd" classNames="small-4 columns text-center"}}
+          {{#link-to 'organisations.orders' model.id}}
+            <div> {{t 'orders'}} ({{model.ordersCount}})</div>
+          {{/link-to}}
+        {{/link-to}}
+
+        {{#link-to 'organisations.users' model.id tagName="dd" classNames="small-4 columns text-center"}}
+          {{#link-to 'organisations.users' model.id}}
+            <div> {{t 'users'}} ({{model.usersCount}})</div>
+          {{/link-to}}
+        {{/link-to}}
+      </dl>
+    </div>
+  </div>
+</section>

@@ -23,5 +23,4 @@ export default AuthorizeRoute.extend({
     this._super(controller, model);
     controller.set('itemSetId', this.paramsFor('items.index').itemSetId);
   }
-
 });

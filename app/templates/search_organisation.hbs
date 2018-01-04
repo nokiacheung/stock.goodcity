@@ -1,0 +1,65 @@
+<div class="row fixed_search_header search-box ui organisations_search">
+  <div class="small-2 medium-2 columns ">
+    <a {{action "cancelSearch"}} class="back">
+      <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
+      <div class="back_text">
+        {{t 'back'}}
+      </div>
+    </a>
+  </div>
+
+  <div class="small-10 medium-10 columns">
+    {{focus-textfield
+      name="searchText"
+      id="searchText"
+      placeholder=(t "search_organisation")
+      value=searchText
+      disabled=false}}
+
+    {{#if hasSearchText}}
+      <i class="fa fa-times-circle" {{action "clearSearch"}}></i>
+    {{/if}}
+  </div>
+</div>
+
+<section class="main-section organisation_search_result">
+  <div class="row search">
+    <div class="small-12 columns">
+      {{#if isLoading}}
+        <div class="loading_screen">
+          {{partial 'loading'}}
+        </div>
+      {{else}}
+        {{#if filteredResults}}
+          <ul class="list list-activity">
+            {{#each filteredResults as |organisation|}}
+              <li>
+              {{#link-to 'organisations.detail' organisation.id tagName='div' href=false}}
+                <div class="row">
+                  <div class="small-12 columns">
+                    {{organisation.nameEn}}
+                  </div>
+                </div>
+                 <div class="row">
+                  0 <i class="fa fa-shopping-basket"></i>
+                  0 <i class="fa fa-ship"></i>
+                  0 <i class="fa fa-users"></i>
+                </div>
+              {{/link-to}}
+              </li>
+            {{/each}}
+          </ul>
+
+          {{#infinity-loader}}
+          {{/infinity-loader}}
+
+        {{else if hasNoResults}}
+          <div class='no_result'>{{t "no_search_results"}}</div>
+        {{/if}}
+      {{/if}}
+    </div>
+
+  </div>
+  {{partial "sticky_footer"}}
+</section>
+

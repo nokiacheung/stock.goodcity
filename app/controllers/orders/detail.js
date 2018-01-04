@@ -8,6 +8,7 @@ export default Ember.Controller.extend({
   displayItemOptions: true,
   isMobileApp: config.cordova.enabled,
   itemIdforHistoryRoute: null,
+  organisationIdforHistoryRoute: null,
 
   ordersPackagesLengthMoreThenThree: Ember.observer('model.ordersPackages', function() {
     var ordersPackages = this.get("model.ordersPackages");
