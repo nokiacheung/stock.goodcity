@@ -27,10 +27,16 @@ export default Ember.Controller.extend({
       new AjaxPromise("/organisations_users", "POST", this.get('session.authToken'), { organisations_user: {
         organisation_id: organisationId, position: position, user_attributes: { first_name: firstName,
         last_name: lastName, mobile: mobilePhone, email: email }}}).then(data =>{
-          loadingView.destroy();
           this.get("store").pushPayload(data);
           this.transitionToRoute("organisations.users", organisationId);
-      });
+      }).catch(xhr => {
+        if (xhr.status === 422) {
+          this.get("messageBox").alert(xhr.responseJSON.errors);
+        } else {
+          throw xhr;
+        }
+      })
+      .finally(() => loadingView.destroy());
     },
 
     cancelForm() {
