@@ -40,17 +40,10 @@
       {{t 'organisation.registration'}}:
     </div>
     <div class="small-8 columns">
-      {{#if isMobileApp}}
-       <a href= {{model.website}}>
-          {{apply-line-break model.registration}}
-          <i class="fa fa-external-link" aria-hidden="true"></i>
-        </a>
-      {{else}}
-        <a href= {{model.website}} target="_blank">
-          {{apply-line-break model.registration}}
-          <i class="fa fa-external-link" aria-hidden="true"></i>
-        </a>
-      {{/if}}
+      <a href= {{model.website}} target="_blank">
+        {{apply-line-break model.registration}}
+        <i class="fa fa-external-link" aria-hidden="true"></i>
+      </a>
     </div>
   </div>
 </section>

@@ -9,6 +9,8 @@
   <hook src="scripts/update_build_number.py" type="before_prepare" />
   <access origin="*" />
   <preference name="DisallowOverscroll" value="true" />
+  <allow-intent href="http://*/*" launch-external="yes"/>
+  <allow-intent href="https://*/*" launch-external="yes"/>
   <platform name="android">
     <preference name="LoadUrlTimeoutValue" value="120000" />
     <preference name="SplashScreen" value="screen" />
