@@ -1,19 +1,10 @@
 import { test, moduleFor } from 'ember-qunit';
-import startApp from '../helpers/start-app';
-import Ember from 'ember';
-import FactoryGuy from 'ember-data-factory-guy';
 import '../factories/designation';
 
-var App, designation;
+var designation;
 
 moduleFor('controller:items.search_order', 'items.search_order controller', {
-  beforeEach: function() {
-    App = startApp({}, 2);
-    designation = FactoryGuy.make("designation");
-  },
-  afterEach: function() {
-    Ember.run(App, 'destroy');
-  }
+  needs: ['service:i18n']
 });
 
 test('Checking for default set values', function(assert) {

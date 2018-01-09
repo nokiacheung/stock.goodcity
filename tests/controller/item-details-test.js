@@ -1,11 +1,11 @@
 import { test, moduleFor } from 'ember-qunit';
 
 moduleFor('controller:items.detail', 'items.detail controller', {
-  needs: ['service:messageBox', 'service:i18n'],
+  needs: ['service:messageBox', 'service:i18n']
 });
 
 test('Checking for default set values', function(assert) {
-  assert.expect(9);
+  assert.expect(8);
 
   var controller = this.subject();
 
@@ -16,6 +16,5 @@ test('Checking for default set values', function(assert) {
   assert.equal(controller.get('autoDisplayOverlay'), false);
   assert.equal(controller.get('displayScanner'), false);
   assert.equal(controller.get('callOrderObserver'), false);
-  assert.equal(controller.get('messageBox'), null);
   assert.equal(controller.get('designateFullSet'), false);
 });

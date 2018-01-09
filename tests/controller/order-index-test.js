@@ -1,16 +1,7 @@
 import { test, moduleFor } from 'ember-qunit';
-import startApp from '../helpers/start-app';
-import Ember from 'ember';
-
-var App;
 
 moduleFor('controller:orders.index', 'orders.index controller', {
-  beforeEach: function() {
-    App = startApp({}, 2);
-  },
-  afterEach: function() {
-    Ember.run(App, 'destroy');
-  }
+  needs: ['service:i18n']
 });
 
 test('checking default set properties', function(assert) {
