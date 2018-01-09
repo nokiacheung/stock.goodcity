@@ -1,16 +1,7 @@
 import { test, moduleFor } from 'ember-qunit';
-import startApp from '../helpers/start-app';
-import Ember from 'ember';
-
-var App;
 
 moduleFor('controller:search_code', 'search_code controller', {
-  beforeEach: function() {
-    App = startApp({}, 2);
-  },
-  afterEach: function() {
-    Ember.run(App, 'destroy');
-  }
+  needs: ['service:i18n']
 });
 
 test('calling the action clearSearch clears filter and searchtext', function(assert) {

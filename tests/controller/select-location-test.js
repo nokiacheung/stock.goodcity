@@ -1,19 +1,8 @@
 import { test, moduleFor } from 'ember-qunit';
-import startApp from '../helpers/start-app';
-import Ember from 'ember';
 import '../factories/location';
-import FactoryGuy from 'ember-data-factory-guy';
 
-var App, lctn;
-
-moduleFor('controller:select_location', 'search_code controller', {
-  beforeEach: function() {
-    App = startApp({}, 2);
-    lctn = FactoryGuy.make("location");
-  },
-  afterEach: function() {
-    Ember.run(App, 'destroy');
-  }
+moduleFor('controller:select_location', 'select_location controller', {
+  needs: ['service:i18n']
 });
 
 test('checking default set properties', function(assert) {

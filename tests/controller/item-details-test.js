@@ -5,7 +5,7 @@ moduleFor('controller:items.detail', 'items.detail controller', {
 });
 
 test('Checking for default set values', function(assert) {
-  assert.expect(9);
+  assert.expect(8);
 
   var controller = this.subject();
 
@@ -16,7 +16,6 @@ test('Checking for default set values', function(assert) {
   assert.equal(controller.get('autoDisplayOverlay'), false);
   assert.equal(controller.get('displayScanner'), false);
   assert.equal(controller.get('callOrderObserver'), false);
-  assert.equal(controller.get('messageBox'), null);
   assert.equal(controller.get('designateFullSet'), false);
 });
 
