@@ -1,19 +1,7 @@
 import { test, moduleFor } from 'ember-qunit';
-import startApp from '../helpers/start-app';
-import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
-import Ember from 'ember';
-
-var App;
 
 moduleFor('controller:items.detail', 'items.detail controller', {
-  beforeEach: function() {
-    App = startApp({}, 2);
-    TestHelper.setup();
-  },
-  afterEach: function() {
-    Ember.run(function() { TestHelper.teardown(); });
-    Ember.run(App, 'destroy');
-  }
+  needs: ['service:messageBox', 'service:i18n'],
 });
 
 test('Checking for default set values', function(assert) {

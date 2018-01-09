@@ -6,7 +6,6 @@ import '../factories/designation';
 import '../factories/item';
 import '../factories/location';
 import FactoryGuy from 'ember-data-factory-guy';
-import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
 import { mockFindAll } from 'ember-data-factory-guy';
 
 var App, pkg;
@@ -14,7 +13,6 @@ var App, pkg;
 module('Acceptance: Item inline edit', {
   beforeEach: function() {
     App = startApp({}, 2);
-    TestHelper.setup();
     var location = FactoryGuy.make("location");
     pkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 1, height: 10, width: 15, length: 20, notes: "Inline edit test" });
     mockFindAll('location').returns({json: {locations: [location.toJSON({includeId: true})]}});
@@ -25,7 +23,6 @@ module('Acceptance: Item inline edit', {
     visit("/items/"+ pkg.id);
   },
   afterEach: function() {
-    Ember.run(function() { TestHelper.teardown(); });
     Ember.run(App, 'destroy');
   }
 });

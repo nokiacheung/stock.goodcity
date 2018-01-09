@@ -5,7 +5,6 @@ import '../factories/orders_package';
 import '../factories/designation';
 import '../factories/item';
 import FactoryGuy from 'ember-data-factory-guy';
-import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
 import { mockFindAll } from 'ember-data-factory-guy';
 
 var App, designation, item, item1, orders_package, orders_package1;
@@ -13,7 +12,6 @@ var App, designation, item, item1, orders_package, orders_package1;
 module('Acceptance: Order search list', {
   beforeEach: function() {
     App = startApp({}, 2);
-    TestHelper.setup();
     designation = FactoryGuy.make("designation", { state: "closed" });
     item = FactoryGuy.make("item", { state: "submitted" });
     item1 = FactoryGuy.make("item", { state: "submitted" });
@@ -21,7 +19,6 @@ module('Acceptance: Order search list', {
     orders_package1 = FactoryGuy.make("orders_package", { state: "dispatched", item: item1, designation: designation });
   },
   afterEach: function() {
-    Ember.run(function() { TestHelper.teardown(); });
     Ember.run(App, 'destroy');
   }
 });

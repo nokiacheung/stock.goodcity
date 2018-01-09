@@ -239,7 +239,7 @@ test('designations: returns designated ordersPackages', function(assert){
     designation = store.createRecord('designation', { id: 1, code: 'L1'});
     ordersPackage = store.createRecord('ordersPackage', { id: 1, quantity: 1, item: item, state: 'dispatched',
       designation: designation });
-    model.get('designatedSetItemOrderPackages').pushObjects([ordersPackage.get('designationId')]);
+    model.get('designatedSetItemOrderPackages').pushObject([ordersPackage]);
   });
 
   assert.equal(model.get('designations.length'), 1);

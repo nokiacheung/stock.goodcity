@@ -6,7 +6,6 @@ import '../factories/designation';
 import '../factories/item';
 import '../factories/location';
 import FactoryGuy from 'ember-data-factory-guy';
-import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
 import { mockFindAll } from 'ember-data-factory-guy';
 
 var App, pkg1, pkg2, order1, orders_pkg1, orders_pkg2;
@@ -14,7 +13,6 @@ var App, pkg1, pkg2, order1, orders_pkg1, orders_pkg2;
 module('Acceptance: Partial undesignate/modify', {
   beforeEach: function() {
     App = startApp({}, 2);
-    TestHelper.setup();
     var location = FactoryGuy.make("location");
     mockFindAll('location').returns({json: {locations: [location.toJSON({includeId: true})]}});
     order1 = FactoryGuy.make("designation", { id: 100, state: "submitted" });
@@ -24,7 +22,6 @@ module('Acceptance: Partial undesignate/modify', {
     orders_pkg2 = FactoryGuy.make("orders_package", { id: 501, state: "dispatched", quantity: 1, item: pkg1, designationId: order1.id, designation: order1, sent_on: Date.now() });
   },
   afterEach: function() {
-    Ember.run(function() { TestHelper.teardown(); });
     Ember.run(App, 'destroy');
   }
 });

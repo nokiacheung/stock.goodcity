@@ -6,7 +6,6 @@ import '../factories/location';
 import '../factories/designation';
 import '../factories/code';
 import FactoryGuy from 'ember-data-factory-guy';
-import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
 import { mockFindAll } from 'ember-data-factory-guy';
 
 var App, location1, designation, code;
@@ -14,7 +13,6 @@ var App, location1, designation, code;
 module('Acceptance: Add item to inventory', {
   beforeEach: function() {
     App = startApp({}, 2);
-    TestHelper.setup();
     visit("/");
     location1 = FactoryGuy.make("location");
     designation = FactoryGuy.make("designation", { state: "closed" });
@@ -23,7 +21,6 @@ module('Acceptance: Add item to inventory', {
     code = FactoryGuy.make("code", {location: location1});
   },
   afterEach: function() {
-    Ember.run(function() { TestHelper.teardown(); });
     Ember.run(App, 'destroy');
   }
 });
