@@ -87,13 +87,23 @@ export default Ember.Controller.extend({
   }),
 
   parentCodeName: Ember.computed("codeId", function() {
-    var selected = this.get("store").peekRecord("code", this.get("codeId"));
-    return selected && selected.get("name");
+    var selected = "";
+    var codeId = this.get("codeId");
+    if(codeId.length) {
+      selected = this.get("store").peekRecord("code", this.get("codeId"));
+      return selected && selected.get("name");
+    }
+    return selected;
   }),
 
   code: Ember.computed("codeId", function() {
-    var selected = this.get("store").peekRecord("code", this.get("codeId"));
-    return selected && selected.defaultChildPackagesList()[0];
+    var selected = "";
+    var codeId = this.get("codeId");
+    if(codeId.length) {
+      selected = this.get("store").peekRecord("code", this.get("codeId"));
+      return selected && selected.defaultChildPackagesList()[0];
+    }
+    return selected;
   }),
 
   location: Ember.computed("codeId", "locationId", {
