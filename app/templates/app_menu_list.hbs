@@ -1,10 +1,4 @@
 <nav class="tab-bar">
-  <section class="left-small">
-    {{#link-to "index" classNames="back" }}
-      <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
-      <div>{{t 'back'}}</div>
-    {{/link-to}}
-  </section>
   <section class="middle tab-bar-section">
     <h1 class="title">
       {{t 'menu'}}
@@ -17,3 +11,6 @@
     <li>{{#link-to 'search_organisation'}}Manage charity users{{/link-to}}</li>
   </ul>
 </div>
+
+{{partial "sticky_footer"}}
+
