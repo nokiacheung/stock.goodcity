@@ -5,12 +5,15 @@ import Ember from 'ember';
 import FactoryGuy from 'ember-data-factory-guy';
 import '../factories/designation';
 
-var App, designation;
+var App, designation, t;
 
 moduleFor('controller:items.search_order', 'items.search_order controller', {
   beforeEach: function() {
     App = startApp({}, 2);
     TestHelper.setup();
+    var i18n = App.__container__.lookup('service:i18n');
+    t = i18n.t.bind(i18n);
+
     designation = FactoryGuy.make("designation");
   },
   afterEach: function() {

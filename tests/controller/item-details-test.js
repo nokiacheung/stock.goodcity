@@ -6,6 +6,8 @@ import Ember from 'ember';
 var App;
 
 moduleFor('controller:items.detail', 'items.detail controller', {
+  needs: ['service:messageBox', 'service:i18n'],
+
   beforeEach: function() {
     App = startApp({}, 2);
     TestHelper.setup();

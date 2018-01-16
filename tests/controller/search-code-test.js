@@ -3,13 +3,14 @@ import startApp from '../helpers/start-app';
 import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
 import Ember from 'ember';
 
-var App;
+var App, t;
 
 moduleFor('controller:search_code', 'search_code controller', {
   beforeEach: function() {
     App = startApp({}, 2);
     TestHelper.setup();
-
+    var i18n = App.__container__.lookup('service:i18n');
+    t = i18n.t.bind(i18n);
   },
   afterEach: function() {
     Ember.run(function() { TestHelper.teardown(); });
