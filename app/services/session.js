@@ -10,10 +10,8 @@ export default Ember.Service.extend({
   store:      Ember.inject.service(),
 
   currentUser: Ember.computed(function(){
-    // TO-DO
-    // var store = this.get('store');
-    // return store.peekAll('user_profile').get('firstObject') || null;
-    return null;
+    var store = this.get('store');
+    return store.peekAll('user_profile').get('firstObject') || null;
   }).volatile(),
 
   clear: function() {
