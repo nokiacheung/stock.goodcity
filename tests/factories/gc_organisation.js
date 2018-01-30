@@ -1,6 +1,7 @@
 import FactoryGuy from 'ember-data-factory-guy';
 
 FactoryGuy.define('gc_organisation', {
+
   sequences: {
     id: function(num) {
       return num;
@@ -8,6 +9,7 @@ FactoryGuy.define('gc_organisation', {
   },
   default: {
     id:               FactoryGuy.generate('id'),
-    name:             'GoodCity'
+    name:             'GoodCity',
+    organisationsUsers: FactoryGuy.hasMany('organisationsUser')
   }
 });
