@@ -40,8 +40,15 @@ test("BackLink redirects to Item's detail if previous route was Item's detail", 
     }
   });
   mockFindAll('designation').returns({json: {designations: [order1.toJSON({includeId: true})], orders_packages: [orders_pkg1.toJSON({includeId: true})], items: [pkg2.toJSON({includeId: true})]}});
+  mockFindAll('item').returns({ json: {items: [pkg2.toJSON({includeId: true})]}});
   //visiting Item's detail
-  visit("/items/" + pkg2.id);
+  visit("/items");
+  andThen(function() {
+    fillIn("#searchText", pkg2.get("inventoryNumber"));
+  });
+  andThen(function() {
+    visit("items/" + pkg2.id);
+  });
 
   //clicking on status bar
   andThen(function() {
