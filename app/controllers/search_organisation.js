@@ -35,7 +35,7 @@ export default searchModule.extend({
     cancelSearch() {
       Ember.$("#searchText").blur();
       this.send("clearSearch", true);
-      this.transitionToRoute("index");
+      this.transitionToRoute("app_menu_list");
     }
   }
 });

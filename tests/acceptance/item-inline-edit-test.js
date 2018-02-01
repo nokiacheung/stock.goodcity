@@ -14,13 +14,26 @@ module('Acceptance: Item inline edit', {
   beforeEach: function() {
     App = startApp({}, 2);
     var location = FactoryGuy.make("location");
+    var designation = FactoryGuy.make("designation", { state: "closed" });
     pkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 1, height: 10, width: 15, length: 20, notes: "Inline edit test" });
+    mockFindAll('designation').returns({json: {designations: [designation.toJSON({includeId: true})]}});
     mockFindAll('location').returns({json: {locations: [location.toJSON({includeId: true})]}});
     $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
         items: [pkg.toJSON({includeId: true})]
         }
     });
-    visit("/items/"+ pkg.id);
+    var data = {"user_profile":{"id":2,"first_name":"David","last_name":"Dara51","mobile":"51111111"}};
+
+    $.mockjax({url:"/api/v1/auth/current_user_profil*",
+      responseText: data });
+    mockFindAll('item').returns({ json: {items: [pkg.toJSON({includeId: true})]}});
+    visit("/items");
+    andThen(function() {
+      fillIn("#searchText", pkg.get("inventoryNumber"));
+    });
+    andThen(function() {
+      visit("items/" + pkg.id);
+    });
   },
   afterEach: function() {
     Ember.run(App, 'destroy');

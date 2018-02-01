@@ -11,6 +11,10 @@ module('Acceptance: Add item to order', {
   beforeEach: function(){
     App = startApp({}, 2);
     designation = FactoryGuy.make("designation");
+    var data = {"user_profile":{"id":2,"first_name":"David","last_name":"Dara51","mobile":"51111111"}};
+
+    $.mockjax({url:"/api/v1/auth/current_user_profil*",
+      responseText: data });
     item = FactoryGuy.make("item", { state: "submitted" , designation: designation});
     item1 = FactoryGuy.make("item", { state: "submitted", quantity: 10 , designation: designation});
     orders_package = FactoryGuy.make("orders_package", { state: "designated", quantity: 6, item: item, designation: designation });
