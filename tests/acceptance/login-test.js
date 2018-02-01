@@ -11,6 +11,7 @@ module('Acceptance: Login', {
   beforeEach: function() {
     App = startApp({}, 2);
     TestHelper.setup();
+    window.localStorage.removeItem('authToken');
 
     hk_user = FactoryGuy.make('with_hk_mobile');
     non_hk_user = FactoryGuy.make('with_non_hk_mobile');

@@ -1,7 +1,8 @@
 import Ember from 'ember';
+import preloadDataMixin from '../mixins/preload_data';
 const { getOwner } = Ember;
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(preloadDataMixin, {
 
   i18n: Ember.inject.service(),
   isErrPopUpAlreadyShown: false,
@@ -10,6 +11,16 @@ export default Ember.Route.extend({
   logger: Ember.inject.service(),
   messageBox: Ember.inject.service(),
   isMustLoginAlreadyShown: false,
+
+  _loadDataStore: function(){
+    return this.preloadData().catch(error => {
+      if (error.status === 0 || (error.errors && error.errors[0].status === "0")) {
+        this.transitionTo("offline");
+      } else {
+        this.handleError(error);
+      }
+    });
+  },
 
 
   init() {
@@ -81,6 +92,7 @@ export default Ember.Route.extend({
       }
       this.handleError(error);
     };
+    return this._loadDataStore();
   },
 
   handleError: function(reason) {

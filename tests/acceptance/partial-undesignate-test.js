@@ -18,6 +18,10 @@ module('Acceptance: Partial undesignate/modify', {
     var location = FactoryGuy.make("location");
     mockFindAll('location').returns({json: {locations: [location.toJSON({includeId: true})]}});
     order1 = FactoryGuy.make("designation", { id: 100, state: "submitted" });
+    var data = {"user_profile":{"id":2,"first_name":"David","last_name":"Dara51","mobile":"51111111"}};
+
+    $.mockjax({url:"/api/v1/auth/current_user_profil*",
+      responseText: data });
     pkg1 = FactoryGuy.make("item", { id: 51, state: "submitted" , designation: order1, quantity: 0});
     pkg2 = FactoryGuy.make("item", { id: 52, state: "submitted", quantity: 1, receivedQuantity: 1 });
     orders_pkg1 = FactoryGuy.make("orders_package", { id: 500, state: "designated", quantity: 1, item: pkg1, designationId: order1.id, designation: order1 });
@@ -36,8 +40,15 @@ test("BackLink redirects to Item's detail if previous route was Item's detail", 
     }
   });
   mockFindAll('designation').returns({json: {designations: [order1.toJSON({includeId: true})], orders_packages: [orders_pkg1.toJSON({includeId: true})], items: [pkg2.toJSON({includeId: true})]}});
+  mockFindAll('item').returns({ json: {items: [pkg2.toJSON({includeId: true})]}});
   //visiting Item's detail
-  visit("/items/" + pkg2.id);
+  visit("/items");
+  andThen(function() {
+    fillIn("#searchText", pkg2.get("inventoryNumber"));
+  });
+  andThen(function() {
+    visit("items/" + pkg2.id);
+  });
 
   //clicking on status bar
   andThen(function() {

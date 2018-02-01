@@ -2,7 +2,7 @@
   <div class="navigation_menus">
     <div class="row">
       <div class="small-12 columns">
-        <ul class="small-block-grid-5 list">
+        <ul class="{{if session.currentUser.isSupervisor 'small-block-grid-5' 'small-block-grid-4'}} list">
           {{#link-to 'index' tagName='li' href=false}}
             <i class="fa fa-home"></i>{{t "index.home"}}
           {{/link-to}}
@@ -17,9 +17,11 @@
 
           <li><i class="fa fa-qrcode"></i>{{t "index.goto"}}</li>
 
-          {{#link-to 'app_menu_list' tagName='li' href=false}}
-            <i class="fa fa-bars"></i> Menu
-          {{/link-to}}
+          {{#if session.currentUser.isSupervisor}}
+            {{#link-to 'app_menu_list' tagName='li' href=false}}
+              <i class="fa fa-bars"></i> Menu
+            {{/link-to}}
+          {{/if}}
         </ul>
       </div>
     </div>
