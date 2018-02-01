@@ -18,6 +18,10 @@ module('Acceptance: Partial undesignate/modify', {
     var location = FactoryGuy.make("location");
     mockFindAll('location').returns({json: {locations: [location.toJSON({includeId: true})]}});
     order1 = FactoryGuy.make("designation", { id: 100, state: "submitted" });
+    var data = {"user_profile":{"id":2,"first_name":"David","last_name":"Dara51","mobile":"51111111"}};
+
+    $.mockjax({url:"/api/v1/auth/current_user_profil*",
+      responseText: data });
     pkg1 = FactoryGuy.make("item", { id: 51, state: "submitted" , designation: order1, quantity: 0});
     pkg2 = FactoryGuy.make("item", { id: 52, state: "submitted", quantity: 1, receivedQuantity: 1 });
     orders_pkg1 = FactoryGuy.make("orders_package", { id: 500, state: "designated", quantity: 1, item: pkg1, designationId: order1.id, designation: order1 });

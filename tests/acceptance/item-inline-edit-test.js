@@ -22,6 +22,10 @@ module('Acceptance: Item inline edit', {
         items: [pkg.toJSON({includeId: true})]
         }
     });
+    var data = {"user_profile":{"id":2,"first_name":"David","last_name":"Dara51","mobile":"51111111"}};
+
+    $.mockjax({url:"/api/v1/auth/current_user_profil*",
+      responseText: data });
     visit("/items/"+ pkg.id);
   },
   afterEach: function() {

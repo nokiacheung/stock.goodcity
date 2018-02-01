@@ -9,6 +9,7 @@ moduleFor('controller:items.detail', 'items.detail controller', {
   beforeEach: function() {
     App = startApp({}, 2);
     TestHelper.setup();
+
   },
   afterEach: function() {
     Ember.run(function() { TestHelper.teardown(); });

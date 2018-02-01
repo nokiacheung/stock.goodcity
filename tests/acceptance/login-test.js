@@ -11,6 +11,10 @@ module('Acceptance: Login', {
   beforeEach: function() {
     App = startApp({}, 2);
     TestHelper.setup();
+    var data = {"user_profile":{"id":2,"first_name":"David","last_name":"Dara51","mobile":"51111111"}};
+
+    $.mockjax({url:"/api/v1/auth/current_user_profil*",
+      responseText: data });
 
     hk_user = FactoryGuy.make('with_hk_mobile');
     non_hk_user = FactoryGuy.make('with_non_hk_mobile');
