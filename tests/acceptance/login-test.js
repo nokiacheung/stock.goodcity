@@ -12,6 +12,7 @@ module('Acceptance: Login', {
 
     hk_user = FactoryGuy.make('with_hk_mobile');
     non_hk_user = FactoryGuy.make('with_non_hk_mobile');
+    window.localStorage.removeItem('authToken');
 
   },
   afterEach: function() {
