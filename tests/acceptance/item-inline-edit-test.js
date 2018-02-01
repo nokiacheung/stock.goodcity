@@ -150,7 +150,7 @@ test("Selecting different grade fires request for update", function(assert) {
     click($('.grade-margin select option:eq(1)')[0]);
   });
   andThen(function() {
-    assert.equal($("select option:selected").text().trim().substr(0,1), "B");
+    assert.equal($(".grade-margin select option:selected").text().trim().substr(0,1), "B");
   });
 });
 
@@ -169,7 +169,7 @@ test("Selecting different condition fires request for update", function(assert) 
     click($('.select-condition select option:eq(2)')[0]);
   });
   andThen(function() {
-    assert.equal($("select option:selected").text().trim().substr(1).trim(), "Used");
+    assert.equal($(".select-condition select option:selected").text().trim(), "Used");
   });
 });
 
