@@ -20,6 +20,10 @@ module('Acceptance: Add item to inventory', {
     designation = FactoryGuy.make("designation", { state: "closed" });
     mockFindAll('designation').returns({json: {designations: [designation.toJSON({includeId: true})]}});
     mockFindAll('location').returns({json: {locations: [location1.toJSON({includeId: true})]}});
+    var data = {"user_profile":{"id":2,"first_name":"David","last_name":"Dara51","mobile":"51111111"}};
+
+    $.mockjax({url:"/api/v1/auth/current_user_profil*",
+      responseText: data });
     code = FactoryGuy.make("code", {location: location1});
   },
   afterEach: function() {
