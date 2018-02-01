@@ -91,8 +91,8 @@ export default Ember.Route.extend(preloadDataMixin, {
         transition.abort();
       }
       this.handleError(error);
-      return this._loadDataStore();
     };
+    return this._loadDataStore();
   },
 
   handleError: function(reason) {
