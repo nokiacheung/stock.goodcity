@@ -58,10 +58,3 @@ test('ordersCount returns total order count associated with organisation', funct
   assert.equal(model.get('ordersCount'), 2);
 });
 
-test('usersCount returns total organisations_user count associated with organisation', function(assert){
-  var organisationsUsers = FactoryGuy.makeList('organisationsUser', 2);
-
-  var model = this.subject({ organisationsUsers: organisationsUsers });
-
-  assert.equal(model.get('usersCount'), 2);
-});
