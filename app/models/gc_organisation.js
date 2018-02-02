@@ -17,7 +17,7 @@ export default Model.extend({
     return this.get('designations.length');
   }),
 
-  usersCount: Ember.computed('organisationsUsers.[]', function(){
+  usersCount: Ember.computed('organisationsUsers.[]', 'organisationsUsers.@each.user.email', function(){
     return this.get('organisationsUsers.length');
   })
 });
