@@ -28,6 +28,11 @@ export default Ember.Controller.extend({
         organisation_id: organisationId, position: position, user_attributes: { first_name: firstName,
         last_name: lastName, mobile: mobilePhone, email: email }}}).then(data =>{
           this.get("store").pushPayload(data);
+          this.set("firstName", "");
+          this.set("lastName", "");
+          this.set("mobilePhone", "");
+          this.set("email", "");
+          this.set("position", "");
           this.transitionToRoute("organisations.users", organisationId);
       }).catch(xhr => {
         if (xhr.status === 422) {
@@ -36,7 +41,9 @@ export default Ember.Controller.extend({
           throw xhr;
         }
       })
-      .finally(() => loadingView.destroy());
+      .finally(() =>
+        loadingView.destroy()
+      );
     },
 
     cancelForm() {
