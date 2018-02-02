@@ -15,9 +15,5 @@ export default Model.extend({
 
   ordersCount: Ember.computed('designations.[]', function(){
     return this.get('designations.length');
-  }),
-
-  usersCount: Ember.computed('organisationsUsers.[]', function(){
-    return this.get('organisationsUsers.length');
   })
 });

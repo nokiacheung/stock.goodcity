@@ -4,6 +4,7 @@ import { belongsTo } from 'ember-data/relationships';
 
 export default Model.extend({
   position: attr('string'),
+  organisationId: attr('number'),
 
   gcOrganisation: belongsTo('gcOrganisation', { async: false }),
   user: belongsTo('user', { async: false })
