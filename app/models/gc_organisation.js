@@ -9,6 +9,7 @@ export default Model.extend({
   descriptionZhTw: attr('string'),
   website: attr('string'),
   registration: attr('string'),
+  usersCount: Ember.computed.alias('organisationsUsers.length'),
 
   organisationsUsers: hasMany('organisations_user', { async: false }),
   designations: hasMany('designation', { async: false }),
