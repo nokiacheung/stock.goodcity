@@ -6,7 +6,6 @@ import '../factories/designation';
 import '../factories/item';
 import '../factories/location';
 import FactoryGuy from 'ember-data-factory-guy';
-import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
 import { mockFindAll } from 'ember-data-factory-guy';
 
 var App, pkg;
@@ -14,7 +13,6 @@ var App, pkg;
 module('Acceptance: Item inline edit', {
   beforeEach: function() {
     App = startApp({}, 2);
-    TestHelper.setup();
     var location = FactoryGuy.make("location");
     var designation = FactoryGuy.make("designation", { state: "closed" });
     pkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 1, height: 10, width: 15, length: 20, notes: "Inline edit test" });
@@ -38,7 +36,6 @@ module('Acceptance: Item inline edit', {
     });
   },
   afterEach: function() {
-    Ember.run(function() { TestHelper.teardown(); });
     Ember.run(App, 'destroy');
   }
 });
@@ -166,7 +163,7 @@ test("Selecting different grade fires request for update", function(assert) {
     click($('.grade-margin select option:eq(1)')[0]);
   });
   andThen(function() {
-    assert.equal($("select option:selected").text().trim().substr(0,1), "B");
+    assert.equal($(".grade-margin select option:selected").text().trim().substr(0,1), "B");
   });
 });
 
@@ -185,7 +182,7 @@ test("Selecting different condition fires request for update", function(assert) 
     click($('.select-condition select option:eq(2)')[0]);
   });
   andThen(function() {
-    assert.equal($("select option:selected").text().trim().substr(1).trim(), "Used");
+    assert.equal($(".select-condition select option:selected").text().trim(), "Used");
   });
 });
 
