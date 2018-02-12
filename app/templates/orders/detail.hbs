@@ -95,7 +95,7 @@
           </div>
           <div class="small-7 columns">
             {{#each model.ordersPurposes as |orderPurpose index|}}
-              {{orderPurpose.purpose.nameEn}}{{if (remove-last-comma model.ordersPurposes.length index) ',' ''}}
+              {{orderPurpose.purpose.nameEn}}{{if (is-last-word-in-array model.ordersPurposes.length index) ',' ''}}
             {{/each}}
           </div>
           <div class="small-1 columns icons">

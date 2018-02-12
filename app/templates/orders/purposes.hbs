@@ -31,7 +31,7 @@
         </div>
         <div class="small-8 large-8 columns">
           {{#each model.ordersPurposes as |orderPurpose index|}}
-            {{orderPurpose.purpose.nameEn}} {{if (remove-last-comma model.ordersPurposes.length index) ',' ''}}
+            {{orderPurpose.purpose.nameEn}} {{if (is-last-word-in-array model.ordersPurposes.length index) ',' ''}}
           {{/each}}
         </div>
       </div>
