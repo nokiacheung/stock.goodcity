@@ -13,6 +13,7 @@ export default Model.extend({
   description:        attr('string'),
   detailType:         attr('string'),
   detailId:           attr('number'),
+  purposeDescription: attr('string'),
 
   contact:            belongsTo('contact', { async: false }),
   organisation:       belongsTo('organisation', { async: false }),
@@ -21,7 +22,7 @@ export default Model.extend({
   items:              hasMany('item', { async: true }),
   ordersPackages:     hasMany('ordersPackages', { async: false }),
   orderTransport:     belongsTo('orderTransport', { async: false }),
-  // purposes:           hasMany('purpose', { async: false }),
+  ordersPurposes:     hasMany('orders_purpose', { async: false }),
 
   isLocalOrder: Ember.computed.equal('detailType', 'LocalOrder'),
   isGoodCityOrder: Ember.computed.equal('detailType', 'GoodCity'),
