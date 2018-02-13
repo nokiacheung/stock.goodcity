@@ -94,7 +94,9 @@
             Purposes:
           </div>
           <div class="small-7 columns">
-            {{apply-line-break model.description}}
+            {{#each model.ordersPurposes as |orderPurpose index|}}
+              {{orderPurpose.purpose.nameEn}}{{if (is-last-word-in-array model.ordersPurposes.length index) ',' ''}}
+            {{/each}}
           </div>
           <div class="small-1 columns icons">
             <i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i>

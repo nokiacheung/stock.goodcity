@@ -12,14 +12,16 @@ FactoryGuy.define('designation', {
     }
   },
   default: {
-    id:               FactoryGuy.generate('id'),
-    code:             FactoryGuy.generate('code'),
-    detailType:       'StockitLocalOrder',
-    status:           'Active',
-    createdAt:        '12/07/2016',
-    updatedAt:        '12/07/2016',
-    gc_organisation:   FactoryGuy.belongsTo('gc_organisation'),
-    orders_packages:   FactoryGuy.hasMany('orders_package')
+    id:                 FactoryGuy.generate('id'),
+    code:               FactoryGuy.generate('code'),
+    detailType:         'StockitLocalOrder',
+    status:             'Active',
+    createdAt:          '12/07/2016',
+    updatedAt:          '12/07/2016',
+    purposeDescription: 'Test',
+    gc_organisation:     FactoryGuy.belongsTo('gc_organisation'),
+    orders_packages:     FactoryGuy.hasMany('orders_package'),
+    orders_purposes:     FactoryGuy.hasMany('orders_purpose')
   },
   designation_with_item: {
     item: FactoryGuy.hasMany('item')
