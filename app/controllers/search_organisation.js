@@ -5,8 +5,8 @@ export default searchModule.extend({
   minSearchTextLength: 3,
 
   onSearchTextChange: Ember.observer("searchText", function(){
-    if(this.get('searchText')){
-      Ember.run.debounce(this, this.applyFilter, 0);
+    if(this.get('searchText').length){
+      Ember.run.debounce(this, this.applyFilter, 500);
     } else {
       this.set("filteredResults", []);
     }
