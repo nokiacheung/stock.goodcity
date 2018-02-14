@@ -15,6 +15,7 @@ export default Addressable.extend({
   isStaff: Ember.computed.notEmpty("permission.name"),
   isReviewer: Ember.computed.equal("permission.name", "Reviewer"),
   isSupervisor: Ember.computed.equal("permission.name", "Supervisor"),
+  isNotSupervisor: Ember.computed.not("isSupervisor"),
 
   mobileWithCountryCode: Ember.computed('mobile', function(){
     return this.get('mobile') ? ("+852" + this.get('mobile')) : "";
