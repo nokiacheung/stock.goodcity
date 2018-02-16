@@ -22,12 +22,15 @@ module('Acceptance: Item inline edit', {
         items: [pkg.toJSON({includeId: true})]
         }
     });
-    var data = {"user_profile":{"id":2,"first_name":"David","last_name":"Dara51","mobile":"51111111"}};
+    var data = {"user_profile":{"id":2,"first_name":"David","last_name":"Dara51","mobile":"61111111", "permission_id": 4}, "permissions":[{"id":4, "name": "Supervisor"}]};
 
     $.mockjax({url:"/api/v1/auth/current_user_profil*",
       responseText: data });
     mockFindAll('item').returns({ json: {items: [pkg.toJSON({includeId: true})]}});
-    visit("/items");
+    visit("/");
+    andThen(function() {
+      visit("/items");
+    });
     andThen(function() {
       fillIn("#searchText", pkg.get("inventoryNumber"));
     });

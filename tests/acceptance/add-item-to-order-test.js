@@ -11,7 +11,7 @@ module('Acceptance: Add item to order', {
   beforeEach: function(){
     App = startApp({}, 2);
     designation = FactoryGuy.make("designation");
-    var data = {"user_profile":{"id":2,"first_name":"David","last_name":"Dara51","mobile":"51111111"}};
+    var data = {"user_profile":{"id":2,"first_name":"David","last_name":"Dara51","mobile":"61111111", "permission_id": 4}, "permissions":[{"id":4, "name": "Supervisor"}]};
 
     $.mockjax({url:"/api/v1/auth/current_user_profil*",
       responseText: data });
