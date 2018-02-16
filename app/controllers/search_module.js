@@ -10,7 +10,7 @@ export default Ember.Controller.extend(InfinityRoute, {
     var store = this.get('store');
     var currentUser = store.peekAll('user_profile').get('firstObject') || null;
     if(currentUser) {
-      return currentUser.get("isSupervisor");
+      return currentUser;
     }
     return currentUser;
   }).volatile(),

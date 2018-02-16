@@ -17,7 +17,7 @@
 
           <li><i class="fa fa-qrcode"></i>{{t "index.goto"}}</li>
 
-          {{#if (is-or session.currentUser.isSupervisor getCurrentUser)}}
+          {{#if (is-or session.currentUser.isSupervisor getCurrentUser.isSupervisor)}}
             {{#link-to 'app_menu_list' tagName='li' href=false}}
               <i class="fa fa-bars"></i> Menu
             {{/link-to}}
