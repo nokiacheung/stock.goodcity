@@ -18,7 +18,7 @@ module('Acceptance: Order Detail', {
     orders_purpose = FactoryGuy.make("orders_purpose", { designationId: designation.id, purposeId: purpose.id, designation: designation, purpose: purpose });
     item = FactoryGuy.make("item", { state: "submitted" , designation: designation});
     orders_package = FactoryGuy.make("orders_package", { state: "designated", quantity: 6, item: item, designation: designation });
-    var data = {"user_profile":{"id":2,"first_name":"David","last_name":"Dara51","mobile":"61111111", "permission_id": 4}, "permissions":[{"id":4, "name": "Supervisor"}]};
+    var data = {"user_profile": {"id": 2, "first_name": "David", "last_name": "Dara51", "mobile": "61111111", "permission_id": 4}, "permissions": [{"id": 4, "name": "Supervisor"}]};
     var designationData ={designations: [designation.toJSON({includeId: true})], items: [item.toJSON({includeId: true})], orders_purposes: [orders_purpose.toJSON({includeId:true})], purposes: [purpose.toJSON({includeId:true})]};
 
     $.mockjax({url:"/api/v1/auth/current_user_profil*",
