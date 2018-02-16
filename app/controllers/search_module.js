@@ -9,9 +9,6 @@ export default Ember.Controller.extend(InfinityRoute, {
   getCurrentUser: Ember.computed(function(){
     var store = this.get('store');
     var currentUser = store.peekAll('user_profile').get('firstObject') || null;
-    if(currentUser) {
-      return currentUser;
-    }
     return currentUser;
   }).volatile(),
 
