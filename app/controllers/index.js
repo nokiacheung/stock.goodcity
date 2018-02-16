@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
     var store = this.get('store');
     var currentUser = store.peekAll('user_profile').get('firstObject') || null;
     if(currentUser) {
-      return (currentUser.get("permission.name") === "Supervisor");
+      return currentUser.get("isSupervisor");
     }
     return currentUser;
   }).volatile(),
