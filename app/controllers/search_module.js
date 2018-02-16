@@ -5,6 +5,16 @@ export default Ember.Controller.extend(InfinityRoute, {
 
   queryParams: ["showQuantityItems"],
   showQuantityItems: false,
+  store: Ember.inject.service(),
+
+  getCurrentUser: Ember.computed(function(){
+    var store = this.get('store');
+    var currentUser = store.peekAll('user_profile').get('firstObject') || null;
+    if(currentUser) {
+      return currentUser.get("isSupervisor");
+    }
+    return currentUser;
+  }).volatile(),
 
   sanitizeString(str){
     str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");

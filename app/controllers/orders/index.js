@@ -5,15 +5,5 @@ export default searchModule.extend({
 
   searchModelName: "designation",
   unloadAll: true,
-  minSearchTextLength: 2,
-  store: Ember.inject.service(),
-
-  getCurrentUser: Ember.computed(function(){
-    var store = this.get('store');
-    var currentUser = store.peekAll('user_profile').get('firstObject') || null;
-    if(currentUser) {
-      return currentUser.get("isSupervisor");
-    }
-    return currentUser;
-  }).volatile()
+  minSearchTextLength: 2
 });

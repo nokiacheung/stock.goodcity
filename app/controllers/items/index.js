@@ -14,15 +14,6 @@ export default searchModule.extend({
   searchModelName: "item",
   minSearchTextLength: 2,
 
-  getCurrentUser: Ember.computed(function(){
-    var store = this.get('store');
-    var currentUser = store.peekAll('user_profile').get('firstObject') || null;
-    if(currentUser) {
-      return currentUser.get("isSupervisor");
-    }
-    return currentUser;
-  }).volatile(),
-
   onItemSetIdChange: Ember.observer("itemSetId", function() {
     // wait before applying the filter
     if (this.get("itemSetId")) {
