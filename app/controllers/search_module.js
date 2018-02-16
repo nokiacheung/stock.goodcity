@@ -5,7 +5,6 @@ export default Ember.Controller.extend(InfinityRoute, {
 
   queryParams: ["showQuantityItems"],
   showQuantityItems: false,
-  store: Ember.inject.service(),
 
   getCurrentUser: Ember.computed(function(){
     var store = this.get('store');
