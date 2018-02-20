@@ -8,6 +8,6 @@ export default AuthorizeRoute.extend({
 
   setupController(controller, model){
     this._super(controller, model);
-    controller.set('gcOrganisationUsersCount', this.store.peekAll('organisationsUser').filterBy('organisationId', parseInt(model.id)).length);
+    controller.set('gcOrganisationUsers', this.store.peekAll('organisationsUser').filterBy('organisationId', parseInt(model.id)));
   }
 });

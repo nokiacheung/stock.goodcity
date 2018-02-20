@@ -1,6 +1,6 @@
 import Ember from "ember";
 
 export default Ember.Controller.extend({
-  gcOrganisationUsersCount: null,
+  gcOrganisationUsers: null,
   filteredResults: Ember.computed.alias('model.designations')
 });
