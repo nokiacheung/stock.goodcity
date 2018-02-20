@@ -4,7 +4,7 @@ const { getOwner } = Ember;
 export default Ember.Route.extend({
 
   beforeModel() {
-    if (this.session.get('isLoggedIn')) {
+    if (window.localStorage.getItem("authToken") || this.session.get('isLoggedIn')) {
       if(!this.get('session.currentUser')){
         getOwner(this).lookup("route:application")._loadDataStore();
       } else{
