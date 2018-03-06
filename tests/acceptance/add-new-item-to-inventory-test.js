@@ -115,7 +115,7 @@ test("Redirect to /search_code after clicking Add item to inventory and save red
       //check  #Donation input box
       assert.equal($('.small-9.columns input').first().val(), "");
       //check location input box
-      assert.equal($('.small-9.columns input').last().val(), location1.get('building') + location1.get('area'));
+      assert.equal($('.small-9.columns input').last().val(), location1.get('displayName'));
       // check inventory-number
       assert.equal($('.inventory-number').text().match(/\d+/g)[0], "000311");
     });
