@@ -111,8 +111,8 @@ export default Ember.Controller.extend({
       var location;
       var locationId = this.get("locationId");
       if(locationId) { this.set("scanLocationName", null); }
-      if(locationId || this.get("code.location")) {
-        location = this.get("store").peekRecord("location", locationId) || this.get("code.location");
+      if(locationId.length || this.get("code.location")) {
+        location = this.get("code.location") || this.get("store").peekRecord("location", locationId);
       }
       if(!locationId && location) { this.set("locationId", location.get("id")); }
       return location;
