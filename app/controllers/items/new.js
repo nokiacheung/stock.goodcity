@@ -90,7 +90,7 @@ export default Ember.Controller.extend({
     var selected = "";
     var codeId = this.get("codeId");
     if(codeId.length) {
-      selected = this.get("store").peekRecord("code", this.get("codeId"));
+      selected = this.get("store").peekRecord("code", codeId);
       return selected && selected.get("name");
     }
     return selected;
@@ -100,7 +100,7 @@ export default Ember.Controller.extend({
     var selected = "";
     var codeId = this.get("codeId");
     if(codeId.length) {
-      selected = this.get("store").peekRecord("code", this.get("codeId"));
+      selected = this.get("store").peekRecord("code", codeId);
       return selected && selected.defaultChildPackagesList()[0];
     }
     return selected;
@@ -110,9 +110,10 @@ export default Ember.Controller.extend({
     get() {
       var location;
       var locationId = this.get("locationId");
+      var codeLocation = this.get("code.location");
       if(locationId) { this.set("scanLocationName", null); }
-      if(locationId.length || this.get("code.location")) {
-        location = this.get("code.location") || this.get("store").peekRecord("location", locationId);
+      if(locationId.length || codeLocation) {
+        location = codeLocation || this.get("store").peekRecord("location", locationId);
       }
       if(!locationId && location) { this.set("locationId", location.get("id")); }
       return location;
