@@ -48,7 +48,7 @@ test("Check validation for 'Add item to inventory ' page''", function(assert) {
     //generate inventory_number for new package
     $.mockjax({url:"/api/v1/inventory*", type: 'POST', status: 200,responseText:{"inventory_number":"000311"}});
     //stub image request dummy values
-    $.mockjax({url:"/api/v1/images/generate_sign*", type: 'GET', status: 200,responseText:{"api_key":123456789876543,"signature":"3ec17bf700bc23446d61932385d","timestamp":1234567891,"tags":"staging"}});
+    $.mockjax({url:"/api/v1/images/generate_sign*", type: 'GET', status: 200, responseText:{"api_key": 123456789876543, "signature": "3ec17bf700bc23446d61932385d", "timestamp": 1234567891, "tags": "staging"}});
     andThen(function() {
       //after click on package_type redirect to new item creation page
       assert.equal(currentPath(), "items.new");
@@ -95,7 +95,7 @@ test("Redirect to /search_code after clicking Add item to inventory and save red
     //generate inventory_number for new package
     $.mockjax({url:"/api/v1/inventory*", type: 'POST', status: 200,responseText:{"inventory_number":"000311"}});
     //stub image request dummy values
-    $.mockjax({url:"/api/v1/images/generate_sign*", type: 'GET', status: 200,responseText:{"api_key":123456789876543,"signature":"3ec17bf700bc23446d61932385d","timestamp":1234567891,"tags":"staging"}});
+    $.mockjax({url:"/api/v1/images/generate_sign*", type: 'GET', status: 200, responseText:{"api_key": 123456789876543, "signature": "3ec17bf700bc23446d61932385d", "timestamp": 1234567891, "tags": "staging"}});
     andThen(function() {
       //after click on package_type redirect to new item creation page
       assert.equal(currentPath(), "items.new");
@@ -115,7 +115,7 @@ test("Redirect to /search_code after clicking Add item to inventory and save red
       //check  #Donation input box
       assert.equal($('.small-9.columns input').first().val(), "");
       //check location input box
-      assert.equal($('.small-9.columns input').last().val(), location1.get('building')+location1.get('area'));
+      assert.equal($('.small-9.columns input').last().val(), location1.get('building') + location1.get('area'));
       // check inventory-number
       assert.equal($('.inventory-number').text().match(/\d+/g)[0], "000311");
     });
