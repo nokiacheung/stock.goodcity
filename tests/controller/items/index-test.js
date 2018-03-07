@@ -1,10 +1,9 @@
 import { test, moduleFor } from 'ember-qunit';
 import startApp from '../../helpers/start-app';
 import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
-import FactoryGuy from 'ember-data-factory-guy';
 import Ember from 'ember';
 
-var App, item;
+var App;
 
 moduleFor('controller:items.index', 'items.index controller', {
   beforeEach: function() {
