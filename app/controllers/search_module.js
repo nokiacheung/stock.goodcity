@@ -6,6 +6,12 @@ export default Ember.Controller.extend(InfinityRoute, {
   queryParams: ["showQuantityItems"],
   showQuantityItems: false,
 
+  getCurrentUser: Ember.computed(function(){
+    var store = this.get('store');
+    var currentUser = store.peekAll('user_profile').get('firstObject') || null;
+    return currentUser;
+  }).volatile(),
+
   sanitizeString(str){
     str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");
     return str.trim();

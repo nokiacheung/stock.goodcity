@@ -5,7 +5,6 @@ import '../factories/orders_package';
 import '../factories/designation';
 import '../factories/item';
 import FactoryGuy from 'ember-data-factory-guy';
-import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
 import { mockFindAll } from 'ember-data-factory-guy';
 
 var App, designation, item, item1, orders_package, orders_package1;
@@ -13,15 +12,17 @@ var App, designation, item, item1, orders_package, orders_package1;
 module('Acceptance: Order search list', {
   beforeEach: function() {
     App = startApp({}, 2);
-    TestHelper.setup();
     designation = FactoryGuy.make("designation", { state: "closed" });
     item = FactoryGuy.make("item", { state: "submitted" });
     item1 = FactoryGuy.make("item", { state: "submitted" });
     orders_package = FactoryGuy.make("orders_package", { state: "designated", item: item, designation: designation });
     orders_package1 = FactoryGuy.make("orders_package", { state: "dispatched", item: item1, designation: designation });
+    var data = {"user_profile": {"id": 2, "first_name": "David", "last_name": "Dara51", "mobile": "61111111", "permission_id": 4}, "permissions": [{"id": 4, "name": "Supervisor"}]};
+
+    $.mockjax({url:"/api/v1/auth/current_user_profil*",
+      responseText: data });
   },
   afterEach: function() {
-    Ember.run(function() { TestHelper.teardown(); });
     Ember.run(App, 'destroy');
   }
 });

@@ -3,21 +3,19 @@ import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import '../factories/user';
 import FactoryGuy from 'ember-data-factory-guy';
-import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
 
 var App, hk_user, non_hk_user;
 
 module('Acceptance: Login', {
   beforeEach: function() {
     App = startApp({}, 2);
-    TestHelper.setup();
 
     hk_user = FactoryGuy.make('with_hk_mobile');
     non_hk_user = FactoryGuy.make('with_non_hk_mobile');
+    window.localStorage.removeItem('authToken');
 
   },
   afterEach: function() {
-    Ember.run(function () { TestHelper.teardown(); });
     Ember.run(App, 'destroy');
   }
 });

@@ -10,6 +10,11 @@
       <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
       <div>{{t "back"}}</div>
     {{/link-to}}
+  {{else if (is-equal backLinkPath "organisations.orders")}}
+    {{#link-to "organisations.orders" organisationIdforHistoryRoute classNames="back" }}
+      <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
+      <div>{{t "back"}}</div>
+    {{/link-to}}
   {{else if (is-equal backLinkPath "items.partial_dispatch")}}
     {{#link-to "orders.index" classNames="back" }}
       <i class="fa fa-angle-left back_icon" aria-hidden="true"></i>
@@ -89,7 +94,9 @@
             Purposes:
           </div>
           <div class="small-7 columns">
-            {{apply-line-break model.description}}
+            {{#each model.ordersPurposes as |orderPurpose index|}}
+              {{orderPurpose.purpose.nameEn}}{{if (is-last-word-in-array model.ordersPurposes.length index) ',' ''}}
+            {{/each}}
           </div>
           <div class="small-1 columns icons">
             <i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i>

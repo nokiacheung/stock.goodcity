@@ -2,7 +2,7 @@
   <div class="navigation_menus">
     <div class="row">
       <div class="small-12 columns">
-        <ul class="small-block-grid-5 list">
+        <ul class="{{if session.currentUser.isSupervisor 'small-block-grid-5' 'small-block-grid-4'}} list">
           {{#link-to 'index' tagName='li' href=false}}
             <i class="fa fa-home"></i>{{t "index.home"}}
           {{/link-to}}
@@ -16,7 +16,12 @@
           {{/link-to}}
 
           <li><i class="fa fa-qrcode"></i>{{t "index.goto"}}</li>
-          <li><i class="fa fa-ellipsis-v options"></i></li>
+
+          {{#if (is-or session.currentUser.isSupervisor getCurrentUser.isSupervisor)}}
+            {{#link-to 'app_menu_list' tagName='li' href=false}}
+              <i class="fa fa-bars"></i> Menu
+            {{/link-to}}
+          {{/if}}
         </ul>
       </div>
     </div>

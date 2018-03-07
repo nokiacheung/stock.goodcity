@@ -6,7 +6,6 @@ import '../factories/designation';
 import '../factories/item';
 import '../factories/location';
 import FactoryGuy from 'ember-data-factory-guy';
-import TestHelper from 'ember-data-factory-guy/factory-guy-test-helper';
 import { mockFindAll } from 'ember-data-factory-guy';
 
 var App, pkg;
@@ -14,18 +13,32 @@ var App, pkg;
 module('Acceptance: Item inline edit', {
   beforeEach: function() {
     App = startApp({}, 2);
-    TestHelper.setup();
     var location = FactoryGuy.make("location");
+    var designation = FactoryGuy.make("designation", { state: "closed" });
     pkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 1, height: 10, width: 15, length: 20, notes: "Inline edit test" });
+    mockFindAll('designation').returns({json: {designations: [designation.toJSON({includeId: true})]}});
     mockFindAll('location').returns({json: {locations: [location.toJSON({includeId: true})]}});
     $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
         items: [pkg.toJSON({includeId: true})]
         }
     });
-    visit("/items/"+ pkg.id);
+    var data = {"user_profile": {"id": 2, "first_name": "David", "last_name": "Dara51", "mobile": "61111111", "permission_id": 4}, "permissions": [{"id": 4, "name": "Supervisor"}]};
+
+    $.mockjax({url:"/api/v1/auth/current_user_profil*",
+      responseText: data });
+    mockFindAll('item').returns({ json: {items: [pkg.toJSON({includeId: true})]}});
+    visit("/");
+    andThen(function() {
+      visit("/items");
+    });
+    andThen(function() {
+      fillIn("#searchText", pkg.get("inventoryNumber"));
+    });
+    andThen(function() {
+      visit("items/" + pkg.id);
+    });
   },
   afterEach: function() {
-    Ember.run(function() { TestHelper.teardown(); });
     Ember.run(App, 'destroy');
   }
 });
@@ -153,7 +166,7 @@ test("Selecting different grade fires request for update", function(assert) {
     click($('.grade-margin select option:eq(1)')[0]);
   });
   andThen(function() {
-    assert.equal($("select option:selected").text().trim().substr(0,1), "B");
+    assert.equal($(".grade-margin select option:selected").text().trim().substr(0,1), "B");
   });
 });
 
@@ -172,7 +185,7 @@ test("Selecting different condition fires request for update", function(assert) 
     click($('.select-condition select option:eq(2)')[0]);
   });
   andThen(function() {
-    assert.equal($("select option:selected").text().trim().substr(1).trim(), "Used");
+    assert.equal($(".select-condition select option:selected").text().trim(), "Used");
   });
 });
 
