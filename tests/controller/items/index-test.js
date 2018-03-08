@@ -21,7 +21,7 @@ test('Checking for default set values', function(assert) {
 
   var ctrl = this.subject();
 
-  assert.equal(ctrl.set('itemSetId'), "1");
+  ctrl.set('itemSetId', "1");
 
   assert.equal(ctrl.get('searchModelName'), "item");
 });
