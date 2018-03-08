@@ -29,3 +29,27 @@ test('Relationship with other models', function(assert){
   assert.equal(relationshipWithLocation.key, 'location');
   assert.equal(relationshipWithLocation.kind, 'belongsTo');
 });
+
+test('check defaultChildPackagesList computedProperty', function(assert){
+  assert.expect(1);
+
+  var model = this.subject({ code: 'BBS', defaultChildPackages: 'BBS', otherChildPackages: 'FXX' });
+
+  assert.equal(model.defaultChildPackagesList().length, 1);
+});
+
+test('check otherChildPackagesList computedProperty', function(assert){
+  assert.expect(1);
+
+  var model = this.subject({ code: 'BBS', defaultChildPackages: 'BBS', otherChildPackages: 'FXX' });
+
+  assert.equal(model.otherChildPackagesList().length, 0);
+});
+
+test('check allChildPackagesList computedProperty', function(assert){
+  assert.expect(1);
+
+  var model = this.subject({ code: 'BBS', defaultChildPackages: 'BBS', otherChildPackages: 'FXX' });
+
+  assert.equal(model.allChildPackagesList().length, 1);
+});

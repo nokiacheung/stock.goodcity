@@ -32,3 +32,11 @@ test('Relationships with other models', function(assert){
   assert.equal(relationshipWithDistrict.key, 'district');
   assert.equal(relationshipWithDistrict.kind, 'belongsTo');
 });
+
+test('check fullAddress computedProperty', function(assert){
+  assert.expect(1);
+
+  var model = this.subject({ flat: '24', building: 'Crossroads', street: 'Tai chung' });
+
+  assert.equal(model.get('fullAddress'), '24 Crossroads Tai chung');
+});
