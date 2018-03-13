@@ -52,13 +52,15 @@ export default AuthorizeRoute.extend({
 
     if(this.get("newItemRequest")) {
       this.set("newItemRequest", false);
-      controller.set('caseNumber', "");
       controller.set('quantity', 1);
-      controller.set('length', null);
-      controller.set('width', null);
-      controller.set('height', null);
-      controller.set('selectedGrade', { name: "B", id: "B" });
-      controller.set('selectedCondition', { name: "Used", id: "U" });
+      if(window.localStorage.getItem("isSelectLocationPreviousRoute") === "false") {
+        controller.set('caseNumber', "");
+        controller.set('length', null);
+        controller.set('width', null);
+        controller.set('height', null);
+        controller.set('selectedGrade', { name: "B", id: "B" });
+        controller.set('selectedCondition', { name: "Used", id: "U" });
+      }
       var imageKey = controller.get("imageKeys");
       if(imageKey && imageKey.length && window.localStorage.isSelectLocationPreviousRoute === "true") {
         var image = this.get("store").peekAll("image").filterBy("cloudinaryId", imageKey).get("firstObject");
