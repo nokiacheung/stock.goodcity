@@ -8,8 +8,8 @@ FactoryGuy.define('gc_organisation', {
     }
   },
   default: {
-    id:               FactoryGuy.generate('id'),
-    name:             'GoodCity',
+    id:                 FactoryGuy.generate('id'),
+    nameEn:             'GoodCity',
     organisationsUsers: FactoryGuy.hasMany('organisationsUser')
   }
 });
