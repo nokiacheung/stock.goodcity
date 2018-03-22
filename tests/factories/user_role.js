@@ -8,8 +8,8 @@ FactoryGuy.define('user_role',{
   },
   default: {
     id:           FactoryGuy.generate('id'),
-    userId:     FactoryGuy.generate('name'),
-    roleId:         FactoryGuy.generate('slot')
+    userId:       '',
+    roleId:       ''
   }
 });
 export default {};
