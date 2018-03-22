@@ -2,7 +2,7 @@ import { test, moduleForModel } from 'ember-qunit';
 import Ember from 'ember';
 
 moduleForModel('user', 'User Model', {
-  needs: ['model:permission', 'model:user', 'model:address']
+  needs: ['model:permission', 'model:user', 'model:address', 'model:user-role']
 });
 
 test('check attributes', function(assert){
@@ -22,10 +22,10 @@ test('check attributes', function(assert){
 test('Relationships with other models', function(assert) {
   assert.expect(2);
   var User = this.store().modelFor('user');
-  var relationshipWithPermission = Ember.get(User, 'relationshipsByName').get('permission');
+  var relationshipWithUserRoles = Ember.get(User, 'relationshipsByName').get('userRoles');
 
-  assert.equal(relationshipWithPermission.key, 'permission');
-  assert.equal(relationshipWithPermission.kind, 'belongsTo');
+  assert.equal(relationshipWithUserRoles.key, 'userRoles');
+  assert.equal(relationshipWithUserRoles.kind, 'hasMany');
 });
 
 test('check displayNumber computedProperty', function(assert){
