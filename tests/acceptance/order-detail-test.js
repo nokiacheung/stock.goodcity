@@ -22,7 +22,11 @@ module('Acceptance: Order Detail', {
     $.mockjax({url:"/api/v1/auth/current_user_profil*",
       responseText: data });
 
-    visit("/orders/");
+    visit("/");
+
+    andThen(function() {
+      visit("/orders/");
+    });
 
     fillIn('#searchText', designation.get("code"));
     andThen(function(){
