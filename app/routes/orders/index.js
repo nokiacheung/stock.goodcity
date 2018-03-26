@@ -1,4 +1,5 @@
 import AuthorizeRoute from './../authorize';
+import AjaxPromise from 'stock/utils/ajax-promise';
 
 export default AuthorizeRoute.extend({
   model() {
