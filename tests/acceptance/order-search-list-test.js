@@ -21,6 +21,7 @@ module('Acceptance: Order search list', {
 
     $.mockjax({url:"/api/v1/auth/current_user_profil*",
       responseText: data });
+    visit("/");
   },
   afterEach: function() {
     Ember.run(App, 'destroy');
