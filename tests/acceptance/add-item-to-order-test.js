@@ -3,14 +3,17 @@ import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import FactoryGuy from 'ember-data-factory-guy';
 import '../factories/designation';
+import '../factories/location';
 import { mockFindAll } from 'ember-data-factory-guy';
 
-var App, designation, item, item1, orders_package, orders_package1;
+var App, designation, item, item1, orders_package, orders_package1, location1;
 
 module('Acceptance: Add item to order', {
   beforeEach: function(){
     App = startApp({}, 2);
     designation = FactoryGuy.make("designation");
+    location1 = FactoryGuy.make("location");
+    mockFindAll('location').returns({json: {locations: [location1.toJSON({includeId: true})]}});
     var data = {"user_profile": {"id": 2, "first_name": "David", "last_name": "Dara51", "mobile": "61111111", "permission_id": 4}, "permissions": [{"id": 4, "name": "Supervisor"}]};
 
     $.mockjax({url:"/api/v1/auth/current_user_profil*",
@@ -20,7 +23,11 @@ module('Acceptance: Add item to order', {
     orders_package = FactoryGuy.make("orders_package", { state: "designated", quantity: 6, item: item, designation: designation });
     orders_package1 = FactoryGuy.make("orders_package", { state: "dispatched", quantity: 4, item: item1, designation: designation });
 
-     visit("/orders/");
+    visit("/");
+
+    andThen(function() {
+      visit("/orders/");
+    });
 
     fillIn('#searchText', designation.get("code"));
     andThen(function(){
