@@ -6,7 +6,7 @@ import '../factories/designation';
 import '../factories/location';
 import { mockFindAll } from 'ember-data-factory-guy';
 
-var App, designation, item, item1, orders_package, orders_package1, location1;
+var App, designation, item, item1, orders_package, orders_package1;
 
 module('Acceptance: Add item to order', {
   beforeEach: function(){
