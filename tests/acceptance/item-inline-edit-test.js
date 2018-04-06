@@ -22,7 +22,7 @@ module('Acceptance: Item inline edit', {
         items: [pkg.toJSON({includeId: true})]
         }
     });
-    var data = {"user_profile": {"id": 2, "first_name": "David", "last_name": "Dara51", "mobile": "61111111", "permission_id": 4}, "permissions": [{"id": 4, "name": "Supervisor"}]};
+    var data = {"user_profile": [{"id": 2,"first_name": "David", "last_name": "Dara51", "mobile": "61111111", "user_role_ids": [1]}], "users": [{"id": 2,"first_name": "David", "last_name": "Dara51", "mobile": "61111111"}], "roles": [{"id": 4, "name": "Supervisor"}], "user_roles": [{"id": 1, "user_id": 2, "role_id": 4}]};
 
     $.mockjax({url:"/api/v1/auth/current_user_profil*",
       responseText: data });

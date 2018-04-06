@@ -1,6 +1,6 @@
 import attr from 'ember-data/attr';
 import Ember from 'ember';
-import { belongsTo } from 'ember-data/relationships';
+import { hasMany } from 'ember-data/relationships';
 import Addressable from './addressable';
 
 export default Addressable.extend({
@@ -10,7 +10,10 @@ export default Addressable.extend({
   createdAt:   attr('date'),
   email:       attr('string'),
 
-  permission:  belongsTo('permission', { async: false }),
+  // permission:  belongsTo('permission', { async: false }),
+
+  userRoles: hasMany('userRoles', { async: false }),
+  roles: hasMany('roles', { async: false }),
 
   fullName: Ember.computed('firstName', 'lastName', function(){
     return (this.get('firstName') + " " + this.get('lastName'));

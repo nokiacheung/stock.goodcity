@@ -9,12 +9,29 @@ export default Addressable.extend({
   lastName:    attr('string'),
   mobile:      attr('string'),
 
-  permission:  DS.belongsTo('permission', { async: false }),
+  userRoles: DS.hasMany('userRoles', { async: false }),
 
-  isDonor: Ember.computed.empty("permission.name"),
-  isStaff: Ember.computed.notEmpty("permission.name"),
-  isReviewer: Ember.computed.equal("permission.name", "Reviewer"),
-  isSupervisor: Ember.computed.equal("permission.name", "Supervisor"),
+  roles: Ember.computed('userRoles.[]', function(){
+    var roles = [];
+    this.get('userRoles').forEach(userRole => {
+      roles.push(userRole.get('role'));
+    });
+    return roles;
+  }),
+
+  roleNames: Ember.computed('roles', function(){
+    if(this.get('roles.length')){
+      return this.get('roles').getEach('name');
+    }
+  }),
+
+  isReviewer: Ember.computed('roleNames', function(){
+    return this.get('roleNames').includes('Reviewer');
+  }),
+
+  isSupervisor: Ember.computed('roleNames', function(){
+    return this.get('roleNames').includes('Supervisor');
+  }),
 
   mobileWithCountryCode: Ember.computed('mobile', function(){
     return this.get('mobile') ? ("+852" + this.get('mobile')) : "";
