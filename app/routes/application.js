@@ -31,7 +31,6 @@ export default Ember.Route.extend(preloadDataMixin, {
       if(!authToken && !object.get('isMustLoginAlreadyShown') && !(currentPath.includes("login") || currentPath.includes("authenticate"))) {
         object.set('isMustLoginAlreadyShown', true);
         object.get('messageBox').alert(object.get("i18n").t('must_login'), () => {
-          object.store.unloadAll();
           object.transitionTo("login");
         });
       } else if(authToken && (currentPath.includes("login") || currentPath.includes("authenticate"))) {
