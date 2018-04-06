@@ -14,6 +14,7 @@ export default Model.extend({
   detailType:         attr('string'),
   detailId:           attr('number'),
   purposeDescription: attr('string'),
+  gcOrganisationId:   attr('number'),
 
   contact:            belongsTo('contact', { async: false }),
   organisation:       belongsTo('organisation', { async: false }),

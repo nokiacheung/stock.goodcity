@@ -45,8 +45,14 @@ export default getOrderRoute.extend({
   },
 
   afterModel(model) {
+    var organisation;
+    var organisationId = model.get('gcOrganisationId');
     if(model) {
       var ordersPackages = this.store.query("orders_package", {   search_by_order_id: model.get("id") });
+      if(organisationId) {
+        organisation = this.store.findRecord('gcOrganisation', organisationId);
+        this.store.pushPayload(organisation);
+      }
       this.store.pushPayload(ordersPackages);
     }
   },
