@@ -26,11 +26,11 @@ export default Addressable.extend({
   }),
 
   isReviewer: Ember.computed('roleNames', function(){
-    return this.get('roleNames').includes('Reviewer');
+    return (this.get('roleNames').indexOf('Reviewer') >= 0);
   }),
 
   isSupervisor: Ember.computed('roleNames', function(){
-    return this.get('roleNames').includes('Supervisor');
+    return (this.get('roleNames').indexOf('Supervisor') >= 0);
   }),
 
   mobileWithCountryCode: Ember.computed('mobile', function(){

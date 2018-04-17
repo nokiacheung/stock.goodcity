@@ -28,12 +28,12 @@ export default Ember.Route.extend(preloadDataMixin, {
     var storageHandler = function (object) {
       var currentPath = window.location.href;
       var authToken = window.localStorage.getItem('authToken');
-      if(!authToken && !object.get('isMustLoginAlreadyShown') && !(currentPath.includes("login") || currentPath.includes("authenticate"))) {
+      if(!authToken && !object.get('isMustLoginAlreadyShown') && !(currentPath.indexOf("login") >= 0 || currentPath.indexOf("authenticate") >= 0)) {
         object.set('isMustLoginAlreadyShown', true);
         object.get('messageBox').alert(object.get("i18n").t('must_login'), () => {
           object.transitionTo("login");
         });
-      } else if(authToken && (currentPath.includes("login") || currentPath.includes("authenticate"))) {
+      } else if(authToken && (currentPath.indexOf("login") >= 0 || currentPath.indexOf("authenticate") >= 0)) {
         object.transitionTo("/");
       }
     };
@@ -116,7 +116,7 @@ export default Ember.Route.extend(preloadDataMixin, {
       } else if (status === 401) {
         this.showMustLogin();
       } else {
-        if(reason.message && reason.message.includes('stockit_item') && reason.message.includes('404') && !this.get('isItemUnavailable')) {
+        if(reason.message && (reason.message.indexOf('stockit_item') >= 0) && (reason.message.indexOf('404') >= 0) && !this.get('isItemUnavailable')) {
           this.showItemIsNotAvailable();
         } else {
           this.showSomethingWentWrong(reason);
