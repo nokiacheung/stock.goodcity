@@ -118,7 +118,7 @@ export default Ember.Controller.extend({
     var type = Object.keys(data.item)[0];
     var item = Ember.$.extend({}, data.item[type]);
     //Don't update data store for Offer/Item/schedule/delivery updates
-    if(this.get("modelDataTypes").includes(type)) {
+    if((this.get("modelDataTypes").indexOf(type) >= 0)) {
       return false;
     }
     if(type.toLowerCase() === "package") {
