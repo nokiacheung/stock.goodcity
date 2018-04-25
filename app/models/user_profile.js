@@ -26,13 +26,13 @@ export default Addressable.extend({
   }),
 
   isReviewer: Ember.computed('roleNames', function(){
-    if(this.get("roleNames").length) {
+    if(this.get("roleNames") && this.get("roleNames").length) {
       return (this.get('roleNames').indexOf('Reviewer') >= 0);
     }
   }),
 
   isSupervisor: Ember.computed('roleNames', function(){
-    if(this.get("roleNames").length) {
+    if(this.get("roleNames") && this.get("roleNames").length) {
       return (this.get('roleNames').indexOf('Supervisor') >= 0);
     }
   }),
