@@ -351,7 +351,7 @@ export default Ember.Controller.extend({
         }
       };
       var onError = error => this.get("messageBox").alert("Scanning failed: " + error);
-      var options = {"formats": "CODE_128"};
+      var options = {"formats": "QR_CODE, CODE_128"};
       window.cordova.plugins.barcodeScanner.scan(onSuccess, onError, options);
     },
 
