@@ -12,7 +12,7 @@ export default barcodeScaner.extend({
       };
 
       var onError = error => this.get("messageBox").alert("Scanning failed: " + error);
-      var options = {"formats": "QR_CODE, CODE_128"};
+      var options = {"formats": "QR_CODE, CODE_128", "orientation" : "portrait" };
 
       window.cordova.plugins.barcodeScanner.scan(onSuccess, onError, options);
     }
