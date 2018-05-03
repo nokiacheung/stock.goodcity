@@ -12,7 +12,8 @@ export default Ember.Component.extend({
         if (!res.cancelled) {
           var key = this.get("paramName") || "searchInput";
           var queryParams = {};
-          queryParams[key] = res.text;
+          var strippedURL = res.text.substring(res.text.lastIndexOf('=') + 1);
+          queryParams[key] = strippedURL;
           this.get('router').transitionTo(this.get("route"), { queryParams: queryParams });
         }
       };

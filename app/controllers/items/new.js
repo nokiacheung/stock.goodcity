@@ -347,7 +347,8 @@ export default Ember.Controller.extend({
       var _this = this;
       var onSuccess = res => {
         if (!res.cancelled) {
-          _this.set("inventoryNumber", res.text);
+          var strippedURL = res.text.substring(res.text.lastIndexOf('=') + 1);
+          _this.set("inventoryNumber", strippedURL);
         }
       };
       var onError = error => this.get("messageBox").alert("Scanning failed: " + error);
