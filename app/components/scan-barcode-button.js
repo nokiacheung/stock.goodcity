@@ -11,8 +11,8 @@ export default Ember.Component.extend({
 
       var onSuccess = res => {
         if (!res.cancelled) {
-
-          var queryParams = {queryParams: { searchInput: res.text.replace(/^\x|X/,'') } };
+          var strippedURL = res.text.substring(res.text.lastIndexOf('=') + 1);
+          var queryParams = {queryParams: { searchInput: strippedURL.replace(/^\x|X/,'') } };
           var record = this.get("record");
 
           if (record) {
@@ -23,7 +23,7 @@ export default Ember.Component.extend({
         }
       };
       var onError = error => this.get("messageBox").alert("Scanning failed: " + error);
-      var options = {"formats": "CODE_128"};
+      var options = {"formats": "QR_CODE, CODE_128", "orientation" : "portrait"};
 
       window.cordova.plugins.barcodeScanner.scan(onSuccess, onError, options);
 

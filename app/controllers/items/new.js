@@ -112,8 +112,10 @@ export default Ember.Controller.extend({
       var locationId = this.get("locationId");
       var codeLocation = this.get("code.location");
       if(locationId) { this.set("scanLocationName", null); }
-      if(locationId.length || codeLocation) {
-        location = codeLocation || this.get("store").peekRecord("location", locationId);
+      if(locationId.length) {
+        location = this.get("store").peekRecord("location", locationId);
+      } else if(codeLocation) {
+        location = codeLocation;
       }
       if(!locationId && location) { this.set("locationId", location.get("id")); }
       return location;
@@ -345,11 +347,12 @@ export default Ember.Controller.extend({
       var _this = this;
       var onSuccess = res => {
         if (!res.cancelled) {
-          _this.set("inventoryNumber", res.text);
+          var strippedURL = res.text.substring(res.text.lastIndexOf('=') + 1);
+          _this.set("inventoryNumber", strippedURL);
         }
       };
       var onError = error => this.get("messageBox").alert("Scanning failed: " + error);
-      var options = {"formats": "CODE_128"};
+      var options = {"formats": "QR_CODE, CODE_128", "orientation" : "portrait"};
       window.cordova.plugins.barcodeScanner.scan(onSuccess, onError, options);
     },
 
