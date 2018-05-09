@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import searchModule from "./search_module";
 
-export default searchModule.extend({
+export default Ember.Controller.extend({
   application: Ember.inject.controller(),
 
   getCurrentUser: Ember.computed(function(){
