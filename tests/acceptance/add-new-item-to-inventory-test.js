@@ -8,7 +8,7 @@ import '../factories/code';
 import FactoryGuy from 'ember-data-factory-guy';
 import { mockFindAll } from 'ember-data-factory-guy';
 
-var App, location1, designation, code;
+var App, location1, location2, designation, code;
 
 module('Acceptance: Add item to inventory', {
   beforeEach: function() {
@@ -19,14 +19,59 @@ module('Acceptance: Add item to inventory', {
     $.mockjax({url:"/api/v1/auth/current_user_profil*",
       responseText: data });
     location1 = FactoryGuy.make("location");
+    location2 = FactoryGuy.make("location");
     designation = FactoryGuy.make("designation", { state: "closed" });
     mockFindAll('designation').returns({json: {designations: [designation.toJSON({includeId: true})]}});
-    mockFindAll('location').returns({json: {locations: [location1.toJSON({includeId: true})]}});
+    mockFindAll('location').returns({json: {locations: [location2.toJSON({includeId: true})], meta: {search: location2.get('building').toString()}}});
     code = FactoryGuy.make("code", {location: location1});
   },
   afterEach: function() {
     Ember.run(App, 'destroy');
   }
+});
+
+test("Select custom location on create item screen instead of default location of package type", function(assert){
+  assert.expect(5);
+  andThen(function() {
+    visit("/search_code");
+  });
+
+  $.mockjax({url: '/api/v1/package_type*', type: 'GET', status: 200,responseText: {
+      codes: [code.toJSON({includeId: true})]
+    }
+  });
+
+  andThen(function() {
+    assert.equal(currentPath(), "search_code");
+    //fill search box with package_type name i.e code.name
+    fillIn("#searchText", code.get('name'));
+    //click on first package_type
+    click(find('.list li:first')[0]);
+    //generate inventory_number for new package
+    $.mockjax({url:"/api/v1/inventory*", type: 'POST', status: 200,responseText:{"inventory_number":"000311"}});
+    //stub image request dummy values
+    $.mockjax({url:"/api/v1/images/generate_sign*", type: 'GET', status: 200, responseText:{"api_key": 123456789876543, "signature": "3ec17bf700bc23446d61932385d", "timestamp": 1234567891, "tags": "staging"}});
+
+    andThen(function() {
+      assert.equal(currentPath(), "items.new");
+      //redirects to page 'select_location' route to selecting new location.
+      click(find('#inventory_location')[0]);
+      andThen(function() {
+        assert.equal(currentPath(), "select_location");
+
+        fillIn("#searchText", location2.get('building'));
+
+        mockFindAll('location').returns({json: {locations: [location2.toJSON({includeId: true})], meta: {search: location2.get('building').toString()}}});
+        andThen(function(){
+          click(find('.list li:first')[0]);
+          andThen(function() {
+            assert.equal(currentPath(), "items.new");
+            assert.equal(Ember.$('#inventory_location').find('input').val().indexOf(location2.get('building')), 0);
+          });
+        });
+      });
+    });
+  });
 });
 
 test("Check validation for 'Add item to inventory ' page''", function(assert) {
