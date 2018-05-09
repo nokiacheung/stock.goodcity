@@ -39,6 +39,9 @@ I18nTranslationsEn =
     "login" : "Login"
     "smscode": "Get 4-digit SMS code"
 
+  "logout":
+    "logout": "Logout"
+
   "index":
     "home": "Home",
     "orders": "Orders"
