@@ -1,12 +1,13 @@
 import Ember from 'ember';
-import config from '../config/environment';
 
 export default Ember.Controller.extend({
   application: Ember.inject.controller(),
 
-  stockAppVersion: Ember.computed(function(){
-    return config.cordova.enabled ? config.APP.VERSION : null;
-  }),
+  getCurrentUser: Ember.computed(function(){
+    var store = this.get('store');
+    var currentUser = store.peekAll('user_profile').get('firstObject') || null;
+    return currentUser;
+  }).volatile(),
 
   actions: {
     logMeOut() {

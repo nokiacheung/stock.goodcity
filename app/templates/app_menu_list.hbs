@@ -9,7 +9,10 @@
 <div class="row search">
   <div class="small-12 columns">
     <ul class="list list-activity">
-      <li>{{#link-to 'search_organisation'}}Manage charity users{{/link-to}}</li>
+      {{#if (is-or session.currentUser.isSupervisor getCurrentUser.isSupervisor)}}
+        <li>{{#link-to 'search_organisation'}}Manage charity users{{/link-to}}</li>
+      {{/if}}
+      <li><a href="#" {{action 'logMeOut'}}>{{t "logout.logout"}}</a></li>
     </ul>
   </div>
 </div>
