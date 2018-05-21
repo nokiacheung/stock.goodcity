@@ -30,6 +30,7 @@
     <splash src="res/android/drawable-xhdpi/screen.png" density="port-xhdpi"/>
     <splash src="res/android/drawable-xxhdpi/screen.png" density="port-xxhdpi"/>
     <splash src="res/android/drawable-xxxhdpi/screen.png" density="port-xxxhdpi"/>
+    <preference name="CodePushDeploymentKey" value="3hSP8YxtwpW2KvHwX1WUMuydj92989764922-690e-4a00-9902-2e4bdfc70c7a" />
   </platform>
   <platform name="ios">
     <icon src="res/ios/Icon-App-60x60@3x.png" width="180" height="180"/>
@@ -56,15 +57,15 @@
     <splash src="res/ios/Default-768x1024.png" width="768" height="1024"/>
     <splash src="res/ios/Default-1536x2048.png" width="1536" height="2048"/>
 
-    <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge" overwrite="true">
-      <string>to enable you to read inventory barcodes and photograph inventory items.</string>
-    </edit-config>
-
     <feature name="StatusBar">
       <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
     <preference name="Orientation" value="portrait"/>
     <preference name="Fullscreen" value="true" />
+
+    <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge" overwrite="true">
+      <string>to enable you to read inventory barcodes and photograph inventory items.</string>
+    </edit-config>
   </platform>
   <engine name="ios" spec="~4.2.0" />
   <engine name="android" spec="~5.1.1" />
