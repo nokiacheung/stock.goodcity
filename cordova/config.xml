@@ -56,6 +56,10 @@
     <splash src="res/ios/Default-768x1024.png" width="768" height="1024"/>
     <splash src="res/ios/Default-1536x2048.png" width="1536" height="2048"/>
 
+    <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge" overwrite="true">
+      <string>to enable you to read inventory barcodes and photograph inventory items.</string>
+    </edit-config>
+
     <feature name="StatusBar">
       <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
