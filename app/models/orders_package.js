@@ -14,6 +14,7 @@ export default Model.extend({
 
   item:    belongsTo('item', { async: true }),
   designation:    belongsTo('designation', { async: true }),
+  isDispatched: Ember.computed.bool('sentOn'),
 
   availableQty: Ember.computed("quantity", function() {
     return this.get('quantity');

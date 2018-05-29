@@ -38,18 +38,8 @@
 </nav>
 
 <section class="main-section order_page">
+  {{partial "orders/order_status_bar"}}
   <div class="row">
-    <div class="small-12 columns offer-status">
-      <div class="time-details">
-        {{t "order_details.submitted"}} {{display-datetime model.createdAt format="DD MMM 'YY"}}
-      </div>
-      <div class="state">
-        {{model.status}}
-      </div>
-    </div>
-  </div>
-
-  <div class="row ">
     <div class="small-12 columns main_details">
       <div class="row">
         <div class="small-4 columns">
