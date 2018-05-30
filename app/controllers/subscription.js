@@ -152,9 +152,16 @@ export default Ember.Controller.extend({
       }
     }
 
-    this.setFavImage(item, data, type);
-
     this.store.normalize(type, item);
+
+    if(type.toLowerCase() === "designation" && data.operation === "create") { return false; }
+
+    if(type.toLowerCase() === "designation") {
+      this.store.pushPayload(data.item);
+      return false;
+    }
+
+    this.setFavImage(item, data, type);
 
     var existingItem = this.store.peekRecord(type, item.id);
     var hasNewItemSaving = this.store.peekAll(type).any(function(o) { return o.id === null && o.get("isSaving"); });
