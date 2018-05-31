@@ -4,6 +4,7 @@ import attr from 'ember-data/attr';
 import { belongsTo, hasMany } from 'ember-data/relationships';
 
 export default Model.extend({
+  utilityMethods: Ember.inject.service(),
 
   status:               attr('string'),
   state:                attr('string'),
@@ -51,12 +52,12 @@ export default Model.extend({
 
   allDispatchedOrdersPackages: Ember.computed('ordersPackages.@each.state', 'ordersPackages.@each.quantity', function() {
     var ordersPackages = this.get("quantityOrdersPackages");
-    return ordersPackages.length > 0 && ordersPackages.filterBy('isDispatched', false).length === 0;
+    return this.get("utilityMethods").arrayExists(ordersPackages) && ordersPackages.filterBy('isDispatched', false).length === 0;
   }),
 
   allDesignatedOrdersPackages: Ember.computed('ordersPackages.@each.state', 'ordersPackages.@each.quantity', function() {
     var ordersPackages = this.get("quantityOrdersPackages");
-    return ordersPackages.length > 0 && ordersPackages.filterBy('isDispatched', true).length === 0;
+    return this.get("utilityMethods").arrayExists(ordersPackages && ordersPackages.filterBy('isDispatched', true).length === 0;
   }),
 
   quantityOrdersPackages: Ember.computed("ordersPackages.@each.state", "ordersPackages.@each.quantity", function() {
