@@ -49,7 +49,7 @@ export default Model.extend({
     return this.get("ordersPackages").filterBy('quantity').length;
   }),
 
-  allDispstchedOrdersPackages: Ember.computed('ordersPackages.@each.state', 'ordersPackages.@each.quantity', function() {
+  allDispatchedOrdersPackages: Ember.computed('ordersPackages.@each.state', 'ordersPackages.@each.quantity', function() {
     var ordersPackages = this.get("quantityOrdersPackages");
     return ordersPackages.length > 0 && ordersPackages.filterBy('isDispatched', false).length === 0;
   }),
