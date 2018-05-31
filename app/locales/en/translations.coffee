@@ -58,6 +58,16 @@ I18nTranslationsEn =
     "show_more_items": "Show more items"
     "add_item_to_order": "Add an item to this order"
 
+  "order":
+    "submitted": "Submitted"
+    "start_process": "Start Processing"
+    "finish_process": "Finish Processing"
+    "cancel_order": "Cancel Order"
+    "awaiting_dispatch": "Awaiting Dispatch"
+    "cancelled": "Cancelled"
+    "closed": "Closed"
+    "close_order": "Close Order"
+
   "item":
     "edit": "edit"
     "designate": "designate"

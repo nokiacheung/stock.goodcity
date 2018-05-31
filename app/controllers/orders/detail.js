@@ -1,5 +1,7 @@
 import Ember from "ember";
 import config from '../../config/environment';
+import AjaxPromise from 'stock/utils/ajax-promise';
+const { getOwner } = Ember;
 
 export default Ember.Controller.extend({
 
@@ -9,6 +11,8 @@ export default Ember.Controller.extend({
   isMobileApp: config.cordova.enabled,
   itemIdforHistoryRoute: null,
   organisationIdforHistoryRoute: null,
+  store: Ember.inject.service(),
+  messageBox: Ember.inject.service(),
 
   ordersPackagesLengthMoreThenThree: Ember.observer('model.ordersPackages', function() {
     var ordersPackages = this.get("model.ordersPackages");
@@ -28,6 +32,43 @@ export default Ember.Controller.extend({
   actions: {
     displayAllItems() {
       this.set("displayAllItems", true);
+    },
+
+    updateOrder(order, actionName) {
+      var url = `/orders/${order.id}/${actionName}`;
+      if(actionName === "cancel_order") {
+        this.send("promptCancelOrderModel", url);
+      } else if (actionName === "close_order") {
+        this.send("promptCloseOrderModel", url);
+      } else {
+        this.send("changeOrderState", url);
+      }
+    },
+
+    promptCancelOrderModel(url) {
+      this.get("messageBox").custom(
+        "This will remove all items from the order and cancel the order.",
+        "Cancel Order",
+        () => { this.send("changeOrderState", url); },
+        "Not Now");
+    },
+
+    promptCloseOrderModel(url) {
+      this.get("messageBox").custom(
+        "You will not be able to modify the order after closing it.",
+        "Close Order",
+        () => { this.send("changeOrderState", url); },
+        "Not Now");
+    },
+
+    changeOrderState(url) {
+      var loadingView = getOwner(this).lookup('component:loading').append();
+      new AjaxPromise(url, "PUT", this.get('session.authToken'))
+        .then(data => {
+          data["designation"] = data["order"];
+          this.get("store").pushPayload(data);
+        })
+        .finally(() => loadingView.destroy());
     }
   }
 
