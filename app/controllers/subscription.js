@@ -154,9 +154,9 @@ export default Ember.Controller.extend({
 
     this.store.normalize(type, item);
 
-    if(type.toLowerCase() === "designation" && data.operation === "create") { return false; }
-
-    if(type.toLowerCase() === "designation") {
+    if(type.toLowerCase() === "designation" && data.operation === "create") {
+      return false;
+    } else if(type.toLowerCase() === "designation") {
       this.store.pushPayload(data.item);
       return false;
     }

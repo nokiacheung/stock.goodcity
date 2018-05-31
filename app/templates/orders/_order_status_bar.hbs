@@ -18,23 +18,23 @@
       </div>
       {{#if (is-equal model.capitalizedState "Submitted")}}
         <div class="small-12 columns">
-          <button {{action 'startProcessing' model}} class="button expand">{{t "order.start_process"}}</button>
+          <button {{action 'updateOrder' model 'start_process'}} class="button expand">{{t "order.start_process"}}</button>
         </div>
       {{else if (is-equal model.capitalizedState "Processing")}}
         {{#if model.ordersPackagesCount}}
           <div class="small-6 medium-6 large-6 columns">
-            <button {{action 'finishProcessing' model}} class="button expand">{{t "order.finish_process"}}</button>
+            <button {{action 'updateOrder' model 'finish_process'}} class="button expand">{{t "order.finish_process"}}</button>
           </div>
         {{/if}}
         <div class="{{if model.ordersPackagesCount 'small-6 medium-6 large-6' 'small-12 medium-12 large-12'}} columns">
-          <button {{action 'promptCancelOrderModel' model}} class="button expand">{{t "order.cancel_order"}}</button>
+          <button {{action 'updateOrder' model 'cancel_order'}} class="button expand">{{t "order.cancel_order"}}</button>
         </div>
       {{else if (is-equal model.capitalizedState "Awaiting_dispatch")}}
         <div class="small-6 medium-6 large-6 columns">
-          <button {{action 'promptCloseOrderModel' model}} disabled={{if model.allOrdersPackagesDispatched false 'disabled'}} class="button expand">{{t "order.close_order"}}</button>
+          <button {{action 'updateOrder' model 'close_order'}} disabled={{if model.allDispstchedOrdersPackages false 'disabled'}} class="button expand">{{t "order.close_order"}}</button>
         </div>
         <div class='small-6 medium-6 large-6 columns'>
-          <button {{action 'promptCancelOrderModel' model}} disabled={{if model.allOrdersPackagesDesignated false 'disabled'}}  class="button expand">{{t "order.cancel_order"}}</button>
+          <button {{action 'updateOrder' model 'cancel_order'}} disabled={{if model.allDesignatedOrdersPackages false 'disabled'}}  class="button expand">{{t "order.cancel_order"}}</button>
         </div>
       {{/if}}
     </div>
@@ -51,7 +51,7 @@
 </div>
 
 {{#if model.isGoodCityOrder}}
-  {{#message-box btn1Text="Cancel Order" btn1Callback=(action "cancelOrder" model) btn2Text="Not Now" isVisible=(is-not model.ordersPackagesCount) classNames="popupOverlay"}}
+  {{#message-box btn1Text="Cancel Order" btn1Callback=(action 'updateOrder' model 'cancel_order') btn2Text="Not Now" isVisible=(is-not model.ordersPackagesCount) classNames="popupOverlay"}}
     This Order does not have any requested items. You can either add items or cancel the order.
   {{/message-box}}
 {{/if}}

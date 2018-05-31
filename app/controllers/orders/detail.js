@@ -34,36 +34,31 @@ export default Ember.Controller.extend({
       this.set("displayAllItems", true);
     },
 
-    startProcessing(order) {
-      this.send("changeOrderState", `/orders/${order.id}/start_process`);
+    updateOrder(order, actionName) {
+      var url = `/orders/${order.id}/${actionName}`;
+      if(actionName === "cancel_order") {
+        this.send("promptCancelOrderModel", url);
+      } else if (actionName === "close_order") {
+        this.send("promptCloseOrderModel", url);
+      } else {
+        this.send("changeOrderState", url);
+      }
     },
 
-    finishProcessing(order) {
-      this.send("changeOrderState", `/orders/${order.id}/finish_process`);
-    },
-
-    promptCancelOrderModel(order) {
+    promptCancelOrderModel(url) {
       this.get("messageBox").custom(
         "This will remove all items from the order and cancel the order.",
         "Cancel Order",
-        () => { this.send("cancelOrder", order); },
+        () => { this.send("changeOrderState", url); },
         "Not Now");
     },
 
-    promptCloseOrderModel(order) {
+    promptCloseOrderModel(url) {
       this.get("messageBox").custom(
         "You will not be able to modify the order after closing it.",
         "Close Order",
-        () => { this.send("closeOrder", order); },
+        () => { this.send("changeOrderState", url); },
         "Not Now");
-    },
-
-    cancelOrder(order) {
-      this.send("changeOrderState", `/orders/${order.id}/cancel_order`);
-    },
-
-    closeOrder(order) {
-      this.send("changeOrderState", `/orders/${order.id}/close_order`);
     },
 
     changeOrderState(url) {

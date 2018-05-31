@@ -49,14 +49,18 @@ export default Model.extend({
     return this.get("ordersPackages").filterBy('quantity').length;
   }),
 
-  allOrdersPackagesDispatched: Ember.computed('ordersPackages.@each.state', 'ordersPackages.@each.quantity', function() {
-    var ordersPackages = this.get("ordersPackages").filterBy('quantity');
+  allDispstchedOrdersPackages: Ember.computed('ordersPackages.@each.state', 'ordersPackages.@each.quantity', function() {
+    var ordersPackages = this.get("quantityOrdersPackages");
     return ordersPackages.length > 0 && ordersPackages.filterBy('isDispatched', false).length === 0;
   }),
 
-  allOrdersPackagesDesignated: Ember.computed('ordersPackages.@each.state', 'ordersPackages.@each.quantity', function() {
-    var ordersPackages = this.get("ordersPackages").filterBy('quantity');
+  allDesignatedOrdersPackages: Ember.computed('ordersPackages.@each.state', 'ordersPackages.@each.quantity', function() {
+    var ordersPackages = this.get("quantityOrdersPackages");
     return ordersPackages.length > 0 && ordersPackages.filterBy('isDispatched', true).length === 0;
+  }),
+
+  quantityOrdersPackages: Ember.computed("ordersPackages.@each.state", "ordersPackages.@each.quantity", function() {
+    return this.get("ordersPackages").filterBy('quantity');
   }),
 
   allItemsDispatched: Ember.computed('items.@each.isDispatched', function() {
