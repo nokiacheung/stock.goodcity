@@ -57,7 +57,7 @@ export default Model.extend({
 
   allDesignatedOrdersPackages: Ember.computed('ordersPackages.@each.state', 'ordersPackages.@each.quantity', function() {
     var ordersPackages = this.get("quantityOrdersPackages");
-    return this.get("utilityMethods").arrayExists(ordersPackages && ordersPackages.filterBy('isDispatched', true).length === 0;
+    return this.get("utilityMethods").arrayExists(ordersPackages) && ordersPackages.filterBy('isDispatched', true).length === 0;
   }),
 
   quantityOrdersPackages: Ember.computed("ordersPackages.@each.state", "ordersPackages.@each.quantity", function() {
