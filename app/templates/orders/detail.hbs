@@ -33,7 +33,7 @@
   </section>
 
   <section class="right-small">
-    <a><i class="fa fa-ellipsis-v options"></i></a>
+    {{partial "orders/review_order_options"}}
   </section>
 </nav>
 
@@ -140,7 +140,7 @@
   </div>
 
   {{#unless model.isInactive}}
-    <div class="row add_item_button">
+    <div class="row add_item_button" style={{if (is-or model.isCancelled model.isClosed) "pointer-events:none;" ''}}>
       <div class=" {{if isMobileApp 'small-9' 'small-12'}} columns">
           {{#link-to "orders.items" model (query-params searchInput="") class="button expand"}}{{t "order_details.add_item_to_order"}}{{/link-to}}
       </div>
@@ -158,7 +158,7 @@
 
   <div class="row show_more" >
     {{#unless displayAllItems}}
-      <div class="small-12 columns" {{action "displayAllItems"}}>
+      <div class="small-12 columns" {{action "displayAllItems"}} style={{if model.isCancelled "pointer-events:none;" ''}}>
         {{t "order_details.show_more_items"}} <i class="fa fa-angle-down back_icon" aria-hidden="true"></i>
       </div>
     {{/unless}}

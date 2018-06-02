@@ -13,6 +13,17 @@ export default Ember.Controller.extend({
   organisationIdforHistoryRoute: null,
   store: Ember.inject.service(),
   messageBox: Ember.inject.service(),
+  i18n: Ember.inject.service(),
+  isOrderProcessRestarted: false,
+
+  displayOrderOptions: Ember.computed({
+    get: function() {
+      return false;
+    },
+    set: function(key, value) {
+      return value;
+    }
+  }),
 
   ordersPackagesLengthMoreThenThree: Ember.observer('model.ordersPackages', function() {
     var ordersPackages = this.get("model.ordersPackages");
@@ -30,41 +41,118 @@ export default Ember.Controller.extend({
   }),
 
   actions: {
+    toggleOrderOptions() {
+      this.toggleProperty("displayOrderOptions");
+    },
+
     displayAllItems() {
       this.set("displayAllItems", true);
     },
 
     updateOrder(order, actionName) {
-      var url = `/orders/${order.id}/${actionName}`;
-      if(actionName === "cancel_order") {
-        this.send("promptCancelOrderModel", url);
-      } else if (actionName === "close_order") {
-        this.send("promptCloseOrderModel", url);
-      } else {
-        this.send("changeOrderState", url);
+      switch(actionName) {
+        case "messagePopUp":
+          this.send("changeOrderState", order, "cancel");
+          break;
+        case "start_processing":
+          this.set("isOrderProcessRestarted", false);
+          this.send("changeOrderState", order, actionName);
+          break;
+        case "resubmit":
+          this.send("promptResubmitModel", order ,actionName);
+          break;
+        case "reopen":
+          this.send("promptReopenModel", order, actionName);
+          break;
+        case "restart_process":
+          this.send("promptRestartProcessModel", order, actionName);
+          break;
+        case "cancel":
+          this.send("promptCancelOrderModel", order, actionName);
+          break;
+        case "close":
+          this.send("promptCloseOrderModel", order, actionName);
+          break;
+        default:
+          this.send("changeOrderState", order, actionName);
       }
     },
 
-    promptCancelOrderModel(url) {
+    promptResubmitModel(order, actionName) {
+      var _this = this;
       this.get("messageBox").custom(
-        "This will remove all items from the order and cancel the order.",
-        "Cancel Order",
-        () => { this.send("changeOrderState", url); },
-        "Not Now");
+        _this.get("i18n").t("order_details.resubmit_order_warning"),
+        _this.get("i18n").t("order.resubmit"),
+        () => { this.send("changeOrderState", order, actionName); },
+        _this.get("i18n").t("not_now"),
+        () => { this.send("toggleDisplayOptions"); }
+        );
     },
 
-    promptCloseOrderModel(url) {
-      this.get("messageBox").custom(
-        "You will not be able to modify the order after closing it.",
-        "Close Order",
-        () => { this.send("changeOrderState", url); },
-        "Not Now");
+    promptReopenModel(order, actionName) {
+      var _this = this;
+      if(!order.get('allDesignatedOrdersPackages')) {
+        this.get("messageBox").alert(_this.get("i18n").t("order_details.reopen_undispatch_warning"));
+        this.send("toggleDisplayOptions");
+      } else {
+        this.get("messageBox").custom(
+          _this.get("i18n").t("order_details.reopen_warning"),
+          _this.get("i18n").t("order.reopen_order"),
+          () => { this.send("changeOrderState", order, actionName); },
+          _this.get("i18n").t("not_now"),
+          () => { this.send("toggleDisplayOptions"); });
+      }
     },
 
-    changeOrderState(url) {
+    toggleDisplayOptions() {
+      if(this.get("displayOrderOptions")) {
+        this.set("displayOrderOptions", false);
+      }
+    },
+
+    promptRestartProcessModel(order, actionName) {
+      var _this = this;
+      if(!order.get('allDesignatedOrdersPackages')) {
+        this.get("messageBox").alert(_this.get("i18n").t("order_details.restart_undispatch_warning"));
+        this.send("toggleDisplayOptions");
+      } else {
+        this.get("messageBox").custom(_this.get("i18n").t("order_details.restart_warning"),
+          _this.get("i18n").t("order.restart_process"),
+          () => {
+            this.set("isOrderProcessRestarted", true);
+            this.send('changeOrderState', order, actionName);
+          },
+          _this.get("i18n").t("not_now"),
+          () => { this.send("toggleDisplayOptions"); });
+      }
+    },
+
+    promptCancelOrderModel(order, actionName) {
+      var _this = this;
+      this.get("messageBox").custom(
+        _this.get("i18n").t("order_details.cancel_warning"),
+        _this.get("i18n").t("order.cancel_order"),
+        () => { this.send("changeOrderState", order, actionName); },
+        _this.get("i18n").t("not_now"),
+        () => { this.send("toggleDisplayOptions"); });
+    },
+
+    promptCloseOrderModel(order, actionName) {
+      var _this = this;
+      this.get("messageBox").custom(
+        _this.get("i18n").t("order_details.close_warning") ,
+        _this.get("i18n").t("order.close_order"),
+        () => { this.send("changeOrderState", order, actionName); },
+        _this.get("i18n").t("not_now"),
+        () => { this.send("toggleDisplayOptions"); });
+    },
+
+    changeOrderState(order, transition) {
+      var url = `/orders/${order.id}/transition`;
       var loadingView = getOwner(this).lookup('component:loading').append();
-      new AjaxPromise(url, "PUT", this.get('session.authToken'))
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { transition: transition })
         .then(data => {
+          this.send("toggleDisplayOptions");
           data["designation"] = data["order"];
           this.get("store").pushPayload(data);
         })

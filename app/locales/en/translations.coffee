@@ -21,6 +21,7 @@ I18nTranslationsEn =
   "users": "Users"
   "menu": "Menu"
   "search_organisation": "Search Organisation"
+  "not_now": "Not Now"
 
   "authenticate":
     "input_code" : "Input Code"
@@ -57,16 +58,26 @@ I18nTranslationsEn =
     "order": "Order:"
     "show_more_items": "Show more items"
     "add_item_to_order": "Add an item to this order"
+    "resubmit_order_warning": "Resubmitting an Order will set order state to submitted. Are you sure you want to resubmit the order?"
+    "reopen_undispatch_warning": "You can only reopen an order after un-dispatching all dispatched items."
+    "reopen_warning": "Reopening this order will set order state to Awaiting Dispatch. Are you sure you want to reopen the order?"
+    "restart_undispatch_warning": "You can only restart processing an order after un-dispatching all dispatched items."
+    "restart_warning": "Are you sure you want to process the order again?"
+    "cancel_warning": "This will remove all items from the order and cancel the order."
+    "close_warning": "You will not be able to modify the order after closing it."
 
   "order":
     "submitted": "Submitted"
     "start_process": "Start Processing"
+    "restart_process": "Restart Processing"
     "finish_process": "Finish Processing"
     "cancel_order": "Cancel Order"
     "awaiting_dispatch": "Awaiting Dispatch"
     "cancelled": "Cancelled"
     "closed": "Closed"
     "close_order": "Close Order"
+    "reopen_order": "Reopen Order"
+    "resubmit": "Resubmit Order"
 
   "item":
     "edit": "edit"

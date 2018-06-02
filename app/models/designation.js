@@ -38,6 +38,13 @@ export default Model.extend({
   isLocalOrder: Ember.computed.equal('detailType', 'LocalOrder'),
   isGoodCityOrder: Ember.computed.equal('detailType', 'GoodCity'),
 
+  isDraft: Ember.computed.equal("state", "draft"),
+  isSubmitted: Ember.computed.equal("state", "submitted"),
+  isAwaitingDispatch: Ember.computed.equal("state", "awaiting_dispatch"),
+  isClosed: Ember.computed.equal("state", "closed"),
+  isProcessing: Ember.computed.equal("state", "processing"),
+  isCancelled: Ember.computed.equal("state", "cancelled"),
+
   dispatchedItems: Ember.computed('items.@each.sentOn', function() {
     return this.get("items").rejectBy('sentOn', null);
   }),
