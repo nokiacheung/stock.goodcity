@@ -27,6 +27,7 @@ export default searchModule.extend({
 
     setOrder(order) {
       var _this = this;
+      //Don't allow to designate if Order is of type "GoodCity" and is in cancelled or closed state
       if(order && order.get("isGoodCityOrder") && (order.get("isCancelled") || order.get("isClosed"))) {
         _this.get("messageBox").alert(
           _this.get("i18n").t("order_details.cannot_designate_to_gc_order", () => {

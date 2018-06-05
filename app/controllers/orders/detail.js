@@ -45,6 +45,10 @@ export default Ember.Controller.extend({
       this.toggleProperty("displayOrderOptions");
     },
 
+    dispatchOrdersPackagePopUp() {
+      alert("clicked");
+    },
+
     displayAllItems() {
       this.set("displayAllItems", true);
     },

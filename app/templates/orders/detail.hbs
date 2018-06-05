@@ -165,17 +165,3 @@
   </div>
 
 </section>
-
-
-{{#message-box btn1Text="Start Dispatching" btn1Callback=(action 'changeOrderState' model 'start_dispatching') btn2Text="Not Now" isVisible=(is-and (is-equal model.dispatchedOrdersPackages.length 1) model.isAwaitingDispatch) classNames="popupOverlay"}}
-  You have dispatched an Item while Order is still in <b>Awaiting Dispatch</b> state. Would you like to change order state to <b>Dispatching</b>?
-{{/message-box}}
-
-{{#message-box btn1Text="Close Order" btn1Callback=(action 'changeOrderState' model 'close') btn2Text="Not Now" isVisible=(is-and (is-equal model.dispatchedOrdersPackages.length model.ordersPackagesCount) model.isDispatching) classNames="popupOverlay"}}
-  All items in this order are dispatched. Would you like to close the Order?
-{{/message-box}}
-
-{{#message-box btn1Text="Dispatch Later" btn1Callback=(action 'changeOrderState' model 'dispatch_later') btn2Text="Not Now" isVisible=(is-and (is-equal model.designatedOrdersPackages.length model.ordersPackagesCount) model.isDispatching) classNames="popupOverlay"}}
-  This Order is in <b>Dispatching</b> state and all items in this order are designated. Would you like to dispatch the order later?
-{{/message-box}}
-
