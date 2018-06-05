@@ -92,8 +92,8 @@ hr {
   border: none;
   a {
     float: right;
-    i {
-      padding: 1rem;
+    .order-option-ellipsis {
+      padding: 1rem 1rem 0.5rem 1rem;
     }
   }
 }

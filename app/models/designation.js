@@ -18,6 +18,8 @@ export default Model.extend({
   processCompletedById: attr('number'),
   closedAt:             attr('date'),
   closedById:           attr('number'),
+  dispatchStartedAt:    attr('date'),
+  dispatchStartedBy:    attr('number'),
   code:                 attr('string'),
   activity:             attr('string'),
   description:          attr('string'),
@@ -37,6 +39,14 @@ export default Model.extend({
 
   isLocalOrder: Ember.computed.equal('detailType', 'LocalOrder'),
   isGoodCityOrder: Ember.computed.equal('detailType', 'GoodCity'),
+
+  isDraft: Ember.computed.equal("state", "draft"),
+  isSubmitted: Ember.computed.equal("state", "submitted"),
+  isAwaitingDispatch: Ember.computed.equal("state", "awaiting_dispatch"),
+  isDispatching: Ember.computed.equal("state", "dispatching"),
+  isClosed: Ember.computed.equal("state", "closed"),
+  isProcessing: Ember.computed.equal("state", "processing"),
+  isCancelled: Ember.computed.equal("state", "cancelled"),
 
   dispatchedItems: Ember.computed('items.@each.sentOn', function() {
     return this.get("items").rejectBy('sentOn', null);
