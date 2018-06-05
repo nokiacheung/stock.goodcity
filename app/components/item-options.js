@@ -17,12 +17,12 @@ export default Ember.Component.extend({
     return designation && !designation.get("isDispatching") && designation.get("allDesignatedOrdersPackages");
   },
 
-  genericCustomPopUp(message, button1text, button2text, methodname, param1, param2) {
+  genericCustomPopUp(message, button1text, button2text, btn1CallBack) {
     var _this = this;
     _this.get("messageBox").custom(
       _this.get("i18n").t(message),
       _this.get("i18n").t(button1text),
-      () => { this.send(methodname, param1, param2); },
+      () => { btn1CallBack(); },
       _this.get("i18n").t(button2text),
       () => { this.set("hidden", true); }
       );
@@ -42,10 +42,10 @@ export default Ember.Component.extend({
           });
       } else if(this.canDispatchOrder(designation)) {
         //Change state of order to Dispatching if first item dispatched and order is in awaiting dispatch state
-        this.genericCustomPopUp("order_details.first_item_dispatch_warning", "item.cap_dispatch", "not_now", "apiRequests", item, designation);
+        this.genericCustomPopUp("order_details.first_item_dispatch_warning", "item.cap_dispatch", "not_now", function() { _this.send("apiRequests", item, designation); });
       } else {
         //If order is in dispatching state and one item is already dispatched then show dispatch confirmation pop-up
-        this.genericCustomPopUp("item.dispatch_message", "item.cap_dispatch", "not_now", "apiRequests", item, designation);
+        this.genericCustomPopUp("item.dispatch_message", "item.cap_dispatch", "not_now", function() { _this.send("apiRequests", item, designation); });
       }
     },
 
@@ -90,7 +90,8 @@ export default Ember.Component.extend({
     },
 
     closeOrderPoUp(designation) {
-      this.genericCustomPopUp("order_details.close_order_popup", "order.close_order", "not_now", "changeOrderState", designation, "close");
+      var _this = this;
+      this.genericCustomPopUp("order_details.close_order_popup", "order.close_order", "not_now", function() { _this.send("changeOrderState", designation, "close"); });
     },
 
     changeOrderState(order, transition) {
