@@ -139,8 +139,8 @@
     </div>
   </div>
 
-  {{#unless model.isInactive}}
-    <div class="row add_item_button" style={{if (is-or model.isCancelled model.isClosed) "pointer-events:none;" ''}}>
+  {{#unless (is-or (is-or model.isInactive model.isCancelled) model.isClosed)}}
+    <div class="row add_item_button">
       <div class=" {{if isMobileApp 'small-9' 'small-12'}} columns">
           {{#link-to "orders.items" model (query-params searchInput="") class="button expand"}}{{t "order_details.add_item_to_order"}}{{/link-to}}
       </div>
@@ -158,10 +158,24 @@
 
   <div class="row show_more" >
     {{#unless displayAllItems}}
-      <div class="small-12 columns" {{action "displayAllItems"}} style={{if model.isCancelled "pointer-events:none;" ''}}>
+      <div class="small-12 columns" {{action "displayAllItems"}}>
         {{t "order_details.show_more_items"}} <i class="fa fa-angle-down back_icon" aria-hidden="true"></i>
       </div>
     {{/unless}}
   </div>
 
 </section>
+
+
+{{#message-box btn1Text="Start Dispatching" btn1Callback=(action 'changeOrderState' model 'start_dispatching') btn2Text="Not Now" isVisible=(is-and (is-equal model.dispatchedOrdersPackages.length 1) model.isAwaitingDispatch) classNames="popupOverlay"}}
+  You have dispatched an Item while Order is still in <b>Awaiting Dispatch</b> state. Would you like to change order state to <b>Dispatching</b>?
+{{/message-box}}
+
+{{#message-box btn1Text="Close Order" btn1Callback=(action 'changeOrderState' model 'close') btn2Text="Not Now" isVisible=(is-and (is-equal model.dispatchedOrdersPackages.length model.ordersPackagesCount) model.isDispatching) classNames="popupOverlay"}}
+  All items in this order are dispatched. Would you like to close the Order?
+{{/message-box}}
+
+{{#message-box btn1Text="Dispatch Later" btn1Callback=(action 'changeOrderState' model 'dispatch_later') btn2Text="Not Now" isVisible=(is-and (is-equal model.designatedOrdersPackages.length model.ordersPackagesCount) model.isDispatching) classNames="popupOverlay"}}
+  This Order is in <b>Dispatching</b> state and all items in this order are designated. Would you like to dispatch the order later?
+{{/message-box}}
+

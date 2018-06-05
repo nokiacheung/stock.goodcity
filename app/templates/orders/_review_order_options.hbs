@@ -19,6 +19,15 @@
     </div>
   {{/if}}
 
+  {{#if model.isDispatching}}
+    <div class="option_menu">
+      <a {{action "updateOrder" model "dispatch_later"}}>
+        <i class="order_menu fa fa-repeat"></i>
+        {{t "order.dispatch_later"}}
+      </a>
+    </div>
+  {{/if}}
+
   {{#if model.isCancelled}}
     <div class="option_menu">
       <a {{action "updateOrder" model "resubmit"}}>

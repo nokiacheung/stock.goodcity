@@ -55,7 +55,6 @@ export default Ember.Controller.extend({
           this.send("changeOrderState", order, "cancel");
           break;
         case "start_processing":
-          this.set("isOrderProcessRestarted", false);
           this.send("changeOrderState", order, actionName);
           break;
         case "resubmit":
@@ -67,6 +66,9 @@ export default Ember.Controller.extend({
         case "restart_process":
           this.send("promptRestartProcessModel", order, actionName);
           break;
+        case "dispatch_later":
+          this.send("dispatchLaterModel", order, actionName);
+          break;
         case "cancel":
           this.send("promptCancelOrderModel", order, actionName);
           break;
@@ -75,6 +77,21 @@ export default Ember.Controller.extend({
           break;
         default:
           this.send("changeOrderState", order, actionName);
+      }
+    },
+
+    dispatchLaterModel(order, actionName) {
+      var _this = this;
+      if(!order.get('allDesignatedOrdersPackages')) {
+        this.get("messageBox").alert(_this.get("i18n").t("order_details.dispatch_later_undispatch_warning"));
+        this.send("toggleDisplayOptions");
+      } else {
+        this.get("messageBox").custom(
+          _this.get("i18n").t("order_details.dispatch_later_warning"),
+          _this.get("i18n").t("order.dispatch_later"),
+          () => { this.send("changeOrderState", order, actionName); },
+          _this.get("i18n").t("not_now"),
+          () => { this.send("toggleDisplayOptions"); });
       }
     },
 
@@ -91,17 +108,12 @@ export default Ember.Controller.extend({
 
     promptReopenModel(order, actionName) {
       var _this = this;
-      if(!order.get('allDesignatedOrdersPackages')) {
-        this.get("messageBox").alert(_this.get("i18n").t("order_details.reopen_undispatch_warning"));
-        this.send("toggleDisplayOptions");
-      } else {
-        this.get("messageBox").custom(
-          _this.get("i18n").t("order_details.reopen_warning"),
-          _this.get("i18n").t("order.reopen_order"),
-          () => { this.send("changeOrderState", order, actionName); },
-          _this.get("i18n").t("not_now"),
-          () => { this.send("toggleDisplayOptions"); });
-      }
+      this.get("messageBox").custom(
+        _this.get("i18n").t("order_details.reopen_warning"),
+        _this.get("i18n").t("order.reopen_order"),
+        () => { this.send("changeOrderState", order, actionName); },
+        _this.get("i18n").t("not_now"),
+        () => { this.send("toggleDisplayOptions"); });
     },
 
     toggleDisplayOptions() {
@@ -152,6 +164,9 @@ export default Ember.Controller.extend({
       var loadingView = getOwner(this).lookup('component:loading').append();
       new AjaxPromise(url, "PUT", this.get('session.authToken'), { transition: transition })
         .then(data => {
+          if("transition" === "restart_process") {
+            this.set("isOrderProcessRestarted", false);
+          }
           this.send("toggleDisplayOptions");
           data["designation"] = data["order"];
           this.get("store").pushPayload(data);

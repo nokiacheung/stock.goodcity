@@ -13,6 +13,8 @@
             {{t "order.cancelled"}}, {{display-datetime model.cancelledAt format="DD MMM 'YY"}}
           {{else if (is-equal model.capitalizedState "Closed")}}
             {{t "order.closed"}}, {{display-datetime model.closedAt format="DD MMM 'YY"}}
+          {{else if (is-equal model.capitalizedState "Dispatching")}}
+            {{t "order.dispatching"}}, {{display-datetime model.dispatchStartedAt format="DD MMM 'YY"}}
           {{/if}}
         </div>
       </div>
@@ -36,6 +38,13 @@
           <button {{action 'updateOrder' model 'cancel'}} disabled={{if model.allDesignatedOrdersPackages false 'disabled'}} class="button expand">{{t "order.cancel_order"}}</button>
         </div>
       {{else if (is-equal model.capitalizedState "Awaiting_dispatch")}}
+        <div class="small-6 medium-6 large-6 columns">
+          <button {{action 'updateOrder' model 'start_dispatching'}} class="button expand">{{t "order.start_dispatching"}}</button>
+        </div>
+        <div class='small-6 medium-6 large-6 columns'>
+          <button {{action 'updateOrder' model 'cancel'}} disabled={{if model.allDesignatedOrdersPackages false 'disabled'}}  class="button expand">{{t "order.cancel_order"}}</button>
+        </div>
+      {{else if (is-equal model.capitalizedState "Dispatching")}}
         <div class="small-6 medium-6 large-6 columns">
           <button {{action 'updateOrder' model 'close'}} disabled={{if model.allDispatchedOrdersPackages false 'disabled'}} class="button expand">{{t "order.close_order"}}</button>
         </div>

@@ -1,4 +1,4 @@
-<div class="row item_block" style={{if model.isCancelled "pointer-events:none;" ''}}>
+<div class="row item_block" style={{if (is-or model.isCancelled model.isClosed) "pointer-events:none;" ''}}>
 
   <div class="row dispatch_details {{if (is-equal ordersPackage.state 'dispatched') 'dispatched'}} {{if (is-equal ordersPackage.state 'designated') 'designated'}} {{if (is-greater ordersPackage.item.designatedItemCount 1) 'designated'}}">
     <div class="small-3 columns">
