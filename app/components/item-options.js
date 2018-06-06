@@ -8,7 +8,6 @@ export default Ember.Component.extend({
   i18n: Ember.inject.service(),
   store: Ember.inject.service(),
 
-
   canDispatchItems(designation) {
     return designation && (designation.get("isDraft") || designation.get("isSubmitted") || designation.get("isProcessing"));
   },
