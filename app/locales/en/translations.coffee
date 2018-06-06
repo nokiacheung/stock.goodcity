@@ -57,6 +57,7 @@ I18nTranslationsEn =
     "submitted": "Submitted:"
     "order": "Order:"
     "show_more_items": "Show more items"
+    "complete_process_warning": "You need to complete processing the Order first before dispatching."
     "cannot_designate_to_gc_order": "This GoodCity Order is either in cancelled or closed state. You can't designate item to this order."
     "add_item_to_order": "Add an item to this order"
     "resubmit_order_warning": "Resubmitting an Order will set order state to submitted. Are you sure you want to resubmit the order?"
@@ -68,6 +69,8 @@ I18nTranslationsEn =
     "restart_warning": "Are you sure you want to process the order again?"
     "cancel_warning": "This will remove all items from the order and cancel the order."
     "close_warning": "You will not be able to modify the order after closing it."
+    "first_item_dispatch_warning": "You are dispatching first Item in the Order. This will also change state of the Order to dispatching."
+    "close_order_popup": "All items in this order are dispatched. Would you like to close the Order? You will not be able to modify the order after closing it."
 
   "order":
     "submitted": "Submitted"
@@ -91,6 +94,7 @@ I18nTranslationsEn =
     "designate_partial": "Designate"
     "partial_designate": "partial designate"
     "dispatch": "dispatch"
+    "cap_dispatch": "Dispatch Item"
     "undispatch": "undispatch"
     "undesignate": "un-designate"
     "partial_undesignate": "Un-designate"
@@ -104,6 +108,7 @@ I18nTranslationsEn =
     "max_undesignate": "From: {{code}}<br/>Quantity: {{qty}}"
     "already_dispatched": "All designated Items are already dispatched"
     "multiple": "Multiple"
+    "dispatch_message": "Are you sure you want to dispatch this Item?"
 
   "designate":
     "modify_designation": "Cancels the designation to order {{code}}"

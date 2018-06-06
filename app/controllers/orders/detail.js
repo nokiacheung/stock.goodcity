@@ -40,6 +40,23 @@ export default Ember.Controller.extend({
     return this.get("displayAllItems") ? ordersPackages : ordersPackages.slice(0, 3);
   }),
 
+  genericCustomPopUp(message, button1text, button2text, btn1Callback) {
+    var _this = this;
+    _this.get("messageBox").custom(
+      _this.get("i18n").t(message),
+      _this.get("i18n").t(button1text),
+      () => { btn1Callback(); },
+      _this.get("i18n").t(button2text),
+      () => { this.send("toggleDisplayOptions"); });
+  },
+
+  genericAlertPopUp(message, btn1Callback) {
+    var _this = this;
+    this.get("messageBox").alert(_this.get("i18n").t(message),
+      () => { btn1Callback(); }
+      );
+  },
+
   actions: {
     toggleOrderOptions() {
       this.toggleProperty("displayOrderOptions");
@@ -83,37 +100,20 @@ export default Ember.Controller.extend({
     dispatchLaterModel(order, actionName) {
       var _this = this;
       if(!order.get('allDesignatedOrdersPackages')) {
-        this.get("messageBox").alert(_this.get("i18n").t("order_details.dispatch_later_undispatch_warning"));
-        this.send("toggleDisplayOptions");
+        this.genericAlertPopUp("order_details.dispatch_later_undispatch_warning", function() { _this.send("toggleDisplayOptions"); });
       } else {
-        this.get("messageBox").custom(
-          _this.get("i18n").t("order_details.dispatch_later_warning"),
-          _this.get("i18n").t("order.dispatch_later"),
-          () => { this.send("changeOrderState", order, actionName); },
-          _this.get("i18n").t("not_now"),
-          () => { this.send("toggleDisplayOptions"); });
+        this.genericCustomPopUp("order_details.dispatch_later_warning", "order.dispatch_later", "not_now", function() { _this.send("changeOrderState", order, actionName); });
       }
     },
 
     promptResubmitModel(order, actionName) {
       var _this = this;
-      this.get("messageBox").custom(
-        _this.get("i18n").t("order_details.resubmit_order_warning"),
-        _this.get("i18n").t("order.resubmit"),
-        () => { this.send("changeOrderState", order, actionName); },
-        _this.get("i18n").t("not_now"),
-        () => { this.send("toggleDisplayOptions"); }
-        );
+      this.genericCustomPopUp("order_details.resubmit_order_warning", "order.resubmit", "not_now", function() { _this.send("changeOrderState", order, actionName); });
     },
 
     promptReopenModel(order, actionName) {
       var _this = this;
-      this.get("messageBox").custom(
-        _this.get("i18n").t("order_details.reopen_warning"),
-        _this.get("i18n").t("order.reopen_order"),
-        () => { this.send("changeOrderState", order, actionName); },
-        _this.get("i18n").t("not_now"),
-        () => { this.send("toggleDisplayOptions"); });
+      this.genericCustomPopUp("order_details.reopen_warning", "order.reopen_order", "not_now", function() { _this.send("changeOrderState", order, actionName); });
     },
 
     toggleDisplayOptions() {
@@ -125,38 +125,20 @@ export default Ember.Controller.extend({
     promptRestartProcessModel(order, actionName) {
       var _this = this;
       if(!order.get('allDesignatedOrdersPackages')) {
-        this.get("messageBox").alert(_this.get("i18n").t("order_details.restart_undispatch_warning"));
-        this.send("toggleDisplayOptions");
+        this.genericAlertPopUp("order_details.restart_undispatch_warning", function() { _this.send("toggleDisplayOptions"); });
       } else {
-        this.get("messageBox").custom(_this.get("i18n").t("order_details.restart_warning"),
-          _this.get("i18n").t("order.restart_process"),
-          () => {
-            this.set("isOrderProcessRestarted", true);
-            this.send('changeOrderState', order, actionName);
-          },
-          _this.get("i18n").t("not_now"),
-          () => { this.send("toggleDisplayOptions"); });
+        this.genericCustomPopUp("order_details.restart_warning", "order.restart_process", "not_now", function() { _this.set("isOrderProcessRestarted", true); _this.send("changeOrderState", order, actionName); });
       }
     },
 
     promptCancelOrderModel(order, actionName) {
       var _this = this;
-      this.get("messageBox").custom(
-        _this.get("i18n").t("order_details.cancel_warning"),
-        _this.get("i18n").t("order.cancel_order"),
-        () => { this.send("changeOrderState", order, actionName); },
-        _this.get("i18n").t("not_now"),
-        () => { this.send("toggleDisplayOptions"); });
+      this.genericCustomPopUp("order_details.cancel_warning", "order.cancel_order", "not_now", function() { _this.send("changeOrderState", order, actionName); });
     },
 
     promptCloseOrderModel(order, actionName) {
       var _this = this;
-      this.get("messageBox").custom(
-        _this.get("i18n").t("order_details.close_warning") ,
-        _this.get("i18n").t("order.close_order"),
-        () => { this.send("changeOrderState", order, actionName); },
-        _this.get("i18n").t("not_now"),
-        () => { this.send("toggleDisplayOptions"); });
+      this.genericCustomPopUp("order_details.close_warning", "order.close_order", "not_now", function() { _this.send("changeOrderState", order, actionName); });
     },
 
     changeOrderState(order, transition) {
