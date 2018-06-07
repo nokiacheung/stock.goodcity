@@ -1,7 +1,8 @@
 import Ember from "ember";
 const { getOwner } = Ember;
+import singletonItemDispatchToGcOrder from '../mixins/singleton_item_dispatch_to_gc_order';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(singletonItemDispatchToGcOrder, {
   hidden: true,
   item: null,
   designateFullSet: Ember.computed.localStorage(),
@@ -30,6 +31,7 @@ export default Ember.Component.extend({
         return true;
       }
     },
+
     partialDesignateForSet() {
       this.set('designateFullSet', false);
       getOwner(this).lookup('controller:items.detail').set('callOrderObserver', true);

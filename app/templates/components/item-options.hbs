@@ -11,12 +11,12 @@
   {{#if (is-equal ordersPackage.state "dispatched")}}
     {{undispatch-item item=item package=ordersPackage closeList=closeList }}
   {{else}}
-    {{#if item.isSingletonItem}}
+    {{#if (is-and item.isSingletonItem order.isGoodCityOrder)}}
       <div>
         <a href="#" {{action 'dispatchOrdersPackagePopUp' item}} >
           <i class="fa item-menu fa-ship"></i>
           {{t "item.dispatch"}}
-        </a>
+      </a>
       </div>
     {{else}}
       {{#link-to 'items.partial_dispatch' item.id (query-params orderPackageId=ordersPackage.id) tagName='div' href=false}}

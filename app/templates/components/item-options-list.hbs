@@ -1,4 +1,4 @@
-<div class="options-link-open {{item.id}} {{if hidden '' 'hidden'}}" {{action "toggle" false}}>
+<div class="options-link-open {{item.id}} {{if hidden '' 'hidden'}}" {{action "toggle" false}} style={{if (is-or ite.designation.isCancelled item.designation.isClosed) "pointer-events:none;" ''}}>
   <i class="fa fa-angle-left"></i>
 </div>
 
@@ -32,10 +32,19 @@
   </div>
 
   <div class="{{unless item.isSingletonItem 'disabled'}} {{unless item.hasOneDesignatedPackage 'disabled'}}">
-    {{#link-to 'items.partial_dispatch' item.id (query-params orderPackageId=item.firstDesignatedOrdersPackage.id) tagName='div' href=false}}
-      <i class="fa item-menu fa-ship"></i>
-      {{t "item.dispatch"}}
-    {{/link-to}}
+    {{#if (is-and item.isSingletonItem item.designation.isGoodCityOrder)}}
+      <div>
+        <a href="#" {{action 'dispatchOrdersPackagePopUp' item}} >
+          <i class="fa item-menu fa-ship"></i>
+          {{t "item.dispatch"}}
+        </a>
+      </div>
+    {{else}}
+      {{#link-to 'items.partial_dispatch' item.id (query-params orderPackageId=item.firstDesignatedOrdersPackage.id) tagName='div' href=false}}
+        <i class="fa item-menu fa-ship"></i>
+        {{t "item.dispatch"}}
+      {{/link-to}}
+    {{/if}}
   </div>
 
   {{#print-label item=item closeList=(action 'toggle' true)}}
