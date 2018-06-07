@@ -1,4 +1,4 @@
-<div class="options-link-open {{item.id}} {{if hidden '' 'hidden'}}" {{action "toggle" false}} style={{if (is-or item.designation.isCancelled item.designation.isClosed) "pointer-events:none;" ''}}>
+<div class="{{if (is-or item.designation.isCancelled item.designation.isClosed) "disable-pointer-events" ''}} options-link-open {{item.id}} {{if hidden '' 'hidden'}}" {{action "toggle" false}}>
   <i class="fa fa-angle-left"></i>
 </div>
 
