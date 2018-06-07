@@ -31,11 +31,19 @@
         {{#unless model.isSet}}
           {{#if (is-and item.hasOneDesignatedPackage (is-not model.hasAllPackagesDispatched))}}
             <div class="{{unless item.hasOneDesignatedPackage 'disabled'}}">
-              {{#link-to 'items.partial_dispatch' item.id (query-params orderPackageId=model.firstDesignatedOrdersPackage.id) tagName='div' href=false}}
-                <span class="no-avatar">
-                  <i class="fa fa-ship" aria-hidden="true"></i>
-                </span>
-              {{/link-to}}
+              {{#if (is-and model.isSingletonItem model.designation.isGoodCityOrder)}}
+                <div class="no-avatar">
+                  <a href="#" {{action 'dispatchOrdersPackagePopUp' model}} >
+                    <i class="fa item-menu fa-ship"></i>
+                  </a>
+                </div>
+              {{else}}
+                {{#link-to 'items.partial_dispatch' item.id (query-params orderPackageId=model.firstDesignatedOrdersPackage.id) tagName='div' href=false}}
+                  <span class="no-avatar">
+                    <i class="fa fa-ship" aria-hidden="true"></i>
+                  </span>
+                {{/link-to}}
+              {{/if}}
             </div>
           {{/if}}
         {{/unless}}

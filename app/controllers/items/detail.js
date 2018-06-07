@@ -1,7 +1,8 @@
 import Ember from "ember";
 import config from '../../config/environment';
+import singletonItemDispatchToGcOrder from '../../mixins/singleton_item_dispatch_to_gc_order';
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(singletonItemDispatchToGcOrder, {
   isMobileApp: config.cordova.enabled,
   item: Ember.computed.alias("model"),
   backLinkPath: "",
