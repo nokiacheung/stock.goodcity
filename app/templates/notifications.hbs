@@ -1,0 +1,21 @@
+{{#if session.isLoggedIn}}
+  {{#init-foundation className="notification"}}
+    {{#notification-bar currentController=this}}
+      <div class="contain-to-grid sticky notification">
+        <nav class="top-bar" data-topbar role="navigation">
+          <div class="row">
+            <a {{action 'view'}} class='notification_box'>
+              {{#if (js-x "this.category != 'message'" nextNotification)}}
+                <div class="small-12 large-12 columns">
+                  <div class="notification-text ellipsis one-line-ellipsis">
+                    {{nextNotification.message}}
+                  </div>
+                </div>
+              {{/if}}
+            </a>
+          </div>
+        </nav>
+      </div>
+    {{/notification-bar}}
+  {{/init-foundation}}
+{{/if}}
