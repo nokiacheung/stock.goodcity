@@ -12,6 +12,8 @@ export default Ember.Controller.extend({
   actions: {
     logMeOut() {
       this.session.clear(); // this should be first since it updates isLoggedIn status
+      this.get('subscriptions').send('unwire');
+      this.get('subscriptions').send('unloadNotifications');
       this.get('store').unloadAll();
       this.transitionToRoute('login');
     }
