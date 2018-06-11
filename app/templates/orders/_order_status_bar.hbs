@@ -64,9 +64,3 @@
     </div>
   {{/if}}
 </div>
-
-{{#if model.isGoodCityOrder}}
-  {{#message-box btn1Text="Cancel Order" btn1Callback=(action 'updateOrder' model 'messagePopUp') btn2Text="Not Now" isVisible=(is-and (is-not model.ordersPackagesCount) (is-not model.isCancelled)) classNames="popupOverlay"}}
-    This Order does not have any requested items. You can either add items or cancel the order.
-  {{/message-box}}
-{{/if}}

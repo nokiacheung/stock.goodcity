@@ -71,6 +71,7 @@ I18nTranslationsEn =
     "close_warning": "You will not be able to modify the order after closing it."
     "first_item_dispatch_warning": "You are dispatching first Item in the Order. This will also change state of the Order to dispatching."
     "close_order_popup": "All items in this order are dispatched. Would you like to close the Order? You will not be able to modify the order after closing it."
+    "cancel_item_designate_warning": "This will also change state of the Order to processing from cancelled. Are you sure you want to designate?"
 
   "order":
     "submitted": "Submitted"
@@ -120,6 +121,7 @@ I18nTranslationsEn =
     "already_partially_designated": "Already {{qty}} items are designated to {{code}}, do you still want to designate {{partial_qty}} more?"
     "partial_designate_title": "Designates {{partial_qty}} quantity to order {{code}}"
     "cannot_designate": "There are partial items already designated to order {{code}} or order {{code}} is in cancelled state. Use Partial Designate feature to designate more."
+    "redesignate": "Are you sure you want to re-designate this Item to this Order?"
 
   "undesignate":
     "form_title": "Remove this item from order {{code}}"

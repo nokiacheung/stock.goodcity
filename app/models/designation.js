@@ -87,6 +87,10 @@ export default Model.extend({
     return this.get("ordersPackages").filterBy('state', "dispatched");
   }),
 
+  cancelledOrdersPackages: Ember.computed('ordersPackages.@each.state', function() {
+    return this.get("ordersPackages").filterBy('state', "cancelled");
+  }),
+
   designatedItems: Ember.computed('items.@each.sentOn', function() {
     return this.get("items").filterBy('sentOn', null);
   }),

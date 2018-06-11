@@ -40,6 +40,11 @@ export default Ember.Controller.extend({
     return this.get("displayAllItems") ? ordersPackages : ordersPackages.slice(0, 3);
   }),
 
+  cancelledOrdersPackages: Ember.computed('model.items', 'displayAllItems', "model.ordersPackages", "model.ordersPackages.@each.quantity", function () {
+    var ordersPackages = this.get("model.ordersPackages").filterBy("state", "cancelled");
+    return this.get("displayAllItems") ? ordersPackages : ordersPackages.slice(0, 3);
+  }),
+
   genericCustomPopUp(message, button1text, button2text, btn1Callback) {
     var _this = this;
     _this.get("messageBox").custom(
