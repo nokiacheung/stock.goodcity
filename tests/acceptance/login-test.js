@@ -14,7 +14,7 @@ module('Acceptance: Login', {
     App = startApp({}, 2);
 
     var location = FactoryGuy.make("location");
-    var designation = FactoryGuy.make("designation", { state: "closed" });
+    var designation = FactoryGuy.make("designation");
     mockFindAll('designation').returns({json: {designations: [designation.toJSON({includeId: true})]}});
     mockFindAll('location').returns({json: {locations: [location.toJSON({includeId: true})]}});
     var data = {"user_profile": [{"id": 2,"first_name": "David", "last_name": "Dara51", "mobile": "61111111", "user_role_ids": [1]}], "users": [{"id": 2,"first_name": "David", "last_name": "Dara51", "mobile": "61111111"}], "roles": [{"id": 4, "name": "Supervisor"}], "user_roles": [{"id": 1, "user_id": 2, "role_id": 4}]};

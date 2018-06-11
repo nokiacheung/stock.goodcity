@@ -14,7 +14,7 @@ module('Acceptance: Item inline edit', {
   beforeEach: function() {
     App = startApp({}, 2);
     var location = FactoryGuy.make("location");
-    var designation = FactoryGuy.make("designation", { state: "closed" });
+    var designation = FactoryGuy.make("designation");
     pkg = FactoryGuy.make("item", { id: 50, state: "submitted" , quantity: 1, height: 10, width: 15, length: 20, notes: "Inline edit test" });
     mockFindAll('designation').returns({json: {designations: [designation.toJSON({includeId: true})]}});
     mockFindAll('location').returns({json: {locations: [location.toJSON({includeId: true})]}});

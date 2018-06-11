@@ -16,6 +16,7 @@ FactoryGuy.define('designation', {
     code:               FactoryGuy.generate('code'),
     detailType:         'StockitLocalOrder',
     status:             'Active',
+    state:              'submitted',
     createdAt:          '12/07/2016',
     updatedAt:          '12/07/2016',
     purposeDescription: 'Test',

@@ -16,8 +16,8 @@
 //     App = startApp({}, 2);
 //     TestHelper.setup();
 //     var location = FactoryGuy.make("location");
-//     designation = FactoryGuy.make("designation", { state: "closed" });
-//     designation1 = FactoryGuy.make("designation", { state: "closed" });
+//     designation = FactoryGuy.make("designation");
+//     designation1 = FactoryGuy.make("designation");
 //     item = FactoryGuy.make("item", { state: "submitted", quantity: 10 });
 //     pkg1 = FactoryGuy.make("item", { state: "submitted", quantity: 0 });
 //     pkg2 = FactoryGuy.make("item", { state: "submitted", quantity: 5 });
