@@ -135,7 +135,7 @@
   <div class="row">
     <div class="small-12 columns item_count">
       <span>{{t "order_details.items"}}</span>
-      ({{model.designatedOrdersPackages.length}} Designated, {{model.dispatchedOrdersPackages.length}} Dispatched)
+      ({{model.designatedOrdersPackages.length}} Designated, {{model.dispatchedOrdersPackages.length}} Dispatched, {{model.cancelledOrdersPackages.length}} Cancelled)
     </div>
   </div>
 
@@ -152,9 +152,15 @@
     </div>
   {{/unless}}
 
-  {{#each itemsList as |ordersPackage|}}
-    {{partial "orders/orders_packages"}}
-  {{/each}}
+  {{#if (is-and model.isGoodCityOrder model.isCancelled)}}
+    {{#each cancelledOrdersPackages as |ordersPackage|}}
+      {{partial "orders/cancelled_orders_packages"}}
+    {{/each}}
+  {{else}}
+    {{#each itemsList as |ordersPackage|}}
+      {{partial "orders/orders_packages"}}
+    {{/each}}
+  {{/if}}
 
   <div class="row show_more" >
     {{#unless displayAllItems}}
