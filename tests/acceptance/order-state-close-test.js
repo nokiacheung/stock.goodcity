@@ -12,7 +12,7 @@ var App, order3, order4, item, item1,
     orders_package, orders_package1, orders_package2, orders_package3,
     item2, item3;
 
-module('Acceptance: Order State workflow', {
+module('Acceptance: Order State closed', {
   beforeEach: function() {
     App = startApp({}, 2);
     order3 = FactoryGuy.make("designation", { state: "dispatching", detailType: "GoodCity", code: "GC-00001" });

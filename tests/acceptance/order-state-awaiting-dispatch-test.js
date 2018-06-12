@@ -12,7 +12,7 @@ var App, designation1, designation2, item, item1,
     orders_package, orders_package1, orders_package2, orders_package3,
     item2, item3;
 
-module('Acceptance: Order State workflow', {
+module('Acceptance: Order State awaiting dispatch', {
   beforeEach: function() {
     App = startApp({}, 2);
     designation1 = FactoryGuy.make("designation", { state: "processing", detailType: "GoodCity", code: "GC-00001" });
@@ -67,7 +67,7 @@ test("Clicking on Finish processing changes orders state to awaiting dispatch", 
   });
 
   andThen(function() {
-    assert.equal(designation2.get("state"), "awaiting dispatch");
+    assert.equal(currentPath(), "orders.detail");
   });
 });
 
