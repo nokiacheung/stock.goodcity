@@ -60,17 +60,21 @@
       <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
     <preference name="Orientation" value="portrait"/>
-    <preference name="Fullscreen" value="true" />
+    <preference name="Fullscreen" value="true"/>
+    <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge" overwrite="true">
+      <string>to enable you to read inventory barcodes and photograph inventory items.</string>
+    </edit-config>
   </platform>
-  <engine name="ios" spec="~4.2.0" />
+  <engine name="ios" spec="4.2.0" />
   <engine name="android" spec="~5.1.1" />
   <engine name="windows" spec="~4.3.1" />
   <plugin name="cordova-plugin-statusbar" spec="~2.1.1" />
   <plugin name="cordova-plugin-actionsheet" spec="https://github.com/EddyVerbruggen/cordova-plugin-actionsheet.git"/>
   <plugin name="cordova-plugin-camera" spec="~2.1.0"/>
+  <plugin name="cordova-plugin-network-information" spec="~1.2.0"/>
   <plugin name="cordova-plugin-device" spec="~1.1.1"/>
   <plugin name="cordova-plugin-whitelist" spec="~1.2.1" />
   <plugin name="cordova-plugin-splashscreen" spec="~3.1.0"/>
-  <plugin name="phonegap-plugin-barcodescanner" spec="https://github.com/Telerik-Verified-Plugins/BarcodeScanner.git"/>
+  <plugin name="phonegap-plugin-barcodescanner" spec="https://github.com/wildabeast/BarcodeScanner.git"/>
   <plugin name="com-sarriaroman-PhotoViewer" spec="https://github.com/sarriaroman/photoviewer.git"/>
 </widget>
