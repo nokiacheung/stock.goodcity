@@ -61,7 +61,7 @@
     </feature>
     <preference name="Orientation" value="portrait"/>
     <preference name="Fullscreen" value="true"/>
-    <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
+    <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge" overwrite="true">
       <string>So you can photograph items for donation.</string>
     </edit-config>
   </platform>
