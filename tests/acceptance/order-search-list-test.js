@@ -12,7 +12,7 @@
 // module('Acceptance: Order search list', {
 //   beforeEach: function() {
 //     App = startApp({}, 2);
-//     designation = FactoryGuy.make("designation", { state: "closed" });
+//     designation = FactoryGuy.make("designation");
 //     item = FactoryGuy.make("item", { state: "submitted" });
 //     item1 = FactoryGuy.make("item", { state: "submitted" });
 //     orders_package = FactoryGuy.make("orders_package", { state: "designated", item: item, designation: designation });

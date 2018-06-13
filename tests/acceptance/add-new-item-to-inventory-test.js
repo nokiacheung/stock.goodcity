@@ -20,7 +20,7 @@ module('Acceptance: Add item to inventory', {
       responseText: data });
     location1 = FactoryGuy.make("location");
     location2 = FactoryGuy.make("location");
-    designation = FactoryGuy.make("designation", { state: "closed" });
+    designation = FactoryGuy.make("designation");
     mockFindAll('designation').returns({json: {designations: [designation.toJSON({includeId: true})]}});
     mockFindAll('location').returns({json: {locations: [location2.toJSON({includeId: true})], meta: {search: location2.get('building').toString()}}});
     code = FactoryGuy.make("code", {location: location1});

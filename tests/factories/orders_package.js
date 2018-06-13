@@ -14,6 +14,13 @@ FactoryGuy.define('orders_package',{
     designationId:   '',
     item:            FactoryGuy.belongsTo('item'),
     designation:     FactoryGuy.belongsTo('designation')
+  },
+  cancelled_orders_package: {
+    id:              FactoryGuy.generate('id'),
+    quantity:        1,
+    state:           'cancelled',
+    item:            FactoryGuy.belongsTo('item'),
+    designation:     FactoryGuy.belongsTo('designation')
   }
 });
 export default {};

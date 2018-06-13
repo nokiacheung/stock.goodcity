@@ -15,7 +15,7 @@
 //   beforeEach: function() {
 //     App = startApp({}, 2);
 //     TestHelper.setup();
-//     designation = FactoryGuy.make("designation", { state: "closed" });
+//     designation = FactoryGuy.make("designation");
 //     item1 = FactoryGuy.make("item", { state: "submitted", quantity: 10 , designation: designation});
 //     orders_package1 = FactoryGuy.make("orders_package", { state: "dispatched", quantity: 4, item: item1, designation: designation });
 
