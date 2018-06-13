@@ -22,10 +22,10 @@ module('Acceptance: Order resubmit', {
     item1 = FactoryGuy.make("item", { state: "submitted", quantity: 1 , designation: order6});
     item2 = FactoryGuy.make("item", { state: "submitted" , quantity: 1, designation: order7});
     item3 = FactoryGuy.make("item", { state: "submitted", quantity: 1 , designation: order7});
-    orders_package = FactoryGuy.make("orders_package", { state: "cancelled", quantity: 1, item: item, designation: order6 });
-    orders_package1 = FactoryGuy.make("orders_package", { state: "cancelled", quantity: 1, item: item1, designation: order6 });
-    orders_package2 = FactoryGuy.make("orders_package", { state: "cancelled", quantity: 1, item: item2, designation: order7 });
-    orders_package3 = FactoryGuy.make("orders_package", { state: "cancelled", quantity: 1, item: item3, designation: order7 });
+    orders_package = FactoryGuy.make("cancelled_orders_package", { item: item, designation: order6 });
+    orders_package1 = FactoryGuy.make("cancelled_orders_package", { item: item1, designation: order6 });
+    orders_package2 = FactoryGuy.make("cancelled_orders_package", { item: item2, designation: order7 });
+    orders_package3 = FactoryGuy.make("cancelled_orders_package", { item: item3, designation: order7 });
     var data = {"user_profile": [{"id": 2,"first_name": "David", "last_name": "Dara51", "mobile": "61111111", "user_role_ids": [1]}], "users": [{"id": 2,"first_name": "David", "last_name": "Dara51", "mobile": "61111111"}], "roles": [{"id": 4, "name": "Supervisor"}], "user_roles": [{"id": 1, "user_id": 2, "role_id": 4}]};
 
     $.mockjax({url:"/api/v1/auth/current_user_profil*",
