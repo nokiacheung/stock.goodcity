@@ -18,7 +18,7 @@ platform :ios do
   lane :beta do
     raise_if_no_env_var(["APP_VERSION", "PILOT_USERNAME", "PILOT_IPA", "PILOT_TESTER_EMAIL", "ITUNESCONNECT_PASSWORD"])
     version_number = ENV["APP_VERSION"]
-    sh %{ source ~/.circlerc; fastlane fastlane-credentials add --username $PILOT_USERNAME --password $ITUNESCONNECT_PASSWORD }
+    sh %{ source ~/.circlerc; bundle exec fastlane fastlane-credentials add --username $PILOT_USERNAME --password $ITUNESCONNECT_PASSWORD }
     latest_testflight_build_number(version: version_number, username: ENV['PILOT_USERNAME'])
     pilot
     deliver(
