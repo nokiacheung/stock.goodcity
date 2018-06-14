@@ -28,7 +28,7 @@
 
   {{#if (is-or order.isCancelled ordersPackage.isCancelled)}}
     <div>
-      <a href="#" tagName='div' {{action 'designateCancelledItemPopUp' ordersPackage.id order.id}} class="{{unless item.isSingletonItem 'disabled'}} {{unless item.quantity 'disabled'}}">
+      <a href="#" tagName='div' {{action 'designateCancelledItemPopUp' ordersPackage.id order.id}} class="{{unless item.isSingletonItem 'disabled'}} {{unless ordersPackage.item.quantity 'disabled'}}">
         <i class="fa item-menu fa fa-shopping-basket"></i>
         {{t "item.designate"}}
       </a>
