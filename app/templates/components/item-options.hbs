@@ -11,7 +11,7 @@
   {{#if (is-equal ordersPackage.state "dispatched")}}
     {{undispatch-item item=item package=ordersPackage closeList=closeList }}
   {{else}}
-    {{#if (is-and (is-and item.isSingletonItem order.isGoodCityOrder) (is-or (is-not order.isCancelled) ordersPackage.isCancelled))}}
+    {{#if (is-and (is-and (is-and item.isSingletonItem order.isGoodCityOrder) (is-not order.isCancelled)) (is-not ordersPackage.isCancelled))}}
       <div>
         <a href="#" {{action 'dispatchOrdersPackagePopUp' item}} >
           <i class="fa item-menu fa-ship"></i>
