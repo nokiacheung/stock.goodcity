@@ -29,7 +29,6 @@ dependencies:
     - yarn add bower ember-cli@2.12.2 phantomjs-prebuilt cordova
     - yarn add codeclimate-test-reporter
     - bundle install
-    - gem update fastlane spaceship
     - bower install
     - PATH=$(npm bin):$PATH; azure-filestore download -f goodcity.keystore:
         pwd: cordova
