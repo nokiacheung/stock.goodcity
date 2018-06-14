@@ -36,7 +36,7 @@ export default Ember.Controller.extend({
   }),
 
   itemsList: Ember.computed('model.items', 'displayAllItems', 'model.ordersPackages', 'model.ordersPackages.@each.quantity', function() {
-    var ordersPackages = this.get("model.ordersPackages").filterBy("quantity");
+    var ordersPackages = this.get("model.ordersPackages");
     return this.get("displayAllItems") ? ordersPackages : ordersPackages.slice(0, 3);
   }),
 

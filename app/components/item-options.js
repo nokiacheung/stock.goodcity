@@ -12,7 +12,7 @@ export default Ember.Component.extend(singletonItemDispatchToGcOrder, {
   actions: {
     designateCancelledItemPopUp(ordersPacakgeId, orderId) {
       var order = this.get("store").peekRecord("designation", orderId);
-      if(!order.get('allDesignatedOrdersPackages')) {
+      if(!order.get('allDesignatedOrdersPackages') && order.get("isCancelled")) {
         this.get("messageBox").custom(
           this.get("i18n").t("order_details.cancel_item_designate_warning"),
           this.get("i18n").t("designate.designate"),

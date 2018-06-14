@@ -158,7 +158,11 @@
     {{/each}}
   {{else}}
     {{#each itemsList as |ordersPackage|}}
-      {{partial "orders/orders_packages"}}
+      {{#if ordersPackage.isCancelled}}
+        {{partial "orders/cancelled_orders_packages"}}
+      {{else}}
+        {{partial "orders/orders_packages"}}
+      {{/if}}
     {{/each}}
   {{/if}}
 
