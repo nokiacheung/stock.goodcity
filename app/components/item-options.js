@@ -16,7 +16,7 @@ export default Ember.Component.extend(singletonItemDispatchToGcOrder, {
         this.get("messageBox").custom(
           this.get("i18n").t("order_details.cancel_item_designate_warning"),
           this.get("i18n").t("designate.designate"),
-          () => { this.send("apiRequests", ordersPacakgeId, orderId); },
+          () => { this.send("apiCancelOrderRequests", ordersPacakgeId, orderId); },
           this.get("i18n").t("not_now")
           );
       } else {
@@ -33,7 +33,7 @@ export default Ember.Component.extend(singletonItemDispatchToGcOrder, {
         );
     },
 
-    apiRequests(ordersPacakgeId, orderId) {
+    apiCancelOrderRequests(ordersPacakgeId, orderId) {
       this.send("changeOrderState", orderId, "redesignate_cancelled_order");
       this.send("designateCancelledOrdersPacakge", ordersPacakgeId, orderId);
     },
