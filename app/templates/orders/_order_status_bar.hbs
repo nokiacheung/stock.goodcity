@@ -29,11 +29,9 @@
           </button>
         </div>
       {{else if (is-equal model.capitalizedState "Processing")}}
-        {{#if model.ordersPackagesCount}}
-          <div class="small-6 medium-6 large-6 columns">
-            <button {{action 'updateOrder' model 'finish_processing'}} class="button expand">{{t "order.finish_process"}}</button>
-          </div>
-        {{/if}}
+        <div class="small-6 medium-6 large-6 columns">
+          <button {{action 'updateOrder' model 'finish_processing'}} class="button expand">{{t "order.finish_process"}}</button>
+        </div>
         <div class="{{if model.ordersPackagesCount 'small-6 medium-6 large-6' 'small-12 medium-12 large-12'}} columns">
           <button {{action 'updateOrder' model 'cancel'}} disabled={{if model.allDesignatedOrdersPackages false 'disabled'}} class="button expand">{{t "order.cancel_order"}}</button>
         </div>

@@ -11,7 +11,7 @@
   {{#if (is-equal ordersPackage.state "dispatched")}}
     {{undispatch-item item=item package=ordersPackage closeList=closeList }}
   {{else}}
-    {{#if (is-and (is-and item.isSingletonItem order.isGoodCityOrder) (is-not order.isCancelled))}}
+    {{#if (is-and (is-and item.isSingletonItem order.isGoodCityOrder) (is-or (is-not order.isCancelled) ordersPackage.isCancelled))}}
       <div>
         <a href="#" {{action 'dispatchOrdersPackagePopUp' item}} >
           <i class="fa item-menu fa-ship"></i>
@@ -19,14 +19,14 @@
       </a>
       </div>
     {{else}}
-      {{#link-to 'items.partial_dispatch' item.id (query-params orderPackageId=ordersPackage.id) disabled=(if order.isCancelled 'disabled' '') tagName='div' href=false}}
+      {{#link-to 'items.partial_dispatch' item.id (query-params orderPackageId=ordersPackage.id) disabled=(if (is-or order.isCancelled ordersPackage.isCancelled) 'disabled' '') tagName='div' href=false}}
         <i class="fa item-menu fa-ship"></i>
         {{t "item.dispatch"}}
       {{/link-to}}
     {{/if}}
   {{/if}}
 
-  {{#if order.isCancelled}}
+  {{#if (is-or order.isCancelled ordersPackage.isCancelled)}}
     <div>
       <a href="#" tagName='div' {{action 'designateCancelledItemPopUp' ordersPackage.id order.id}} class="{{unless item.isSingletonItem 'disabled'}} {{unless item.quantity 'disabled'}}">
         <i class="fa item-menu fa fa-shopping-basket"></i>
