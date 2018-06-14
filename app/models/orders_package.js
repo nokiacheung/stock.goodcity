@@ -18,7 +18,6 @@ export default Model.extend({
 
   isRequested: Ember.computed.equal("state", "requested"),
   isDesignated: Ember.computed.equal("state", "designated"),
-  isDispatched: Ember.computed.equal("state", "dispatched"),
   isCancelled: Ember.computed.equal("state", "cancelled"),
 
   availableQty: Ember.computed("quantity", function() {
