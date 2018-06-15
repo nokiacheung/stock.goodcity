@@ -8,11 +8,12 @@ function run(func) {
 }
 
 export default Ember.Controller.extend({
+  notifications: Ember.inject.controller(),
   socket: null,
   lastOnline: Date.now(),
   deviceTtl: 0,
   deviceId: Math.random().toString().substring(2),
-  modelDataTypes: ["offer", "Offer", "item", "Item", "Schedule", "schedule", "delivery", "Delivery", "message", "Message", "gogovan_order", "GogovanOrder", "contact", "Contact", "address", "Address"],
+  modelDataTypes: ["offer", "Offer", "item", "Item", "Schedule", "schedule", "delivery", "Delivery", "message", "Message", "gogovan_order", "GogovanOrder", "contact", "Contact", "address", "Address", "order", "Order"],
   // logger: Ember.inject.service(),
   status: {
     online: false
@@ -79,6 +80,7 @@ export default Ember.Controller.extend({
         updateStatus();
         socket.io.engine.on("upgrade", updateStatus);
       });
+      socket.on("notification", Ember.run.bind(this, this.notification));
       socket.on("disconnect", updateStatus);
       socket.on("error", Ember.run.bind(this, function(reason) {
         // ignore xhr post error related to no internet connection
@@ -95,7 +97,25 @@ export default Ember.Controller.extend({
         this.set("lastOnline", Date.now());
       }));
       socket.connect(); // manually connect since it's not auto-connecting if you logout and then back in
+    },
+
+    unwire() {
+      var socket = this.get("socket");
+      if (socket) {
+        socket.close();
+        this.set("socket", null);
+      }
+    },
+
+    unloadNotifications() {
+      this.get("notifications").send("unloadNotifications");
     }
+  },
+
+  notification: function(data, success) {
+    data.date = new Date(data.date);
+    this.get("notifications.model").pushObject(data);
+    run(success);
   },
 
   batch: function(events, success) {
@@ -152,9 +172,16 @@ export default Ember.Controller.extend({
       }
     }
 
-    this.setFavImage(item, data, type);
-
     this.store.normalize(type, item);
+
+    if(type.toLowerCase() === "designation" && data.operation === "create") {
+      return false;
+    } else if(type.toLowerCase() === "designation") {
+      this.store.pushPayload(data.item);
+      return false;
+    }
+
+    this.setFavImage(item, data, type);
 
     var existingItem = this.store.peekRecord(type, item.id);
     var hasNewItemSaving = this.store.peekAll(type).any(function(o) { return o.id === null && o.get("isSaving"); });

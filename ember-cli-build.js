@@ -28,7 +28,6 @@ module.exports = function(defaults) {
     }
   });
 
-  app.import('bower_components/foundation/js/foundation/foundation.js');
   app.import("bower_components/font-awesome/css/font-awesome.css");
   app.import("bower_components/font-awesome/fonts/fontawesome-webfont.eot", { destDir: "fonts" });
   app.import("bower_components/font-awesome/fonts/fontawesome-webfont.svg", { destDir: "fonts" });
@@ -59,6 +58,10 @@ module.exports = function(defaults) {
   app.import('bower_components/lightgallery/src/img/loading.gif', {
     destDir: '/img'
   });
+
+  app.import('bower_components/foundation/js/foundation/foundation.js');
+  app.import('bower_components/foundation/js/foundation/foundation.reveal.js');
+  app.import('bower_components/foundation/js/foundation/foundation.topbar.js');
 
   app.import('bower_components/blueimp-file-upload/js/vendor/jquery.ui.widget.js');
   app.import('bower_components/blueimp-file-upload/js/jquery.iframe-transport.js');

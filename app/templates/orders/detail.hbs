@@ -33,23 +33,13 @@
   </section>
 
   <section class="right-small">
-    <a><i class="fa fa-ellipsis-v options"></i></a>
+    {{partial "orders/review_order_options"}}
   </section>
 </nav>
 
 <section class="main-section order_page">
+  {{partial "orders/order_status_bar"}}
   <div class="row">
-    <div class="small-12 columns offer-status">
-      <div class="time-details">
-        {{t "order_details.submitted"}} {{display-datetime model.createdAt format="DD MMM 'YY"}}
-      </div>
-      <div class="state">
-        {{model.status}}
-      </div>
-    </div>
-  </div>
-
-  <div class="row ">
     <div class="small-12 columns main_details">
       <div class="row">
         <div class="small-4 columns">
@@ -145,11 +135,11 @@
   <div class="row">
     <div class="small-12 columns item_count">
       <span>{{t "order_details.items"}}</span>
-      ({{model.designatedOrdersPackages.length}} Designated, {{model.dispatchedOrdersPackages.length}} Dispatched)
+      ({{model.designatedOrdersPackages.length}} Designated, {{model.dispatchedOrdersPackages.length}} Dispatched, {{model.cancelledOrdersPackages.length}} Cancelled)
     </div>
   </div>
 
-  {{#unless model.isInactive}}
+  {{#unless (is-or (is-or model.isInactive model.isCancelled) model.isClosed)}}
     <div class="row add_item_button">
       <div class=" {{if isMobileApp 'small-9' 'small-12'}} columns">
           {{#link-to "orders.items" model (query-params searchInput="") class="button expand"}}{{t "order_details.add_item_to_order"}}{{/link-to}}
@@ -162,9 +152,19 @@
     </div>
   {{/unless}}
 
-  {{#each itemsList as |ordersPackage|}}
-    {{partial "orders/orders_packages"}}
-  {{/each}}
+  {{#if (is-and model.isGoodCityOrder model.isCancelled)}}
+    {{#each cancelledOrdersPackages as |ordersPackage|}}
+      {{partial "orders/cancelled_orders_packages"}}
+    {{/each}}
+  {{else}}
+    {{#each itemsList as |ordersPackage|}}
+      {{#if ordersPackage.isCancelled}}
+        {{partial "orders/cancelled_orders_packages"}}
+      {{else}}
+        {{partial "orders/orders_packages"}}
+      {{/if}}
+    {{/each}}
+  {{/if}}
 
   <div class="row show_more" >
     {{#unless displayAllItems}}

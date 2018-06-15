@@ -22,7 +22,6 @@ export default Ember.Route.extend(preloadDataMixin, {
     });
   },
 
-
   init() {
     var _this = this;
     var storageHandler = function (object) {
@@ -96,6 +95,16 @@ export default Ember.Route.extend(preloadDataMixin, {
     };
     return this._loadDataStore();
   },
+
+  renderTemplate(){
+    this.render(); // default template
+    this.render('notifications', { // the template to render
+      into: 'application', // the template to render into
+      outlet: 'notifications', // the name of the outlet in that template
+      controller: 'notifications' // the controller to use for the template
+    });
+  },
+
 
   handleError: function(reason) {
     try

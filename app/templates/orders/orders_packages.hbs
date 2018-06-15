@@ -1,18 +1,18 @@
-<div class="row item_block">
+<div class="{{if (is-or model.isCancelled model.isClosed) "disable-pointer-events" ''}} row item_block">
 
   <div class="row dispatch_details {{if (is-equal ordersPackage.state 'dispatched') 'dispatched'}} {{if (is-equal ordersPackage.state 'designated') 'designated'}} {{if (is-greater ordersPackage.item.designatedItemCount 1) 'designated'}}">
     <div class="small-3 columns">
       {{#if (is-equal ordersPackage.state 'dispatched')}}
         {{#link-to 'orders.detail' ordersPackage.item.designation.id tagName='span' href=false}}
-          <i class="fa fa-ship"></i> {{ordersPackage.designation.code}}
+          <i class="fa fa-ship"></i> {{capitalize-string ordersPackage.state}}
         {{/link-to}}
       {{else if (is-equal ordersPackage.state 'designated')}}
         {{#link-to 'orders.detail' ordersPackage.item.designation.id tagName='span' href=false}}
-          <i class="fa fa-shopping-basket"></i> {{ordersPackage.designation.code}}
+          <i class="fa fa-shopping-basket"></i> {{capitalize-string ordersPackage.state}}
         {{/link-to}}
       {{else}}
         <div class="stock_status">
-          <i class="fa {{if ordersPackage.item.allowWebPublish 'fa-eye' 'fa-eye-slash'}}" aria-hidden="true"></i> In Stock
+          <i class="fa {{if ordersPackage.item.allowWebPublish 'fa-eye' 'fa-eye-slash'}}" aria-hidden="true"></i> {{capitalize-string ordersPackage.state}}
         </div>
       {{/if}}
     </div>

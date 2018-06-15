@@ -18,6 +18,10 @@ h2{
     font-size: 0.8rem !important; }
 }
 
+.disable-pointer-events {
+  pointer-events: none;
+}
+
 .back {
   @media #{$small-only} {
     margin-left: 0.5rem;

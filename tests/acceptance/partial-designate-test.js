@@ -17,7 +17,7 @@
 //     TestHelper.setup();
 
 //     var location = FactoryGuy.make("location");
-//     designation = FactoryGuy.make("designation", { state: "closed" });
+//     designation = FactoryGuy.make("designation");
 //     item = FactoryGuy.make("item", { state: "submitted", quantity: 5 });
 //     item1 = FactoryGuy.make("item", { state: "submitted", quantity: 10 });
 //     orders_package = FactoryGuy.make("orders_package", { state: "designated", quantity: 5, item: item, designation: designation });

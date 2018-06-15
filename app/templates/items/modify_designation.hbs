@@ -61,6 +61,6 @@
   </div>
 </div>
 
-{{#message-box btn1Text=(t "okay") btn1Callback=(action "undesignateItem" model.ordersPackage) btn2Text=(t "cancel") isVisible=modifyDesignatedQty classNames="popupOverlay designate-form"}}
+{{#message-box btn1Text=(t "undesignate.undesignate") btn1Callback=(action "undesignateItem" model.ordersPackage) btn2Text=(t "cancel") isVisible=modifyDesignatedQty classNames="popupOverlay designate-form"}}
   <p>{{t "designate.modify_designation" code=model.ordersPackage.designation.code}}</p>
 {{/message-box}}

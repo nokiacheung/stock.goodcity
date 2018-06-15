@@ -18,7 +18,7 @@
 //     TestHelper.setup();
 //     lctn = FactoryGuy.make("location");
 //     lctn2 = FactoryGuy.make("location");
-//     designation = FactoryGuy.make("designation", { state: "closed" });
+//     designation = FactoryGuy.make("designation");
 //     item = FactoryGuy.make("item", { state: "submitted", quantity: 5 });
 //     package_location = FactoryGuy.make("packages_location", { quantity: 5 , item: item, locationId: parseInt(lctn.id) });
 //     orders_package = FactoryGuy.make("orders_package", { state: "designated", quantity: 5, item: item, designation: designation });

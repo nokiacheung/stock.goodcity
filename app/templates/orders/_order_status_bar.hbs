@@ -1,0 +1,64 @@
+<div class="row">
+  {{#if model.isGoodCityOrder}}
+    <div class="row gc-order-status gc-{{model.state}}-color">
+      <div class="small-12 columns status">
+        <div class="time-details">
+          {{#if (is-equal model.capitalizedState "Submitted")}}
+            {{t "order.submitted"}}, {{display-datetime model.createdAt format="DD MMM 'YY"}}
+          {{else if (is-equal model.capitalizedState "Processing")}}
+            {{model.capitalizedState}}, {{display-datetime model.processedAt format="DD MMM 'YY"}}
+          {{else if (is-equal model.capitalizedState "Awaiting_dispatch")}}
+            {{t "order.awaiting_dispatch"}}, {{display-datetime model.processCompletedAt format="DD MMM 'YY"}}
+          {{else if (is-equal model.capitalizedState "Cancelled")}}
+            {{t "order.cancelled"}}, {{display-datetime model.cancelledAt format="DD MMM 'YY"}}
+          {{else if (is-equal model.capitalizedState "Closed")}}
+            {{t "order.closed"}}, {{display-datetime model.closedAt format="DD MMM 'YY"}}
+          {{else if (is-equal model.capitalizedState "Dispatching")}}
+            {{t "order.dispatching"}}, {{display-datetime model.dispatchStartedAt format="DD MMM 'YY"}}
+          {{/if}}
+        </div>
+      </div>
+      {{#if (is-equal model.capitalizedState "Submitted")}}
+        <div class="small-12 columns">
+          <button {{action 'updateOrder' model 'start_processing'}} class="button expand">
+            {{#if isOrderProcessRestarted}}
+              {{t "order.restart_process"}}
+            {{else}}
+              {{t "order.start_process"}}
+            {{/if}}
+          </button>
+        </div>
+      {{else if (is-equal model.capitalizedState "Processing")}}
+        <div class="small-6 medium-6 large-6 columns">
+          <button {{action 'updateOrder' model 'finish_processing'}} class="button expand">{{t "order.finish_process"}}</button>
+        </div>
+        <div class="{{if model.ordersPackagesCount 'small-6 medium-6 large-6' 'small-12 medium-12 large-12'}} columns">
+          <button {{action 'updateOrder' model 'cancel'}} disabled={{if model.allDesignatedOrdersPackages false 'disabled'}} class="button expand">{{t "order.cancel_order"}}</button>
+        </div>
+      {{else if (is-equal model.capitalizedState "Awaiting_dispatch")}}
+        <div class="small-6 medium-6 large-6 columns">
+          <button {{action 'updateOrder' model 'start_dispatching'}} class="button expand">{{t "order.start_dispatching"}}</button>
+        </div>
+        <div class='small-6 medium-6 large-6 columns'>
+          <button {{action 'updateOrder' model 'cancel'}} disabled={{if model.allDesignatedOrdersPackages false 'disabled'}}  class="button expand">{{t "order.cancel_order"}}</button>
+        </div>
+      {{else if (is-equal model.capitalizedState "Dispatching")}}
+        <div class="small-6 medium-6 large-6 columns">
+          <button {{action 'updateOrder' model 'close'}} disabled={{if model.allDispatchedOrdersPackages false 'disabled'}} class="button expand">{{t "order.close_order"}}</button>
+        </div>
+        <div class='small-6 medium-6 large-6 columns'>
+          <button {{action 'updateOrder' model 'cancel'}} disabled={{if model.allDesignatedOrdersPackages false 'disabled'}}  class="button expand">{{t "order.cancel_order"}}</button>
+        </div>
+      {{/if}}
+    </div>
+  {{else}}
+    <div class="small-12 columns order-status">
+      <div class="time-details">
+        {{t "order_details.submitted"}} {{display-datetime model.createdAt format="DD MMM 'YY"}}
+      </div>
+      <div class="state">
+        {{model.status}}
+      </div>
+    </div>
+  {{/if}}
+</div>

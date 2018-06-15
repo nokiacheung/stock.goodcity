@@ -12,6 +12,8 @@ export default searchModule.extend({
   item: Ember.computed.alias("model.item"),
   searchModelName: "designation",
   minSearchTextLength: 2,
+  messageBox: Ember.inject.service(),
+  i18n: Ember.inject.service(),
 
   sortProperties: ["recentlyUsedAt:desc"],
   recentlyUsedDesignations: Ember.computed.sort("model.designations", "sortProperties"),
@@ -24,8 +26,18 @@ export default searchModule.extend({
   actions: {
 
     setOrder(order) {
-      this.set("order", order);
-      this.toggleProperty("toggleOverlay");
+      var _this = this;
+      //Don't allow to designate if Order is of type "GoodCity" and is in cancelled or closed state
+      if(order && order.get("isGoodCityOrder") && (order.get("isCancelled") || order.get("isClosed"))) {
+        _this.get("messageBox").alert(
+          _this.get("i18n").t("order_details.cannot_designate_to_gc_order", () => {
+            return false;
+          })
+        );
+      } else {
+        this.set("order", order);
+        this.toggleProperty("toggleOverlay");
+      }
     },
 
     displayMoveOverlay(designation) {

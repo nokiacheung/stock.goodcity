@@ -15,8 +15,8 @@
 //   beforeEach: function() {
 //     App = startApp({}, 2);
 //     TestHelper.setup();
-//     designation1 = FactoryGuy.make("designation", { state: "closed" });
-//     designation2 = FactoryGuy.make("designation", { state: "closed" });
+//     designation1 = FactoryGuy.make("designation");
+//     designation2 = FactoryGuy.make("designation");
 //     item = FactoryGuy.make("item", { state: "submitted" , designation: designation2, quantity: 0});
 //      $.mockjax({url: '/api/v1/stockit_item*', type: 'GET', status: 200,responseText: {
 //         items: [item.toJSON({includeId: true})]
