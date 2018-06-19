@@ -50,7 +50,7 @@ export default Ember.Mixin.create({
     apiRequests(item, designation) {
       this.send("dispatchItem", item, designation);
       if(designation.get("isAwaitingDispatch")) {
-        this.send("changeOrderState", designation, "start_dispatching");
+        this.send("updateOrderState", designation, "start_dispatching");
       }
     },
 
@@ -89,10 +89,10 @@ export default Ember.Mixin.create({
 
     closeOrderPoUp(designation) {
       var _this = this;
-      this.genericCustomPopUp("order_details.close_order_popup", "order.close_order", "not_now", function() { _this.send("changeOrderState", designation, "close"); });
+      this.genericCustomPopUp("order_details.close_order_popup", "order.close_order", "not_now", function() { _this.send("updateOrderState", designation, "close"); });
     },
 
-    changeOrderState(order, transition) {
+    updateOrderState(order, transition) {
       var _this = this;
       var url = `/orders/${order.get('id')}/transition`;
       //Conditional loader because one loader gets appended on another while dispatching an Item
