@@ -57,7 +57,7 @@
           </div>
           <div class="small-7 columns">
             {{#if model.isGoodCityOrder}}
-              {{model.gcOrganisation.organisationsUsers.firstObject.user.fullName}}
+              {{model.gcOrganisationUser}}
             {{else}}
               {{model.contact.fullName}}
             {{/if}}

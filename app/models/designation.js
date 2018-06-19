@@ -48,6 +48,10 @@ export default Model.extend({
   isProcessing: Ember.computed.equal("state", "processing"),
   isCancelled: Ember.computed.equal("state", "cancelled"),
 
+  gcOrganisationUser: Ember.computed('gcOrganisation', function() {
+    return this.get("gcOrganisation.organisationsUsers.firstObject.user");
+  }),
+
   dispatchedItems: Ember.computed('items.@each.sentOn', function() {
     return this.get("items").rejectBy('sentOn', null);
   }),
