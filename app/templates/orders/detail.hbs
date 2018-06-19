@@ -56,7 +56,11 @@
             Contact:
           </div>
           <div class="small-7 columns">
-            {{model.contact.fullName}}
+            {{#if model.isGoodCityOrder}}
+              {{model.gcOrganisation.organisationsUsers.firstObject.user.fullName}}
+            {{else}}
+              {{model.contact.fullName}}
+            {{/if}}
           </div>
           <div class="small-1 columns icons">
             <i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i>

@@ -61,7 +61,7 @@ I18nTranslationsEn =
     "add_item_to_order": "Add an item to this order"
     "resubmit_order_warning": "Resubmitting an Order will set order state to submitted. Are you sure you want to resubmit the order?"
     "reopen_undispatch_warning": "You can only reopen an order after un-dispatching all dispatched items."
-    "dispatch_later_undispatch_warning": "You need to un-dispatch all dispatched the items first."
+    "dispatch_later_undispatch_warning": "You need to un-dispatch all the dispatched items first."
     "dispatch_later_warning": "Dispatching later will change order state to awaiting dispatch state. Are you sure you want to dispatch later?"
     "reopen_warning": "Reopening this order will set order state to dispatching. Are you sure you want to reopen the order?"
     "restart_undispatch_warning": "You can only restart processing an order after un-dispatching all dispatched items."
