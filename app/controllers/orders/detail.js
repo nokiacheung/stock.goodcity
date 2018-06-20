@@ -109,7 +109,7 @@ export default Ember.Controller.extend({
       var _this = this;
       var ordersPackagesState = order.get("ordersPackages").getEach("state");
       if(ordersPackagesState.indexOf("cancelled") >= 0) {
-        this.genericAlertPopUp("order_details.finish_process_warning", function() {});
+        _this.genericAlertPopUp("order_details.finish_process_warning", function() {});
       } else {
         _this.send("changeOrderState", order, actionName);
       }
