@@ -73,6 +73,9 @@ export default Ember.Controller.extend({
 
     updateOrder(order, actionName) {
       switch(actionName) {
+        case "finish_processing":
+          this.send("promptFinishModal", order, actionName);
+          break;
         case "messagePopUp":
           this.send("changeOrderState", order, "cancel");
           break;
@@ -99,6 +102,16 @@ export default Ember.Controller.extend({
           break;
         default:
           this.send("changeOrderState", order, actionName);
+      }
+    },
+
+    promptFinishModal(order, actionName) {
+      var _this = this;
+      var ordersPackagesState = order.get("ordersPackages").getEach("state");
+      if(ordersPackagesState.indexOf("cancelled") >= 0) {
+        this.genericAlertPopUp("order_details.finish_process_warning", function() {});
+      } else {
+        _this.send("changeOrderState", order, actionName);
       }
     },
 
