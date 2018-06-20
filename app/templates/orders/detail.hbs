@@ -45,7 +45,7 @@
         <div class="small-4 columns">
           Organisation:
         </div>
-        <div class="small-8 columns">
+        <div class="small-8 columns organisation_name">
           {{apply-line-break (if model.isGoodCityOrder model.gcOrganisation.nameEn model.organisation.name)}}
         </div>
       </div>
@@ -56,7 +56,11 @@
             Contact:
           </div>
           <div class="small-7 columns">
-            {{model.contact.fullName}}
+            {{#if model.isGoodCityOrder}}
+              {{model.gcOrganisationUser.fullName}}
+            {{else}}
+              {{model.contact.fullName}}
+            {{/if}}
           </div>
           <div class="small-1 columns icons">
             <i class="fa fa-angle-right arrow-icon" aria-hidden="true"></i>
