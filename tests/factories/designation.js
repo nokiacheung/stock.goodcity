@@ -22,6 +22,7 @@ FactoryGuy.define('designation', {
     purposeDescription: 'Test',
     gcOrganisationId:    '',
     gc_organisation:     FactoryGuy.belongsTo('gc_organisation'),
+    submittedBy:         FactoryGuy.belongsTo('user'),
     orders_packages:     FactoryGuy.hasMany('orders_package'),
     orders_purposes:     FactoryGuy.hasMany('orders_purpose')
   },
