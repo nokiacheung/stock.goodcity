@@ -58,22 +58,22 @@ export default Ember.Mixin.create({
       var _this = this;
       var pkgLocation = item.get("packagesLocations.firstObject");
 
-      var packagesLocationQty = [];
+      // var packagesLocationQty = [];
       var record = {};
 
       record["packages_location_id"] = pkgLocation.get("id");
-      record["qty_to_deduct"] = pkgLocation.get("quantity");
-      packagesLocationQty.push(record);
+      record["quantity"] = pkgLocation.get("quantity");
+      // packagesLocationQty.push(record);
 
-      var  properties = {
-        order_package_id: item.get('ordersPackages.firstObject.id'),
-        package_id: item.get("id")
-      };
+      // var  properties = {
+      record["order_package_id"] = item.get('ordersPackages.firstObject.id');
+      record["package_id"] =  item.get("id")
+      // };
 
       var url = `/items/${item.get('id')}/dispatch_stockit_item`;
       var loadingView = getOwner(this).lookup('component:loading').append();
       //Need to send exact these params => { package: properties, packages_location_and_qty: packagesLocationQty }
-      new AjaxPromise(url, "PUT", this.get('session.authToken'), { package: properties, packages_location_and_qty: packagesLocationQty })
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { package: record })
         .then(data => {
           _this.get("store").pushPayload(data);
         })
