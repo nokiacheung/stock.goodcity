@@ -67,7 +67,7 @@ export default Ember.Mixin.create({
 
       // var  properties = {
       record["order_package_id"] = item.get('ordersPackages.firstObject.id');
-      record["package_id"] =  item.get("id")
+      record["package_id"] =  item.get("id");
       // };
 
       var url = `/items/${item.get('id')}/dispatch_stockit_item`;

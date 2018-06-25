@@ -20,7 +20,7 @@ export default Ember.Controller.extend({
       var elementIds  = item.get('packagesLocations').getEach('id');
       var packagesLocationQty = [];
       var record = {};
-      var totalQty;
+      var totalQty = 0;
       elementIds.forEach(packages_location_id => {
         if(Ember.$(`#${packages_location_id}`).length){
           var value = parseInt(Ember.$(`#${packages_location_id}`)[0].value, 10);
@@ -35,7 +35,9 @@ export default Ember.Controller.extend({
 
       var  properties = {
         order_package_id: this.get('orderPackageId'),
-        package_id: item.id
+        package_id: item.id,
+        order_id: this.get('orderPackage.orderId'),
+        quantity: totalQty
       };
 
       var url = `/items/${item.get('id')}/dispatch_stockit_item`;
