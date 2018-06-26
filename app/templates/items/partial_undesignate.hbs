@@ -173,7 +173,7 @@
           <div class="columns small-1 medium-1 large-1 modify-packages">
           </div>
           <div class="{{if (is-or model.designation.isCancelled model.designation.isClosed) "disable-pointer-events" ''}} columns small-1 medium-1 large-1 undispatch-packages" style="cursor: pointer;">
-            {{undispatch-item item=ordersPackage.item package=ordersPackage closeList=closeList isUndispatchFromPartialUndesignate=true}}
+            {{undispatch-item item=ordersPackage.item ordersPackage=ordersPackage closeList=closeList isUndispatchFromPartialUndesignate=true}}
           </div>
         </div>
       </div>
