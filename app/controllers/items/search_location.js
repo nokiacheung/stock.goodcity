@@ -119,7 +119,7 @@ export default searchModule.extend({
     movePartialQty(){
       var location = this.get("selectedLocation");
       var item = this.get("item");
-      var packagesLocationQty = [];
+      var packagesLocationQtyMapping = [];
       var totalQty = '';
       if(this.get('skipScreenForSingletonItem')) {
         var record = {};
@@ -127,23 +127,23 @@ export default searchModule.extend({
         record["packages_location_id"] = this.get('pkgsLocationId');
         record["location_id"] = packages_location.get('locationId');
         record["package_id"] = packages_location.get('packageId');
-        record["new_qty"] = "1";
-        packagesLocationQty.push(record);
-        this.set("packagesLocationQty", packagesLocationQty);
+        record["quantity"] = "1";
+        packagesLocationQtyMapping.push(record);
+        this.set("packagesLocationQty", packagesLocationQtyMapping);
         record = {};
         totalQty = "1";
       } else {
         totalQty = localStorage["totalQty"];
       }
 
-      packagesLocationQty = localStorage['packagesLocationQty'];
+      // packagesLocationQty = localStorage['packagesLocationQty'];
 
       var loadingView = getOwner(this).lookup('component:loading').append();
 
       var url = `/items/${item.id}/move_partial_quantity`;
       var path = item.isSingletonItem ? "items.detail" : "items.partial_move";
 
-      new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id"), package: packagesLocationQty, total_qty: totalQty}).then(data => {
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { location_id: location.get("id"), quantity_to_deduct_and_location_mapping: packagesLocationQtyMapping, quantity: totalQty}).then(data => {
         this.get("store").pushPayload(data);
         this.transitionToRoute(path, item);
       }).finally(() => {
@@ -190,7 +190,7 @@ export default searchModule.extend({
         record["packages_location_id"] = this.get('pkgsLocationId');
         record["location_id"] = packages_location.get('locationId');
         record["package_id"] = packages_location.get('packageId');
-        record["new_qty"] = "1";
+        record["quantity"] = "1";
         packagesLocationQty.push(record);
         this.set("packagesLocationQty", packagesLocationQty);
         record = {};
