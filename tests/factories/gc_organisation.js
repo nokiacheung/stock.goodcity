@@ -10,6 +10,7 @@ FactoryGuy.define('gc_organisation', {
   default: {
     id:                 FactoryGuy.generate('id'),
     nameEn:             'GoodCity',
-    organisationsUsers: FactoryGuy.hasMany('organisationsUser')
+    organisationsUsers: FactoryGuy.hasMany('organisationsUser'),
+    designations: FactoryGuy.hasMany('designation')
   }
 });

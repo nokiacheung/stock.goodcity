@@ -13,40 +13,72 @@
 </nav>
 
 <section class="main-section order_page">
-
-  <div class="row ">
-    <div class="small-12 columns main_details">
-      <div class="row">
-        <div class="small-5 columns">
-          Name:
+  {{#if model.isGoodCityOrder}}
+    <div class="row ">
+      <div class="small-12 columns main_details contact_details">
+        <div class="row">
+          <div class="small-5 columns">
+            Name:
+          </div>
+          <div class="small-7 columns name">
+            {{model.submittedBy.fullName}}
+          </div>
         </div>
-        <div class="small-7 columns">
-          {{contact.fullName}}
-        </div>
-      </div>
 
-      {{#if contact.phoneNumber}}
         <div class="row">
           <div class="small-5 columns">
             Phone Number:
           </div>
-          <div class="small-7 columns">
-            {{contact.phoneNumber}}
+          <div class="small-7 columns mobile">
+            {{model.submittedBy.mobile}}
           </div>
         </div>
-      {{/if}}
 
-      {{#if contact.mobilePhoneNumber}}
         <div class="row">
           <div class="small-5 columns">
-            Mobile Number:
+            Email:
           </div>
-          <div class="small-7 columns">
-            {{contact.mobilePhoneNumber}}
+          <div class="small-7 columns email">
+            {{model.submittedBy.email}}
           </div>
         </div>
-      {{/if}}
+      </div>
     </div>
-  </div>
+  {{else}}
+    <div class="row ">
+      <div class="small-12 columns main_details">
+        <div class="row">
+          <div class="small-5 columns">
+            Name:
+          </div>
+          <div class="small-7 columns">
+            {{contact.fullName}}
+          </div>
+        </div>
+
+        {{#if contact.phoneNumber}}
+          <div class="row">
+            <div class="small-5 columns">
+              Phone Number:
+            </div>
+            <div class="small-7 columns">
+              {{contact.phoneNumber}}
+            </div>
+          </div>
+        {{/if}}
+
+        {{#if contact.mobilePhoneNumber}}
+          <div class="row">
+            <div class="small-5 columns">
+              Mobile Number:
+            </div>
+            <div class="small-7 columns">
+              {{contact.mobilePhoneNumber}}
+            </div>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  {{/if}}
 
 </section>

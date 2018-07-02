@@ -10,6 +10,8 @@ export default Model.extend({
   state:                attr('string'),
   createdAt:            attr('date'),
   recentlyUsedAt:       attr('date'),
+  submittedAt:          attr('date'),
+  submittedById:        attr('number'),
   processedAt:          attr('date'),
   processedById:        attr('number'),
   cancelledAt:          attr('date'),
@@ -36,6 +38,7 @@ export default Model.extend({
   ordersPackages:     hasMany('ordersPackages', { async: false }),
   orderTransport:     belongsTo('orderTransport', { async: false }),
   ordersPurposes:     hasMany('ordersPurpose', { async: false }),
+  submittedBy:        belongsTo('user', { async: false }),
 
   isLocalOrder: Ember.computed.equal('detailType', 'LocalOrder'),
   isGoodCityOrder: Ember.computed.equal('detailType', 'GoodCity'),
