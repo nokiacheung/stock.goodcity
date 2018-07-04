@@ -65,7 +65,7 @@
       <string>To enable you to read inventory barcodes and photograph inventory items.</string>
     </edit-config>
   </platform>
-  <engine name="ios" spec="4.2.0" />
+  <engine name="ios" spec="4.5.4" />
   <engine name="android" spec="~5.1.1" />
   <engine name="windows" spec="~4.3.1" />
   <plugin name="cordova-plugin-statusbar" spec="~2.1.1" />
