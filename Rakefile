@@ -130,9 +130,9 @@ namespace :cordova do
   desc "Cordova build {platform}"
   task build: :prepare do
     Dir.chdir(CORDOVA_PATH) do
-      team_id = '6B8FS8W94M'
-      provisioning_profile = '4e899d06-4e25-40b5-8ea3-9d93822e8c55'
-      provisioning_profile = '866b46e8-096e-46a0-97fe-0579091c887e' if(environment === "production")
+      team_id = ENV['IOS_DEVELOPMENT_TEAM_ID']
+      provisioning_profile = ENV['PROVISIONING_PROFILE_STAGING']
+      provisioning_profile = ENV['PROVISIONING_PROFILE_PROD'] if(environment === "production")
       build = (environment == "staging" && platform == 'android') ? "debug" : "release"
       system({"ENVIRONMENT" => environment}, "cordova compile #{platform} --#{build} --device --codeSignIdentity='iPhone Developer' --developmentTeam=#{team_id} --provisioningProfile=#{provisioning_profile}")
     end
