@@ -48,6 +48,9 @@ module.exports = function(environment) {
       SHA: process.env.APP_SHA || "00000000",
       VERSION: process.env.VERSION || "1.0.0",
       environment: environment,
+      APPLE_APP_ID: '1144806764',
+      REVIEW_APP_NAME: 'Stock App',
+      ANDROID_APP_URL: 'market://details?id=hk.goodcity.stock',
 
       CLOUD_NAME: 'ddoadcjjl',
       CLOUD_API_KEY: 926849638736153,
