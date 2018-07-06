@@ -3,10 +3,12 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
 
   subscription: Ember.inject.controller(),
+  cordova: Ember.inject.service(),
   store: Ember.inject.service(),
 
   initSubscription: Ember.on('init', function() {
     this.get('subscription').send('wire');
+    this.get('cordova').appLoad();
   }),
 
   actions: {
