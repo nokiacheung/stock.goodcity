@@ -50,9 +50,9 @@ test:
 
 deployment:
   staging:
-    branch: master
+    branch: GCW-1909-order-fulfillment-push-notification
     commands:
-      - bundle exec cap staging deploy
+      # - bundle exec cap staging deploy
       - bundle exec rake staging android app:build
       - bundle exec fastlane android staging
       - bundle exec rake staging ios app:build
