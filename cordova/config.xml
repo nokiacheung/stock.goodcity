@@ -77,4 +77,8 @@
   <plugin name="cordova-plugin-splashscreen" spec="~3.1.0"/>
   <plugin name="phonegap-plugin-barcodescanner" spec="https://github.com/wildabeast/BarcodeScanner.git"/>
   <plugin name="com-sarriaroman-PhotoViewer" spec="https://github.com/sarriaroman/photoviewer.git"/>
+  <plugin name="cordova-plugin-apprate" spec="https://github.com/pushandplay/cordova-plugin-apprate.git"/>
+  <plugin name="cordova-plugin-globalization" spec="https://github.com/apache/cordova-plugin-globalization.git"/>
+  <plugin name="cordova-plugin-inappbrowser" spec="https://github.com/apache/cordova-plugin-inappbrowser.git"/>
+  <plugin name="cordova-plugin-dialogs" spec="https://github.com/apache/cordova-plugin-dialogs.git"/>
 </widget>

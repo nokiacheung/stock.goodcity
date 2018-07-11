@@ -14,6 +14,7 @@ export default Ember.Controller.extend({
   store: Ember.inject.service(),
   messageBox: Ember.inject.service(),
   i18n: Ember.inject.service(),
+  appReview: Ember.inject.service(),
   isOrderProcessRestarted: false,
 
   displayOrderOptions: Ember.computed({
@@ -171,7 +172,12 @@ export default Ember.Controller.extend({
           data["designation"] = data["order"];
           this.get("store").pushPayload(data);
         })
-        .finally(() => loadingView.destroy());
+        .finally(() => {
+          loadingView.destroy();
+          if(transition === "close") {
+            this.get("appReview").promptReviewModal();
+          }
+        });
     }
   }
 
