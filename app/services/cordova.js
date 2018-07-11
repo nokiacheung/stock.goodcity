@@ -25,7 +25,7 @@ export default Ember.Service.extend({
     var _this = this;
 
     function onDeviceReady() {
-      var push = PushNotification.init({
+      var push = PushNotification.init({ // jshint ignore:line
         android: {
           senderID: "535052654081",
           badge: false,
@@ -44,12 +44,12 @@ export default Ember.Service.extend({
           sendToken(data.registrationId, platformCode());
       });
 
-      push.on("notification", function(data){
+      push.on("notification", function(){
         console.log("Push Notification executed");
       });
 
       push.on('error', function(err){
-        debugger;
+        console.log(err);
       });
     }
 
