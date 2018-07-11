@@ -65,7 +65,7 @@
       <string>To enable you to read inventory barcodes and photograph inventory items.</string>
     </edit-config>
   </platform>
-  <engine name="ios" spec="4.2.0" />
+  <engine name="ios" spec="4.5.4" />
   <engine name="android" spec="~5.1.1" />
   <engine name="windows" spec="~4.3.1" />
   <plugin name="cordova-plugin-statusbar" spec="~2.1.1" />
@@ -77,4 +77,8 @@
   <plugin name="cordova-plugin-splashscreen" spec="~3.1.0"/>
   <plugin name="phonegap-plugin-barcodescanner" spec="https://github.com/wildabeast/BarcodeScanner.git"/>
   <plugin name="com-sarriaroman-PhotoViewer" spec="https://github.com/sarriaroman/photoviewer.git"/>
+  <plugin name="cordova-plugin-apprate" spec="https://github.com/pushandplay/cordova-plugin-apprate.git"/>
+  <plugin name="cordova-plugin-globalization" spec="https://github.com/apache/cordova-plugin-globalization.git"/>
+  <plugin name="cordova-plugin-inappbrowser" spec="https://github.com/apache/cordova-plugin-inappbrowser.git"/>
+  <plugin name="cordova-plugin-dialogs" spec="https://github.com/apache/cordova-plugin-dialogs.git"/>
 </widget>
