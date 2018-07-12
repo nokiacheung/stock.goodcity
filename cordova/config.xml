@@ -64,6 +64,12 @@
     <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge" overwrite="true">
       <string>To enable you to read inventory barcodes and photograph inventory items.</string>
     </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
+      <string>Needs photo library access to get photos from there</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
+      <string>Needs photo library access to save photos</string>
+    </edit-config>
   </platform>
   <engine name="ios" spec="4.5.4" />
   <engine name="android" spec="~5.1.1" />
