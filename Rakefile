@@ -138,7 +138,11 @@ namespace :cordova do
         code_signing = 'iOS Distribution'
       end
       build = (environment == "staging" && platform == 'android') ? "debug" : "release"
-      system({"ENVIRONMENT" => environment}, "cordova compile #{platform} --#{build} --device --codeSignIdentity=#{code_signing} --developmentTeam=#{team_id} --provisioningProfile=#{provisioning_profile}")
+      if(platform === "android")
+        system({"ENVIRONMENT" => environment}, "cordova compile #{platform} --#{build} --device")
+      else
+        system({"ENVIRONMENT" => environment}, "cordova compile #{platform} --#{build} --device --codeSignIdentity=#{code_signing} --developmentTeam=#{team_id} --provisioningProfile=#{provisioning_profile}")
+      end
     end
     # Copy build artifacts
     if ENV["CI"]
