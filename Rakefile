@@ -132,9 +132,13 @@ namespace :cordova do
     Dir.chdir(CORDOVA_PATH) do
       team_id = ENV['IOS_DEVELOPMENT_TEAM_ID']
       provisioning_profile = ENV['PROVISIONING_PROFILE_STAGING']
-      provisioning_profile = ENV['PROVISIONING_PROFILE_PROD'] if(environment === "production")
+      code_signing = 'iPhone Developer'
+      if(environment === "production")
+        provisioning_profile = ENV['PROVISIONING_PROFILE_PROD']
+        code_signing = 'iOS Distribution'
+      end
       build = (environment == "staging" && platform == 'android') ? "debug" : "release"
-      system({"ENVIRONMENT" => environment}, "cordova compile #{platform} --#{build} --device --codeSignIdentity='iPhone Developer' --developmentTeam=#{team_id} --provisioningProfile=#{provisioning_profile}")
+      system({"ENVIRONMENT" => environment}, "cordova compile #{platform} --#{build} --device --codeSignIdentity=#{code_signing} --developmentTeam=#{team_id} --provisioningProfile=#{provisioning_profile}")
     end
     # Copy build artifacts
     if ENV["CI"]
