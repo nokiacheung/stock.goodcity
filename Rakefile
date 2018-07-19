@@ -132,10 +132,10 @@ namespace :cordova do
     Dir.chdir(CORDOVA_PATH) do
       team_id = ENV['IOS_DEVELOPMENT_TEAM_ID']
       provisioning_profile = ENV['PROVISIONING_PROFILE_STAGING']
-      code_signing = 'iPhone Developer'
+      code_signing = "\'iPhone Developer\'"
       if(environment === "production")
         provisioning_profile = ENV['PROVISIONING_PROFILE_PROD']
-        code_signing = 'iOS Distribution'
+        code_signing = "\'iOS Distribution\'"
       end
       build = (environment == "staging" && platform == 'android') ? "debug" : "release"
       if(platform === "android")
