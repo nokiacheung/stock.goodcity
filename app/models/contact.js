@@ -8,8 +8,9 @@ export default Model.extend({
   lastName:          attr('string'),
   phoneNumber:       attr('string'),
   mobilePhoneNumber: attr('string'),
-
-  displayNumber: Ember.computed.or("mobilePhoneNumber", "phoneNumber"),
+  name:              attr('string'),
+  mobile:            attr('string'),
+  displayNumber: Ember.computed.or("mobilePhoneNumber", "phoneNumber", "mobile"),
 
   fullName: Ember.computed("firstName", "lastName", function() {
     return `${this.get('firstName')} ${this.get('lastName')}`;
