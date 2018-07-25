@@ -8,7 +8,6 @@ export default Ember.Controller.extend({
 
   initSubscription: Ember.on('init', function() {
     this.get('subscription').send('wire');
-    this.get('cordova').appLoad();
   }),
 
   actions: {
