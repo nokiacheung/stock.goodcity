@@ -81,24 +81,45 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="small-5 large-4 columns">
-          Client Name:
+      {{#if model.isLocalOrder}}
+        <div class="row">
+          <div class="small-5 large-4 columns">
+            Client Name:
+          </div>
+          <div class="small-7 large-8 columns">
+            {{model.stockitContact.fullName}}
+          </div>
         </div>
-        <div class="small-7 large-8 columns">
-          {{model.orderTransport.contact.name}}
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="small-5 large-4 columns">
-          Client Mobile:
+        <div class="row">
+          <div class="small-5 large-4 columns">
+            Client Mobile:
+          </div>
+          <div class="small-7 large-8 columns">
+            {{model.stockitContact.mobilePhoneNumber}}
+          </div>
         </div>
-        <div class="small-7 large-8 columns">
-          {{model.orderTransport.contact.mobilePhoneNumber}}
-        </div>
-      </div>
+      {{else}}
+        {{#if (is-equal model.orderTransport.type "GGV")}}
+          <div class="row">
+            <div class="small-5 large-4 columns">
+              Client Name:
+            </div>
+            <div class="small-7 large-8 columns">
+              {{model.orderTransport.contact.name}}
+            </div>
+          </div>
 
+          <div class="row">
+            <div class="small-5 large-4 columns">
+              Client Mobile:
+            </div>
+            <div class="small-7 large-8 columns">
+              {{model.orderTransport.contact.mobile}}
+            </div>
+          </div>
+        {{/if}}
+      {{/if}}
     </div>
   </div>
 
