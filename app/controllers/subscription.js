@@ -68,8 +68,7 @@ export default Ember.Controller.extend({
     if(pkg) {
       let item = this.store.peekRecord("item", pkg.id);
       if(item && item.get("isSingletonItem") && !pkg.designation_id) {
-        let ordersPkgs = item.get("ordersPackages");
-        if(ordersPkgs && ordersPkgs.get("length")) {
+        if(item.get("ordersPackages.length") {
           if(this.get("status.online")) {
             this.store.findRecord('item', item.id);
           }
