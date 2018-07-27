@@ -50,7 +50,7 @@ test:
 
 deployment:
   staging:
-    branch: master
+    branch: xcode_9_2_with_provisioning_profile
     commands:
       - bundle exec cap staging deploy
       - bundle exec rake staging android app:build
