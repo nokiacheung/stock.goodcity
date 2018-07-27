@@ -64,6 +64,20 @@ export default Ember.Controller.extend({
     }
   },
 
+  updateItemData(pkg) {
+    if(pkg) {
+      let item = this.store.peekRecord("item", pkg.id);
+      if(item && item.get("isSingletonItem") && !pkg.designation_id) {
+        let ordersPkgs = item.get("ordersPackages");
+        if(ordersPkgs && ordersPkgs.get("length")) {
+          if(this.get("status.online")) {
+            this.store.findRecord('item', item.id);
+          }
+        }
+      }
+    }
+  },
+
   actions: {
     wire() {
       var updateStatus = Ember.run.bind(this, this.updateStatus);
@@ -144,6 +158,7 @@ export default Ember.Controller.extend({
     if(type.toLowerCase() === "package") {
       //Changing type as we've Item model instead of Package
       type = "item";
+      this.updateItemData(item);
       delete item.offer_id;
       //Removing null for empty packages_location_id arrays
       if(item.packages_location_ids){
