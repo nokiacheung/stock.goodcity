@@ -2,7 +2,7 @@ import { test, moduleForModel } from 'ember-qunit';
 import Ember from 'ember';
 
 moduleForModel('designation', 'Designation model',{
-  needs: ['model:order-transport', 'model:gc_organisation' ,'model:contact', 'model:organisation', 'model:local_order', 'model:item', 'model:orders_package', 'model:location', 'model:code', 'model:donor_condition', 'model:set_item', 'model:packages_location', 'model:image', 'model:orders_purpose', 'service:utilityMethods']
+  needs: ['model:order-transport', 'model:gc_organisation' ,'model:stockit_contact', 'model:organisation', 'model:local_order', 'model:item', 'model:orders_package', 'model:location', 'model:code', 'model:donor_condition', 'model:set_item', 'model:packages_location', 'model:image', 'model:orders_purpose', 'service:utilityMethods']
 });
 
 test('check attributes', function(assert){
@@ -35,15 +35,15 @@ test('check attributes', function(assert){
 test('Relationships with other models', function(assert){
   assert.expect(12);
   var designation = this.store().modelFor('designation');
-  var relationshipWithContact = Ember.get(designation, 'relationshipsByName').get('contact');
+  var relationshipWithStockitContact = Ember.get(designation, 'relationshipsByName').get('stockitContact');
   var relationshipWithOrganisation = Ember.get(designation, 'relationshipsByName').get('organisation');
   var relationshipWithLocalOrder = Ember.get(designation, 'relationshipsByName').get('localOrder');
   var relationshipWithItem = Ember.get(designation, 'relationshipsByName').get('items');
   var relationshipOrdersPackage = Ember.get(designation, 'relationshipsByName').get('ordersPackages');
   var relationshipOrdersPurpose = Ember.get(designation, 'relationshipsByName').get('ordersPurposes');
 
-  assert.equal(relationshipWithContact.key, 'contact');
-  assert.equal(relationshipWithContact.kind, 'belongsTo');
+  assert.equal(relationshipWithStockitContact.key, "stockitContact");
+  assert.equal(relationshipWithStockitContact.kind, "belongsTo");
 
   assert.equal(relationshipWithOrganisation.key, 'organisation');
   assert.equal(relationshipWithOrganisation.kind, 'belongsTo');
