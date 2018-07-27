@@ -44,8 +44,9 @@ export default Ember.Service.extend({
           sendToken(data.registrationId, platformCode());
       });
 
-      push.on("notification", function(){
+      push.on("notification", function(data){
         console.log("Push Notification executed");
+        console.log("Data", data);
       });
 
       push.on('error', function(err){
