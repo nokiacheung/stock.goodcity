@@ -80,7 +80,7 @@
     </platform>
     <engine name="ios" spec="https://github.com/apache/cordova-ios.git#4.5.5" />
     <engine name="android" spec="~5.1.1" />
-    <engine name="windows" spec="~4.3.1" />
+    <engine name="windows" spec="~2.1.0" />
     <plugin name="cordova-plugin-statusbar" spec="~2.1.1" />
     <plugin name="cordova-plugin-actionsheet" spec="https://github.com/EddyVerbruggen/cordova-plugin-actionsheet.git" />
     <plugin name="cordova-plugin-camera" spec="~4.0.3" />
