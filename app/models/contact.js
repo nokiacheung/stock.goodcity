@@ -1,7 +1,11 @@
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
+import Addressable from './addressable';
 
-export default Model.extend({
-  mobile:     attr('string'),
-  name:       attr('string')
+export default Addressable.extend({
+  name:   attr('string'),
+  mobile: attr('string')
 });
+
+
+
