@@ -5,6 +5,3 @@ export default Addressable.extend({
   name:   attr('string'),
   mobile: attr('string')
 });
-
-
-
