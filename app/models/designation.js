@@ -30,7 +30,7 @@ export default Model.extend({
   purposeDescription:   attr('string'),
   gcOrganisationId:     attr('number'),
 
-  contact:            belongsTo('contact', { async: false }),
+  stockitContact:     belongsTo('stockit_contact', { async: false }),
   organisation:       belongsTo('organisation', { async: false }),
   gcOrganisation:     belongsTo('gcOrganisation', { async: false }),
   localOrder:         belongsTo('local_order', { async: false }),
@@ -40,7 +40,9 @@ export default Model.extend({
   ordersPurposes:     hasMany('ordersPurpose', { async: false }),
   submittedBy:        belongsTo('user', { async: false }),
 
-  isLocalOrder: Ember.computed.equal('detailType', 'LocalOrder'),
+  isLocalOrder: Ember.computed('detailType', function(){
+    return (this.get('detailType') === 'LocalOrder') || (this.get('detailType') === 'StockitLocalOrder');
+  }),
   isGoodCityOrder: Ember.computed.equal('detailType', 'GoodCity'),
 
   isDraft: Ember.computed.equal("state", "draft"),

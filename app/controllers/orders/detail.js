@@ -175,7 +175,7 @@ export default Ember.Controller.extend({
         .finally(() => {
           loadingView.destroy();
           if(transition === "close") {
-            this.get("appReview").promptReviewModal();
+            this.get("appReview").promptReviewModal(true);
           }
         });
     }
