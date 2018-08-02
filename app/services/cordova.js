@@ -1,6 +1,6 @@
 import Ember from "ember";
 import config from '../config/environment';
-import AjaxPromise from '../utils/ajax-promise';
+import AjaxPromise from 'stock/utils/ajax-promise';
 
 export default Ember.Service.extend({
   session: Ember.inject.service(),
