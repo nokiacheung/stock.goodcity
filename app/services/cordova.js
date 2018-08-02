@@ -5,12 +5,12 @@ import AjaxPromise from 'stock/utils/ajax-promise';
 export default Ember.Service.extend({
   session: Ember.inject.service(),
   isAndroid() {
-    if (!config.cordova.enabled || !window.device) { return; }
+    if (!config.cordova.enabled) { return; }
     return ["android", "Android", "amazon-fireos"].indexOf(window.device.platform) >= 0;
   },
 
   isIOS() {
-    if (!config.cordova.enabled || !window.device) { return; }
+    if (!config.cordova.enabled) { return; }
     return window.device.platform === "iOS";
   },
 
@@ -24,14 +24,15 @@ export default Ember.Service.extend({
 
     var _this = this;
 
-    if (config.staging && typeof TestFairy !== 'undefined') {
-      TestFairy.begin('a362fd4ae199930a7a1a1b6daa6f729ac923b506');
-    }
-
     function onDeviceReady() {
+
+      if (config.staging && typeof TestFairy !== 'undefined') {
+        TestFairy.begin('a362fd4ae199930a7a1a1b6daa6f729ac923b506');
+      }
+
       var push = PushNotification.init({ // jshint ignore:line
         android: {
-          senderID: "535052654081",
+          senderID: '535052654081',
           badge: false,
           icon: "ic_notify"
         },
