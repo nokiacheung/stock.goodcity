@@ -24,6 +24,10 @@ export default Ember.Service.extend({
 
     var _this = this;
 
+    if (config.staging && typeof TestFairy !== 'undefined') {
+      TestFairy.begin('a362fd4ae199930a7a1a1b6daa6f729ac923b506');
+    }
+
     function onDeviceReady() {
       var push = PushNotification.init({ // jshint ignore:line
         android: {
