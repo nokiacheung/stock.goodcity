@@ -72,7 +72,6 @@ I18nTranslationsEn =
     "first_item_dispatch_warning": "You are dispatching first Item in the Order. This will also change state of the Order to dispatching."
     "close_order_popup": "All items in this order are dispatched. Would you like to close the Order? You will not be able to modify the order after closing it."
     "cancel_item_designate_warning": "This will also change state of the Order to processing from cancelled. Are you sure you want to designate?"
-    "finish_process_warning": "Designate all the items before finishing process."
 
   "order":
     "submitted": "Submitted"
