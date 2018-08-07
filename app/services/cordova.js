@@ -70,7 +70,7 @@ export default Ember.Service.extend({
       new AjaxPromise(`/designations/${payload.order_id}`, "GET", _this.get('session.authToken'))
           .then(data => {
             _this.get("store").pushPayload(data);
-            notifications.redirectToRoute(payload);
+            notifications.redirectToOrderDetail(payload.order_id);
           });
     }
 

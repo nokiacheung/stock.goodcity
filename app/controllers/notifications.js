@@ -31,8 +31,8 @@ export default Ember.Controller.extend({
       notification.route = ['orders.detail', notification.order_id];
    },
 
-   redirectToOrderDetail: function(order){
-      this.transitionToRoute("orders.detail", order.order_id);
+   redirectToOrderDetail: function(orderId){
+      this.transitionToRoute("orders.detail", orderId);
    },
 
    actions: {
