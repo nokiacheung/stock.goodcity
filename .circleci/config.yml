@@ -25,7 +25,13 @@ jobs:
       ANDROID_HOME: "${HOME}/android-sdk"
       PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:$HOME/.yarn/bin:${ANDROID_HOME}/tools"
 
-    # steps:
+    steps:
+      - run: xcodebuild -version
+
+  checkout_code:
+    steps:
+      - checkout
+      - run: xcodebuild -version
 
 
     # parallelism: 1
