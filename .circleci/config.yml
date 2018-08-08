@@ -26,7 +26,6 @@ jobs:
       PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:$HOME/.yarn/bin:${ANDROID_HOME}/tools"
 
     # steps:
-    #   - run: xcodebuild -version
 
 
     # parallelism: 1
