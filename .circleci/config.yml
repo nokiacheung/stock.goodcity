@@ -17,9 +17,6 @@ jobs:
   build:
     <<: *defaults
 
-    macos:
-      xcode: "9.2.0"
-
     # environment:
     #   BASH_ENV: ~/.bashrc
 
@@ -28,7 +25,6 @@ jobs:
       - run:
           command: |
             echo 'export PATH="$PATH:$HOME/$CIRCLE_PROJECT_REPONAME/node_modules/.bin:$HOME/.yarn/bin:$ANDROID_HOME/tools"' >> $BASH_ENV
-            # source /home/circleci/.bashrc
 
     environment:
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx1024m -XX:+HeapDumpOnOutOfMemoryError"'
@@ -39,11 +35,7 @@ jobs:
       PILOT_SKIP_SUBMISSION: true
       PILOT_WAIT_PROCESSING_INTERVAL: 60
       ANDROID_HOME: "${HOME}/android-sdk"
-<<<<<<< HEAD
       PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:$HOME/.yarn/bin:${ANDROID_HOME}/tools"
-=======
-      # PATH: "$PATH:$HOME/$CIRCLE_PROJECT_REPONAME/node_modules/.bin:$HOME/.yarn/bin:$ANDROID_HOME/tools"
->>>>>>> check env vars execution
 
 
   checkout_code:
