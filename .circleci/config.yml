@@ -21,9 +21,11 @@ jobs:
     #   BASH_ENV: ~/.bashrc
 
     steps:
+      - checkout
       - run:
           command: |
             echo 'export PATH="$PATH:$HOME/$CIRCLE_PROJECT_REPONAME/node_modules/.bin:$HOME/.yarn/bin:$ANDROID_HOME/tools"' >> $BASH_ENV
+            yarn install
 
     environment:
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx1024m -XX:+HeapDumpOnOutOfMemoryError"'
@@ -41,6 +43,9 @@ jobs:
 
     steps:
       - checkout
+      - run:
+          command: |
+            yarn install
 
 
     # parallelism: 1
