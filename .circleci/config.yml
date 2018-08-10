@@ -14,18 +14,16 @@ defaults: &defaults
     working_directory: ~/crossroads/stock.goodcity
 
 jobs:
-  build:
+  set_env_vars:
     <<: *defaults
 
     # environment:
     #   BASH_ENV: ~/.bashrc
 
     steps:
-      - checkout
       - run:
           command: |
             echo 'export PATH="$PATH:$HOME/$CIRCLE_PROJECT_REPONAME/node_modules/.bin:$HOME/.yarn/bin:$ANDROID_HOME/tools"' >> $BASH_ENV
-            yarn install
 
     environment:
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx1024m -XX:+HeapDumpOnOutOfMemoryError"'
@@ -47,6 +45,22 @@ jobs:
           command: |
             yarn install
 
+workflows:
+    version: 2
+    jobs:
+      - set_env_vars
+      - checkout_code
+
+
+
+          # GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx1024m -XX:+HeapDumpOnOutOfMemoryError"'
+          # XCODE_WORKSPACE: stock.goodcity
+          # GYM_CODE_SIGNING_IDENTITY: "iPhone Distribution: Crossroads Foundation Limited"
+          # FL_TESTFAIRY_AUTO_UPDATE: "on"
+          # PILOT_SKIP_SUBMISSION: true
+          # PILOT_WAIT_PROCESSING_INTERVAL: 60
+          # ANDROID_HOME: "${HOME}/android-sdk"
+          # PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:$HOME/.yarn/bin:${ANDROID_HOME}/tools"
 
     # parallelism: 1
     # shell: /bin/bash --login
