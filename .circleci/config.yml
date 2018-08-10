@@ -9,9 +9,9 @@
 version: 2
 
 defaults: &defaults
-  macos:
-    xcode: "9.2.0"
-  working_directory: ~/crossroads/stock.goodcity
+    docker:
+      - image: circleci/node:6-browsers
+    working_directory: ~/crossroads/stock.goodcity
 
 jobs:
   build:
@@ -21,7 +21,6 @@ jobs:
     #   BASH_ENV: ~/.bashrc
 
     steps:
-      - run: xcodebuild -version
       - run:
           command: |
             echo 'export PATH="$PATH:$HOME/$CIRCLE_PROJECT_REPONAME/node_modules/.bin:$HOME/.yarn/bin:$ANDROID_HOME/tools"' >> $BASH_ENV
@@ -37,13 +36,11 @@ jobs:
       ANDROID_HOME: "${HOME}/android-sdk"
       PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:$HOME/.yarn/bin:${ANDROID_HOME}/tools"
 
-
   checkout_code:
     <<: *defaults
 
     steps:
       - checkout
-      - run: xcodebuild -version
 
 
     # parallelism: 1
