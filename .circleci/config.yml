@@ -45,9 +45,15 @@ jobs:
           key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - ~/stock.goodcity
+
+  install_dependencies:
+    <<: *defaults
+
+    steps:
       - run:
-          command: |
-            yarn install
+          name: Yarn Install
+          command: yarn install
+
 
 workflows:
     version: 2
@@ -55,6 +61,7 @@ workflows:
       jobs:
         - set_env_vars
         - checkout_code
+        - install_dependencies
 
 
 
