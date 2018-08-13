@@ -53,6 +53,7 @@ jobs:
       - run:
           name: Yarn Install
           command: |
+            brew upgrade yarn
             yarn install
             yarn run bower install
 
