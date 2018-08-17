@@ -1,0 +1,44 @@
+<section class="main-section order_tabs">
+  <div class="row">
+    <div class="small-12 columns tab_row">
+      <dl class="tabs" data-tab>
+        {{#link-to 'orders.summary' model.id tagName="dd" classNames="small-3 medium-3 columns text-center"}}
+          {{#link-to 'orders.summary' model.id}}
+            <i class="fa fa-id-card-o"></i>
+            <div>summary</div>
+          {{/link-to}}
+        {{/link-to}}
+
+        {{#if isActiveGoods}}
+          {{#link-to 'orders.items_list' model.id tagName="dd" classNames="small-3 medium-3 columns active text-center"}}
+            {{#link-to 'orders.items_list' model.id}}
+              <i class="fa item-menu fa fa-shopping-basket"></i>
+              <div>Goods</div>
+            {{/link-to}}
+          {{/link-to}}
+        {{else}}
+          {{#link-to 'orders.items_list' model.id tagName="dd" classNames="small-3 medium-3 columns text-center"}}
+            {{#link-to 'orders.items_list' model.id}}
+              <i class="fa item-menu fa fa-shopping-basket"></i>
+              <div>Goods</div>
+            {{/link-to}}
+          {{/link-to}}
+        {{/if}}
+
+        {{#link-to 'orders.order_types' model.id tagName="dd" classNames="small-3 medium-3 columns text-center"}}
+          {{#link-to 'orders.order_types' model.id}}
+            <i class="fa fa-handshake-o"></i>
+            <div>Appointment</div>
+          {{/link-to}}
+        {{/link-to}}
+
+        {{#link-to 'orders.conversation' model.id tagName="dd" classNames="small-3 medium-3 columns text-center"}}
+          {{#link-to 'orders.conversation' model.id}}
+            <i class="fa fa-comments-o"></i>
+            <div>Chat</div>
+          {{/link-to}}
+        {{/link-to}}
+      </dl>
+    </div>
+  </div>
+</section>

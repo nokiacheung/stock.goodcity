@@ -16,6 +16,7 @@ export default Ember.Controller.extend({
   i18n: Ember.inject.service(),
   appReview: Ember.inject.service(),
   isOrderProcessRestarted: false,
+  isActiveGoods: false,
 
   displayOrderOptions: Ember.computed({
     get: function() {
@@ -36,13 +37,13 @@ export default Ember.Controller.extend({
     return (ordersPackages.canonicalState.length) >= 3 ? this.set("displayAllItems", false) : this.set("displayAllItems", true);
   }),
 
-  itemsList: Ember.computed('model.items', 'displayAllItems', 'model.ordersPackages', 'model.ordersPackages.@each.quantity', function() {
-    var ordersPackages = this.get("model.ordersPackages");
+  itemsList: Ember.computed('model.items', 'displayAllItems', 'model.ordersPackages', 'model.ordersPackages.@each.quantity', 'model.ordersPackages.@each.state', function() {
+    var ordersPackages =  this.get("model.ordersPackages").rejectBy('state', "requested").rejectBy("state", "cancelled");
     return this.get("displayAllItems") ? ordersPackages : ordersPackages.slice(0, 3);
   }),
 
-  cancelledOrdersPackages: Ember.computed('model.items', 'displayAllItems', "model.ordersPackages", "model.ordersPackages.@each.quantity", function () {
-    var ordersPackages = this.get("model.ordersPackages").filterBy("state", "cancelled");
+  canceledItemsList: Ember.computed('model.items', 'displayAllItems', 'model.ordersPackages', 'model.ordersPackages.@each.quantity', 'model.ordersPackages.@each.state', function() {
+    var ordersPackages =  this.get("model.ordersPackages").filterBy('state', "cancelled");
     return this.get("displayAllItems") ? ordersPackages : ordersPackages.slice(0, 3);
   }),
 
