@@ -120,6 +120,32 @@ jobs:
           command: |
             yarn run codeclimate-test-reporter < coverage*/lcov.info
 
+  www_build:
+    <<: *defaults
+    environment:
+      EMBER_CLI_CORDOVA: "0"
+    steps:
+      - restore-cache: *restore-repo-cache
+      - restore-cache: *restore-yarn-cache
+      - restore-cache: *restore-bower-cache
+      - run:
+          name: Set Environment variables
+          command: |
+            echo 'export APP_SHA=$(echo $CIRCLE_SHA1 | cut -c1-7)' >> $BASH_ENV
+            echo 'export staging=$(if [ "$CIRCLE_BRANCH" == "live" ]; then echo false; else echo true; fi)' >> $BASH_ENV
+      - run:
+          name: Print Environment variables
+          command: |
+            echo APP_SHA=$APP_SHA
+            echo EMBER_CLI_CORDOVA=$EMBER_CLI_CORDOVA
+            echo staginng=$staging
+      - run: yarn run ember build --environment=production
+      - run: mv dist/ dist-www
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist-www/
+
   www-deploy:
     <<: *defaults
 
@@ -130,12 +156,17 @@ jobs:
       - restore-cache: *restore-bundle-cache
       - run: bundle check --path=vendor/bundle || bundle install --deployment --jobs=4 --retry=3
       - save-cache: *save-bundle-cache
+      - attach_workspace:
+          at: ~/stock.goodcity
+      - run: mv dist-www/ dist
       - run:
           name: Setup Environment
           command: echo 'export STAGE=$(if [ "$CIRCLE_BRANCH" == "live" ]; then echo production; else echo staging; fi)' >> $BASH_ENV
       - run:
           name: Print Environment Variables
           command: echo STAGE=$STAGE
+      - run: bundle exec cap $STAGE deploy:upload
+
 workflows:
     version: 2
     build_and_bundle:
@@ -152,7 +183,10 @@ workflows:
             requires:
               - package_dependencies
               - test_cases
-        - www-deploy:
+        - www_build:
             requires:
               - package_dependencies
+        - www-deploy:
+            requires:
+              - www_build
 
