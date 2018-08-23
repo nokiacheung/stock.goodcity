@@ -61,7 +61,7 @@ export default Ember.Route.extend(preloadDataMixin, {
 
   showItemIsNotAvailable() {
     this.set('isItemUnavailable', true);
-    if(this.get("target").currentPath !== "index") {
+    if(this.get("target") && this.get("target").currentPath !== "index") {
       this.get("messageBox").alert('This item is not available.', () => {
         this.set('isItemUnavailable', false);
         this.transitionTo('items.index');
