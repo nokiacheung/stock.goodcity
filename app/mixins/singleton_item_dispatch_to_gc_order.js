@@ -23,9 +23,7 @@ export default Ember.Mixin.create({
       () => { btn1CallBack(); },
       _this.get("i18n").t(button2text),
       () => {
-        if(Ember.$(".receive-options")[0]) {
-          this.set("hidden", true);
-        }
+        this.set("hidden", true);
       });
   },
 
@@ -39,9 +37,7 @@ export default Ember.Mixin.create({
         _this.get("messageBox").alert(
           _this.get("i18n").t("order_details.complete_process_warning"),
           () => {
-            if(Ember.$(".receive-options")[0]) {
-              this.set("hidden", true);
-            }
+            this.set("hidden", true);
             return false;
           });
       } else if(this.canDispatchOrder(designation)) {
@@ -83,9 +79,7 @@ export default Ember.Mixin.create({
         })
         .finally(
           () => { loadingView.destroy();
-            if(Ember.$(".receive-options")[0]) {
-              _this.set("hidden", true);
-            }
+            _this.set("hidden", true);
             //Check if all Items are dispatched then show close order pop-up
             if(designation.get("allDispatchedOrdersPackages") && designation.get("isDispatching")) {
               this.send("closeOrderPoUp", designation, "close");
@@ -115,9 +109,7 @@ export default Ember.Mixin.create({
             if(transition === "close") {
               loadingView.destroy();
             }
-            if(Ember.$(".receive-options")[0]) {
-              _this.set("hidden", true);
-            }
+            _this.set("hidden", true);
           });
     },
   }
