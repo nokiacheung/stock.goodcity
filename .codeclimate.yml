@@ -4,9 +4,6 @@ engines:
     enabled: true
   fixme:
     enabled: true
-ratings:
-  paths:
-  - "**.js"
 exclude_patterns:
 - "tests/"
 - "public/"
