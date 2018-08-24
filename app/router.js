@@ -33,7 +33,14 @@ Router.map(function() {
   });
 
   this.route("orders", function() {
-    this.route("detail", { path: "/:order_id" });
+    this.route('detail', { path: '/:order_id' });
+    this.route('summary', { path: '/:order_id/summary' });
+    this.route('request_items', { path: '/:order_id/request_items' });
+    this.route('items_list', { path: '/:order_id/items_list' });
+    this.route('active_items', { path: '/:order_id/active_items' });
+    this.route('requested_items', { path: '/:order_id/requested_items' });
+    this.route('conversation', { path: '/:order_id/conversation' });
+    this.route('order_types', { path: '/:order_id/order_types' });
     this.route("items", { path: "/:order_id/items" });
     this.route("contact", { path: "/:order_id/contact" });
     this.route("order_transport", { path: "/:order_id/transport" });

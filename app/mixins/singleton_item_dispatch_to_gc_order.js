@@ -22,14 +22,16 @@ export default Ember.Mixin.create({
       _this.get("i18n").t(button1text),
       () => { btn1CallBack(); },
       _this.get("i18n").t(button2text),
-      () => { this.set("hidden", true); }
-      );
+      () => {
+        this.set("hidden", true);
+      });
   },
 
   actions: {
     dispatchOrdersPackagePopUp(item) {
+      if(!item.get("isSingletonItem")) { return false; }
       var _this = this;
-      var designation = item.get("designation");
+      var designation = item.get("ordersPackages").filterBy("state", "designated").get("firstObject").get("designation");
       //Cannot Dispatch warning for non dispatchable states(draft, submitted, processing)
       if(this.canDispatchItems(designation)) {
         _this.get("messageBox").alert(
@@ -57,10 +59,8 @@ export default Ember.Mixin.create({
     dispatchItem(item, designation) {
       var _this = this;
       var pkgLocation = item.get("packagesLocations.firstObject");
-
       var packagesLocationQty = [];
       var record = {};
-
       record["packages_location_id"] = pkgLocation.get("id");
       record["qty_to_deduct"] = pkgLocation.get("quantity");
       packagesLocationQty.push(record);
@@ -103,13 +103,13 @@ export default Ember.Mixin.create({
         .then(data => {
           data["designation"] = data["order"];
           _this.get("store").pushPayload(data);
-          _this.set("hidden", true);
         })
         .finally(
           () => {
             if(transition === "close") {
               loadingView.destroy();
             }
+            _this.set("hidden", true);
           });
     },
   }
