@@ -1,13 +1,15 @@
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
-import { belongsTo } from 'ember-data/relationships';
+import { belongsTo, hasMany } from 'ember-data/relationships';
 
 export default Model.extend({
 
   name:             attr('string'),
   code:             attr('string'),
+  otherTerms:       attr('string'),
   visibleInSelects: attr('boolean', { defaultValue: false }),
   location:         belongsTo('location', { async: false }),
+  requests:         hasMany('request', { async: false }),
 
   defaultChildPackages: attr('string'),
   otherChildPackages:   attr('string'),

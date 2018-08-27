@@ -35,6 +35,7 @@ export default Model.extend({
   gcOrganisation:     belongsTo('gcOrganisation', { async: false }),
   localOrder:         belongsTo('local_order', { async: false }),
   items:              hasMany('item', { async: true }),
+  requests:           hasMany('request', { async: false }),
   ordersPackages:     hasMany('ordersPackages', { async: false }),
   orderTransport:     belongsTo('orderTransport', { async: false }),
   ordersPurposes:     hasMany('ordersPurpose', { async: false }),

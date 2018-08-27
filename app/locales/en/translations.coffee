@@ -60,6 +60,7 @@ I18nTranslationsEn =
     "complete_process_warning": "You need to complete processing the Order first before dispatching."
     "cannot_designate_to_gc_order": "This GoodCity Order is either in cancelled or closed state. You can't designate item to this order."
     "add_item_to_order": "Add an item to this order"
+    "add_request_to_order": "Add request to order"
     "resubmit_order_warning": "Resubmitting an Order will set order state to submitted. Are you sure you want to resubmit the order?"
     "reopen_undispatch_warning": "You can only reopen an order after un-dispatching all dispatched items."
     "dispatch_later_undispatch_warning": "You need to un-dispatch all the dispatched items first."
