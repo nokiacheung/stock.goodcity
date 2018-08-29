@@ -81,14 +81,14 @@ export default Ember.Controller.extend({
 
   actions: {
     updateRequestCode(packageType, requestId) {
-      var url = `/requests/${requestId}`;
-      var request = this.get("store").peekRecord("request", requestId);
+      var url = `/goodcity_requests/${requestId}`;
+      var request = this.get("store").peekRecord("goodcity_request", requestId);
       var designation = request.get("designation");
       var requestParams = {
         package_type_id: packageType.id
       };
       var loadingView = getOwner(this).lookup('component:loading').append();
-      new AjaxPromise(url, "PUT", this.get('session.authToken'), {request: requestParams })
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { goodcity_request: requestParams })
         .then(data => {
           this.get("store").pushPayload(data);
         })

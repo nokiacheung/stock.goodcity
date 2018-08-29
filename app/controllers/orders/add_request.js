@@ -52,7 +52,7 @@ export default Ember.Controller.extend({
           order_id: _this.get("orderId")
         };
 
-        new AjaxPromise("/requests", "POST", this.get('session.authToken'), { request: params })
+        new AjaxPromise("/goodcity_requests", "POST", this.get('session.authToken'), { goodcity_request: params })
           .then(data => {
             this.get("store").pushPayload(data);
           })

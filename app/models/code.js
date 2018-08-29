@@ -9,7 +9,7 @@ export default Model.extend({
   otherTerms:       attr('string'),
   visibleInSelects: attr('boolean', { defaultValue: false }),
   location:         belongsTo('location', { async: false }),
-  requests:         hasMany('request', { async: false }),
+  goodcityRequests: hasMany('goodcity_request', { async: false }),
 
   defaultChildPackages: attr('string'),
   otherChildPackages:   attr('string'),

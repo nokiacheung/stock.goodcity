@@ -10,7 +10,7 @@ export default itemDescriptionTextarea.extend({
 
   focusOut() {
     var request = this.get("request");
-    var url = `/requests/${request.get('id')}`;
+    var url = `/goodcity_requests/${request.get('id')}`;
     var key = this.get('name');
     var value = this.attrs.value.value || '';
     var requestParams = {};
@@ -18,7 +18,7 @@ export default itemDescriptionTextarea.extend({
 
     if (requestParams[key].toString() !== this.get('previousValue').toString().trim()){
       var loadingView = getOwner(this).lookup('component:loading').append();
-      new AjaxPromise(url, "PUT", this.get('session.authToken'), {request: requestParams })
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { goodcity_request: requestParams })
         .then(data => {
           this.get("store").pushPayload(data);
         })

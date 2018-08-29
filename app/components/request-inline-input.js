@@ -12,7 +12,7 @@ export default numericInlineInput.extend({
       this.set('value', val.replace(/\D/g,''));
     }
     var request = this.get("request");
-    var url = `/requests/${request.get('id')}`;
+    var url = `/goodcity_requests/${request.get('id')}`;
     var key = this.get('name');
     var requestParams = {};
     requestParams[key] = this.get('value') || '';
@@ -33,7 +33,7 @@ export default numericInlineInput.extend({
     Ember.$(this.element).removeClass('numeric-inline-input');
     if (requestParams[key].toString() !== this.get('previousValue').toString()){
       var loadingView = getOwner(this).lookup('component:loading').append();
-      new AjaxPromise(url, "PUT", this.get('session.authToken'), { request: requestParams })
+      new AjaxPromise(url, "PUT", this.get('session.authToken'), { goodcity_request: requestParams })
         .then(data => {
           this.get("store").pushPayload(data);
         })

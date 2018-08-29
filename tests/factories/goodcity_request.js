@@ -1,6 +1,6 @@
 import FactoryGuy from 'ember-data-factory-guy';
 
-FactoryGuy.define('request',{
+FactoryGuy.define('goodcity_request',{
   sequences: {
     id: function() {
       return Math.floor(Math.random() * 100);

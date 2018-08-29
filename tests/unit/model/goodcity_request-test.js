@@ -1,7 +1,7 @@
 import { test, moduleForModel } from 'ember-qunit';
 import Ember from 'ember';
 
-moduleForModel('request', 'Request Model', {
+moduleForModel('goodcity_request', 'GoodcityRequest Model', {
   needs: ['model:code', 'model:designation']
 });
 
@@ -17,7 +17,7 @@ test('check attributes', function(assert){
 
 test('Relationships with other models', function(assert) {
   assert.expect(4);
-  var Request = this.store().modelFor('request');
+  var Request = this.store().modelFor('goodcity_request');
   var relationshipWithCode = Ember.get(Request, 'relationshipsByName').get('code');
   var relationshipWithDesignation = Ember.get(Request, 'relationshipsByName').get('designation');
 

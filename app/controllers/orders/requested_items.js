@@ -4,6 +4,8 @@ import AjaxPromise from 'stock/utils/ajax-promise';
 const { getOwner } = Ember;
 
 export default detail.extend({
+  sortProperties: ["id"],
+  sortedGcRequests: Ember.computed.sort("model.goodcityRequests", "sortProperties"),
 
   actions: {
     deleteRequest(reqId) {
@@ -15,8 +17,8 @@ export default detail.extend({
     },
 
     removeRequest(reqId) {
-      var url = `/requests/${reqId}`;
-      var req = this.get("store").peekRecord("request", reqId);
+      var url = `/goodcity_requests/${reqId}`;
+      var req = this.get("store").peekRecord("goodcity_request", reqId);
       var loadingView = getOwner(this).lookup('component:loading').append();
       new AjaxPromise(url, "DELETE", this.get('session.authToken'))
         .then(data => {

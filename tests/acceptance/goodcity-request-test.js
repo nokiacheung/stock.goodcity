@@ -4,7 +4,7 @@ import startApp from '../helpers/start-app';
 import '../factories/orders_package';
 import '../factories/designation';
 import '../factories/item';
-import '../factories/request';
+import '../factories/goodcity_request';
 import '../factories/location';
 import '../factories/code';
 import FactoryGuy from 'ember-data-factory-guy';
@@ -12,14 +12,14 @@ import { mockFindAll } from 'ember-data-factory-guy';
 
 var App, designation1, request, code;
 
-module('Acceptance: Request test', {
+module('Acceptance: Goodcity Request test', {
   beforeEach: function() {
     App = startApp({}, 2);
     designation1 = FactoryGuy.make("designation", { state: "processing", detailType: "GoodCity", code: "GC-00001" });
     var location = FactoryGuy.make("location");
     code = FactoryGuy.make("code", { location: location });
     var data = {"user_profile": [{"id": 2,"first_name": "David", "last_name": "Dara51", "mobile": "61111111", "user_role_ids": [1]}], "users": [{"id": 2,"first_name": "David", "last_name": "Dara51", "mobile": "61111111"}], "roles": [{"id": 4, "name": "Supervisor"}], "user_roles": [{"id": 1, "user_id": 2, "role_id": 4}]};
-    request = FactoryGuy.make("request", { quantity: 1, designation: designation1, code: code });
+    request = FactoryGuy.make("goodcity_request", { quantity: 1, designation: designation1, code: code });
     $.mockjax({url:"/api/v1/auth/current_user_profil*",
       responseText: data });
 
@@ -30,8 +30,8 @@ module('Acceptance: Request test', {
     });
 
     mockFindAll('location').returns({json: {locations: [location.toJSON({includeId: true})]}});
-    $.mockjax({url: '/api/v1/request*', type: 'POST', status: 201,responseText: {
-        requests: [request.toJSON({includeId: true})]
+    $.mockjax({url: '/api/v1/goodcity_request*', type: 'POST', status: 201,responseText: {
+        goodcity_requests: [request.toJSON({includeId: true})]
       }
     });
     mockFindAll('designation').returns({ json: {designations: [designation1.toJSON({includeId: true})],
