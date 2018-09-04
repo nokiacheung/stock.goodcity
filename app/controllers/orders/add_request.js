@@ -28,31 +28,39 @@ export default Ember.Controller.extend({
     return selected;
   }),
 
+  getRequestParams() {
+    var quantity = this.get("quantity");
+    var description = this.get("description");
+    var params = {
+      quantity: quantity,
+      description: description,
+      package_type_id: this.get("packageTypeId"),
+      order_id: this.get("orderId")
+    };
+    return { goodcity_request: params };
+  },
+
+  isOnline() {
+    if(!window.navigator.onLine){
+      this.get("messageBox").alert(this.get("i18n").t("offline_error"));
+      return false;
+    }
+  },
+
   actions: {
     clearDescription() {
       this.set("description", "");
     },
 
     saveRequest() {
-      if(!window.navigator.onLine){
-        this.get("messageBox").alert(this.get("i18n").t("offline_error"));
-        return false;
-      }
+      var isOnline = this.isOnline();
+      if(isOnline === false) { return false; }
       var _this = this, loadingView;
       if(_this.get("quantity").toString().trim().length === 0) {
         return false;
       } else {
         loadingView = getOwner(this).lookup('component:loading').append();
-        var quantity = _this.get("quantity");
-        var description = _this.get("description");
-        var params = {
-          quantity: quantity,
-          description: description,
-          package_type_id: _this.get("packageTypeId"),
-          order_id: _this.get("orderId")
-        };
-
-        new AjaxPromise("/goodcity_requests", "POST", this.get('session.authToken'), { goodcity_request: params })
+        new AjaxPromise("/goodcity_requests", "POST", this.get('session.authToken'), this.getRequestParams())
           .then(data => {
             this.get("store").pushPayload(data);
           })

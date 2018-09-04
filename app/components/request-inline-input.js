@@ -5,6 +5,26 @@ const { getOwner } = Ember;
 
 export default numericInlineInput.extend({
 
+  getRequestParams() {
+    return { quantity: this.get("value") || "" };
+  },
+
+  isEmptyValue(val, request) {
+    if(parseInt(val, 10) === 0) {
+      this.set("value",  request._internalModel._data.quantity);
+      Ember.$(this.element).removeClass('numeric-inline-input');
+      return false;
+    }
+  },
+
+  isEmptyQty(requestParams) {
+    if(parseInt(requestParams["quantity"], 10) === 0) {
+      Ember.$(this.element).removeClass('numeric-inline-input');
+      this.set('value','');
+      return false;
+    }
+  },
+
   focusOut() {
     var val = this.attrs.value.value;
     var regexPattern = /^\d+$/;
@@ -13,25 +33,15 @@ export default numericInlineInput.extend({
     }
     var request = this.get("request");
     var url = `/goodcity_requests/${request.get('id')}`;
-    var key = this.get('name');
-    var requestParams = {};
-    requestParams[key] = this.get('value') || '';
-
-    if(parseInt(val, 10) === 0) {
-      this.set("value",  request._internalModel._data.quantity);
-      Ember.$(this.element).removeClass('numeric-inline-input');
-      return false;
-    }
-
-    if(parseInt(requestParams[key], 10) === 0)
-    {
-      Ember.$(this.element).removeClass('numeric-inline-input');
-      this.set('value','');
+    var requestParams = this.getRequestParams();
+    var checkValue = this.isEmptyValue(val, request);
+    var checkQuantity = this.isEmptyQty(requestParams);
+    if(checkValue === false || checkQuantity === false) {
       return false;
     }
 
     Ember.$(this.element).removeClass('numeric-inline-input');
-    if (requestParams[key].toString() !== this.get('previousValue').toString()){
+    if (requestParams["quantity"].toString() !== this.get('previousValue').toString()){
       var loadingView = getOwner(this).lookup('component:loading').append();
       new AjaxPromise(url, "PUT", this.get('session.authToken'), { goodcity_request: requestParams })
         .then(data => {
