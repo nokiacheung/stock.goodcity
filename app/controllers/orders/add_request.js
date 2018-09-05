@@ -45,6 +45,7 @@ export default Ember.Controller.extend({
       this.get("messageBox").alert(this.get("i18n").t("offline_error"));
       return false;
     }
+    return true;
   },
 
   actions: {
@@ -53,8 +54,7 @@ export default Ember.Controller.extend({
     },
 
     saveRequest() {
-      var isOnline = this.isOnline();
-      if(isOnline === false) { return false; }
+      if(!this.isOnline()) { return false; }
       var _this = this, loadingView;
       if(_this.get("quantity").toString().trim().length === 0) {
         return false;

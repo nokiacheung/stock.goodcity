@@ -15,6 +15,7 @@ export default numericInlineInput.extend({
       Ember.$(this.element).removeClass('numeric-inline-input');
       return false;
     }
+    return true;
   },
 
   isEmptyQty(requestParams) {
@@ -23,6 +24,7 @@ export default numericInlineInput.extend({
       this.set('value','');
       return false;
     }
+    return true;
   },
 
   focusOut() {
@@ -34,9 +36,7 @@ export default numericInlineInput.extend({
     var request = this.get("request");
     var url = `/goodcity_requests/${request.get('id')}`;
     var requestParams = this.getRequestParams();
-    var checkValue = this.isEmptyValue(val, request);
-    var checkQuantity = this.isEmptyQty(requestParams);
-    if(checkValue === false || checkQuantity === false) {
+    if(!this.isEmptyValue(val, request) || !this.isEmptyQty(requestParams)) {
       return false;
     }
 
