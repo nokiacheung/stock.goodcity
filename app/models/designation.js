@@ -4,6 +4,7 @@ import attr from 'ember-data/attr';
 import { belongsTo, hasMany } from 'ember-data/relationships';
 
 export default Model.extend({
+  i18n: Ember.inject.service(),
   utilityMethods: Ember.inject.service(),
 
   status:               attr('string'),
@@ -60,6 +61,59 @@ export default Model.extend({
   capitalizedState: Ember.computed('state', function() {
     return this.get("state").capitalize();
   }),
+
+  stateIcon: Ember.computed('stateIcon', function () {
+    const state = this.get("state");
+    switch (state) {
+      case "awaiting_dispatch":
+      case "scheduled":
+        return "clock-o";
+      case "processing":
+        return "list";
+      case "submitted":
+        return "envelope";
+      case "dispatching":
+        return "paper-plane";
+      case "cancelled":
+        return "thumbs-down";
+      case "closed":
+        return "lock";
+      default:
+        return "";
+    }
+  }),
+
+  transportIcon: Ember.computed("transportIcon", function() {
+    const key = this.get("transportKey");
+    switch (key) {
+      case "gogovan_transport":
+        return "truck";
+      case "collection_transport":
+        return "male";
+      default:
+        return "";
+    }
+  }),
+
+  transportLabel: Ember.computed("transportLabel", function() {
+    console.log(this.get("contact"));
+    const key = this.get('transportKey');
+    return this.get("i18n").t(`order_transports.${key}`);
+  }),
+
+  transportKey: Ember.computed("transportKey", function() {
+    const transportType = this.get('orderTransport.transportType');
+    if (transportType) {
+      // GoodCity Order
+      if (transportType === "ggv") {
+        return "gogovan_transport";
+      } else if (transportType === "self") {
+        return "collection_transport"
+      }
+    }
+    // TODO: StockIt orders
+    return "unknown_transport"
+   }),
 
   ordersPackagesCount: Ember.computed('ordersPackages.[]', 'ordersPackages.@each.quantity', 'ordersPackages.@each.state', function() {
     return this.get("ordersPackages").filterBy('quantity').length;
