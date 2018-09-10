@@ -27,7 +27,7 @@
             {{ t "order.due_date" }}
           </div>
           <div class="small-8 columns value">
-            {{  display-datetime order.orderTransport.scheduledAt format="LLL" }}
+            {{  display-datetime order.orderTransport.scheduledAt format="dddd Do MMMM hh:mm a" }}
           </div>
         </div>
       {{/if}}
