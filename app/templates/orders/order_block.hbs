@@ -43,7 +43,7 @@
         </div>
       {{/if}}
       
-      {{#if order.organisation}}
+      {{#if order.gcOrganisationId or order.organisationId }}
         <div class="row">
           <div class="small-4 columns field">
             {{ t "organisation_title" }}
@@ -78,17 +78,5 @@
       {{/if}}
 
     </div>
-
-              {{!-- {{order.organisation.nameEn}} --}}
-          {{!-- {{ if order.isGoodCityOrder order.gcOrganisation.nameEn order.organisation.name }} --}}
-
-    {{!-- <div class="row">
-      <div class="small-12 columns">
-        {{order.stockitContact.fullName}}: {{order.stockitContact.displayNumber}}
-        {{#if order.localOrder.clientName}}
-          for {{order.localOrder.clientName}}
-        {{/if}}
-      </div>
-    </div> --}}
 
 </li>
