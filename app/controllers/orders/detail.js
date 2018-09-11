@@ -16,6 +16,7 @@ export default Ember.Controller.extend({
   i18n: Ember.inject.service(),
   appReview: Ember.inject.service(),
   isOrderProcessRestarted: false,
+  isActiveGoods: false,
 
   displayOrderOptions: Ember.computed({
     get: function() {
@@ -36,13 +37,13 @@ export default Ember.Controller.extend({
     return (ordersPackages.canonicalState.length) >= 3 ? this.set("displayAllItems", false) : this.set("displayAllItems", true);
   }),
 
-  itemsList: Ember.computed('model.items', 'displayAllItems', 'model.ordersPackages', 'model.ordersPackages.@each.quantity', function() {
-    var ordersPackages = this.get("model.ordersPackages");
+  itemsList: Ember.computed('model.items', 'displayAllItems', 'model.ordersPackages', 'model.ordersPackages.@each.quantity', 'model.ordersPackages.@each.state', function() {
+    var ordersPackages =  this.get("model.ordersPackages").rejectBy('state', "requested").rejectBy("state", "cancelled");
     return this.get("displayAllItems") ? ordersPackages : ordersPackages.slice(0, 3);
   }),
 
-  cancelledOrdersPackages: Ember.computed('model.items', 'displayAllItems', "model.ordersPackages", "model.ordersPackages.@each.quantity", function () {
-    var ordersPackages = this.get("model.ordersPackages").filterBy("state", "cancelled");
+  canceledItemsList: Ember.computed('model.items', 'displayAllItems', 'model.ordersPackages', 'model.ordersPackages.@each.quantity', 'model.ordersPackages.@each.state', function() {
+    var ordersPackages =  this.get("model.ordersPackages").filterBy('state', "cancelled");
     return this.get("displayAllItems") ? ordersPackages : ordersPackages.slice(0, 3);
   }),
 
@@ -74,9 +75,6 @@ export default Ember.Controller.extend({
 
     updateOrder(order, actionName) {
       switch(actionName) {
-        case "finish_processing":
-          this.send("promptFinishModal", order, actionName);
-          break;
         case "messagePopUp":
           this.send("changeOrderState", order, "cancel");
           break;
@@ -103,16 +101,6 @@ export default Ember.Controller.extend({
           break;
         default:
           this.send("changeOrderState", order, actionName);
-      }
-    },
-
-    promptFinishModal(order, actionName) {
-      var _this = this;
-      var ordersPackagesState = order.get("ordersPackages").getEach("state");
-      if(ordersPackagesState.indexOf("cancelled") >= 0) {
-        _this.genericAlertPopUp("order_details.finish_process_warning", function() {});
-      } else {
-        _this.send("changeOrderState", order, actionName);
       }
     },
 

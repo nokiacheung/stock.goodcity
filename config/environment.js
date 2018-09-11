@@ -68,7 +68,8 @@ module.exports = function(environment) {
     cordova: {
       enabled: process.env.EMBER_CLI_CORDOVA !== '0',
       rebuildOnChange: false,
-      emulate: false
+      emulate: false,
+      GcmSenderId: "535052654081"
     }
   };
 
@@ -112,6 +113,7 @@ module.exports = function(environment) {
   if (environment === 'production') {
     ENV.APP.API_HOST_URL = 'https://api.goodcity.hk';
     ENV.APP.SOCKETIO_WEBSERVICE_URL = 'https://socket.goodcity.hk:81/goodcity';
+    ENV.cordova.GcmSenderId = '551756918176';
 
     ENV.contentSecurityPolicy["connect-src"] = [
       'https://api.goodcity.hk',

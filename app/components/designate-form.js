@@ -16,7 +16,6 @@ export default Ember.Component.extend({
   partialDesignatedConfirmationPopUp: false,
   totalPartialDesignatedItems: 0,
   designatedRecord: null,
-  cannotDesignateToSameOrder: false,
   designateFullSet: Ember.computed.localStorage(),
   env: config.APP.environment,
 
@@ -103,7 +102,6 @@ export default Ember.Component.extend({
     var alreadyPartiallyDesignated = false;
     this.set('partiallyDesignatedPopUp', false);
     this.set('partialDesignatedConfirmationPopUp', false);
-    this.set('cannotDesignateToSameOrder', false);
     this.set('hasCancelledState', false);
     var order = this.get('order');
     var item = this.get('item');
@@ -142,13 +140,6 @@ export default Ember.Component.extend({
     displayDesignateOverlay() {
       this.set('partiallyDesignatedPopUp', false);
       this.set('partialDesignatedConfirmationPopUp', false);
-      this.set('cannotDesignateToSameOrder', false);
-
-      if(getOwner(this).lookup('controller:items.search_order').get('notPartialRoute') && this.get('isDesignatedToCurrentPartialOrder') )
-      {
-        this.set('cannotDesignateToSameOrder', true);
-        return false;
-      }
 
       if(this.get('partial_quantity') && this.get('isDesignatedToCurrentPartialOrder') ) {
         if(this.get('designatedOnce') && !this.get('cancelledState')) {

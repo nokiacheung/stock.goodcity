@@ -4,6 +4,16 @@ engines:
     enabled: true
   fixme:
     enabled: true
-ratings:
-  paths:
-  - "**.js"
+exclude_patterns:
+- "tests/"
+- "public/"
+- "cordova/"
+- "scripts/"
+- "tmp/"
+- "app/routes/"
+- "app/styles/"
+- "app/locales/"
+- "config/"
+
+
+

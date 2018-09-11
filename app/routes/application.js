@@ -10,6 +10,7 @@ export default Ember.Route.extend(preloadDataMixin, {
   isLoginPopUpAlreadyShown: false,
   logger: Ember.inject.service(),
   messageBox: Ember.inject.service(),
+  cordova: Ember.inject.service(),
   isMustLoginAlreadyShown: false,
 
   _loadDataStore: function(){
@@ -18,6 +19,11 @@ export default Ember.Route.extend(preloadDataMixin, {
         this.transitionTo("offline");
       } else {
         this.handleError(error);
+      }
+    }).finally(() => {
+      // don't know why but placing this before preloadData on iPhone 6 causes register_device request to fail with status 0
+      if (this.session.get('isLoggedIn')) {
+        this.get("cordova").appLoad();
       }
     });
   },
@@ -55,7 +61,7 @@ export default Ember.Route.extend(preloadDataMixin, {
 
   showItemIsNotAvailable() {
     this.set('isItemUnavailable', true);
-    if(this.get("target").currentPath !== "index") {
+    if(this.get("target") && this.get("target").currentPath !== "index") {
       this.get("messageBox").alert('This item is not available.', () => {
         this.set('isItemUnavailable', false);
         this.transitionTo('items.index');

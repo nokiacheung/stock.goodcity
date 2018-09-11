@@ -18,12 +18,12 @@ export default AuthorizeRoute.extend({
     var path = "items.index";
 
     if(previousRoute) {
-      if(previousRoute.name === "orders.detail") {
+      if(previousRoute.name === "orders.active_items") {
         this.set("orderId", previousRoute.params.order_id);
       }
       this.set('itemPreviousRoute', previousRoute.name);
       var routeName = previousRoute.name;
-      if(routeName.indexOf("detail")){
+      if(routeName.indexOf("active_items")){
         path = routeName;
       }
     }

@@ -6,6 +6,7 @@ export default getOrderRoute.extend({
   orderBackLinkPath: Ember.computed.localStorage(),
   itemIdforHistoryRoute: null,
   organisationIdforHistoryRoute: null,
+  currentRouteName: null,
 
   setHistoryRoute(routeName, previousRoute) {
     if(routeName === "items.history" || routeName === "items.partial_undesignate") {
@@ -32,6 +33,7 @@ export default getOrderRoute.extend({
     var previousRoutes = this.router.router.currentHandlerInfos;
     var previousRoute = previousRoutes && previousRoutes.pop();
     var path = "orders.index";
+    this.set("currentRouteName", this.routeName);
     if(previousRoute) {
       var routeName = previousRoute.name;
       this.setHistoryRoute(routeName, previousRoute);
@@ -41,7 +43,7 @@ export default getOrderRoute.extend({
   },
 
   model(params) {
-    return this.store.findRecord("designation", params.order_id, { reload: true });
+    return (this.store.peekRecord("designation", params.order_id, { reload: true }) || this.store.findRecord("designation", params.order_id, { reload: true }));
   },
 
   afterModel(model) {
@@ -69,6 +71,10 @@ export default getOrderRoute.extend({
       }
       this._super(controller, model);
       controller.set('backLinkPath', this.get('orderBackLinkPath'));
+      var currentRoute = this.get("currentRouteName");
+      if(currentRoute && currentRoute === "orders.detail") {
+        this.transitionTo("orders.active_items", model.id);
+      }
     }
   }
 });
