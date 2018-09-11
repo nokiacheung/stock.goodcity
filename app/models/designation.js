@@ -110,7 +110,6 @@ export default Model.extend({
         return "collection_transport";
       }
     }
-    // TODO: StockIt orders
     return "unknown_transport";
    }),
 
