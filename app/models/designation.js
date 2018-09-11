@@ -107,11 +107,11 @@ export default Model.extend({
       if (transportType === "ggv") {
         return "gogovan_transport";
       } else if (transportType === "self") {
-        return "collection_transport"
+        return "collection_transport";
       }
     }
     // TODO: StockIt orders
-    return "unknown_transport"
+    return "unknown_transport";
    }),
 
   ordersPackagesCount: Ember.computed('ordersPackages.[]', 'ordersPackages.@each.quantity', 'ordersPackages.@each.state', function() {
