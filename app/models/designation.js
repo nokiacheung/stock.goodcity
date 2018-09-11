@@ -96,7 +96,6 @@ export default Model.extend({
   }),
 
   transportLabel: Ember.computed("transportLabel", function() {
-    console.log(this.get("contact"));
     const key = this.get('transportKey');
     return this.get("i18n").t(`order_transports.${key}`);
   }),
