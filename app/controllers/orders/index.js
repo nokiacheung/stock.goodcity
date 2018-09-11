@@ -7,8 +7,9 @@ export default searchModule.extend({
   minSearchTextLength: 2,
 
   onItemLoaded: function (record) {
-    if (record.get("gcOrganisationId")) {
-      this.store.findRecord("gc_organisation", record.get("gcOrganisationId"));
+    const orgId = record.get("gcOrganisationId");
+    if (orgId) {
+      this.store.findRecord("gc_organisation", orgId, { reload: false });
     }
     if(record.constructor.toString() === "stock@model:designation:") {
       this.store.query("orders_package", { search_by_order_id: record.get("id") });
