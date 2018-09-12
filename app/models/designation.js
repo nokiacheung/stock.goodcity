@@ -62,7 +62,7 @@ export default Model.extend({
     return this.get("state").capitalize();
   }),
 
-  stateIcon: Ember.computed('stateIcon', function () {
+  stateIcon: Ember.computed('state', function () {
     const state = this.get("state");
     switch (state) {
       case "awaiting_dispatch":
@@ -83,7 +83,7 @@ export default Model.extend({
     }
   }),
 
-  transportIcon: Ember.computed("transportIcon", function() {
+  transportIcon: Ember.computed("transportKey", function() {
     const key = this.get("transportKey");
     switch (key) {
       case "gogovan_transport":
@@ -95,20 +95,17 @@ export default Model.extend({
     }
   }),
 
-  transportLabel: Ember.computed("transportLabel", function() {
+  transportLabel: Ember.computed("transportKey", function() {
     const key = this.get('transportKey');
     return this.get("i18n").t(`order_transports.${key}`);
   }),
 
-  transportKey: Ember.computed("transportKey", function() {
+  transportKey: Ember.computed("orderTransport.transportType", function() {
     const transportType = this.get('orderTransport.transportType');
-    if (transportType) {
-      // GoodCity Order
-      if (transportType === "ggv") {
-        return "gogovan_transport";
-      } else if (transportType === "self") {
-        return "collection_transport";
-      }
+    if (transportType === "ggv") {
+      return "gogovan_transport";
+    } else if (transportType === "self") {
+      return "collection_transport";
     }
     return "unknown_transport";
    }),

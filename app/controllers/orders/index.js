@@ -6,7 +6,7 @@ export default searchModule.extend({
   unloadAll: true,
   minSearchTextLength: 2,
 
-  onItemLoaded: function (record) {
+  onItemLoaded(record) {
     const orgId = record.get("gcOrganisationId");
     if (orgId) {
       this.store.findRecord("gc_organisation", orgId, { reload: false });

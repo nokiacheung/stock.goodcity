@@ -21,7 +21,7 @@
 
     <div class="row order_body">
 
-      {{#if order.orderTransport.scheduledAt }}
+      {{#if (is-and order.orderTransport order.orderTransport.scheduledAt)}}
         <div class="row">
           <div class="small-4 columns field">
             {{ t "order.due_date" }}
@@ -32,7 +32,7 @@
         </div>
       {{/if}}
 
-      {{#if order.submittedBy }}
+      {{#if order.submittedBy}}
         <div class="row">
           <div class="small-4 columns field">
             {{ t "order.submitted_by" }}
@@ -43,7 +43,7 @@
         </div>
       {{/if}}
       
-      {{#if order.gcOrganisationId or order.organisationId }}
+      {{#if (is-or order.gcOrganisationId or order.organisationId)}}
         <div class="row">
           <div class="small-4 columns field">
             {{ t "organisation_title" }}
@@ -54,7 +54,7 @@
         </div>
       {{/if}}
 
-      {{#if order.stockitContact }}
+      {{#if order.stockitContact}}
         <div class="row">
           <div class="small-4 columns field">
             {{ t "order.submitted_for_client" }}
@@ -65,7 +65,7 @@
         </div>
       {{/if}}
 
-      {{#if order.designatedOrdersPackages.length or order.dispatchedOrdersPackages.length }}
+      {{#if (is-or order.designatedOrdersPackages.length order.dispatchedOrdersPackages.length)}}
           <div class="row order_process_summary">
             <div class="small-4 columns field">
               {{ t "order.process_summary" }}
