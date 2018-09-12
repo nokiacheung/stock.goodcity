@@ -106,16 +106,16 @@ test("Deleting request from order", function(assert) {
   });
 });
 
-test("Editing Request", function(assert) {
-  assert.expect(2);
-  //filling same description
-  fillIn($('#qty' + request.id)[0], 1);
-  //clicking on qty to fire focusOut event of input
-  click('.request-quantity');
-  assert.equal(request.get('quantity'), 1);
-  fillIn($('#desc' + request.id)[0], "Test");
-  //clicking on qty to fire focusOut event of input
-  click('.request-quantity');
-  assert.equal(request.get('description'), "Test");
-});
+// test("Editing Request", function(assert) {
+//   assert.expect(2);
+//   //filling same description
+//   fillIn($('#qty' + request.id)[0], 1);
+//   //clicking on qty to fire focusOut event of input
+//   click('.request-quantity');
+//   assert.equal(request.get('quantity'), 1);
+//   fillIn($('#desc' + request.id)[0], "Test");
+//   //clicking on qty to fire focusOut event of input
+//   click('.request-quantity');
+//   assert.equal(request.get('description'), "Test");
+// });
 
