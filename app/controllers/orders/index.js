@@ -11,9 +11,6 @@ export default searchModule.extend({
     if (orgId) {
       this.store.findRecord("gc_organisation", orgId, { reload: false });
     }
-    if(record.constructor.toString() === "stock@model:designation:") {
-      this.store.query("orders_package", { search_by_order_id: record.get("id") });
-    }
   }
 
 
