@@ -10,7 +10,7 @@ machine:
     PILOT_SKIP_SUBMISSION: true
     PILOT_WAIT_PROCESSING_INTERVAL: 60
     ANDROID_HOME: "${HOME}/android-sdk"
-    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:${HOME}/.yarn/bin:${ANDROID_HOME}/tools:${ANDROID_HOME}/build-tools/27.0.0"
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:$HOME/.yarn/bin:${ANDROID_HOME}/tools"
 dependencies:
   cache_directories:
     - ~/.yarn
