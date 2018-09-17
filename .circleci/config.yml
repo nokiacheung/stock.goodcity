@@ -217,6 +217,9 @@ jobs:
     steps:
       - restore-cache: *restore-repo-cache
       - restore-cache: *restore-yarn-cache
+      - restore-cache: *restore-bundle-cache
+      - run: bundle install --deployment --jobs=4 --retry=3
+      - save-cache: *save-bundle-cache
       - attach_workspace:
           at: ~/stock.goodcity
       - run:
@@ -267,6 +270,10 @@ jobs:
           working_directory: cordova
       - store_artifacts:
           path: cordova/platforms/android/build/outputs/apk/
+      - run:
+          name: release staging build
+          command: bundle exec fastlane android staging
+          working_directory: ~/stock.goodcity
 
       # - persist_to_workspace:
       #     root: .
