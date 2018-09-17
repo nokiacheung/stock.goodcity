@@ -265,24 +265,26 @@ jobs:
             echo GOODCITY_KEYSTORE_ALIAS=$GOODCITY_KEYSTORE_ALIAS
             cordova compile android "${BUILD}" --device -- --keystore="${KEYSTORE}" --storePassword="${GOODCITY_KEYSTORE_PASSWORD}" --alias="${GOODCITY_KEYSTORE_ALIAS}" --password="${GOODCITY_KEYSTORE_PASSWORD}"
           working_directory: cordova
+      - store_artifacts:
+          path: cordova/platforms/android/build/outputs/apk/
 
-      - persist_to_workspace:
-          root: .
-          paths:
-            - platforms/android/build/outputs/apk/
       # - persist_to_workspace:
+      #     root: .
+      #     paths:
+      #       - platforms/android/build/outputs/apk/
+      # # - persist_to_workspace:
       #     path: /stock.goodcity/cordova/platforms/android/build/outputs/apk/
 
-  android_deploy:
-    <<: *defaults
-    docker:
-      - image: circleci/ruby:2.5.1-node
-    steps:
-      - restore-cache: *restore-repo-cache
-      - restore-cache: *restore-bundle-cache
-      - run: bundle install --deployment --jobs=4 --retry=3
-      - save-cache: *save-bundle-cache
-      - run: bundle exec fastlane android staging
+  # android_deploy:
+  #   <<: *defaults
+  #   docker:
+  #     - image: circleci/ruby:2.5.1-node
+  #   steps:
+  #     - restore-cache: *restore-repo-cache
+  #     - restore-cache: *restore-bundle-cache
+  #     - run: bundle install --deployment --jobs=4 --retry=3
+  #     - save-cache: *save-bundle-cache
+  #     - run: bundle exec fastlane android staging
 
 workflows:
     version: 2
@@ -311,7 +313,5 @@ workflows:
         - android_build:
             requires:
               - ember_cordova_build
-        - android_deploy:
-            requires:
-              - android_build
+
 
