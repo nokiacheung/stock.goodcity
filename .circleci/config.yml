@@ -213,6 +213,8 @@ jobs:
     environment:
       JVM_OPTS: -Xmx3200m
       KEYSTORE: goodcity.keystore
+      CIRCLE_ARTIFACTS: cordova/platforms/android/build/outputs/apk/
+
       # GOODCITY_KEYSTORE_ALIAS: "GoodCity Stock"
     steps:
       - restore-cache: *restore-repo-cache

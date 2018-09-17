@@ -1,4 +1,4 @@
-default_platform :ios
+default_platform :android
 
 platform :ios do
 
@@ -45,8 +45,8 @@ end
 platform :android do
 
   before_all do
-    apk_file_path = Dir["#{ENV["CIRCLE_ARTIFACTS"]}/*.apk"].first
-    ENV["SUPPLY_APK"] = ENV["TESTFAIRY_IPA_PATH"] = apk_file_path
+    puts Dir["#{ENV["CIRCLE_ARTIFACTS"]}"]
+    ENV["SUPPLY_APK"] = ENV["TESTFAIRY_IPA_PATH"] = "/home/circleci/stock.goodcity/cordova/platforms/android/build/outputs/apk/android-debug.apk"
     raise_if_no_env_var("GOOGLE_PLAY_KEY_FILE")
     ENV["SUPPLY_JSON_KEY"] = File.join(Dir.pwd, ENV["GOOGLE_PLAY_KEY_FILE"])
     raise "Google Play private key file not found! (#{ENV["SUPPLY_JSON_KEY"]})" unless File.exist?(ENV["SUPPLY_JSON_KEY"])
